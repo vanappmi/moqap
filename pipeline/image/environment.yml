@@ -1,0 +1,57 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "3.3.2"
+    file:
+      - "/eks/kaniko/kaniko.yml"
+      - "/artifactory/stage_artifacts.yml"
+  - "/trivy/trivy.yaml"
+  - "/pipe/settings.yml"
+
+variables:
+  PROJECT_RUNNER_TAG: "eks-dev"
+  DEPLOY_ENV: "int"
+  DEV_DOCKER_REPO: "cna-3bservices-dev-docker-stage-local"
+  CI_REGISTRY: "${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de"
+  CI_REGISTRY_USER: $ARTIFACTORY_USER
+  CI_REGISTRY_PASSWORD: $ARTIFACTORY_PASSWORD
+  KANIKO_IMAGE_TAG: $CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
+  TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$KANIKO_IMAGE_TAG"
+  SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
+  TARGET_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
+  ARTIFACT_NAME: $CI_PROJECT_NAME
+
+stages:
+  - build-image
+  - static-codeanalysis
+  - stage-artifacts
+
+Artifacts STAGE:
+  extends: .kaniko-build
+  stage: build-image
+  tags:
+    - ${PROJECT_RUNNER_TAG}
+  environment:
+    name: ${DEPLOY_ENV}
+
+Promote STAGE:
+  extends: .Stage-Artifacts
+  stage: stage-artifacts
+  tags:
+    - ${PROJECT_RUNNER_TAG}
+  before_script:
+    - echo $ARTIFACT_NAME
+    - echo $SOURCE_PATH
+    - echo $TARGET_PATH
+    - echo $ARTIFACTORY_URL
+    - echo $ARTIFACTORY_USER
+    - echo $OPTIONS
+    - echo $SOURCE_TAG
+    - echo $TARGET_TAG
+  variables:
+    SOURCE_PATH: "$SOURCE_DOCKER_REPO"
+    TARGET_PATH: "$TARGET_DOCKER_REPO"
+    SOURCE_TAG: "$KANIKO_IMAGE_TAG"
+    TARGET_TAG: "latest"
+  rules:
+    - when: manual
