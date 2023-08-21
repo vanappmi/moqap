@@ -6,7 +6,7 @@ include:
       - "/eks/kaniko/kaniko.yml"
       - "/artifactory/stage_artifacts.yml"
   - "/trivy/trivy.yaml"
-  - "/pipe/settings.yml"
+  - "/pipeline/settings.yml"
 
 variables:
   PROJECT_RUNNER_TAG: "eks-dev"
