@@ -51,7 +51,7 @@ Deployment STAGE:
     # https://git.tech.rz.db.de/cnp/dbds/dbds-ops.git
     - ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
     - git clone git@ssh.git.tech.rz.db.de:cnp/dbds/dbds-ops.git
-    - cd dbds-ops/deployment/dbds/
+    - cd dbds-ops/deployment/
     - ls -al
     # use yq to replace the tag with the current commit hash
     # https://stackoverflow.com/questions/69648216/yq-issue-adding-yaml-into-yaml/69649872#69649872
