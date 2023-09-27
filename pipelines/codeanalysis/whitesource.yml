@@ -1,0 +1,43 @@
+include:
+  - project: "moqap/modules"
+    ref: "3.3.1"
+    file: "/whitesource/whitesource.yml"
+
+variables:
+  WHITESOURCE_APIKEY: $wss_apikey
+  WHITESOURCE_USERKEY: $wss_user_key
+  WHITESOURCE_PROJECTTOKEN: $wss_project_token
+  WHITESOURCE_PRODUCTTOKEN: $wss_product_token
+  WHITESOURCE_DISABLE: "false"
+
+Whitesource:
+  extends: .Whitesource Scan Gradle
+  stage: static-codeanalysis
+  variables:
+    WS_SERVER_URL: "https://whitesource.int-app.comp.db.de/agent"
+    WS_API_URL: "https://whitesource.int-app.comp.db.de/api"
+    WS_CONFIG_FILE: "/opt/whitesource/wss-unified-agent.config"
+    WS_PROJECT_NAME: "${CI_PROJECT_NAME}"
+    WS_PROJECT_VERSION: "${CI_COMMIT_REF_NAME}"
+    WHITESOURCE_apiKey: $WHITESOURCE_APIKEY
+    WHITESOURCE_projectToken: $WHITESOURCE_PROJECTTOKEN
+    WHITESOURCE_userKey: $WHITESOURCE_USERKEY
+    WHITESOURCE_productToken: $WHITESOURCE_PRODUCTTOKEN
+    WHITESOURCE_projectVersion: ${CI_COMMIT_REF_NAME}
+  tags:
+    - $PROJECT_RUNNER_TAG
+  before_script:
+    - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
+    - echo $GRADLE_OPTS
+    - ./gradlew clean build bootJar
+  after_script:
+    - cp whitesource/*/* artifacts/
+  artifacts:
+    paths:
+      - whitesource/**/*
+      - artifacts/**/*
+  only:
+    - branches
+  except:
+    variables:
+      - $WHITESOURCE_DISABLE == "true"

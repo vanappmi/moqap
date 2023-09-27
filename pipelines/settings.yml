@@ -1,7 +1,5 @@
 ---
-
 variables:
-
   PROJECT_NAME: $CI_PROJECT_NAME
   PREFIX_CI_DEPLOYMENT_NAME: $PROJECT_NAME
   DEV_HELM: "./child-pipelines/${DEPLOY_ENV}/values-${DEPLOY_ENV}.yaml"
@@ -27,6 +25,4 @@ variables:
   FIELD_DB_PASSWORD: "database-password"
   #BIZHUB
   BIZHUB_DISABLE: "true"
-  CONNECT_CONFIG_1: ""
-  #DEPLOYMENT
-  DEPLOYMENT_TYPE: "APP"
+  BIZHUB_CONNECT_CONFIG: ""

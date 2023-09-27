@@ -1,0 +1,28 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "3.3.4"
+    file: "/sonarqube/sonarqube.yml"
+
+variables:
+  SONARQUBE_DISABLE: "false"
+
+SonarQube:
+  extends: .Sonarqube-Java17
+  stage: static-codeanalysis
+  variables:
+    SONARQUBE_HOST_URL: "https://dbds-sonarqube.cnp-test.comp.db.de/"
+    SONARQUBE_SOURCE_DIR: "src"
+  tags:
+    - $PROJECT_RUNNER_TAG
+  after_script:
+    - mkdir -p artifacts/public
+    - curl --output "artifacts/public/alert_status.svg" "$SONARQUBE_HOST_URL/api/project_badges/measure?project=$SONARQUBE_PROJECT_KEY&metric=alert_status"
+  artifacts:
+    paths:
+      - artifacts/*
+  only:
+    - branches
+  except:
+    variables:
+      - $SONARQUBE_DISABLE == "true"
