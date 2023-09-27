@@ -2,7 +2,7 @@
 
 repository for pipeline components, that can be reused across projects
 
-## Ussage
+## Usage
 
 set the following variables:
 ```

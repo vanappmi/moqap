@@ -1,12 +1,12 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "3.3.2"
+    ref: "3.3.4"
     file:
       - "/eks/kaniko/kaniko.yml"
       - "/artifactory/stage_artifacts.yml"
   - "/trivy/trivy.yaml"
-  - "/pipeline/settings.yml"
+  - "/pipelines/settings.yml"
 
 variables:
   PROJECT_RUNNER_TAG: "eks-dev"
@@ -23,7 +23,7 @@ variables:
 
 stages:
   - build-image
-  - static-codeanalysis
+  - security-scan
   - stage-artifacts
 
 Artifacts STAGE:
