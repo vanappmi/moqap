@@ -159,7 +159,7 @@ Deployment BizHub:
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
-        ref: "BBPT4-522_Centralize-pipeline-code" # branch
+        ref: "V1.0" # branch
         file: "/pipelines/bizhub-v3-api.yml"
     strategy: depend
   except:
