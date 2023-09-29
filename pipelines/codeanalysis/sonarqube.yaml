@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "3.3.4"
+    ref: "3.3.5"
     file: "/sonarqube/sonarqube.yml"
 
 variables:

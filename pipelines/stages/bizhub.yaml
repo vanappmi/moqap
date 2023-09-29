@@ -1,0 +1,15 @@
+---
+Deployment BizHub:
+  stage: bizhub-deploy
+  variables:
+    STAGE: "review"
+    CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
+  needs:
+    - job: Deployment STAGE
+  trigger:
+    include:
+      - "/pipelines/bizhub/bizhub-v3-api.yaml"
+    strategy: depend
+  except:
+    variables:
+      - $BIZHUB_DISABLE == "true"
