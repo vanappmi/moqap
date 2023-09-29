@@ -1,0 +1,9 @@
+---
+include:
+  # Generic pipeline description for all stages
+  - "pipelines/pipeline.yaml"
+
+# Stage-specific variables
+variables:
+  LAP_TEST_DISABLE: "false"
+  TRIGGER_BUILD_MANUALLY: "false"

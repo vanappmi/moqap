@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "3.3.4"
+    ref: "3.3.5"
     file: "/business-hub/api-portal/api-only-v3.yml"
 
 variables:
@@ -12,8 +12,8 @@ variables:
   AWS_SM_SECRET_PATH: "$RUNNER_MOUNT_PATH"
   FIELD_DEPLOYER_APP_CLIENT_ID: "client-key"
   FIELD_DEPLOYER_APP_CLIENT_SECRET: "api-key"
-#  FIELD_SERVICE_USER: "service-user"
-#  FIELD_SERVICE_PASSWORD: "service-password"
+  #  FIELD_SERVICE_USER: "service-user"
+  #  FIELD_SERVICE_PASSWORD: "service-password"
   CONNECT_CONFIG: $BIZHUB_CONNECT_CONFIG
   DEPLOY_ENV: ""
 
@@ -25,10 +25,10 @@ bizhub_base:
   before_script:
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - echo "DEPLOY_ENV=$DEPLOY_ENV"
-#    - export SERVICE_USER=$(getSecret $FIELD_SERVICE_USER $RUNNER_MOUNT_PATH $FAIL SERVICE_USER)
-#    - export SERVICE_PASSWORD=$(getSecret $FIELD_SERVICE_PASSWORD $RUNNER_MOUNT_PATH $FAIL SERVICE_PASSWORD)
-#    - echo "SERVICE_USER=$SERVICE_USER"
-#    - echo "AWS_SM_SECRET_PATH=$AWS_SM_SECRET_PATH"
+    #    - export SERVICE_USER=$(getSecret $FIELD_SERVICE_USER $RUNNER_MOUNT_PATH $FAIL SERVICE_USER)
+    #    - export SERVICE_PASSWORD=$(getSecret $FIELD_SERVICE_PASSWORD $RUNNER_MOUNT_PATH $FAIL SERVICE_PASSWORD)
+    #    - echo "SERVICE_USER=$SERVICE_USER"
+    #    - echo "AWS_SM_SECRET_PATH=$AWS_SM_SECRET_PATH"
     - echo $CONNECT_CONFIG
     - echo "FIELD_DEPLOYER_APP_CLIENT_ID=$FIELD_DEPLOYER_APP_CLIENT_ID"
     - echo "FIELD_DEPLOYER_APP_CLIENT_SECRET=$FIELD_DEPLOYER_APP_CLIENT_SECRET"
