@@ -1,6 +1,6 @@
 include:
   - project: "moqap/modules"
-    ref: "3.3.4"
+    ref: "3.3.5"
     file: "/trivy/trivy.yml"
 
 .job_template: &job_template
@@ -22,6 +22,9 @@ Trivy Check Image:
     - if: '$DEPLOY_ENV != "dev" && $DEPLOY_ENV  != "int"'
   variables:
     TRIVY_ADD_CMD: "--no-progress --timeout 30m --offline-scan --debug --scanners vuln"
+    TRIVY_USERNAME: $ARTIFACTORY_USER
+    TRIVY_PASSWORD: $ARTIFACTORY_PASSWORD
+    TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
 
 Trivy Check Repo:
   extends: .Trivy Scan
@@ -35,4 +38,3 @@ Trivy Check Repo:
     TRIVY_TARGET: "$CI_PROJECT_DIR"
     TRIVY_SCAN_CMD: "filesystem"
   allow_failure: true
-  

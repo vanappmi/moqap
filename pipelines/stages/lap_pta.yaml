@@ -1,0 +1,31 @@
+---
+LaP & PTA Test:
+  extends: .jmeter
+  stage: dynamic-test
+  tags:
+    - eks-dev
+  needs:
+    - job: Deployment BizHub
+      optional: true
+    - job: Deployment STAGE
+  variables:
+    CMMD_VAR: "-JbaseURL=dbds-feature.cnp-test.comp.db.de"
+    ES_INDEX: "jmeter-results-${CI_PROJECT_NAME}-${CI_COMMIT_SHORT_SHA}"
+    ES_PORT: "80"
+    ES_PROTOCOL: "https"
+    TESTCASE_PATH: "test/lup/3BServices_LuP_Test.jmx"
+    PLUGIN_PATH: "test/lup/plugins"
+    ARTIFACTS_DIR: "artifacts"
+  before_script:
+    - mkdir -p ./artifacts/
+    - sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $TESTCASE_PATH
+    - sed -i -e "s/REPLACE_ELASTIC_HOST/$ES_HOST/g" $TESTCASE_PATH
+    - sed -i -e "s/REPLACE_ELASTIC_PORT/$ES_PORT/g" $TESTCASE_PATH
+    - sed -i -e "s/REPLACE_ELASTIC_PROTOCOL/$ES_PROTOCOL/g" $TESTCASE_PATH
+  artifacts:
+    paths:
+      - artifacts/*
+  # rules dev vs. int
+  except:
+    variables:
+      - $LAP_TEST_DISABLE == "true"

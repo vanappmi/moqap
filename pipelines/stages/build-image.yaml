@@ -1,0 +1,21 @@
+---
+Build Image STAGE:
+  extends: .kaniko-build
+  dependencies:
+    - Build Jar
+  needs:
+    - job: Build Jar
+  stage: build-image
+  tags:
+    - eks-dev
+  environment:
+    name: ${DEPLOY_ENV}
+  artifacts:
+    paths:
+      - artifacts/*
+  variables:
+    KANIKO_IMAGE_NAME: $PROJECT_NAME
+    KANIKO_IMAGE_TAG: "$CI_COMMIT_REF_NAME-$CI_ENVIRONMENT_SLUG-$CI_COMMIT_SHORT_SHA"
+  rules:
+    - if: $TRIGGER_BUILD_MANUALLY == "true"
+      when: manual

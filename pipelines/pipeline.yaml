@@ -1,0 +1,32 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "3.3.5"
+    file:
+      - "/artifactory/upload_artifacts_dir.yml"
+      - "/lint/helm/lint_helm.yml"
+      - "/lint/dockerfile/lint_dockerfile.yml"
+      - "/jmeter/jmeter.yml"
+      - "/eks/kaniko/kaniko.yml"
+      - "/trivy/trivy.yml"
+  - "/pipelines/settings.yaml"
+  - "/pipelines/stages/codeanalysis.yaml"
+  - "/pipelines/stages/build-jar.yaml"
+  - "/pipelines/stages/build-image.yaml"
+  - "/pipelines/stages/upload-artifacts.yaml"
+  - "/pipelines/stages/deployment.yaml"
+  - "/pipelines/stages/bizhub.yaml"
+  - "/pipelines/stages/lap_pta.yaml"
+  - "/pipelines/trivy/trivy.yaml"
+
+stages:
+  - .pre
+  - static-codeanalysis
+  - build-jar
+  - build-image
+  - upload
+  - security-scan
+  - argo-cd-deploy
+  - bizhub-deploy
+  - dynamic-test
+  - .post
