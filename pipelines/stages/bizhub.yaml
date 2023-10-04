@@ -8,7 +8,7 @@ Deployment BizHub:
     - job: Deployment STAGE
   trigger:
     include:
-      - "/pipelines/bizhub/bizhub-v3-api.yaml"
+      - "pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   except:
     variables:
