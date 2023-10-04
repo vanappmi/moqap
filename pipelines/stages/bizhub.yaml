@@ -8,10 +8,9 @@ Deployment BizHub:
     - job: Deployment STAGE
   trigger:
     include:
-      #- "/pipelines/bizhub/bizhub-v3-api.yaml"
       - project: "cnp/dbds/moqap" # dbds moqap project
         ref: "V1.1" # branch
-        file: "/pipelines/bizhub-v3-api.yml"
+        file: "/pipelines/bizhub-v3-api.yaml"
     strategy: depend
   except:
     variables:
