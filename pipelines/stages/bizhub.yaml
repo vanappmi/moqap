@@ -1,8 +1,9 @@
 ---
+include:
+  - "/pipelines/bizhub/bizhub-v3-api.yaml"
+
 Deployment BizHub:
   stage: bizhub-deploy
-  include:
-    - "/pipelines/bizhub/bizhub-v3-api.yaml"
   variables:
     STAGE: "review"
     CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
