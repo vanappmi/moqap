@@ -6,7 +6,6 @@ include:
       - "/artifactory/upload_artifacts_dir.yml"
       - "/eks/kaniko/kaniko.yml"
   - "/pipelines/settings.yaml"
-  - "/pipelines/stages/upload-artifacts.yaml"
 
 variables:
   PROJECT_RUNNER_TAG: "eks-dev"
