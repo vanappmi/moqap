@@ -3,8 +3,8 @@ include:
   - project: "moqap/modules"
     ref: "3.3.5"
     file:
+      - "/artifactory/upload_artifacts_dir.yml"
       - "/eks/kaniko/kaniko.yml"
-      - "/artifactory/stage_artifacts.yml"
   - "/pipelines/settings.yaml"
   - "/pipelines/stages/build-jar.yaml"
   - "/pipelines/stages/upload-artifacts.yaml"
