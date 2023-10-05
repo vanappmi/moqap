@@ -30,7 +30,7 @@ Build Jar:
   script:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
-    - ./gradlew clean build
+    - ./gradlew clean build jar
     - mkdir -p ./artifacts/
     - cp build/libs/*.jar ./artifacts/
   only:
