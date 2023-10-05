@@ -1,0 +1,25 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "3.3.5"
+    file:
+      - "/eks/kaniko/kaniko.yml"
+      - "/artifactory/stage_artifacts.yml"
+  - "/pipelines/settings.yaml"
+  - "/pipelines/stages/build-jar.yaml"
+  - "/pipelines/stages/upload-artifacts.yaml"
+
+variables:
+  PROJECT_RUNNER_TAG: "eks-dev"
+  DEPLOY_ENV: "int"
+  DEV_DOCKER_REPO: "cna-3bservices-dev-docker-stage-local"
+  CI_REGISTRY: "${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de"
+  CI_REGISTRY_USER: $ARTIFACTORY_USER
+  CI_REGISTRY_PASSWORD: $ARTIFACTORY_PASSWORD
+  SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
+  TARGET_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
+  ARTIFACT_NAME: $CI_PROJECT_NAME
+
+stages:
+  - build-jar
+  - upload
