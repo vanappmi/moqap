@@ -84,6 +84,7 @@ Test Execution:
     name: "Cucumber Report"
     paths:
       - target/surefire-reports/cucumber.html
+      - target-report.xml
     report:
       junit: target-report.xml
   variables:
