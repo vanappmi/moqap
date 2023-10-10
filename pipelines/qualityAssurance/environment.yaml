@@ -76,8 +76,8 @@ Test Execution:
   only:
     - branches
   script:
-    - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
     - pip install cucumber-json-to-junit-xml
+    - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
     - json_to_junit target/surefire-reports/cucumberOriginal.json target-report.xml
   artifacts:
     when: always
