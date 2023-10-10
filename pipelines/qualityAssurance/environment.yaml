@@ -21,6 +21,7 @@ variables:
 stages:
   - build-jar
   - upload
+  - exe
 
 Build Jar:
   stage: build-jar
@@ -66,3 +67,16 @@ Upload Artifacts STAGE:
     ARTIFACTORY_USER: $ARTIFACTORY_USER
     ARTIFACTORY_PASSWORD: $ARTIFACTORY_PASSWORD
     ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
+
+Test Execution:
+  stage: exe
+  tags:
+    - eks-dev
+  image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
+  only:
+    - branches
+  artifacts:
+    paths:
+      - artifacts/*
+  script:
+    - java -jar testframework-1.0-SNAPSHOT.jar
