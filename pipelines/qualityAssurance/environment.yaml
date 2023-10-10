@@ -79,4 +79,11 @@ Test Execution:
     paths:
       - artifacts/*
   script:
-    - java -jar testframework-1.0-SNAPSHOT.jar
+    - ls -s
+    - java -jar ./artifacts/testframework-1.0-SNAPSHOT.jar
+  variables:
+    TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA/$CI_ENVIRONMENT_SLUG/"
+    ARTIFACTS_DIR: "artifacts"
+    ARTIFACTORY_USER: $ARTIFACTORY_USER
+    ARTIFACTORY_PASSWORD: $ARTIFACTORY_PASSWORD
+    ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
