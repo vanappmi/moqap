@@ -76,8 +76,12 @@ Test Execution:
   only:
     - branches
   artifacts:
+    when: always
+    name: "Cucumber Report"
     paths:
-      - artifacts/*
+      - target/surefire-reports/cucumber.html
+    reports:
+      - junit: target/surefire-reports/cucumber.html
   script:
     - ls -s
     - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
