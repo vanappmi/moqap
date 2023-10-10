@@ -81,7 +81,8 @@ Test Execution:
     paths:
       - target/surefire-reports/cucumber.html
     reports:
-      - junit: target/surefire-reports/cucumber.html
+      - junit:
+        - target/surefire-reports/cucumber.html
   script:
     - ls -s
     - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
