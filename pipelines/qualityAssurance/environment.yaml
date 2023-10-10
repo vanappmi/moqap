@@ -76,17 +76,12 @@ Test Execution:
   only:
     - branches
   script:
-    - pip install cucumber-json-to-junit-xml
     - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
-    - json_to_junit target/surefire-reports/cucumberOriginal.json target-report.xml
   artifacts:
     when: always
     name: "Cucumber Report"
     paths:
-      - target/surefire-reports/cucumber.html
-      - target-report.xml
-    reports:
-      junit: target-report.xml
+      - cucumber.html
   variables:
     TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA/$CI_ENVIRONMENT_SLUG/"
     ARTIFACTS_DIR: "artifacts"
