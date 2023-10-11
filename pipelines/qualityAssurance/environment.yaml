@@ -90,7 +90,7 @@ Test Execution:
     - job: Download Dependencies
       artifacts: true
   script:
-    - tree -l
+    - ls -l
     - java -jar ./artifacts/test/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
