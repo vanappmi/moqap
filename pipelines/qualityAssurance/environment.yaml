@@ -94,7 +94,7 @@ Test Execution:
       artifacts: true
   script:
     - ls -l
-    - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
+    - java -DDEPLOY_ENV=test -DARTIFACT_NAME=${ARTIFACT_NAME} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
     name: "Cucumber Report"
