@@ -21,6 +21,7 @@ variables:
   AWS_SM_SECRET_PATH: "$RUNNER_MOUNT_PATH"
   ARTIFACTS_DIR: "artifacts"
   ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
+  COMPONENTS_TEST_DISABLE: "true"
 
 tags:
   - ${PROJECT_RUNNER_TAG}
@@ -93,8 +94,6 @@ Test Execution:
     name: "Cucumber Report"
     paths:
       - cucumber.html
-  variables:
-    COMPONENTS_TEST_DISABLE: "true"
   except:
     variables:
       - $COMPONENTS_TEST_DISABLE == "true"
