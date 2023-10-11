@@ -37,7 +37,7 @@ Build Jar:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
     - chmod +x ./gradlew
-    - ./gradlew clean build jar
+    - ./gradlew clean jar
     - mkdir -p ./artifacts/
     - cp build/libs/*.jar ./artifacts/
   only:
