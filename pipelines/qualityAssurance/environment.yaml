@@ -77,6 +77,7 @@ Download Dependencies:
     - cp **/*.jar ./artifacts/test/
   variables:
     ARTIFACTORY_PATH: "cna-3bservices-dev-docker-stage-local/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
+    TARGET_DIR: "download"
   artifacts:
     paths:
       - artifacts/test/*
