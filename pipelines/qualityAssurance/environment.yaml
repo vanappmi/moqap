@@ -3,6 +3,7 @@ include:
   - project: "moqap/modules"
     ref: "3.3.5"
     file:
+      - "/artifactory/download_artifacts_dir.yml" #gibt es noch nicht in den includes muss in pipeline.yaml hinterlegt werden
       - "/artifactory/upload_artifacts_dir.yml"
       - "/eks/kaniko/kaniko.yml"
   - "/pipelines/settings.yaml"
@@ -17,16 +18,20 @@ variables:
   SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
   TARGET_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
   ARTIFACT_NAME: $CI_PROJECT_NAME
+  AWS_SM_SECRET_PATH: "$RUNNER_MOUNT_PATH"
+  ARTIFACTS_DIR: "artifacts"
+  ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
 
 stages:
   - build-jar
   - upload
+  - pre1
   - exe
 
 Build Jar:
   stage: build-jar
   tags:
-    - eks-dev
+    - ${PROJECT_RUNNER_TAG}
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   script:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
@@ -62,11 +67,17 @@ Upload Artifacts STAGE:
   needs:
     - job: Build Jar
   variables:
-    TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA/$CI_ENVIRONMENT_SLUG/"
-    ARTIFACTS_DIR: "artifacts"
-    ARTIFACTORY_USER: $ARTIFACTORY_USER
-    ARTIFACTORY_PASSWORD: $ARTIFACTORY_PASSWORD
-    ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
+    TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG/"
+
+
+Download Dependencies:
+  extends: .Download-Artifacts
+  stage: pre1
+  variables:
+    ARTIFACTORY_PATH: "cna-3bservices-dev-docker-stage-local/cnp/dbds/bbpneo-3bds/testframework/master"
+  artifacts:
+    paths:
+      - artifacts/**/*
 
 Test Execution:
   stage: exe
@@ -75,6 +86,9 @@ Test Execution:
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   only:
     - branches
+  needs:
+    - job: Download Dependencies
+      artifacts: true
   script:
     - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
@@ -83,8 +97,7 @@ Test Execution:
     paths:
       - cucumber.html
   variables:
-    TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA/$CI_ENVIRONMENT_SLUG/"
-    ARTIFACTS_DIR: "artifacts"
-    ARTIFACTORY_USER: $ARTIFACTORY_USER
-    ARTIFACTORY_PASSWORD: $ARTIFACTORY_PASSWORD
-    ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
+    COMPONENTS_TEST_DISABLE: "true"
+  except:
+    variables:
+      - $COMPONENTS_TEST_DISABLE == "true"
