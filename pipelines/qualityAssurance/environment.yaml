@@ -22,6 +22,9 @@ variables:
   ARTIFACTS_DIR: "artifacts"
   ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
 
+tags:
+  - ${PROJECT_RUNNER_TAG}
+
 stages:
   - build-jar
   - upload
@@ -30,8 +33,6 @@ stages:
 
 Build Jar:
   stage: build-jar
-  tags:
-    - ${PROJECT_RUNNER_TAG}
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   script:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
@@ -53,8 +54,6 @@ Build Jar:
 Upload Artifacts STAGE:
   stage: upload
   extends: .Upload-Artifacts
-  tags:
-    - eks-dev
   only:
     - branches
   environment:
@@ -81,8 +80,6 @@ Download Dependencies:
 
 Test Execution:
   stage: exe
-  tags:
-    - eks-dev
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   only:
     - branches
