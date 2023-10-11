@@ -18,6 +18,7 @@ include:
   - "/pipelines/stages/bizhub.yaml"
   - "/pipelines/stages/lap_pta.yaml"
   - "/pipelines/trivy/trivy.yaml"
+  - "/pipelines/stages/KomponentenIntegrationsTest.yaml"
 
 stages:
   - .pre
@@ -28,5 +29,6 @@ stages:
   - security-scan
   - argo-cd-deploy
   - bizhub-deploy
+  - myTest
   - dynamic-test
   - .post
