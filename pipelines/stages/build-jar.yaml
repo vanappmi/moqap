@@ -3,7 +3,7 @@ Build Jar:
   stage: build-jar
   tags:
     - eks-dev
-  image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
+  image: docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:18-alpine
   dependencies:
     - lint_dockerfile
     - lint_helm
