@@ -1,0 +1,18 @@
+include:
+  - project: "moqap/modules"
+    ref: "3.3.6"
+    file: "/trivy/trivy.yml"
+
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+Trivy Check Image:
+  extends: .Trivy Scan
+  stage: build
+  <<: *job_template
+  variables:
+    TRIVY_ADD_CMD: "--no-progress --timeout 30m --offline-scan --debug --scanners vuln"
+    TRIVY_USERNAME: $ARTIFACTORY_USER
+    TRIVY_PASSWORD: $ARTIFACTORY_PASSWORD
+    TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"

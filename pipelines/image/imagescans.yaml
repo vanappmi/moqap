@@ -1,0 +1,65 @@
+---
+include:
+  - "/pipelines/settings.yaml"
+
+variables:
+  PROJECT_RUNNER_TAG: "eks-dev"
+  DEPLOY_ENV: "dev"
+  DEV_DOCKER_REPO: "cna-3bservices-dev-docker-stage-local"
+  CI_REGISTRY: "${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de"
+  CI_REGISTRY_USER: $ARTIFACTORY_USER
+  CI_REGISTRY_PASSWORD: $ARTIFACTORY_PASSWORD
+  KANIKO_IMAGE_TAG: $CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
+  TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$KANIKO_IMAGE_TAG"
+  SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
+  TARGET_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
+  ARTIFACT_NAME: $CI_PROJECT_NAME
+
+stages:
+  - .pre
+  - security-scan
+  - .post
+
+Scan Deployment STAGE Image:
+  stage: security-scan
+  variables:
+    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/bitnami/git:latest"
+  trigger:
+    include:
+      - project: "cnp/dbds/moqap" # dbds moqap project
+        ref: "V1.1" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
+Scan Build Jar Image:
+  stage: security-scan
+  variables:
+    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:18-alpine"
+  trigger:
+    include:
+      - project: "cnp/dbds/moqap" # dbds moqap project
+        ref: "V1.1" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
+Scan AWS Client Image:
+  stage: security-scan
+  variables:
+    TRIVY_TARGET: "db-cd-lib-docker-release-local.bahnhub.tech.rz.db.de/aws-cli:latest"
+  trigger:
+    include:
+      - project: "cnp/dbds/moqap" # dbds moqap project
+        ref: "V1.1" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
+Scan Gitlab Runner Image:
+  stage: security-scan
+  variables:
+    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine-v16.4.1"
+  trigger:
+    include:
+      - project: "cnp/dbds/moqap" # dbds moqap project
+        ref: "V1.1" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
