@@ -27,8 +27,7 @@ Scan Deployment STAGE Image:
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
-        #    ref: "V1.1" # branch
-        ref: "BBPT7-146-curl"
+        ref: "V1.1" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
@@ -39,8 +38,7 @@ Scan Build Jar Image:
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
-        #    ref: "V1.1" # branch
-        ref: "BBPT7-146-curl"
+        ref: "V1.1" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
@@ -51,8 +49,7 @@ Scan AWS Client Image:
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
-        #    ref: "V1.1" # branch
-        ref: "BBPT7-146-curl"
+        ref: "V1.1" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
@@ -63,7 +60,6 @@ Scan Gitlab Runner Image:
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
-        #    ref: "V1.1" # branch
-        ref: "BBPT7-146-curl"
+        ref: "V1.1" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
