@@ -19,5 +19,6 @@ Build Image STAGE:
   rules:
     - if: $TRIGGER_BUILD_MANUALLY == "true"
       when: manual
+      allow_failure: true
     - if: $TRIGGER_BUILD_MANUALLY == "false"
       when: always
