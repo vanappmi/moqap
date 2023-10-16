@@ -4,7 +4,7 @@ variables:
 
 Download Dependencies:
   extends: .Download-Artifacts
-  stage: pre1
+  stage: .pre
   tags:
     - eks-dev
   after_script:
