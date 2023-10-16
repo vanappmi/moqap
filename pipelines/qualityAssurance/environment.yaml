@@ -17,6 +17,7 @@ variables:
   ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
 
 stages:
+  - .pre
   - build-jar
   - upload
   - pre1
