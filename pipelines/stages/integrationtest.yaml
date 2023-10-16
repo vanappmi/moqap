@@ -9,7 +9,6 @@ Download Dependencies:
     - eks-dev
   after_script:
     - mkdir -p ./artifacts/
-    - cp **/*.jar ./artifacts/
     - cp . ./artifacts/
     - ls
   variables:
@@ -31,7 +30,6 @@ Integration Test:
     - job: Download Dependencies
       artifacts: true
   script:
-    - ls -l
     - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always

@@ -20,7 +20,6 @@ stages:
   - .pre
   - build-jar
   - upload
-  - pre1
   - integrationtest
 
 Build Jar:
