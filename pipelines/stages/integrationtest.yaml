@@ -10,7 +10,7 @@ Download Dependencies:
   after_script:
     - mkdir -p ./artifacts/
     - cp **/*.jar ./artifacts/
-    - - cp . ./artifacts/
+    - cp . ./artifacts/
     - ls
   variables:
     ARTIFACTORY_PATH: "cna-3bservices-dev-docker-stage-local/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
