@@ -28,7 +28,7 @@ Integration Test:
   needs:
     - job: Download Dependencies
       artifacts: true
-    - job: upload
+    - job: Upload Artifacts
   script:
     - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
