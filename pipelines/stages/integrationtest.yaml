@@ -1,0 +1,38 @@
+variables:
+  ARTIFACT_NAME: $CI_PROJECT_NAME
+  DEPLOY_ENV: "int"
+
+Download Dependencies:
+  extends: .Download-Artifacts
+  stage: pre1
+  tags:
+    - eks-dev
+  after_script:
+    - mkdir -p ./artifacts/
+    - cp **/*.jar ./artifacts/
+  variables:
+    ARTIFACTORY_PATH: "cna-3bservices-dev-docker-stage-local/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
+    TARGET_DIR: "download"
+  artifacts:
+    paths:
+      - artifacts/*
+
+
+Integration Test:
+  stage: integrationtest
+  tags:
+    - eks-dev
+  image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
+  only:
+    - branches
+  needs:
+    - job: Download Dependencies
+      artifacts: true
+  script:
+    - ls -l
+    - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
+  artifacts:
+    when: always
+    name: "Cucumber Report"
+    paths:
+      - cucumber.html
