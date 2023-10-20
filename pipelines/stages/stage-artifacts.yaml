@@ -1,0 +1,27 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "3.3.6"
+    file:
+      - "/artifactory/stage_artifacts.yml"
+
+Promote stage Artifactory:
+  extends: .Stage-Artifacts
+  stage: stage-artifacts
+  tags:
+    - ${PROJECT_RUNNER_TAG}
+  before_script:
+    - echo $ARTIFACT_NAME
+    - echo $SOURCE_PATH
+    - echo $TARGET_PATH
+    - echo $ARTIFACTORY_URL
+    - echo $ARTIFACTORY_USER
+    - echo $OPTIONS
+    - echo $SOURCE_IMAGE_TAG
+    - echo $TARGET_IMAGE_TAG
+  variables:
+    SOURCE_PATH: "$SOURCE_DOCKER_REPO"
+    TARGET_PATH: "$TARGET_DOCKER_REPO"
+    SOURCE_TAG: "$SOURCE_IMAGE_TAG"
+    TARGET_TAG: "$TARGET_IMAGE_TAG"
+

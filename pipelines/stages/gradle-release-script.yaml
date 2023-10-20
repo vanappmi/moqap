@@ -1,0 +1,44 @@
+---
+Gradle-release-script:
+  stage: release
+  tags:
+    - eks-dev
+  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:latest
+  variables:
+    HTTP_PROXY: "http://webproxy.comp.db.de:8080"
+    HTTPS_PROXY: "http://webproxy.comp.db.de:8080"
+    NO_PROXY: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
+    http_proxy: "http://webproxy.comp.db.de:8080"
+    https_proxy: "http://webproxy.comp.db.de:8080"
+    no_proxy: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
+  script:
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh-add -l
+    - ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
+    - git config --global user.email "dbds@pipeline.com"
+    - git config --global user.name "dbds Release-Pipeline"
+    # - git stashq
+    - git remote set-url origin $GIT_REPO_SSH_URL
+    - git remote -v
+    - git fetch
+    - git checkout development
+    - CURRENT_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
+    - echo "Current version $CURRENT_VERSION"
+    - MAJOR=$(echo "$CURRENT_VERSION" | cut -d "." -f1)
+    - MINOR=$(echo "$CURRENT_VERSION" | cut -d "." -f2)
+    - PATCH=$(echo "$CURRENT_VERSION" | cut -d "." -f3)
+    - MINOR=$((MINOR + 1))
+    - NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+    - echo "New version $NEW_VERSION"
+    - git checkout -b $CURRENT_VERSION development
+    - echo "Current branch $(git rev-parse --abbrev-ref HEAD)"
+    - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
+    - ./gradlew release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=$CURRENT_VERSION -Prelease.newVersion="$NEW_VERSION"
+  artifacts:
+    paths:
+      - src/target/*
+      - artifacts/*
+      - .gradle/
+  when: manual
+  allow_failure: true

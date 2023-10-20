@@ -1,4 +1,10 @@
 ---
+include:
+  - project: "moqap/modules"
+    ref: "3.3.6"
+    file:
+      - "/artifactory/upload_artifacts_dir.yml"
+
 Upload Artifacts STAGE:
   stage: upload
   extends: .Upload-Artifacts
@@ -20,4 +26,3 @@ Upload Artifacts STAGE:
     ARTIFACTS_DIR: "artifacts"
     ARTIFACTORY_USER: $ARTIFACTORY_USER
     ARTIFACTORY_PASSWORD: $ARTIFACTORY_PASSWORD
-    ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"

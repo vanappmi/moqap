@@ -10,12 +10,13 @@ include:
 Trivy Check Image:
   extends: .Trivy Scan
   stage: security-scan
-  needs:
-    - job: Build Image STAGE
   <<: *job_template
   rules:
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int")
       allow_failure: true
+      needs:
+        - job: Build Image STAGE
+          optional: true
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV  == "au" || $DEPLOY_ENV  == "prod")
       when: manual
       allow_failure: true
@@ -29,11 +30,12 @@ Trivy Check Image:
 Trivy Check Repo:
   extends: .Trivy Scan
   stage: security-scan
-  needs:
-    - job: Build Image STAGE
   <<: *job_template
   rules:
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV  == "int")
+      needs:
+        - job: Build Image STAGE
+          optional: true
   variables:
     TRIVY_TARGET: "$CI_PROJECT_DIR"
     TRIVY_SCAN_CMD: "filesystem"

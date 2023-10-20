@@ -1,0 +1,9 @@
+---
+include:
+  - "/pipelines/settings.yaml"
+  - "/pipelines/stages/gradle-release-script.yaml"
+
+stages:
+  - .pre
+  - release
+  - .post

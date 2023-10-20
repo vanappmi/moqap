@@ -5,10 +5,18 @@
 
 Deployment STAGE:
   stage: argo-cd-deploy
+  rules:
+    - if: ($DEPLOY_ENV == "dev" || $DEPLOY_ENV  == "int") && $CI_COMMIT_BRANCH
+      needs:
+        - job: Trivy Check Image
+        - job: Build Image STAGE
+          artifacts: true
+          optional: true
+    - if: ($DEPLOY_ENV == "au" || $DEPLOY_ENV  == "prod") && $CI_COMMIT_BRANCH
+      needs:
+        - job: Trivy Check Image
   image: docker-hub-remote.bahnhub.tech.rz.db.de/bitnami/git:latest
   <<: *job_template
-  only:
-    - branches
   dependencies:
     - Trivy Check Image
   variables:
@@ -94,8 +102,3 @@ Deployment STAGE:
         echo $GIT_COMMIT_ID_7
       done
     - echo "Ready..."
-
-  needs:
-    - job: Build Image STAGE
-      artifacts: true
-    - job: Trivy Check Image
