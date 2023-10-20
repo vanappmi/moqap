@@ -27,3 +27,12 @@ variables:
   WS_SERVER_URL: "https://whitesource.int-app.comp.db.de/agent"
   WS_API_URL: "https://whitesource.int-app.comp.db.de/api"
   WS_CONFIG_FILE: "/opt/whitesource/wss-unified-agent.config"
+  # ARTIFACTORY
+  ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
+  DEV_DOCKER_REPO: "cna-3bservices-dev-docker-stage-local"
+  AU_DOCKER_REPO: "cna-3bservices-au-docker-stage-local"
+  LUP_DOCKER_REPO: "cna-3bservices-lup-docker-stage-local"
+  PROD_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
+  # KANIKO
+  KANIKO_IMAGE_TAG: "$CI_COMMIT_REF_NAME-$CI_ENVIRONMENT_SLUG-$CI_COMMIT_SHORT_SHA"
+

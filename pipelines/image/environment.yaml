@@ -5,7 +5,7 @@ include:
     file:
       - "/eks/kaniko/kaniko.yml"
       - "/artifactory/stage_artifacts.yml"
-  - "/trivy/trivy.yaml"
+  - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/settings.yaml"
 
 variables:
