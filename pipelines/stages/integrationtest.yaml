@@ -36,3 +36,6 @@ Integration Test:
     name: "Cucumber Report"
     paths:
       - cucumber.html
+      - cucumber.xml
+    reports:
+       junit: cucumber.xml
