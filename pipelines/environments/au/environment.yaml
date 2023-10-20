@@ -8,6 +8,7 @@ include:
 
 # Stage-specific variables
 variables:
+  STAGE_ENV: "au"
   PROJECT_RUNNER_TAG: "eks-au"
   SOURCE_DOCKER_REPO: $DEV_DOCKER_REPO
   TARGET_DOCKER_REPO: $AU_DOCKER_REPO
