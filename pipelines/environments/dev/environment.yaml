@@ -5,6 +5,7 @@ include:
 
 # Stage-specific variables
 variables:
+  DEPLOY_ENV: "dev"
   STAGE_ENV: "dev"
   LAP_TEST_DISABLE: "true"
   TRIGGER_BUILD_MANUALLY: "true"
