@@ -37,13 +37,17 @@ Gradle-release-script:
     - NEW_BRANCHNAME=Release-$CURRENT_VERSION
     - git checkout -b $NEW_BRANCHNAME
     # 4. Auf Development Branch Tag anlegen mit Namen v<Versionsnummer>
-    - git tag "v$CURRENT_VERSION"
+    - git tag -a "v$CURRENT_VERSION" -m "Tag for Release 'v$CURRENT_VERSION'."
+    - git tag
     # 5. Neuen Branch pushen -> Releasepipeline triggern
     - git remote set-url origin $GIT_REPO_SSH_URL
     - git push origin $NEW_BRANCHNAME
     # 6. Inkrementierte Versionsnummer in gradle.properties zurückschreiben
     - git checkout development-test
     - sed -i "s/$CURRENT_VERSION/$NEW_VERSION/g" gradle.properties
+    - cat gradle.properties
+    - git add .
+    - git commit -m "Change to new version '$NEW_VERSION'."
     # 7. development Branch pushen
     - git remote set-url origin $GIT_REPO_SSH_URL
     - git push origin development-test
