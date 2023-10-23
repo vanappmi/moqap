@@ -7,7 +7,7 @@ include:
       - "/eks/kaniko/kaniko.yml"
       - "/trivy/trivy.yml"
   - "/pipelines/settings.yaml"
-  - "/pipelines/stages/gradle-release-script.yaml"
+  - "/pipelines/stages/release-script.yaml"
   - "/pipelines/stages/deployment.yaml"
   - "/pipelines/stages/bizhub.yaml"
   - "/pipelines/trivy/trivy.yaml"
@@ -15,7 +15,7 @@ include:
 stages:
   - .pre
   - security-scan
-  - gradle-release-script
+  - release-script
   - argo-cd-deploy
   - bizhub-deploy
   - .post
