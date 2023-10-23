@@ -23,7 +23,7 @@ Gradle-release-script:
     - git remote set-url origin $GIT_REPO_SSH_URL
     - git remote -v
     - git fetch
-    - git checkout development-test
+    - git checkout development
     - CURRENT_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo "Current version $CURRENT_VERSION"
     # 2. Versionsnummer inkrementieren (im Moment nur minor)
@@ -44,14 +44,14 @@ Gradle-release-script:
     - git remote set-url origin $GIT_REPO_SSH_URL
     - git push origin $NEW_BRANCHNAME
     # 6. Inkrementierte Versionsnummer in gradle.properties zurückschreiben
-    - git checkout development-test
+    - git checkout development
     - sed -i "s/$CURRENT_VERSION/$NEW_VERSION/g" gradle.properties
     - cat gradle.properties
     - git add .
     - git commit -m "Change to new version '$NEW_VERSION'."
     # 7. development Branch pushen
     - git remote set-url origin $GIT_REPO_SSH_URL
-    - git push origin development-test
+    - git push origin development
   artifacts:
     paths:
       - src/target/*
