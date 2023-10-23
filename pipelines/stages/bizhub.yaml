@@ -2,7 +2,7 @@
 Deployment BizHub:
   stage: bizhub-deploy
   variables:
-    STAGE: "review"
+#    STAGE: "review"
     CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
   needs:
     - job: Deployment STAGE
