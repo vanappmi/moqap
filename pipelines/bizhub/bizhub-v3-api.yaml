@@ -68,14 +68,14 @@ publish_product_apic_automatic_test:
     - if: $DEPLOY_ENV == "au"
   tags:
     - $PROJECT_RUNNER_TAG
-
-publish_product_apic_lup:
-  before_script:
-    - !reference [bizhub_base, before_script]
-  rules:
-    - if: $DEPLOY_ENV == "lup"
-  tags:
-    - $PROJECT_RUNNER_TAG
+#
+#publish_product_apic_lup:
+#  before_script:
+#    - !reference [bizhub_base, before_script]
+#  rules:
+#    - if: $DEPLOY_ENV == "lup"
+#  tags:
+#    - $PROJECT_RUNNER_TAG
 
 
 publish_product_apic_production:
