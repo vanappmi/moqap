@@ -1,0 +1,28 @@
+---
+include:
+  - "/pipelines/settings.yaml"
+  - "/pipelines/stages/stage-artifacts.yaml"
+  - "/pipelines/trivy/trivy.yaml"
+  - "/pipelines/stages/deployment.yaml"
+  - "/pipelines/stages/bizhub.yaml"
+
+# Stage-specific variables
+variables:
+  DEPLOY_ENV: "prod"
+  STAGE_ENV: "prod"
+  PROJECT_RUNNER_TAG: "eks-prod"
+  SOURCE_DOCKER_REPO: $AU_DOCKER_REPO
+  TARGET_DOCKER_REPO: $PROD_DOCKER_REPO
+  SOURCE_IMAGE_TAG: "$CI_COMMIT_REF_NAME-au-$CI_COMMIT_SHORT_SHA"
+  TARGET_IMAGE_TAG: "$CI_COMMIT_REF_NAME-prod-$CI_COMMIT_SHORT_SHA"
+  ARTIFACT_NAME: $CI_PROJECT_NAME
+  CI_REGISTRY: "${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de"
+
+stages:
+  - .pre
+  - stage-artifacts
+  - security-scan
+  - argo-cd-deploy
+  - bizhub-deploy
+  - dynamic-test
+  - .post
