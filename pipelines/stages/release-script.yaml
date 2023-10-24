@@ -1,9 +1,21 @@
 ---
+start-release:
+  stage: release
+  tags:
+    - eks-dev
+  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:latest
+  script:
+    - echo "start release"
+
 release-script:
   stage: release
   tags:
     - eks-dev
   image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:latest
+  needs:
+    - job: start-release
+  dependencies:
+    - start-release
   variables:
     HTTP_PROXY: "http://webproxy.comp.db.de:8080"
     HTTPS_PROXY: "http://webproxy.comp.db.de:8080"
