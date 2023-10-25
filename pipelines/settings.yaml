@@ -35,4 +35,6 @@ variables:
   PROD_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
   # KANIKO
   KANIKO_IMAGE_TAG: "$CI_COMMIT_REF_NAME-$CI_ENVIRONMENT_SLUG-$CI_COMMIT_SHORT_SHA"
-
+  # TESTS
+  BASE_SERVICE_URL: ""
+  SERVICE_URL: ""
