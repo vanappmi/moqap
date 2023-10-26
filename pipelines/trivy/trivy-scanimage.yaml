@@ -9,10 +9,10 @@ include:
 
 Trivy Check Image:
   extends: .Trivy Scan
-  stage: build
+  stage: security-scan
   <<: *job_template
   variables:
     TRIVY_ADD_CMD: "--no-progress --timeout 30m --offline-scan --debug --scanners vuln"
     TRIVY_USERNAME: $ARTIFACTORY_USER
     TRIVY_PASSWORD: $ARTIFACTORY_PASSWORD
-    TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
+    TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
