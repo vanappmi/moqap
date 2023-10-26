@@ -1,6 +1,5 @@
 variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
-  DEPLOY_ENV: "int"
 
 Download Dependencies:
   extends: .Download-Artifacts
@@ -28,7 +27,7 @@ Integration Test:
   needs:
     - job: Download Dependencies
       artifacts: true
-    - job: Upload Artifacts
+    - job: Deployment BizHub
   script:
     - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
