@@ -3,6 +3,7 @@ include:
   - project: "moqap/modules"
     ref: "3.3.6"
     file:
+      - "/artifactory/download_artifacts_dir.yml" #gibt es noch nicht in den includes muss in pipeline.yaml hinterlegt werden
       - "/artifactory/upload_artifacts_dir.yml"
       - "/lint/helm/lint_helm.yml"
       - "/lint/dockerfile/lint_dockerfile.yml"
@@ -19,6 +20,7 @@ include:
   - "/pipelines/stages/bizhub.yaml"
   - "/pipelines/stages/lap_pta.yaml"
   - "/pipelines/trivy/trivy.yaml"
+  - "/pipelines/stages/integrationtest.yaml"
 
 stages:
   - .pre
@@ -29,5 +31,6 @@ stages:
   - security-scan
   - argo-cd-deploy
   - bizhub-deploy
+  - integrationtest
   - dynamic-test
   - .post
