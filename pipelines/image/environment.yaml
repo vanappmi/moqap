@@ -40,6 +40,7 @@ Promote STAGE:
   tags:
     - ${PROJECT_RUNNER_TAG}
   before_script:
+    - echo $CI_PIPELINE_SOURCE
     - echo $ARTIFACT_NAME
     - echo $SOURCE_PATH
     - echo $TARGET_PATH
@@ -54,4 +55,7 @@ Promote STAGE:
     SOURCE_TAG: "$KANIKO_IMAGE_TAG"
     TARGET_TAG: "latest"
   rules:
-    - when: manual
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: manual
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: on_success
