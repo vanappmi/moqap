@@ -56,7 +56,7 @@ Deployment STAGE:
     # https://git.tech.rz.db.de/cnp/dbds/dbds-ops.git
     - ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
     - git clone git@ssh.git.tech.rz.db.de:cnp/dbds/baseimages/basis-gitlab-runner-image.git
-    - cd /basis-gitlab-runner-image
+    - cd basis-gitlab-runner-image
     - git status
     - ls -al
     # use yq to replace the tag with the current commit hash
