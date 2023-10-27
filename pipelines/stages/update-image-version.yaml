@@ -4,7 +4,7 @@
     - $PROJECT_RUNNER_TAG
 
 Deployment STAGE:
-  stage: argo-cd-deploy
+  stage: update-image-version
   needs:
     - job: Promote STAGE
       artifacts: true
