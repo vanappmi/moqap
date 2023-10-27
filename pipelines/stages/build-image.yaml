@@ -10,12 +10,13 @@ Build Image STAGE:
     - eks-dev
   environment:
     name: ${DEPLOY_ENV}
+  before_script:
+    - echo $CI_PIPELINE_SOURCE
   artifacts:
     paths:
       - artifacts/*
   variables:
     KANIKO_IMAGE_NAME: $PROJECT_NAME
-
   rules:
     - if: $TRIGGER_BUILD_MANUALLY == "true"
       when: manual
