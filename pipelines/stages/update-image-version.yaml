@@ -63,7 +63,7 @@ Deployment STAGE:
     - yq e -i '.spec.source.targetRevision = strenv(DEPLOY_BRANCH)' Dockerfile
    # - cat Dockerfile | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" Dockerfile || echo "#updated on `date +%s`" >> Dockerfile
     #- cat Dockerfile | grep -q "" >> Dockerfile
-    - sed -i "1s/.*/FROM cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:$KANIKO_IMAGE_TAG/" Dockerfile
+    - sed -i "1s/.*/FROM cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de//basis-pipeline-image:$KANIKO_IMAGE_TAG/" Dockerfile
     - cat Dockerfile
     - git config --global user.email "dbds@pipeline.com"
     - git config --global user.name "dbds Pipeline"
