@@ -1,0 +1,73 @@
+---
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+Deployment STAGE:
+  stage: argo-cd-deploy
+  needs:
+    - job: Promote STAGE
+      artifacts: true
+      optional: true
+  image: docker-hub-remote.bahnhub.tech.rz.db.de/bitnami/git:latest
+  <<: *job_template
+  dependencies:
+    - Promote STAGE
+  variables:
+    HTTP_PROXY: "http://webproxy.comp.db.de:8080"
+    HTTPS_PROXY: "http://webproxy.comp.db.de:8080"
+    NO_PROXY: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
+    http_proxy: "http://webproxy.comp.db.de:8080"
+    https_proxy: "http://webproxy.comp.db.de:8080"
+    no_proxy: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
+  script:
+    ######################################################################################
+    # install everything
+    ######################################################################################
+    - apt-get update -y && apt-get install -y openssh-client wget jq
+    - apt-get purge -y curl
+    - wget https://github.com/mikefarah/yq/releases/download/v4.27.3/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq && chmod +x /usr/bin/yq
+    - export ARGOCD_SERVER=argocd.cnp.comp.db.de
+    # download cli from github
+    # - mkdir -p /usr/local/bin/argocd
+    # - wget -q -O /usr/local/bin/argocd/argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/download/v2.1.2/argocd-linux-amd64
+    # - chmod +x /usr/local/bin/argocd
+    ######################################################################################
+    # setup ssh key for authentication in the shared-cluster-ops repo
+    ######################################################################################
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh-add -l
+    #    - mkdir -p ~/.ssh
+    #    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    #    - chmod og= ~/.ssh
+    #    - chmod og= ~/.ssh/config
+    #    - ls -al ~/.ssh
+    #    - cat ~/.ssh/config
+    - echo $CI_COMMIT_SHORT_SHA
+    - export LOWERCASE_REF_NAME="$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
+    - echo $LOWERCASE_REF_NAME
+    - echo "KANIKO IMAGE TAG $KANIKO_IMAGE_TAG"
+    ######################################################################################
+    # update new tag in shared-cluster-ops repo
+    ######################################################################################
+    # clone shared-cluster-ops repo
+    # https://git.tech.rz.db.de/cnp/dbds/dbds-ops.git
+    - ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
+    - git clone git@ssh.git.tech.rz.db.de:cnp/dbds/baseimages/basis-gitlab-runner-image.git
+    - ls -al
+    # use yq to replace the tag with the current commit hash
+    # https://stackoverflow.com/questions/69648216/yq-issue-adding-yaml-into-yaml/69649872#69649872
+    - o="$(yq e '.spec.source.helm.values' Dockerfile | yq e '.branch=strenv(LOWERCASE_REF_NAME)' -)" yq e -i '.spec.source.helm.values = strenv(o)' Dockerfile
+    - yq e -i '.spec.source.targetRevision = strenv(DEPLOY_BRANCH)' Dockerfile
+   # - cat Dockerfile | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" Dockerfile || echo "#updated on `date +%s`" >> Dockerfile
+    #- cat Dockerfile | grep -q "" >> Dockerfile
+    - sed -i "1s/.*/FROM cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:$KANIKO_IMAGE_TAG/" Dockerfile
+    - cat Dockerfile
+    - git config --global user.email "dbds@pipeline.com"
+    - git config --global user.name "dbds Pipeline"
+    - git add Dockerfile
+    - git commit -m "update Dockerfile"
+    - git push --set-upstream origin master
+    - echo "Ready..."

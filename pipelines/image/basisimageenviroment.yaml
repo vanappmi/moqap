@@ -1,0 +1,9 @@
+include:
+  - "pipelines/image/environment.yaml"
+  - "pipelines/stages/update-image-version.yaml"
+
+stages:
+  - build-image
+  - security-scan
+  - stage-artifacts
+  - update-image-version
