@@ -6,12 +6,10 @@ Build Jar:
   image: docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:18-alpine
   dependencies:
     - lint_dockerfile
-    - lint_helm
     - SonarQube
     - Whitesource
   needs:
     - job: lint_dockerfile
-    - job: lint_helm
     - job: SonarQube
     - job: Whitesource
   script:

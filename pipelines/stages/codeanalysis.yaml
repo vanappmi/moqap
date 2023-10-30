@@ -2,7 +2,6 @@
 include:
   - "/pipelines/codeanalysis/sonarqube.yaml"
   - "/pipelines/codeanalysis/whitesource.yaml"
-  - "/pipelines/codeanalysis/lint_helm.yaml"
 
 lint_dockerfile:
   extends: .lint_dockerfile
