@@ -32,6 +32,12 @@ bizhub_base:
     - echo $CONNECT_CONFIG
     - echo "FIELD_DEPLOYER_APP_CLIENT_ID=$FIELD_DEPLOYER_APP_CLIENT_ID"
     - echo "FIELD_DEPLOYER_APP_CLIENT_SECRET=$FIELD_DEPLOYER_APP_CLIENT_SECRET"
+    - |
+      if [ $DEPLOY_ENV == "au" ];
+      then
+        export CI_COMMIT_REF_SLUG=release
+      fi
+    - echo $CI_COMMIT_REF_SLUG
   script:
     - echo "bizhub_base"
   rules:
