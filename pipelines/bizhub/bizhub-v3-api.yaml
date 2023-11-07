@@ -39,6 +39,12 @@ bizhub_base:
         export CI_COMMIT_REF_SLUG=release-$CURRENT_VERSION
       fi
     - echo $CI_COMMIT_REF_SLUG
+    - |
+      if [ $DEPLOY_ENV == "lup" ];
+      then
+        export STAGE=lup
+      fi
+    - echo $STAGE
   script:
     - echo "bizhub_base"
   rules:
