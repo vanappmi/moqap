@@ -33,7 +33,7 @@ bizhub_base:
     - echo "FIELD_DEPLOYER_APP_CLIENT_ID=$FIELD_DEPLOYER_APP_CLIENT_ID"
     - echo "FIELD_DEPLOYER_APP_CLIENT_SECRET=$FIELD_DEPLOYER_APP_CLIENT_SECRET"
     - |
-      if [ $DEPLOY_ENV == "au" || $DEPLOY_ENV == "lup" || $DEPLOY_ENV == "prod" ];
+      if [ $DEPLOY_ENV == "au" ] || [ $DEPLOY_ENV == "lup" ] || [ $DEPLOY_ENV == "prod" ];
       then
         CURRENT_VERSION=$(cat pipelines/au/bizhub/product.yaml | grep "version" | cut -d ":" -f2 | tr -dc '0-9.')
         export CI_COMMIT_REF_SLUG=release-$CURRENT_VERSION
