@@ -32,6 +32,19 @@ bizhub_base:
     - echo $CONNECT_CONFIG
     - echo "FIELD_DEPLOYER_APP_CLIENT_ID=$FIELD_DEPLOYER_APP_CLIENT_ID"
     - echo "FIELD_DEPLOYER_APP_CLIENT_SECRET=$FIELD_DEPLOYER_APP_CLIENT_SECRET"
+    - |
+      if [ $DEPLOY_ENV == "au" ] || [ $DEPLOY_ENV == "lup" ] || [ $DEPLOY_ENV == "prod" ];
+      then
+        CURRENT_VERSION=$(cat pipelines/$DEPLOY_ENV/bizhub/product.yaml | grep "version" | cut -d ":" -f2 | tr -dc '0-9.' | tr '.' '-' )
+        export CI_COMMIT_REF_SLUG=release-$CURRENT_VERSION
+      fi
+    - echo $CI_COMMIT_REF_SLUG
+    - |
+      if [ $DEPLOY_ENV == "lup" ];
+      then
+        export STAGE=lup
+      fi
+    - echo $STAGE
   script:
     - echo "bizhub_base"
   rules:
