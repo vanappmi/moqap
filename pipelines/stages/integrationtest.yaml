@@ -38,7 +38,7 @@ Integration Test:
   dependencies:
     - Download Dependencies
   script:
-    - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
+    - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL= ${BASE_SERVICE_URL} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
     name: "Cucumber Report"
