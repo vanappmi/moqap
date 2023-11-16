@@ -9,6 +9,8 @@ Download Dependencies:
   extends: .Download-Artifacts
   stage: integrationtest
   <<: *job_template
+  needs:
+    - job: Deployment BizHub
   after_script:
     - mkdir -p ./artifacts/
     - cp download/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
@@ -18,6 +20,9 @@ Download Dependencies:
   artifacts:
     paths:
       - artifacts/*
+  except:
+    variables:
+      - $BIZHUB_DISABLE == "true"
 
 
 Integration Test:
@@ -33,7 +38,7 @@ Integration Test:
   dependencies:
     - Download Dependencies
   script:
-    - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
+    - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL= ${BASE_SERVICE_URL} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
     name: "Cucumber Report"
