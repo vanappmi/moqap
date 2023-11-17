@@ -1,4 +1,10 @@
 ---
+include:
+  - project: "moqap/modules"
+    ref: "3.3.7"
+    file:
+      - "/jmeter/jmeter.yml"
+
 LaP & PTA Test:
   extends: .jmeter
   stage: dynamic-test
