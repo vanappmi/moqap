@@ -5,6 +5,7 @@ include:
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/stages/deployment.yaml"
   - "/pipelines/stages/bizhub.yaml"
+  - "/pipelines/stages/lap_pta.yaml"
 
 # Stage-specific variables
 variables:
