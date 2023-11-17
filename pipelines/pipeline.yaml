@@ -5,6 +5,7 @@ include:
     file:
       - "/artifactory/download_artifacts_dir.yml" #gibt es noch nicht in den includes muss in pipeline.yaml hinterlegt werden
       - "/artifactory/upload_artifacts_dir.yml"
+      - "/artifactory/clean_artifactory.yml"
       - "/lint/dockerfile/lint_dockerfile.yml"
       - "/jmeter/jmeter.yml"
       - "/eks/kaniko/kaniko.yml"
@@ -17,9 +18,9 @@ include:
   - "/pipelines/stages/upload-artifacts.yaml"
   - "/pipelines/stages/deployment.yaml"
   - "/pipelines/stages/bizhub.yaml"
-  - "/pipelines/stages/lap_pta.yaml"
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/stages/integrationtest.yaml"
+  - "/pipelines/artifactory/clean_artifactory.yaml"
 
 stages:
   - .pre
@@ -31,5 +32,5 @@ stages:
   - argo-cd-deploy
   - bizhub-deploy
   - integrationtest
-  - dynamic-test
+  - cleanup
   - .post

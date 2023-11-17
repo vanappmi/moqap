@@ -1,0 +1,17 @@
+include:
+  - project: "moqap/modules"
+    ref: "3.3.7"
+    file: "/artifactory/clean_artifactory.yml"
+
+Clean Artifactory:
+  extends: .Clean-artifactory
+  stage: cleanup
+  needs:
+    - job: Build Image STAGE
+      optional: true
+  tags:
+    - eks-dev
+  variables:
+    DAYS: 30
+    CONFIG_FILE: pipelines/clean_artifactory_conf.yaml
+    DRY_RUN: "false"
