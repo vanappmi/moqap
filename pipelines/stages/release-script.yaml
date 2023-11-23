@@ -23,6 +23,7 @@ release-script:
     http_proxy: "http://webproxy.comp.db.de:8080"
     https_proxy: "http://webproxy.comp.db.de:8080"
     no_proxy: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
+    GRADLE_OPTS: $GRADLE_OPTS_OWN
   script:
     # Git config
     - eval $(ssh-agent -s)
@@ -58,6 +59,7 @@ release-script:
     - git push origin $NEW_BRANCHNAME
     # 6. Inkrementierte Versionsnummer in gradle.properties zurückschreiben
     - git checkout development
+    - echo $GRADLE_OPTS
     - ./gradlew generateGitLog
     - sed -i "s/OLD_VERSION/$CURRENT_VERSION/g" gradle.properties
     - sed -i "s/$CURRENT_VERSION/$NEW_VERSION/g" gradle.properties
