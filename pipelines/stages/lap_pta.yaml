@@ -23,6 +23,7 @@ LaP & PTA Test:
     PLUGIN_PATH: "test/lup/plugins"
     ARTIFACTS_DIR: "artifacts"
   before_script:
+    - export BASE_SERVICE_URL=$(echo $BASE_SERVICE_URL | sed 's/.*:///')
     - echo $BASE_SERVICE_URL
     - mkdir -p ./artifacts/
     - sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $TESTCASE_PATH
