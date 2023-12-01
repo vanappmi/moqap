@@ -67,8 +67,6 @@ release-script:
     - git add .
     - git commit -m "Change to new version '$NEW_VERSION'."
     # 7. development Branch pushen
-    - echo "sleep 30s to avoid bizhub deployment at same time"
-    - sleep 30
     - git remote set-url origin $GIT_REPO_SSH_URL
     - git push origin development
   artifacts:
