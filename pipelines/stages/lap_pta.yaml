@@ -25,6 +25,8 @@ LaP & PTA Test:
   before_script:
     - export BASE_SERVICE_URL=$(echo $BASE_SERVICE_URL | cut -c 9-)
     - echo $BASE_SERVICE_URL
+    - export CMMD_VAR="-JbaseURL=${BASE_SERVICE_URL}"
+    - echo $CMMD_VAR
     - mkdir -p ./artifacts/
     - sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $TESTCASE_PATH
     - sed -i -e "s/REPLACE_ELASTIC_HOST/$ES_HOST/g" $TESTCASE_PATH
