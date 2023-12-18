@@ -38,3 +38,4 @@ variables:
   # TESTS
   BASE_SERVICE_URL: ""
   SERVICE_URL: ""
+  imageVersion: ""

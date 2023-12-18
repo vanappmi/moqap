@@ -60,7 +60,7 @@ Promote STAGE:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: on_success
 
-Promote STAGE LATEST:
+Promote STAGE IMAGEVERSION:
   extends: .Stage-Artifacts
   stage: stage-artifacts
   tags:
@@ -79,7 +79,7 @@ Promote STAGE LATEST:
     SOURCE_PATH: "$SOURCE_DOCKER_REPO"
     TARGET_PATH: "$SOURCE_DOCKER_REPO"
     SOURCE_TAG: "$KANIKO_IMAGE_TAG"
-    TARGET_TAG: "latest"
+    TARGET_TAG: "$imageVersion"
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: manual
