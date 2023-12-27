@@ -17,6 +17,7 @@ include:
   - "/pipelines/stages/build-image.yaml"
   - "/pipelines/stages/upload-artifacts.yaml"
   - "/pipelines/stages/deployment.yaml"
+  - "/pipelines/stages/secrets-scan.yaml"
   - "/pipelines/stages/bizhub.yaml"
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/stages/integrationtest.yaml"
@@ -24,6 +25,7 @@ include:
 
 stages:
   - .pre
+  - secrets-scan
   - static-codeanalysis
   - build-jar
   - build-image
