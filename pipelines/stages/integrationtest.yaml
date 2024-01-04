@@ -39,6 +39,17 @@ Integration Test:
   dependencies:
     - Download Dependencies
   script:
+    - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
+    - echo "DEPLOY_ENV=$DEPLOY_ENV"
+    - echo $RUNNER_MOUNT_PATH
+    - export BETRAANTRAG_USERNAME=$(getSecret BETRAANTRAG_USERNAME $RUNNER_MOUNT_PATH $FAIL SERVICE_USER)
+    - echo $BETRAANTRAG_USERNAME
+    - export BETRAANTRAG_PASSWORD=$(getSecret BETRAANTRAG_PASSWORD $RUNNER_MOUNT_PATH $FAIL SERVICE_PASSWORD)
+    - echo $BETRAANTRAG_PASSWORD
+    - export BETRAANTRAG_CLIENTSECRET=$(getSecret BETRAANTRAG_CLIENTSECRET $RUNNER_MOUNT_PATH $FAIL SERVICE_PASSWORD)
+    - echo $BETRAANTRAG_CLIENTSECRET
+    - export BETRAANTRAG_CLIENTID=$(getSecret BETRAANTRAG_CLIENTID $RUNNER_MOUNT_PATH $FAIL SERVICE_PASSWORD)
+    - echo $BETRAANTRAG_CLIENTID
     - echo $BASE_SERVICE_URL
     - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL=${BASE_SERVICE_URL} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
