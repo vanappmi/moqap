@@ -17,9 +17,9 @@ Build Image STAGE:
       - artifacts/*
   variables:
     KANIKO_IMAGE_NAME: $PROJECT_NAME
-  rules:
-    - if: $TRIGGER_BUILD_MANUALLY == "true"
-      when: manual
+#  rules:
+#    - if: $TRIGGER_BUILD_MANUALLY == "true"
+#      when: manual
 #      allow_failure: true
-    - if: $TRIGGER_BUILD_MANUALLY == "false"
-      when: always
+#    - if: $TRIGGER_BUILD_MANUALLY == "false"
+#      when: always
