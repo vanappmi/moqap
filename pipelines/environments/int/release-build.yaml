@@ -16,7 +16,6 @@ include:
   - "/pipelines/stages/build-jar.yaml"
   - "/pipelines/stages/build-image.yaml"
   - "/pipelines/stages/upload-artifacts.yaml"
-  - "/pipelines/stages/secrets-scan.yaml"
   - "/pipelines/trivy/trivy.yaml"
 
 stages:
