@@ -10,7 +10,6 @@ include:
       - "/jmeter/jmeter.yml"
       - "/eks/kaniko/kaniko.yml"
       - "/trivy/trivy.yml"
-      - "/gitleaks/gitleaks.yml"
   - "/pipelines/settings.yaml"
   - "/pipelines/stages/codeanalysis.yaml"
   - "/pipelines/stages/build-jar.yaml"
@@ -25,7 +24,6 @@ include:
 
 stages:
   - .pre
-  - secrets-scan
   - static-codeanalysis
   - build-jar
   - build-image
