@@ -21,7 +21,6 @@ Upload Artifacts STAGE:
     - Build Image STAGE
   needs:
     - job: Build Image STAGE
-      optional: true
   variables:
     TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA/$CI_ENVIRONMENT_SLUG/"
     ARTIFACTS_DIR: "artifacts"
