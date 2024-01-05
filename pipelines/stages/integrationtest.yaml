@@ -5,17 +5,12 @@ include:
       - "/artifactory/download_artifacts_dir.yml" #gibt es noch nicht in den includes muss in pipeline.yaml hinterlegt werden
   - "/pipelines/settings.yaml"
 
-stages:
-  - .pre
-  - integrationtest
-
 
 variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
   BASE_SERVICE_URL: $BASE_SERVICE_URL
-  STAGE_ENV: "dev"
   PROPERTY_FILE: "ci.properties"
-  RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-runner-${STAGE_ENV}"
+
 
 .job_template: &job_template
   tags:
@@ -26,6 +21,8 @@ Download Dependencies:
   extends: .Download-Artifacts
   stage: integrationtest
   <<: *job_template
+  needs:
+    - job: Deployment BizHub
   after_script:
     - mkdir -p ./artifacts/
     - cp download/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
@@ -35,24 +32,27 @@ Download Dependencies:
   artifacts:
     paths:
       - artifacts/*
+  except:
+    variables:
+      - $BIZHUB_DISABLE == "true"
+
 
 Download Secrets:
   stage: integrationtest
   <<: *job_template
+  needs:
+    - job: Deployment BizHub
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
+  rule:
+    - if $CI_PROJECT_NAME == "betraprocess"
   script:
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - echo "DEPLOY_ENV=$DEPLOY_ENV"
     - echo $RUNNER_MOUNT_PATH
     - export BETRAANTRAG_USERNAME=$(getSecret BETRAANTRAG_USERNAME $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_USERNAME)
-    - echo $BETRAANTRAG_USERNAME
     - export BETRAANTRAG_PASSWORD=$(getSecret BETRAANTRAG_PASSWORD $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_PASSWORD)
-    - echo $BETRAANTRAG_PASSWORD
     - export BETRAANTRAG_CLIENTSECRET=$(getSecret BETRAANTRAG_CLIENTSECRET $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTSECRET)
-    - echo $BETRAANTRAG_CLIENTSECRET
     - export BETRAANTRAG_CLIENTID=$(getSecret BETRAANTRAG_CLIENTID $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTID)
-    - echo $BETRAANTRAG_CLIENTID
-    - echo $BASE_SERVICE_URL
     - touch $PROPERTY_FILE
     - echo "BETRAANTRAG_USERNAME:$BETRAANTRAG_USERNAME" > $PROPERTY_FILE
     - echo "BETRAANTRAG_PASSWORD:$BETRAANTRAG_PASSWORD" >> $PROPERTY_FILE
@@ -63,19 +63,25 @@ Download Secrets:
     expire_in: 30 seconds
     paths:
       - artifacts/*
+  except:
+    variables:
+      - $BIZHUB_DISABLE == "true"
+
 
 Integration Test:
   stage: integrationtest
   <<: *job_template
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
-  dependencies:
-    - Download Dependencies
-    - Download Secrets
+  only:
+    - branches
   needs:
     - job: Download Dependencies
-      artifacts: true 
+      artifacts: true
+    - job: Deployment BizHub
     - job: Download Secrets
       artifacts: true
+  dependencies:
+    - Download Dependencies
   script:
     - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL=${BASE_SERVICE_URL} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
@@ -86,3 +92,6 @@ Integration Test:
       - cucumber.xml
     reports:
        junit: cucumber.xml
+  except:
+    variables:
+      - $BIZHUB_DISABLE == "true"
