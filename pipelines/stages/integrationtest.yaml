@@ -14,7 +14,7 @@ variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
   BASE_SERVICE_URL: $BASE_SERVICE_URL
   STAGE_ENV: "dev"
-  PROPERTY_FILE: "artifacts/ci.properties"
+  PROPERTY_FILE: "ci.properties"
   RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-runner-${STAGE_ENV}"
 
 .job_template: &job_template
@@ -54,11 +54,12 @@ Download Secrets:
     - echo $BETRAANTRAG_CLIENTID
     - echo $BASE_SERVICE_URL
     - touch $PROPERTY_FILE
-    - echo "BETRAANTRAG_USERNAME:$PROPERTY_FILE" > $PROPERTY_FILE
+    - echo "BETRAANTRAG_USERNAME:$BETRAANTRAG_USERNAME" > $PROPERTY_FILE
     - echo "BETRAANTRAG_PASSWORD:$BETRAANTRAG_PASSWORD" >> $PROPERTY_FILE
-    - cd artifacts
-    - cat ci.properties
-    - ls
+    - echo "BETRAANTRAG_CLIENTSECRET:$BETRAANTRAG_CLIENTSECRET" >> $PROPERTY_FILE
+    - echo "BETRAANTRAG_CLIENTID:$BETRAANTRAG_CLIENTID" >> $PROPERTY_FILE
+    - cp $PROPERTY_FILE artifacts/
+    - 
   artifacts:
     paths:
       - artifacts/*
