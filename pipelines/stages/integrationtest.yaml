@@ -44,7 +44,7 @@ Download Secrets:
     - job: Deployment BizHub
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   rules:
-    - if $CI_PROJECT_NAME == "betraprocess"
+    - if: $CI_PROJECT_NAME == "betraprocess" && $BIZHUB_DISABLE != "true"
   script:
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - echo "DEPLOY_ENV=$DEPLOY_ENV"
