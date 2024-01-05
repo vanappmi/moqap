@@ -76,6 +76,8 @@ Integration Test:
     - job: Download Secrets
       artifacts: true
   script:
+    - cd artifacts
+    - ls
     - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL=${BASE_SERVICE_URL} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
