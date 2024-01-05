@@ -14,12 +14,26 @@ variables:
   tags:
     - $PROJECT_RUNNER_TAG
 
+Pre:
+ stage: pre
+
+Build:
+  stage: build
+  
+Test:
+  stage: test
+
+Deploy:
+  stage: deploy
+
+Post:
+  stage: post
+
+
 Download Dependencies:
   extends: .Download-Artifacts
   stage: integrationtest
   <<: *job_template
-  needs:
-    - job: Deployment BizHub
   after_script:
     - mkdir -p ./artifacts/
     - cp download/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
@@ -40,10 +54,6 @@ Integration Test:
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   only:
     - branches
-  needs:
-    - job: Download Dependencies
-      artifacts: true
-    - job: Deployment BizHub
   dependencies:
     - Download Dependencies
   script:
@@ -68,6 +78,3 @@ Integration Test:
       - cucumber.xml
     reports:
        junit: cucumber.xml
-  except:
-    variables:
-      - $BIZHUB_DISABLE == "true"
