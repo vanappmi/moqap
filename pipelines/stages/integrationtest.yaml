@@ -13,6 +13,7 @@ stages:
 variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
   BASE_SERVICE_URL: $BASE_SERVICE_URL
+  RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-runner-${STAGE_ENV}"
 
 .job_template: &job_template
   tags:
