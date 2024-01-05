@@ -14,6 +14,7 @@ variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
   BASE_SERVICE_URL: $BASE_SERVICE_URL
   STAGE_ENV: "dev"
+  PROPERTY_FILE: "ci.properties"
   RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-runner-${STAGE_ENV}"
 
 .job_template: &job_template
@@ -35,16 +36,10 @@ Download Dependencies:
     paths:
       - artifacts/*
 
-
-Integration Test:
-  stage: integrationtest
+Download Secrets:
+   stage: integrationtest
   <<: *job_template
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
-  dependencies:
-    - Download Dependencies
-  needs:
-    - job: Download Dependencies
-      artifacts: true 
   script:
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - echo "DEPLOY_ENV=$DEPLOY_ENV"
@@ -58,6 +53,27 @@ Integration Test:
     - export BETRAANTRAG_CLIENTID=$(getSecret BETRAANTRAG_CLIENTID $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTID)
     - echo $BETRAANTRAG_CLIENTID
     - echo $BASE_SERVICE_URL
+    - touch $PROPERTY_FILE
+    - echo "BETRAANTRAG_USERNAME:$BETRAANTRAG_USERNAME" > $PROPERTY_FILE
+    - echo "BETRAANTRAG_PASSWORD:$BETRAANTRAG_PASSWORD" >> $PROPERTY_FILE
+    - cat $PROPPERTY_FILE
+  artifacts:
+    paths:
+      - artifacts/*
+
+Integration Test:
+  stage: integrationtest
+  <<: *job_template
+  image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
+  dependencies:
+    - Download Dependencies
+    - Download Secrets
+  needs:
+    - job: Download Dependencies
+      artifacts: true 
+    - job: Download Secrets
+      artifacts: true
+  script:
     - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL=${BASE_SERVICE_URL} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
