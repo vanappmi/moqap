@@ -58,8 +58,7 @@ Download Secrets:
     - echo "BETRAANTRAG_PASSWORD:$BETRAANTRAG_PASSWORD" >> $PROPERTY_FILE
     - echo "BETRAANTRAG_CLIENTSECRET:$BETRAANTRAG_CLIENTSECRET" >> $PROPERTY_FILE
     - echo "BETRAANTRAG_CLIENTID:$BETRAANTRAG_CLIENTID" >> $PROPERTY_FILE
-    - cp $PROPERTY_FILE artifacts/
-    - 
+    - cp $PROPERTY_FILE artifacts/ 
   artifacts:
     paths:
       - artifacts/*
