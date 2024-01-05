@@ -63,9 +63,6 @@ Download Secrets:
     expire_in: 30 seconds
     paths:
       - artifacts/*
-  except:
-    variables:
-      - $BIZHUB_DISABLE == "true"
 
 
 Integration Test:
