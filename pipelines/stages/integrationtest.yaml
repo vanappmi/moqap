@@ -6,9 +6,7 @@ include:
   - "/pipelines/settings.yaml"
 
 stages:
-  - build
-  - test
-  - deploy
+  - .pre
   - integrationtest
 
 
@@ -19,16 +17,6 @@ variables:
 .job_template: &job_template
   tags:
     - $PROJECT_RUNNER_TAG
-
-
-Build:
-  stage: build
-  
-Test:
-  stage: test
-
-Deploy:
-  stage: deploy
 
 
 Download Dependencies:
