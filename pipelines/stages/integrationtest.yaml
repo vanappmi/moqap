@@ -5,6 +5,12 @@ include:
       - "/artifactory/download_artifacts_dir.yml" #gibt es noch nicht in den includes muss in pipeline.yaml hinterlegt werden
   - "/pipelines/settings.yaml"
 
+stages:
+  - build
+  - test
+  - deploy
+  - integrationtest
+
 
 variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
@@ -14,8 +20,6 @@ variables:
   tags:
     - $PROJECT_RUNNER_TAG
 
-Pre:
- stage: pre
 
 Build:
   stage: build
@@ -25,9 +29,6 @@ Test:
 
 Deploy:
   stage: deploy
-
-Post:
-  stage: post
 
 
 Download Dependencies:
