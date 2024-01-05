@@ -60,7 +60,7 @@ Download Secrets:
     - echo "BETRAANTRAG_CLIENTID:$BETRAANTRAG_CLIENTID" >> $PROPERTY_FILE
     - cp $PROPERTY_FILE artifacts/ 
   artifacts:
-    expire_in: 30 sec
+    expire_in: 30 seconds
     paths:
       - artifacts/*
 
