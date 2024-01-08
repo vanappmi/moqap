@@ -34,7 +34,7 @@ Artifacts STAGE:
   environment:
     name: ${DEPLOY_ENV}
 
-Promote STAGE prod repo:
+Promote STAGE:
   extends: .Stage-Artifacts
   stage: stage-artifacts
   tags:
