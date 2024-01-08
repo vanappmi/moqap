@@ -9,7 +9,7 @@ Deployment STAGE:
     - job: Promote STAGE
       artifacts: true
       optional: true
-  image: docker-hub-remote.bahnhub.tech.rz.db.de/bitnami/git:latest
+  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:version-1
   <<: *job_template
   dependencies:
     - Promote STAGE

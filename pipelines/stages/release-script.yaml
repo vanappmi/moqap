@@ -3,7 +3,7 @@ start-release:
   stage: release
   tags:
     - eks-dev
-  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:latest
+  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:java-18
   script:
     - echo "start release"
 
@@ -11,7 +11,7 @@ release-script:
   stage: release
   tags:
     - eks-dev
-  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:latest
+  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:java-18
   needs:
     - job: start-release
   dependencies:

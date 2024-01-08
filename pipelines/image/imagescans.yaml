@@ -23,7 +23,7 @@ stages:
 Scan Deployment STAGE Image:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/bitnami/git:latest"
+    TRIVY_TARGET: "cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:version-1"
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
@@ -31,7 +31,7 @@ Scan Deployment STAGE Image:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan Build Jar Image:
+Scan Amazon Coretto 18-alpine base:
   stage: security-scan
   variables:
     TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:18-alpine"
