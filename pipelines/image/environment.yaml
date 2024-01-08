@@ -34,7 +34,7 @@ Artifacts STAGE:
   environment:
     name: ${DEPLOY_ENV}
 
-Promote STAGE:
+Promote STAGE prod repo:
   extends: .Stage-Artifacts
   stage: stage-artifacts
   tags:
@@ -53,14 +53,14 @@ Promote STAGE:
     SOURCE_PATH: "$SOURCE_DOCKER_REPO"
     TARGET_PATH: "$TARGET_DOCKER_REPO"
     SOURCE_TAG: "$KANIKO_IMAGE_TAG"
-    TARGET_TAG: "v1.0"
+    TARGET_TAG: "$imageVersion"
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: manual
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: on_success
 
-Promote STAGE IMAGEVERSION:
+Promote STAGE dev repo:
   extends: .Stage-Artifacts
   stage: stage-artifacts
   tags:
