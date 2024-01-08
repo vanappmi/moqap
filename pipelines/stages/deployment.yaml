@@ -15,7 +15,7 @@ Deployment STAGE:
     - if: ($DEPLOY_ENV == "au" || $DEPLOY_ENV  == "lup" || $DEPLOY_ENV  == "prod") && $CI_COMMIT_BRANCH
       needs:
         - job: Trivy Check Image
-  image: cna-3bservices-dev-docker-stage-local/basis-deployment-image:version-1
+  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:version-1
   <<: *job_template
   dependencies:
     - Trivy Check Image
