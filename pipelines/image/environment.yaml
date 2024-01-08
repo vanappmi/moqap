@@ -53,7 +53,7 @@ Promote STAGE:
     SOURCE_PATH: "$SOURCE_DOCKER_REPO"
     TARGET_PATH: "$TARGET_DOCKER_REPO"
     SOURCE_TAG: "$KANIKO_IMAGE_TAG"
-    TARGET_TAG: "latest"
+    TARGET_TAG: "v1.0"
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: manual
