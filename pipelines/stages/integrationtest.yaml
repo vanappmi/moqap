@@ -1,10 +1,21 @@
+include:
+  - project: "moqap/modules"
+    ref: "3.3.7"
+    file:
+      - "/artifactory/download_artifacts_dir.yml" #gibt es noch nicht in den includes muss in pipeline.yaml hinterlegt werden
+  - "/pipelines/settings.yaml"
+
+
 variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
   BASE_SERVICE_URL: $BASE_SERVICE_URL
+  PROPERTY_FILE: "ci.properties"
+  RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-runner-${STAGE_ENV}"
 
 .job_template: &job_template
   tags:
     - $PROJECT_RUNNER_TAG
+
 
 Download Dependencies:
   extends: .Download-Artifacts
@@ -26,6 +37,34 @@ Download Dependencies:
       - $BIZHUB_DISABLE == "true"
 
 
+Download Secrets:
+  stage: integrationtest
+  <<: *job_template
+  needs:
+    - job: Deployment BizHub
+  image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
+  rules:
+    - if: $CI_PROJECT_NAME == "betraprocess" && $BIZHUB_DISABLE != "true"
+  script:
+    - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
+    - echo "DEPLOY_ENV=$DEPLOY_ENV"
+    - echo $RUNNER_MOUNT_PATH
+    - export BETRAANTRAG_USERNAME=$(getSecret betraprocess_api_username $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_USERNAME)
+    - export BETRAANTRAG_PASSWORD=$(getSecret betraprocess_api_password $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_PASSWORD)
+    - export BETRAANTRAG_CLIENTSECRET=$(getSecret api_key $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTSECRET)
+    - export BETRAANTRAG_CLIENTID=$(getSecret client_id $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTID)
+    - touch $PROPERTY_FILE
+    - echo "BETRAANTRAG_USERNAME:$BETRAANTRAG_USERNAME" > $PROPERTY_FILE
+    - echo "BETRAANTRAG_PASSWORD:$BETRAANTRAG_PASSWORD" >> $PROPERTY_FILE
+    - echo "BETRAANTRAG_CLIENTSECRET:$BETRAANTRAG_CLIENTSECRET" >> $PROPERTY_FILE
+    - echo "BETRAANTRAG_CLIENTID:$BETRAANTRAG_CLIENTID" >> $PROPERTY_FILE
+    - cp $PROPERTY_FILE artifacts/ 
+  artifacts:
+    expire_in: 30 seconds
+    paths:
+      - artifacts/*
+
+
 Integration Test:
   stage: integrationtest
   <<: *job_template
@@ -36,10 +75,11 @@ Integration Test:
     - job: Download Dependencies
       artifacts: true
     - job: Deployment BizHub
+    - job: Download Secrets
+      artifacts: true
   dependencies:
     - Download Dependencies
   script:
-    - echo $BASE_SERVICE_URL
     - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL=${BASE_SERVICE_URL} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always

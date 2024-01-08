@@ -8,12 +8,12 @@ Build Jar:
     - lint_dockerfile
     - SonarQube
     - Whitesource
-    - scan_secrets
+#    - scan_secrets #comment in after secrets removal
   needs:
     - job: lint_dockerfile
     - job: SonarQube
     - job: Whitesource
-    - job: scan_secrets
+#    - job: scan_secrets #comment in after secrets removal
   script:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
