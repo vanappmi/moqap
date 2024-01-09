@@ -24,10 +24,6 @@ Deployment STAGE:
     ######################################################################################
     # install everything
     ######################################################################################
-    - apt-get update -y && apt-get install -y openssh-client wget jq
-    - apt-get purge -y curl
-    - wget https://github.com/mikefarah/yq/releases/download/v4.27.3/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq && chmod +x /usr/bin/yq
-    - export ARGOCD_SERVER=argocd.cnp.comp.db.de
     # download cli from github
     # - mkdir -p /usr/local/bin/argocd
     # - wget -q -O /usr/local/bin/argocd/argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/download/v2.1.2/argocd-linux-amd64
