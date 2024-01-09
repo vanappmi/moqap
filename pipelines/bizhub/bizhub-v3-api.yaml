@@ -6,7 +6,7 @@ include:
 
 variables:
   STAGE_ENV: "dev"
-  RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-runner"
+  RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-runner-${STAGE_ENV}"
   API_ONLY_V3_USE_NEW_AUTH: "true"
   DEBUG_API_ONLY_V3_CONNECT_CONFIG: "true"
 #  AWS_SM_SECRET_PATH: "$RUNNER_MOUNT_PATH"

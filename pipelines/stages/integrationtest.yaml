@@ -5,7 +5,6 @@ include:
       - "/artifactory/download_artifacts_dir.yml" #gibt es noch nicht in den includes muss in pipeline.yaml hinterlegt werden
   - "/pipelines/settings.yaml"
 
-
 variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
   BASE_SERVICE_URL: $BASE_SERVICE_URL
@@ -15,7 +14,6 @@ variables:
 .job_template: &job_template
   tags:
     - $PROJECT_RUNNER_TAG
-
 
 Download Dependencies:
   extends: .Download-Artifacts
@@ -35,7 +33,6 @@ Download Dependencies:
   except:
     variables:
       - $BIZHUB_DISABLE == "true"
-
 
 Download Secrets:
   stage: integrationtest
@@ -63,7 +60,6 @@ Download Secrets:
     expire_in: 30 seconds
     paths:
       - artifacts/*
-
 
 Integration Test:
   stage: integrationtest
