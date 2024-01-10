@@ -39,3 +39,4 @@ LaP & PTA Test:
   except:
     variables:
       - $LAP_TEST_DISABLE == "true"
+  timeout: 3 hours
