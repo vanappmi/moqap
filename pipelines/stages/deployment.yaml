@@ -83,7 +83,7 @@ Deployment STAGE:
     # wait until deployment completed
     #    - argocd app wait dpf-datanet-$env-artenkartierung-backend --grpc-web
     - echo $SERVICE_URL
-    - echo curl -Ss $SERVICE_URL
+    - curl $SERVICE_URL
     - GIT_COMMIT_ID_ABBREV=$(curl -Ss $SERVICE_URL | jq -R 'fromjson? | .git.commit.id.abbrev'  | tr -d \")
     - GIT_GIT_COMMIT_SHORT=$CI_COMMIT_SHORT_SHA
     - GIT_COMMIT_ID_7=${GIT_GIT_COMMIT_SHORT:0:7}
