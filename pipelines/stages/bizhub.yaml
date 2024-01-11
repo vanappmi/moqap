@@ -9,7 +9,7 @@ Deployment BizHub:
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
-        ref: "basicAuth" # branch
+        ref: "V1.1" # branch
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   except:
