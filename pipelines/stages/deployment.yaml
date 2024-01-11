@@ -94,7 +94,7 @@ Deployment STAGE:
         echo "sleep 10s"
         sleep 10
         echo "Start curl..."
-        GIT_COMMIT_ID_ABBREV=$(curl --insecure $SERVICE_URL | jq -R 'fromjson? | .git.commit.id.abbrev'  | tr -d \")
+        GIT_COMMIT_ID_ABBREV=$(curl -Ss --insecure $SERVICE_URL | jq -R 'fromjson? | .git.commit.id.abbrev'  | tr -d \")
         echo $GIT_COMMIT_ID_ABBREV
         echo $GIT_COMMIT_ID_7
       done
