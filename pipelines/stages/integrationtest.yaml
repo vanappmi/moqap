@@ -51,6 +51,7 @@ Download Secrets:
     - export BETRAANTRAG_PASSWORD=$(getSecret betraprocess_api_password $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_PASSWORD)
     - export BETRAANTRAG_CLIENTSECRET=$(getSecret api_key $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTSECRET)
     - export BETRAANTRAG_CLIENTID=$(getSecret client_id $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTID)
+    - echo $BETRAANTRAG_USERNAME
 
 
 Integration Test:
@@ -68,6 +69,7 @@ Integration Test:
   dependencies:
     - Download Dependencies
   script:
+    - echo $BETRAANTRAG_USERNAME
     - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL=${BASE_SERVICE_URL} -DUSER=${BETRAANTRAG_USERNAME} -DPASSWORD=${BETRAANTRAG_PASSWORD} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
