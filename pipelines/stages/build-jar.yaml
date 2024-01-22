@@ -20,8 +20,6 @@ Build Jar:
     - gradle clean build jacocoTestCoverageVerification bootJar
     - mkdir -p ./artifacts/
     - cp build/libs/*.jar ./artifacts/
-  only:
-    - branches
   artifacts:
     paths:
       - artifacts/*
