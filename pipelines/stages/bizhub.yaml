@@ -12,6 +12,6 @@ Deployment BizHub:
         ref: "V1.1" # branch
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
-  except:
-    variables:
-      - $BIZHUB_DISABLE == "true"
+  rules:
+    - if: $BIZHUB_DISABLE == "true"
+      when: never
