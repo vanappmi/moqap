@@ -33,8 +33,8 @@ Download Dependencies:
     paths:
       - artifacts/*
   rules:
-    - if: $BIZHUB_DISABLE == "true"
-      when: never
+    - if: $BIZHUB_DISABLE != "true"
+      when: always
 
 Download Secrets:
   stage: integrationtest
@@ -85,6 +85,6 @@ Integration Test:
     reports:
        junit: cucumber.xml
   rules:
-    - if: $BIZHUB_DISABLE == "true"
-      when: never
+    - if: $BIZHUB_DISABLE != "true"
+      when: always
 

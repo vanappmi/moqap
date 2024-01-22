@@ -37,6 +37,6 @@ LaP & PTA Test:
       - artifacts/*
   # rules dev vs. int
   rules:
-    - if: $LAP_TEST_DISABLE == "true"
-      when: never
+    - if: $LAP_TEST_DISABLE != "true"
+      when: always
   timeout: 3 hours

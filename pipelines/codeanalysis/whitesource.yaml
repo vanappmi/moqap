@@ -39,6 +39,6 @@ Whitesource:
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
       when: always
-    - if: $WHITESOURCE_DISABLE == "true"
-      when: never
+    - if: $WHITESOURCE_DISABLE != "true"
+      when: always
 

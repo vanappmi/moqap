@@ -29,5 +29,5 @@ Build Jar:
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
       when: always
-    - if: $BUILD_DISABLE == "true"
-      when: never
+    - if: $BUILD_DISABLE != "true"
+      when: always
