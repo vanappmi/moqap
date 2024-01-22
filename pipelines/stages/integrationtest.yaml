@@ -85,6 +85,7 @@ Integration Test:
       - cucumber.xml
     reports:
        junit: cucumber.xml
-  except:
-    variables:
-      - $BIZHUB_DISABLE == "true"
+  rules:
+    - if: $BIZHUB_DISABLE == "true"
+      when: never
+
