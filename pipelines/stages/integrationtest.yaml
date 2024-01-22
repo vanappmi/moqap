@@ -65,14 +65,14 @@ Integration Test:
       artifacts: true
   dependencies:
     - Download Dependencies
-  script:
-    - echo $BASE_SERVICE_URL
-    - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL=${BASE_SERVICE_URL} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   rules:
     - if: $BIZHUB_DISABLE == "true"
       when: never
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
       when: always
+  script:
+    - echo $BASE_SERVICE_URL
+    - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL=${BASE_SERVICE_URL} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - echo $RUNNER_MOUNT_PATH
     - export BETRAANTRAG_USERNAME=$(getSecret betraprocess_api_username $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_USERNAME)
