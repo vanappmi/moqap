@@ -34,9 +34,8 @@ Build Jar:
     - ./gradlew clean jar
     - mkdir -p ./artifacts/
     - cp build/libs/*.jar ./artifacts/
-  rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-      when: always
+  only:
+    - branches
   artifacts:
     paths:
       - src/target/*
@@ -50,9 +49,8 @@ Upload Artifacts:
   tags:
     - eks-dev
   extends: .Upload-Artifacts
-  rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-      when: always
+  only:
+    - branches
   environment:
     name: ${DEPLOY_ENV}
   dependencies:

@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "3.3.7"
+    ref: "3.3.6"
     file: "/sonarqube/sonarqube.yml"
 
 variables:
@@ -25,14 +25,8 @@ SonarQube:
   artifacts:
     paths:
       - artifacts/*
-  rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-      when: always
-    - if: $SONARQUBE_DISABLE == "true"
-      when: never
-
-  #only:
-  #  - branches
-  #except:
-  #  variables:
-  #    - $SONARQUBE_DISABLE == "true"
+  only:
+    - branches
+  except:
+    variables:
+      - $SONARQUBE_DISABLE == "true"

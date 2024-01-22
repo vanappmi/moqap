@@ -29,22 +29,15 @@ Whitesource:
   before_script:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
-    - ./gradlew clean build bootJar -x test
-    - echo "BEFORE SCRIPT GRADLE BUILD FINISHED"
+    - ./gradlew clean build bootJar
   after_script:
     - cp whitesource/*/* artifacts/
   artifacts:
     paths:
       - whitesource/**/*
       - artifacts/**/*
-  rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-      when: always
-    - if: $WHITESOURCE_DISABLE == "true"
-      when: never
-
-  #only:
-  #  - branches
-  #except:
-  #  variables:
-  #    - $WHITESOURCE_DISABLE == "true"
+  only:
+    - branches
+  except:
+    variables:
+      - $WHITESOURCE_DISABLE == "true"
