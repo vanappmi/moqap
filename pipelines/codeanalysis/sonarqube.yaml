@@ -25,8 +25,14 @@ SonarQube:
   artifacts:
     paths:
       - artifacts/*
-  only:
-    - branches
-  except:
-    variables:
-      - $SONARQUBE_DISABLE == "true"
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: always
+    - if: $SONARQUBE_DISABLE == "true"
+      when: never
+
+  #only:
+  #  - branches
+  #except:
+  #  variables:
+  #    - $SONARQUBE_DISABLE == "true"
