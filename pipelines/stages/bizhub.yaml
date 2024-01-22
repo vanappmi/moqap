@@ -13,5 +13,5 @@ Deployment BizHub:
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   rules:
-    - if: $BIZHUB_DISABLE == "true"
-      when: never
+    - if: $BIZHUB_DISABLE == "false"
+      when: always
