@@ -4,9 +4,6 @@ include:
     ref: "3.3.7"
     file: "/sonarqube/sonarqube.yml"
 
-variables:
-  SONARQUBE_DISABLE: "false"
-
 SonarQube:
   extends: .Sonarqube-Java17
   stage: static-codeanalysis
