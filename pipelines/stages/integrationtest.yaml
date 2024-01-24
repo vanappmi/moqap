@@ -32,9 +32,9 @@ Download Dependencies:
   artifacts:
     paths:
       - artifacts/*
-  except:
-    variables:
-      - $BIZHUB_DISABLE == "true"
+  rules:
+    - if: $BIZHUB_DISABLE != "true"
+      when: always
 
 Download Secrets:
   stage: integrationtest
@@ -44,6 +44,7 @@ Download Secrets:
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   rules:
     - if: $CI_PROJECT_NAME == "betraprocess" && $BIZHUB_DISABLE != "true"
+      when: always
   script:
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - echo $RUNNER_MOUNT_PATH
@@ -58,8 +59,6 @@ Integration Test:
   stage: integrationtest
   <<: *job_template
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
-  only:
-    - branches
   needs:
     - job: Download Dependencies
       artifacts: true
@@ -85,6 +84,7 @@ Integration Test:
       - cucumber.xml
     reports:
        junit: cucumber.xml
-  except:
-    variables:
-      - $BIZHUB_DISABLE == "true"
+  rules:
+    - if: $BIZHUB_DISABLE != "true"
+      when: always
+

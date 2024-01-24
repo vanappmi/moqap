@@ -10,8 +10,9 @@ Upload Artifacts STAGE:
   extends: .Upload-Artifacts
   tags:
     - eks-dev
-  only:
-    - branches
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: always
   environment:
     name: ${DEPLOY_ENV}
   artifacts:

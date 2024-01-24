@@ -4,9 +4,6 @@ include:
     ref: "3.3.7"
     file: "/sonarqube/sonarqube.yml"
 
-variables:
-  SONARQUBE_DISABLE: "false"
-
 SonarQube:
   extends: .Sonarqube-Java17
   stage: static-codeanalysis
@@ -25,8 +22,6 @@ SonarQube:
   artifacts:
     paths:
       - artifacts/*
-  only:
-    - branches
-  except:
-    variables:
-      - $SONARQUBE_DISABLE == "true"
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: always
