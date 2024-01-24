@@ -40,3 +40,5 @@ variables:
   SERVICE_URL: ""
   imageVersion: ""
   BUILD_DISABLE: "false"
+  # CRONJOB
+  IS_CRONJOB: "false"
