@@ -4,8 +4,6 @@ Deployment BizHub:
   variables:
 #    STAGE: "review"
     CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
-  needs:
-    - job: Deployment STAGE
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
@@ -15,3 +13,7 @@ Deployment BizHub:
   rules:
     - if: $BIZHUB_DISABLE != "true"
       when: always
+      needs:
+        - job: Deployment STAGE
+      dependencies:
+        - Deployment STAGE
