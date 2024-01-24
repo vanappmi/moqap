@@ -5,11 +5,14 @@ include:
     file:
       - "/jmeter/jmeter.yml"
 
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
 LaP & PTA Test:
   extends: .jmeter
   stage: dynamic-test
-  tags:
-    - eks-dev
+  <<: *job_template
   needs:
     - job: Deployment BizHub
       optional: true
