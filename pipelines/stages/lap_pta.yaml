@@ -23,10 +23,14 @@ LaP & PTA Test:
     PLUGIN_PATH: "test/lup/plugins"
     ARTIFACTS_DIR: "artifacts"
   before_script:
+    - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
+    - echo $RUNNER_MOUNT_PATH
+    - export BETRAANTRAG_USERNAME=$(getSecret betraprocess_api_username $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_USERNAME)
+    - export BETRAANTRAG_PASSWORD=$(getSecret betraprocess_api_password $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_PASSWORD)
     - export BASE_SERVICE_URL=$(echo $BASE_SERVICE_URL | cut -c 9-)
     - echo $BASE_SERVICE_URL
-    - export CMMD_VAR="-JbaseURL=${BASE_SERVICE_URL}"
-    - echo $CMMD_VAR
+    - echo $BETRAANTRAG_USERNAME
+    - export CMMD_VAR="-JbaseURL=${BASE_SERVICE_URL} -JapiUsername=${BETRAANTRAG_USERNAME} -JapiPasswort=${BETRAANTRAG_PASSWORD}"
     - mkdir -p ./artifacts/
     - sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $TESTCASE_PATH
     - sed -i -e "s/REPLACE_ELASTIC_HOST/$ES_HOST/g" $TESTCASE_PATH
