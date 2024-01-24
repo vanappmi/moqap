@@ -6,8 +6,6 @@ Deployment BizHub:
     CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
   needs:
     - job: Deployment STAGE
-  dependencies:
-    - Deployment STAGE
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
