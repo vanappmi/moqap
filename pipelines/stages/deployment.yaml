@@ -95,13 +95,16 @@ Deployment STAGE:
     - echo $GIT_COMMIT_ID_ABBREV
     - echo $GIT_COMMIT_ID_7
     - |
-      while [ "$GIT_COMMIT_ID_ABBREV" != "$GIT_COMMIT_ID_7" ];
-      do
-        echo "sleep 10s"
-        sleep 10
-        echo "Start curl..."
-        GIT_COMMIT_ID_ABBREV=$(curl -Ss --insecure $SERVICE_URL | jq -R 'fromjson? | .git.commit.id.abbrev'  | tr -d \")
-        echo $GIT_COMMIT_ID_ABBREV
-        echo $GIT_COMMIT_ID_7
-      done
+      if [ $IS_CRONJOB != "true" ];
+      then
+        while [ "$GIT_COMMIT_ID_ABBREV" != "$GIT_COMMIT_ID_7" ];
+        do
+          echo "sleep 10s"
+          sleep 10
+          echo "Start curl..."
+          GIT_COMMIT_ID_ABBREV=$(curl -Ss --insecure $SERVICE_URL | jq -R 'fromjson? | .git.commit.id.abbrev'  | tr -d \")
+          echo $GIT_COMMIT_ID_ABBREV
+          echo $GIT_COMMIT_ID_7
+        done
+      fi
     - echo "Ready..."
