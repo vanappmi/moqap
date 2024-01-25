@@ -36,7 +36,10 @@ Whitesource:
     paths:
       - whitesource/**/*
       - artifacts/**/*
-  rules:
-    - if: $WHITESOURCE_DISABLE != "true"
-      when: always
+  only:
+    - branches
+  except:
+    variables:
+      - $WHITESOURCE_DISABLE == "true"
+
 
