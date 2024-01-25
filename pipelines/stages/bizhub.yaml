@@ -4,14 +4,15 @@ Deployment BizHub:
   variables:
 #    STAGE: "review"
     CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
+  rules:
+    - if: $BIZHUB_DISABLE != "true"
+      needs:
+        - job: Deployment STAGE
+    - if: $BIZHUB_DISABLE == "true"
+      when: never
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
         ref: "V1.1" # branch
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
-  needs:
-    - job: Deployment STAGE
-  except:
-    variables:
-      - $BIZHUB_DISABLE == "true"
