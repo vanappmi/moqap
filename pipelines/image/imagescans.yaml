@@ -15,18 +15,8 @@ variables:
   TARGET_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
   ARTIFACT_NAME: $CI_PROJECT_NAME
 
-.job_template: &job_template
-  tags:
-    - $PROJECT_RUNNER_TAG
-
-stages:
-  - .pre
-  - security-scan
-  - .post
-
 Scan Deployment STAGE Image:
   stage: security-scan
-  <<: *job_template
   variables:
     TRIVY_TARGET: "cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:version-1"
   trigger:
@@ -38,7 +28,6 @@ Scan Deployment STAGE Image:
 
 Scan Amazon Coretto 18-alpine base:
   stage: security-scan
-  <<: *job_template
   variables:
     TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:18-alpine"
   trigger:
@@ -48,9 +37,19 @@ Scan Amazon Coretto 18-alpine base:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
+Scan Amazon Coretto 19-alpine base:
+  stage: security-scan
+  variables:
+    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:19-alpine"
+  trigger:
+    include:
+      - project: "cnp/dbds/moqap" # dbds moqap project
+        ref: "V1.1" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
 Scan AWS Client Image:
   stage: security-scan
-  <<: *job_template
   variables:
     TRIVY_TARGET: "db-cd-lib-docker-release-local.bahnhub.tech.rz.db.de/aws-cli:latest"
   trigger:
@@ -62,7 +61,6 @@ Scan AWS Client Image:
 
 Scan Gitlab Runner Image:
   stage: security-scan
-  <<: *job_template
   variables:
     TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine-v16.4.1"
   trigger:
