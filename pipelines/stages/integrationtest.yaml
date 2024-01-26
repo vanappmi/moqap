@@ -32,11 +32,9 @@ Download Dependencies:
   artifacts:
     paths:
       - artifacts/*
-  rules:
-    - if: $BIZHUB_DISABLE != "true"
-      when: always
-    - if: $BIZHUB_DISABLE == "true"
-      when: never
+  except:
+    variables:
+      - $BIZHUB_DISABLE == "true"
 
 
 Download Secrets:
@@ -87,9 +85,9 @@ Integration Test:
       - cucumber.xml
     reports:
        junit: cucumber.xml
-  rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-      when: always
-    - if: $BIZHUB_DISABLE == "true"
-      when: never
+  only:
+    - branches
+  except:
+    variables:
+      - $BIZHUB_DISABLE == "true"
 

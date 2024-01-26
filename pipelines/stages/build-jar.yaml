@@ -14,11 +14,11 @@ Build Jar:
     - job: SonarQube
     - job: Whitesource
 #    - job: scan_secrets #comment in after secrets removal
-  rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-      when: always
-    - if: $BUILD_DISABLE == "true"
-      when: never
+  only:
+    - branches
+  except:
+    variables:
+      - $BUILD_DISABLE == "true"
   script:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS

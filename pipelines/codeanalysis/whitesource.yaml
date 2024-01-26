@@ -36,8 +36,10 @@ Whitesource:
     paths:
       - whitesource/**/*
       - artifacts/**/*
-  rules:
-    - if: ($CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH) && ($WHITESOURCE_DISABLE != "true")
-      when: always
-    - if: $WHITESOURCE_DISABLE == "true"
-      when: never
+  only:
+    - branches
+  except:
+    variables:
+      - $WHITESOURCE_DISABLE == "true"
+
+
