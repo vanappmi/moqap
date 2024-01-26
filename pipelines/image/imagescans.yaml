@@ -15,6 +15,11 @@ variables:
   TARGET_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
   ARTIFACT_NAME: $CI_PROJECT_NAME
 
+stages:
+  - .pre
+  - security-scan
+  - .post
+
 Scan Deployment STAGE Image:
   stage: security-scan
   variables:
