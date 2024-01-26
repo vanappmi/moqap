@@ -7,6 +7,11 @@ include:
   tags:
     - $PROJECT_RUNNER_TAG
 
+stages:
+  - .pre
+  - security-scan
+  - .post
+
 Trivy Check Image:
   extends: .Trivy Scan
   stage: security-scan
