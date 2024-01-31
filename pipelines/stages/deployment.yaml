@@ -88,15 +88,15 @@ Deployment STAGE:
     #- argocd app sync dpf-datanet-$env-artenkartierung-backend --grpc-web
     # wait until deployment completed
     #    - argocd app wait dpf-datanet-$env-artenkartierung-backend --grpc-web
-    - echo $SERVICE_URL
-    - GIT_COMMIT_ID_ABBREV=$(curl -Ss --insecure $SERVICE_URL | jq -R 'fromjson? | .git.commit.id.abbrev'  | tr -d \")
-    - GIT_GIT_COMMIT_SHORT=$CI_COMMIT_SHORT_SHA
-    - GIT_COMMIT_ID_7=${GIT_GIT_COMMIT_SHORT:0:7}
-    - echo $GIT_COMMIT_ID_ABBREV
-    - echo $GIT_COMMIT_ID_7
     - |
       if [ $IS_CRONJOB != "true" ];
       then
+        echo $SERVICE_URL
+        GIT_COMMIT_ID_ABBREV=$(curl -Ss --insecure $SERVICE_URL | jq -R 'fromjson? | .git.commit.id.abbrev'  | tr -d \")
+        GIT_GIT_COMMIT_SHORT=$CI_COMMIT_SHORT_SHA
+        GIT_COMMIT_ID_7=${GIT_GIT_COMMIT_SHORT:0:7}
+        echo $GIT_COMMIT_ID_ABBREV
+        echo $GIT_COMMIT_ID_7
         while [ "$GIT_COMMIT_ID_ABBREV" != "$GIT_COMMIT_ID_7" ];
         do
           echo "sleep 10s"
