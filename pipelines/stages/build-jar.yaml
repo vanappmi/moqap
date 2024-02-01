@@ -8,12 +8,12 @@ Build Jar:
     - lint_dockerfile
     - SonarQube
     - Whitesource
-#    - scan_secrets #comment in after secrets removal
+    - scan_secrets
   needs:
     - job: lint_dockerfile
     - job: SonarQube
     - job: Whitesource
-#    - job: scan_secrets #comment in after secrets removal
+    - job: scan_secrets
   only:
     - branches
   except:
