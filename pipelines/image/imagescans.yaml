@@ -18,7 +18,7 @@ variables:
 Scan Deployment STAGE Image:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:version-1"
+    TRIVY_TARGET: "cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2"
   trigger:
     include:
       - project: "cnp/dbds/moqap" # dbds moqap project
