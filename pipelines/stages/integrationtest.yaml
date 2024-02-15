@@ -89,4 +89,4 @@ Integration Test:
     - branches
   except:
     variables:
-      - $BIZHUB_DISABLE == "true" || $INTEGRATIONTEST_DISABLE == "true"
+      - $INTEGRATIONTEST_DISABLE == "true"
