@@ -66,8 +66,6 @@ Integration Test:
         - job: Download Dependencies
           artifacts: true
         - job: Deployment BizHub
-        - job: Download Secrets
-          artifacts: true
       when: always
   dependencies:
     - Download Dependencies
