@@ -61,7 +61,7 @@ Integration Test:
   <<: *job_template
   image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
   rules:
-    - if: $CI_PROJECT_NAME == "betraprocess" && $BIZHUB_DISABLE != "true"
+    - if: $CI_PROJECT_NAME == "betraprocess" && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
       needs:
         - job: Download Dependencies
           artifacts: true
@@ -88,5 +88,3 @@ Integration Test:
       - cucumber.xml
     reports:
        junit: cucumber.xml
-  only:
-    - branches
