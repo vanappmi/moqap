@@ -68,9 +68,9 @@ Integration Test:
         - job: Deployment BizHub
         - job: Download Secrets
           artifacts: true
-      dependencies:
-        - Download Dependencies
       when: always
+  dependencies:
+    - Download Dependencies
   script:
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - echo $RUNNER_MOUNT_PATH
