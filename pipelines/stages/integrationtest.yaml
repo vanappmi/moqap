@@ -85,6 +85,6 @@ Integration Test:
     name: "Cucumber Report"
     paths:
       - cucumber.html
-      - cucumber.xml
+      - results.octane.xml
     reports:
-       junit: cucumber.xml
+       junit: results.octane.xml
