@@ -12,6 +12,7 @@ variables:
   RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-runner-${STAGE_ENV}"
   BETRAANTRAG_USERNAME: ""
   BETRAANTRAG_PASSWORD: ""
+  JUNIT_REPORT_FILENAME: "results.octane.xml"
 
 .job_template: &job_template
   tags:
@@ -85,6 +86,6 @@ Integration Test:
     name: "Cucumber Report"
     paths:
       - cucumber.html
-      - results.octane.xml
+      - ${JUNIT_REPORT_FILENAME}
     reports:
-       junit: results.octane.xml
+       junit: ${JUNIT_REPORT_FILENAME}
