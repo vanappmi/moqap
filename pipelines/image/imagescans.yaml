@@ -22,7 +22,7 @@ Scan Pipeline STAGE Image:
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
-        ref: "$CURRRENT_VERSION" # branch
+        ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
@@ -33,7 +33,7 @@ Scan Service Deployment Image:
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
-        ref: "V$CURRRENT_VERSION" # branch
+        ref: "V$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
@@ -44,7 +44,7 @@ Scan Amazon Coretto 18-alpine base:
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
-        ref: "$CURRRENT_VERSION" # branch
+        ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
@@ -55,7 +55,7 @@ Scan Amazon Coretto 19-alpine base:
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
-        ref: "$CURRRENT_VERSION" # branch
+        ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
@@ -66,7 +66,7 @@ Scan AWS Client Image:
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
-        ref: "$CURRRENT_VERSION" # branch
+        ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
@@ -77,6 +77,6 @@ Scan Gitlab Runner Image:
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
-        ref: "$CURRRENT_VERSION" # branch
+        ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
