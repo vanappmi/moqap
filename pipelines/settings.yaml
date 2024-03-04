@@ -1,5 +1,6 @@
 ---
 variables:
+  CURRRENT_VERSION: "V1.2"
   PROJECT_NAME: $CI_PROJECT_NAME
   PREFIX_CI_DEPLOYMENT_NAME: $PROJECT_NAME
   DEV_HELM: "./child-pipelines/${DEPLOY_ENV}/values-${DEPLOY_ENV}.yaml"
