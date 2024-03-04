@@ -13,6 +13,6 @@ Deployment BizHub:
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
-        ref: "V1.1" # branch
+        ref: "V1.2" # branch
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
