@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "3.3.7"
+    ref: "4.0.7"
     file: "/artifactory/clean_artifactory.yml"
 
 Clean Artifactory:

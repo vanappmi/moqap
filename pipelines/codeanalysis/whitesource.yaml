@@ -1,6 +1,6 @@
 include:
   - project: "moqap/modules"
-    ref: "3.3.7"
+    ref: "4.0.7"
     file: "/whitesource/whitesource.yml"
 
 variables:
@@ -16,7 +16,7 @@ Whitesource:
   variables:
     WS_SERVER_URL: "https://whitesource.int-app.comp.db.de/agent"
     WS_API_URL: "https://whitesource.int-app.comp.db.de/api"
-    WS_CONFIG_FILE: "/opt/whitesource/wss-unified-agent.config"
+    WS_CONFIG_FILE: "$CI_PROJECT_DIR/config/whitesource.cfg"
     WS_PROJECT_NAME: "${CI_PROJECT_NAME}"
     WS_PROJECT_VERSION: "${CI_COMMIT_REF_NAME}"
     WHITESOURCE_apiKey: $WHITESOURCE_APIKEY
@@ -27,6 +27,11 @@ Whitesource:
   tags:
     - $PROJECT_RUNNER_TAG
   before_script:
+    - export WHITESOURCE_PRODUCT_TOKEN="$WHITESOURCE_PRODUCTTOKEN"
+    - export WHITESOURCE_API_KEY="$WHITESOURCE_APIKEY"
+    - export WHITESOURCE_PROJECT_TOKEN="$WHITESOURCE_PROJECTTOKEN"
+    - export WHITESOURCE_USER_KEY="$WHITESOURCE_USERKEY"
+    - export WHITESOURCE_CONFIG_FILE="$WS_CONFIG_FILE"
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
     - ./gradlew clean build bootJar -x test

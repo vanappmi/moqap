@@ -1,18 +1,21 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "3.3.7"
+    ref: "4.0.7"
     file: "/sonarqube/sonarqube.yml"
 
 SonarQube:
   extends: .Sonarqube-Java17
   stage: static-codeanalysis
   variables:
+#    SECRETS:
+#      SONARQUBE_TOKEN:"$SONARQUBE_USER_ID_TOKEN"
     SONARQUBE_HOST_URL: "https://dbds-sonarqube.cnp-test.comp.db.de/"
     SONARQUBE_SOURCE_DIR: "src"
   tags:
     - $PROJECT_RUNNER_TAG
   before_script:
+    - export SONARQUBE_TOKEN="$SONARQUBE_USER_ID_TOKEN"
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
     - ./gradlew clean build jacocoTestCoverageVerification
