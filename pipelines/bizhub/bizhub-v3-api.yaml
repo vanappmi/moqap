@@ -1,8 +1,8 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "3.3.7"
-#    ref: "4.0.7"
+#    ref: "3.3.7"
+    ref: "4.0.7"
     file: "/business-hub/api-portal/api-only-v3.yml"
 
 variables:
@@ -27,6 +27,8 @@ bizhub_base:
   before_script:
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - echo "DEPLOY_ENV=$DEPLOY_ENV"
+    - export DEPLOYER_APP_CLIENT_ID=$FIELD_DEPLOYER_APP_CLIENT_ID
+    - export DEPLOYER_APP_CLIENT_SECRET=$FIELD_DEPLOYER_APP_CLIENT_SECRET
     - export SERVICE_USER=$(getSecret $FIELD_SERVICE_USER $RUNNER_MOUNT_PATH $FAIL SERVICE_USER)
     - export SERVICE_PASSWORD=$(getSecret $FIELD_SERVICE_PASSWORD $RUNNER_MOUNT_PATH $FAIL SERVICE_PASSWORD)
     - echo "SERVICE_USER=$SERVICE_USER"
