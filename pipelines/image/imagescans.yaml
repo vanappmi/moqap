@@ -33,7 +33,7 @@ Scan Service Deployment Image:
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
-        ref: "V$CURRENT_VERSION" # branch
+        ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
