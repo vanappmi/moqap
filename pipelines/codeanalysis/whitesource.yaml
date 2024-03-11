@@ -34,7 +34,6 @@ Whitesource:
     - export WHITESOURCE_CONFIG_FILE="$WS_CONFIG_FILE"
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
-    - ./gradlew clean build bootJar -x test
   after_script:
     - cp whitesource/*/* artifacts/
   artifacts:
