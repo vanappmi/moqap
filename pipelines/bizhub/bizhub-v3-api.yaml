@@ -18,6 +18,7 @@ variables:
   FIELD_SERVICE_PASSWORD: "service-password"
   CONNECT_CONFIG: $BIZHUB_CONNECT_CONFIG
   DEPLOY_ENV: ""
+  SOPS: "false"
 #  SECRETS:
 #    BIZHUB_DEPLOYER_APP_CLIENT_ID: $FIELD_DEPLOYER_APP_CLIENT_ID,
 #    BIZHUB_DEPLOYER_APP_CLIENT_SECRET: $FIELD_DEPLOYER_APP_CLIENT_SECRET
@@ -31,6 +32,8 @@ bizhub_base:
   before_script:
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - echo "DEPLOY_ENV=$DEPLOY_ENV"
+    - export DEPLOYER_APP_CLIENT_ID=""
+    - export DEPLOYER_APP_CLIENT_SECRET=""
     - export BIZHUB_DEPLOYER_APP_CLIENT_ID="$FIELD_DEPLOYER_APP_CLIENT_ID"
     - export BIZHUB_DEPLOYER_APP_CLIENT_SECRET="$FIELD_DEPLOYER_APP_CLIENT_SECRET"
     - export SERVICE_USER=$(getSecret $FIELD_SERVICE_USER $RUNNER_MOUNT_PATH $FAIL SERVICE_USER)
