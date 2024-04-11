@@ -1,8 +1,11 @@
 ---
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
 Build Jar:
   stage: build-jar
-  tags:
-    - eks-dev
+  <<: *job_template
   image: cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
   dependencies:
     - lint_dockerfile

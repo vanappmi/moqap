@@ -4,15 +4,20 @@ include:
     ref: "4.0.7"
     file: "/artifactory/clean_artifactory.yml"
 
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
 Clean Artifactory:
   extends: .Clean-artifactory
   stage: cleanup
   needs:
     - job: Build Image STAGE
       optional: true
-  tags:
-    - eks-dev
+  <<: *job_template
   variables:
     DAYS: 30
     CONFIG_FILE: pipelines/clean_artifactory_conf.yaml
     DRY_RUN: "false"
+  before_script:
+    - AWS_SM_SECRET_PATH=""

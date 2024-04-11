@@ -63,7 +63,7 @@ Deployment STAGE:
       then
         cd dbds-ops/dbds-prod/deployment
       else
-        cd dbds-ops/deployment/
+        cd dbds-ops/dbds-iat/deployment/
       fi
     - ls -al
     # use yq to replace the tag with the current commit hash

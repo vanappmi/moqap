@@ -1,16 +1,18 @@
 ---
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
 start-release:
   stage: release
-  tags:
-    - eks-dev
+  <<: *job_template
   image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
   script:
     - echo "start release"
 
 release-script:
   stage: release
-  tags:
-    - eks-dev
+  <<: *job_template
   image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
   needs:
     - job: start-release
