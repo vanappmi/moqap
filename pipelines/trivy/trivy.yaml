@@ -1,6 +1,6 @@
 include:
   - project: "moqap/modules"
-    ref: "4.0.7"
+    ref: "4.0.9"
     file: "/trivy/trivy.yml"
 
 .job_template: &job_template

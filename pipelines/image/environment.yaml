@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "4.0.7"
+    ref: "4.0.9"
     file:
       - "/eks/kaniko/kaniko.yml"
       - "/artifactory/stage_artifacts.yml"
