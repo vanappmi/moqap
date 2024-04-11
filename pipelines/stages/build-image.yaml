@@ -1,4 +1,8 @@
 ---
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
 Build Image STAGE:
   extends: .kaniko-build
   dependencies:
@@ -6,11 +10,11 @@ Build Image STAGE:
   needs:
     - job: Build Jar
   stage: build-image
-  tags:
-    - eks-dev
+  <<: *job_template
   environment:
     name: ${DEPLOY_ENV}
   before_script:
+    - AWS_SM_SECRET_PATH=""
     - echo $CI_PIPELINE_SOURCE
   artifacts:
     paths:

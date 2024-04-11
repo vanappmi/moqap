@@ -9,3 +9,4 @@ variables:
   STAGE_ENV: "dev"
   LAP_TEST_DISABLE: "true"
   TRIGGER_BUILD_MANUALLY: "true"
+  PROJECT_RUNNER_TAG: "eks-dev"

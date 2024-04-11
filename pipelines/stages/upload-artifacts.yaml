@@ -5,11 +5,14 @@ include:
     file:
       - "/artifactory/upload_artifacts_dir.yml"
 
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
 Upload Artifacts STAGE:
   stage: upload
   extends: .Upload-Artifacts
-  tags:
-    - eks-dev
+  <<: *job_template
   only:
     - branches
   environment:
@@ -26,3 +29,5 @@ Upload Artifacts STAGE:
     ARTIFACTS_DIR: "artifacts"
     ARTIFACTORY_USER: $ARTIFACTORY_USER
     ARTIFACTORY_PASSWORD: $ARTIFACTORY_PASSWORD
+  before_script:
+    - AWS_SM_SECRET_PATH=""

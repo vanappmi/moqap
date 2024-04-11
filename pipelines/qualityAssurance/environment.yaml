@@ -9,6 +9,10 @@ include:
   - "/pipelines/settings.yaml"
   - "/pipelines/stages/integrationtest.yaml"
 
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
 variables:
   PROJECT_RUNNER_TAG: "eks-dev"
   DEV_DOCKER_REPO: "cna-3bservices-dev-docker-stage-local"
@@ -24,8 +28,7 @@ stages:
 
 Build Jar:
   stage: build-jar
-  tags:
-    - eks-dev
+  <<: *job_template
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   script:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
@@ -46,8 +49,7 @@ Build Jar:
 
 Upload Artifacts:
   stage: upload
-  tags:
-    - eks-dev
+  <<: *job_template
   extends: .Upload-Artifacts
   only:
     - branches
