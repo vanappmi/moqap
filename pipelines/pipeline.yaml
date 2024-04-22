@@ -19,7 +19,7 @@ include:
   - "/pipelines/stages/secrets-scan.yaml"
   - "/pipelines/stages/bizhub.yaml"
   - "/pipelines/trivy/trivy.yaml"
-#  - "/pipelines/stages/integrationtest.yaml"
+  - "/pipelines/stages/integrationtest.yaml"
   - "/pipelines/artifactory/clean_artifactory.yaml"
 
 stages:
@@ -31,6 +31,6 @@ stages:
   - security-scan
   - argo-cd-deploy
   - bizhub-deploy
-#  - integrationtest
+  - integrationtest
   - cleanup
   - .post
