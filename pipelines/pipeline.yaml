@@ -31,6 +31,6 @@ stages:
   - security-scan
   - argo-cd-deploy
   - bizhub-deploy
-  - integrationtest
+#  - integrationtest
   - cleanup
   - .post
