@@ -23,7 +23,7 @@ Download Dependencies:
   stage: integrationtest
   <<: *job_template
   rules:
-    - if: $CI_PROJECT_NAME == "betraprocess" && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
+    - if: ($CI_PROJECT_NAME == "betraprocess" || $CI_PROJECT_NAME == "tveService") && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
       needs:
         - job: Deployment BizHub
       when: always
@@ -37,8 +37,25 @@ Download Dependencies:
     paths:
       - artifacts/*
 
+Download tVEService Secrets :
+  stage: integrationtest
+  <<: *job_template
+  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
+  rules:
+    - if: $CI_PROJECT_NAME == "tveService" && $BIZHUB_DISABLE != "true"
+      needs:
+        - job: Deployment BizHub
+      when: always
+  script:
+    - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
+    - echo $RUNNER_MOUNT_PATH
+    - export BETRAANTRAG_USERNAME=$(getSecret tve_api_username $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_USERNAME)
+    - export BETRAANTRAG_PASSWORD=$(getSecret tve_api_password $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_PASSWORD)
+    - export BETRAANTRAG_CLIENTSECRET=$(getSecret api_key $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTSECRET)
+    - export BETRAANTRAG_CLIENTID=$(getSecret client_id $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTID)
+    - echo $BETRAANTRAG_USERNAME = BETRAANTRAG_USERNAME
 
-Download Secrets:
+Download BetraProzess Secrets:
   stage: integrationtest
   <<: *job_template
   image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
@@ -62,7 +79,7 @@ Integration Test:
   <<: *job_template
   image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
   rules:
-    - if: $CI_PROJECT_NAME == "betraprocess" && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
+    - if: ($CI_PROJECT_NAME == "betraprocess" || $CI_PROJECT_NAME == "tveService") && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
       needs:
         - job: Download Dependencies
           artifacts: true
@@ -73,14 +90,7 @@ Integration Test:
   dependencies:
     - Download Dependencies
   script:
-    - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
-    - echo $RUNNER_MOUNT_PATH
-    - export BETRAANTRAG_USERNAME=$(getSecret betraprocess_api_username $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_USERNAME)
-    - export BETRAANTRAG_PASSWORD=$(getSecret betraprocess_api_password $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_PASSWORD)
-    - export BETRAANTRAG_CLIENTSECRET=$(getSecret api_key $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTSECRET)
-    - export BETRAANTRAG_CLIENTID=$(getSecret client_id $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTID)
-    - echo $BETRAANTRAG_USERNAME = BETRAANTRAG_USERNAME
-    - java -DDEPLOY_ENV=${DEPLOY_ENV} -DARTIFACT_NAME=${ARTIFACT_NAME} -DBASEURL=${BASE_SERVICE_URL} -DUSER=${BETRAANTRAG_USERNAME} -DPASSWORD=${BETRAANTRAG_PASSWORD} -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
+    - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
     name: "Cucumber Report"
