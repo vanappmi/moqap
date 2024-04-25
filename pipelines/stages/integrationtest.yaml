@@ -56,6 +56,10 @@ Download Secrets:
     - export BETRAANTRAG_CLIENTID=$(getSecret client_id $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTID)
     - echo "BETRAANTRAG_USERNAME=$BETRAANTRAG_USERNAME" >> betrauser.env
     - echo "BETRAANTRAG_PASSWORD=$BETRAANTRAG_PASSWORD" >> betrauser.env
+  artifacts:
+    reports:
+      dotenv: betrauser.env
+
 
 
 
