@@ -37,7 +37,7 @@ Download Dependencies:
     paths:
       - artifacts/*
 
-Download tVEService Secrets :
+Download tveService Secrets :
   stage: integrationtest
   <<: *job_template
   image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
@@ -55,7 +55,7 @@ Download tVEService Secrets :
     - export BETRAANTRAG_CLIENTID=$(getSecret client_id $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_CLIENTID)
     - echo $BETRAANTRAG_USERNAME = BETRAANTRAG_USERNAME
 
-Download BetraProzess Secrets:
+Download betraprocess Secrets:
   stage: integrationtest
   <<: *job_template
   image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
@@ -84,7 +84,7 @@ Integration Test:
         - job: Download Dependencies
           artifacts: true
         - job: Deployment BizHub
-        - job: Download Secrets
+        - job: Download $CI_PROJECT_NAME Secrets
           artifacts: true
       when: always
   dependencies:
