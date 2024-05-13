@@ -26,10 +26,21 @@ Scan Pipeline STAGE Image:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan Service Deployment Image:
+Scan Service Deployment Image (Java19):
   stage: security-scan
   variables:
     TRIVY_TARGET: "cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-19"
+  trigger:
+    include:
+      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
+Scan Service Deployment Image (Java21):
+  stage: security-scan
+  variables:
+    TRIVY_TARGET: "cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21"
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
@@ -52,6 +63,17 @@ Scan Amazon Coretto 19-alpine base:
   stage: security-scan
   variables:
     TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:19-alpine"
+  trigger:
+    include:
+      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
+Scan Amazon Coretto 21-alpine base:
+  stage: security-scan
+  variables:
+    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:21-alpine"
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
