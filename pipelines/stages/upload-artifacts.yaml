@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "4.0.9"
+    ref: "4.0.11"
     file:
       - "/artifactory/upload_artifacts_dir.yml"
 
