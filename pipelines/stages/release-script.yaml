@@ -63,7 +63,7 @@ release-script:
     - git checkout development
     - echo $GRADLE_OPTS
     - ./gradlew generateGitLog
-    - sed -i "s/OLD_VERSION/$CURRENT_VERSION/g" gradle.properties
+    - sed -i "s/$OLD_VERSION/$CURRENT_VERSION/g" gradle.properties
     - sed -i "s/$CURRENT_VERSION/$NEW_VERSION/g" gradle.properties
     - cat gradle.properties
     - git add .
