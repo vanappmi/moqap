@@ -14,9 +14,7 @@ variables:
   PROPERTY_FILE: "ci.properties"
   RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-${STAGE_ENV}"
   JUNIT_REPORT_FILENAME: "results.octane.xml"
-  SECRETS:
-    BETRAANTRAG_USERNAME:betraprocess_api_username,
-    BETRAANTRAG_PASSWORD:betraprocess_api_password
+
 
 .job_template: &job_template
   tags:
@@ -86,7 +84,7 @@ Integration Test:
   dependencies:
     - Download Dependencies
   script:
-    - !reference [.template secrets, script]
+    - !reference [ .template secrets, script ]
     - echo $BETRAANTRAG_USERNAME
     - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
@@ -96,4 +94,4 @@ Integration Test:
       - cucumber.html
       - ${JUNIT_REPORT_FILENAME}
     reports:
-       junit: ${JUNIT_REPORT_FILENAME}
+      junit: ${JUNIT_REPORT_FILENAME}
