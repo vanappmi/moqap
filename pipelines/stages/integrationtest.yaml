@@ -81,6 +81,7 @@ Integration Test:
   dependencies:
     - Download Dependencies
   script:
+    - export
     - echo $BETRAANTRAG_USERNAME
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - export BETRAANTRAG_USERNAME=$(getSecret betraprocess_api_username $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_USERNAME)
