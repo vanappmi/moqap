@@ -23,7 +23,7 @@ Download Dependencies:
   extends: .Download-Artifacts
   stage: integrationtest
   rules:
-    - if: ($CI_PROJECT_NAME == "betraprocess" || $CI_PROJECT_NAME == "tve") && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
+    - if: ($CI_PROJECT_NAME == "betraprocess" || $CI_PROJECT_NAME == "tveservice") && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
       needs:
         - job: Deployment BizHub
       when: always
