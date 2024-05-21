@@ -43,7 +43,7 @@ Integration Test:
   variables:
     AWS_SM_SECRET_PATH: $RUNNER_MOUNT_PATH
   rules:
-    - if: $CI_PROJECT_NAME == "betraprocess" && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
+    - if: ($CI_PROJECT_NAME == "betraprocess" || $CI_PROJECT_NAME == "tveservice") && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
       needs:
         - job: Download Dependencies
           artifacts: true
