@@ -28,7 +28,7 @@ Build Jar:
     - gradle clean build jacocoTestCoverageVerification bootJar
     - mkdir -p ./artifacts/
     - cp build/libs/*.jar ./artifacts/
-    - cp ${buildDir}/reports/jacoco/test/jacocoTestReport.xml jacocoTestReport.xml
+    - cp */**/jacocoTestReport.xml jacocoTestReport.xml
   artifacts:
     paths:
       - artifacts/*
