@@ -53,6 +53,8 @@ Integration Test:
     - Download Dependencies
   script:
     - !reference [ .template secrets, script ]
+    - cd artifacts
+    - ls
     - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
