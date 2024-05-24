@@ -53,9 +53,9 @@ Integration Test:
     - Download Dependencies
   script:
     - !reference [ .template secrets, script ]
-    - cd artifacts
+    - cp ./artifacts/testframework-1.0-SNAPSHOT-all.jar .
     - ls
-    - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
+    - java -jar testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
     name: "Cucumber Report"
