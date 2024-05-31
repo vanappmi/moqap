@@ -54,7 +54,6 @@ Integration Test:
   script:
     - !reference [ .template secrets, script ]
     - cp ./artifacts/testframework-1.0-SNAPSHOT-all.jar .
-    - ls
     - java -jar testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
