@@ -18,6 +18,7 @@ SonarQube:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
     - ./gradlew clean build jacocoTestCoverageVerification
+    - echo $SONARQUBE_TOKEN
   after_script:
     - mkdir -p artifacts/public
     - curl --output "artifacts/public/alert_status.svg" "$SONARQUBE_HOST_URL/api/project_badges/measure?project=$SONARQUBE_PROJECT_KEY&metric=alert_status"
