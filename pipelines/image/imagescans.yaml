@@ -84,7 +84,7 @@ Scan Amazon Coretto 21-alpine base:
 Scan AWS Client Image:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "db-cd-lib-docker-release-local.bahnhub.tech.rz.db.de/aws-cli:latest"
+    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazon/aws-cli:latest"
   trigger:
     include:
       - project: "cnp/dbds/ops/moqap" # dbds moqap project
