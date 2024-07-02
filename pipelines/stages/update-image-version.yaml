@@ -9,7 +9,7 @@ Deployment STAGE:
     - job: Promote STAGE
       artifacts: true
       optional: true
-  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
   <<: *job_template
   dependencies:
     - Promote STAGE
@@ -59,10 +59,10 @@ Deployment STAGE:
     # https://stackoverflow.com/questions/69648216/yq-issue-adding-yaml-into-yaml/69649872#69649872
     # - cat Dockerfile | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" Dockerfile || echo "#updated on `date +%s`" >> Dockerfile
     #- cat Dockerfile | grep -q "" >> Dockerfile
-    - sed -i "1s/.*/FROM cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de\/basis-pipeline-image:$KANIKO_IMAGE_TAG/" Dockerfile
+    - sed -i "1s/.*/FROM ${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de\/basis-pipeline-image:$KANIKO_IMAGE_TAG/" Dockerfile
     - cat Dockerfile
-    - git config --global user.email "dbds@pipeline.com"
-    - git config --global user.name "dbds Pipeline"
+    - git config --global user.email "bbpneo@pipeline.com"
+    - git config --global user.name "bbpneo Pipeline"
     - git add Dockerfile
     - git commit -m "update Dockerfile"
     - git push --set-upstream origin master

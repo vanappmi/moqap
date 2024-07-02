@@ -1,6 +1,6 @@
 ---
 variables:
-  CURRENT_VERSION: "V1.2"
+  CURRENT_VERSION: "V1.5"
   PROJECT_NAME: $CI_PROJECT_NAME
   PREFIX_CI_DEPLOYMENT_NAME: $PROJECT_NAME
   DEV_HELM: "./child-pipelines/${DEPLOY_ENV}/values-${DEPLOY_ENV}.yaml"
@@ -30,10 +30,10 @@ variables:
   WS_CONFIG_FILE: "/opt/whitesource/wss-unified-agent.config"
   # ARTIFACTORY
   ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
-  DEV_DOCKER_REPO: "cna-3bservices-dev-docker-stage-local"
-  AU_DOCKER_REPO: "cna-3bservices-au-docker-stage-local"
-  LUP_DOCKER_REPO: "cna-3bservices-lup-docker-stage-local"
-  PROD_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
+  DEV_DOCKER_REPO: "cna-bbpneo-dev-docker-stage-local"
+  AU_DOCKER_REPO: "cna-bbpneo-au-docker-stage-local"
+  LUP_DOCKER_REPO: "cna-bbpneo-lup-docker-stage-local"
+  PROD_DOCKER_REPO: "cna-bbpneo-prod-docker-stage-local"
   # KANIKO
   KANIKO_IMAGE_TAG: "$CI_COMMIT_REF_NAME-$CI_ENVIRONMENT_SLUG-$CI_COMMIT_SHORT_SHA"
   # TESTS

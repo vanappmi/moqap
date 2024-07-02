@@ -15,7 +15,7 @@ Deployment STAGE:
     - if: ($DEPLOY_ENV == "au" || $DEPLOY_ENV  == "lup" || $DEPLOY_ENV  == "prod") && $CI_COMMIT_BRANCH
       needs:
         - job: Trivy Check Image
-  image: cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
   <<: *job_template
   dependencies:
     - Trivy Check Image
@@ -57,13 +57,13 @@ Deployment STAGE:
     # clone shared-cluster-ops repo
     # https://git.tech.rz.db.de/cnp/dbds/dbds-ops.git
     - ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
-    - git clone git@ssh.git.tech.rz.db.de:cnp/dbds/dbds-ops.git
+    - git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
     - |
       if [ $DEPLOY_ENV == "prod" ];
       then
-        cd dbds-ops/dbds-prod/deployment
+        cd bbpneo-ops/bbpneo-prod/deployment
       else
-        cd dbds-ops/dbds-iat/deployment/
+        cd bbpneo-ops/bbpneo-iat/deployment/
       fi
     - ls -al
     # use yq to replace the tag with the current commit hash
@@ -72,8 +72,8 @@ Deployment STAGE:
     # - yq e -i '.spec.source.targetRevision = strenv(DEPLOY_BRANCH)' $DEPLOY_TEMPLATE
     - cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
     - cat $DEPLOY_TEMPLATE
-    - git config --global user.email "dbds@pipeline.com"
-    - git config --global user.name "dbds Pipeline"
+    - git config --global user.email "bbpneo@pipeline.com"
+    - git config --global user.name "bbpneo Pipeline"
     - git add $DEPLOY_TEMPLATE
     - git commit -m "update $DEPLOY_TEMPLATE"
     - git push --set-upstream origin master

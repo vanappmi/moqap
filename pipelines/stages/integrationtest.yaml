@@ -31,7 +31,7 @@ Download Dependencies:
     - mkdir -p ./artifacts/
     - cp download/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
   variables:
-    ARTIFACTORY_PATH: "cna-3bservices-dev-docker-stage-local/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
+    ARTIFACTORY_PATH: "${DEV_DOCKER_REPO}/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
     TARGET_DIR: "download"
   artifacts:
     paths:

@@ -14,10 +14,10 @@ include:
     - $PROJECT_RUNNER_TAG
 
 variables:
-  PROJECT_RUNNER_TAG: "eks-dev"
-  DEV_DOCKER_REPO: "cna-3bservices-dev-docker-stage-local"
+  PROJECT_RUNNER_TAG: "eks-entwicklung"
+  DEV_DOCKER_REPO: "${DEV_DOCKER_REPO}"
   SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
-  TARGET_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
+  TARGET_DOCKER_REPO: "${PROD_DOCKER_REPO}"
   ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
 
 stages:

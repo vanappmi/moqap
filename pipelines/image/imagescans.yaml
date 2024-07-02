@@ -3,7 +3,7 @@ include:
   - "/pipelines/settings.yaml"
 
 variables:
-  PROJECT_RUNNER_TAG: "eks-dev"
+  PROJECT_RUNNER_TAG: "eks-entwicklung"
   DEPLOY_ENV: "dev"
   DEV_DOCKER_REPO: "cna-3bservices-dev-docker-stage-local"
   CI_REGISTRY: "${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de"
