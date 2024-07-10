@@ -33,6 +33,18 @@ Artifacts STAGE:
     - ${PROJECT_RUNNER_TAG}
   environment:
     name: ${DEPLOY_ENV}
+  before_script:
+    - echo $DEV_DOCKER_REPO
+    - echo $PROD_DOCKER_REPO
+    - echo $CI_PIPELINE_SOURCE
+    - echo $ARTIFACT_NAME
+    - echo $SOURCE_PATH
+    - echo $TARGET_PATH
+    - echo $ARTIFACTORY_URL
+    - echo $ARTIFACTORY_USER
+    - echo $OPTIONS
+    - echo $SOURCE_TAG
+    - echo $TARGET_TAG
 
 Promote STAGE:
   extends: .Stage-Artifacts
