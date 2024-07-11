@@ -17,7 +17,7 @@ variables:
   SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
   TARGET_DOCKER_REPO: "${PROD_DOCKER_REPO}"
   ARTIFACT_NAME: $CI_PROJECT_NAME
-  AWS_SM_SECRET_PATH: "/runner/secrets/runner-provider-entwicklung"
+  AWS_SM_SECRET_PATH: "/runner/secrets/gitlab-runner-secret-claim-pvvtp"
   SECRETS:
     CI_REGISTRY_USER:RUNNER_ARTIFACTORY_USER,
     CI_REGISTRY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
@@ -35,6 +35,7 @@ Artifacts STAGE:
   environment:
     name: ${DEPLOY_ENV}
   before_script:
+    - !reference [.template secrets, script]
     - echo $DEV_DOCKER_REPO
     - echo $PROD_DOCKER_REPO
     - echo $CI_PIPELINE_SOURCE
@@ -48,7 +49,6 @@ Artifacts STAGE:
     - echo $OPTIONS
     - echo $SOURCE_TAG
     - echo $TARGET_TAG
-    - sleep 120
 
 Promote STAGE:
   extends: .Stage-Artifacts
