@@ -48,7 +48,7 @@ Artifacts STAGE:
     - echo $OPTIONS
     - echo $SOURCE_TAG
     - echo $TARGET_TAG
-    - sleep 60
+    - sleep 120
 
 Promote STAGE:
   extends: .Stage-Artifacts
