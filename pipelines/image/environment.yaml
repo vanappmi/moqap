@@ -35,7 +35,6 @@ Artifacts STAGE:
   environment:
     name: ${DEPLOY_ENV}
   before_script:
-    - !reference [.template secrets, script]
     - echo $DEV_DOCKER_REPO
     - echo $PROD_DOCKER_REPO
     - echo $CI_PIPELINE_SOURCE
