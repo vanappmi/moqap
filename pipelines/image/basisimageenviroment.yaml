@@ -1,6 +1,5 @@
 include:
   - "pipelines/image/environment.yaml"
-  - "pipelines/stages/update-image-version.yaml"
 
 stages:
   - build-image
