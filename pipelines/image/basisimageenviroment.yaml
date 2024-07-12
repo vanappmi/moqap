@@ -6,4 +6,3 @@ stages:
   - build-image
   - security-scan
   - stage-artifacts
-  - update-image-version
