@@ -5,37 +5,34 @@ include:
 variables:
   PROJECT_RUNNER_TAG: "eks-entwicklung"
   DEPLOY_ENV: "dev"
-  DEV_DOCKER_REPO: "cna-3bservices-dev-docker-stage-local"
   CI_REGISTRY: "${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de"
-  CI_REGISTRY_USER: $ARTIFACTORY_USER
-  CI_REGISTRY_PASSWORD: $ARTIFACTORY_PASSWORD
   KANIKO_IMAGE_TAG: $CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
   TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$KANIKO_IMAGE_TAG"
   SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
-  TARGET_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
+  TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
   ARTIFACT_NAME: $CI_PROJECT_NAME
 
-Scan Pipeline STAGE Image:
-  stage: security-scan
-  variables:
-    TRIVY_TARGET: "cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2"
-  trigger:
-    include:
-      - project: "cnp/dbds/ops/moqap" # dbds moqap project
-        ref: "$CURRENT_VERSION" # branch
-        file: "pipelines/trivy/trivy-scanimage.yaml"
-    strategy: depend
+#Scan Pipeline STAGE Image:
+#  stage: security-scan
+#  variables:
+#    TRIVY_TARGET: "cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2"
+#  trigger:
+#    include:
+#      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+#        ref: "$CURRENT_VERSION" # branch
+#        file: "pipelines/trivy/trivy-scanimage.yaml"
+#    strategy: depend
 
-Scan Service Deployment Image (Java19):
-  stage: security-scan
-  variables:
-    TRIVY_TARGET: "cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-19"
-  trigger:
-    include:
-      - project: "cnp/dbds/ops/moqap" # dbds moqap project
-        ref: "$CURRENT_VERSION" # branch
-        file: "pipelines/trivy/trivy-scanimage.yaml"
-    strategy: depend
+#Scan Service Deployment Image (Java19):
+#  stage: security-scan
+#  variables:
+#    TRIVY_TARGET: "cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-19"
+#  trigger:
+#    include:
+#      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+#        ref: "$CURRENT_VERSION" # branch
+#        file: "pipelines/trivy/trivy-scanimage.yaml"
+#    strategy: depend
 
 Scan Service Deployment Image (Java21):
   stage: security-scan
