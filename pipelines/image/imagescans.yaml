@@ -15,7 +15,7 @@ variables:
 #Scan Pipeline STAGE Image:
 #  stage: security-scan
 #  variables:
-#    TRIVY_TARGET: "cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2"
+#    TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2"
 #  trigger:
 #    include:
 #      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
@@ -26,7 +26,7 @@ variables:
 #Scan Service Deployment Image (Java19):
 #  stage: security-scan
 #  variables:
-#    TRIVY_TARGET: "cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-19"
+#    TRIVY_TARGET: "cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-19"
 #  trigger:
 #    include:
 #      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
@@ -37,7 +37,7 @@ variables:
 Scan Service Deployment Image (Java21):
   stage: security-scan
   variables:
-    TRIVY_TARGET: "cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21"
+    TRIVY_TARGET: "cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
