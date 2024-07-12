@@ -18,7 +18,7 @@ variables:
 #    TRIVY_TARGET: "cna-3bservices-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2"
 #  trigger:
 #    include:
-#      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+#      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
 #        ref: "$CURRENT_VERSION" # branch
 #        file: "pipelines/trivy/trivy-scanimage.yaml"
 #    strategy: depend
@@ -29,7 +29,7 @@ variables:
 #    TRIVY_TARGET: "cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-19"
 #  trigger:
 #    include:
-#      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+#      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
 #        ref: "$CURRENT_VERSION" # branch
 #        file: "pipelines/trivy/trivy-scanimage.yaml"
 #    strategy: depend
@@ -40,7 +40,7 @@ Scan Service Deployment Image (Java21):
     TRIVY_TARGET: "cna-3bservices-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21"
   trigger:
     include:
-      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
         ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
@@ -51,7 +51,7 @@ Scan Amazon Coretto 18-alpine base:
     TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:18-alpine"
   trigger:
     include:
-      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
         ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
@@ -62,7 +62,7 @@ Scan Amazon Coretto 19-alpine base:
     TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:19-alpine"
   trigger:
     include:
-      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
         ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
@@ -73,7 +73,7 @@ Scan Amazon Coretto 21-alpine base:
     TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:21-alpine"
   trigger:
     include:
-      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
         ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
@@ -84,7 +84,7 @@ Scan AWS Client Image:
     TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazon/aws-cli:latest"
   trigger:
     include:
-      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
         ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
@@ -95,7 +95,7 @@ Scan Gitlab Runner Image:
     TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine-v16.8.0"
   trigger:
     include:
-      - project: "cnp/dbds/ops/moqap" # dbds moqap project
+      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
         ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
