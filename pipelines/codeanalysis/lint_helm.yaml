@@ -5,6 +5,9 @@ include:
     file:
       - "/lint/helm/lint_helm.yml"
 
+variables:
+  PROJECT_RUNNER_TAG: "eks-entwicklung"
+
 .job_template: &job_template
   tags:
     - $PROJECT_RUNNER_TAG
