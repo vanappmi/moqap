@@ -92,7 +92,7 @@ Scan AWS Client Image:
 Scan Gitlab Runner Image:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine-v16.8.0"
+    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine-v16.11.1"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
