@@ -12,9 +12,23 @@ variables:
   tags:
     - $PROJECT_RUNNER_TAG
 
-lint_helm:
+lint_helm eks:
   extends: .lint_helm
   stage: static-codeanalysis
   <<: *job_template
   variables:
     LINT_HELM_PATH: "./helm-charts/eks"
+
+lint_helm cnp-api:
+  extends: .lint_helm
+  stage: static-codeanalysis
+  <<: *job_template
+  variables:
+    LINT_HELM_PATH: "./helm-charts/cnp-api"
+
+lint_helm grafana-dashboard:
+  extends: .lint_helm
+  stage: static-codeanalysis
+  <<: *job_template
+  variables:
+    LINT_HELM_PATH: "./helm-charts/grafana-dashboard"
