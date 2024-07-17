@@ -15,10 +15,17 @@ include:
 
 variables:
   PROJECT_RUNNER_TAG: "eks-entwicklung"
-  DEV_DOCKER_REPO: "${DEV_DOCKER_REPO}"
   SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
   TARGET_DOCKER_REPO: "${PROD_DOCKER_REPO}"
   ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
+  DEPLOY_ENV: "int"
+  BIZHUB_DISABLE: "false"
+  PROPERTY_FILE: "ci.properties"
+  JUNIT_REPORT_FILENAME: "results.octane.xml"
+  SECRETS:
+    BETRAANTRAG_USERNAME:BETRAANTRAG_USERNAME,
+    BETRAANTRAG_PASSWORD:BETRAANTRAG_PASSWORD
+
 
 stages:
   - .pre
@@ -41,7 +48,6 @@ Build Jar:
     - branches
   artifacts:
     paths:
-      - src/target/*
       - artifacts/*
       - .gradle/
   variables:
@@ -59,5 +65,81 @@ Upload Artifacts:
     - Build Jar
   needs:
     - job: Build Jar
+  after_script:
+    - echo "DEV_DOCKER_REPO '$DEV_DOCKER_REPO'"
+    - echo "CI_PROJECT_NAMESPACE '$CI_PROJECT_NAMESPACE'"
+    - echo "CI_PROJECT_NAME '$CI_PROJECT_NAME'"
+    - echo "CI_COMMIT_REF_NAME '$CI_COMMIT_REF_NAME'"
+    - echo "$DEPLOY_ENV '$DEPLOY_ENV'"
   variables:
     TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG/"
+
+Download Dependencies:
+  extends: .Download-Artifacts
+  only:
+    - master
+  stage: integrationtest
+  <<: *job_template
+  after_script:
+    - mkdir -p ./artifacts/
+    - cp download/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
+  variables:
+    ARTIFACTORY_PATH: "cna-bbpneo-dev-docker-stage-local/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
+    TARGET_DIR: "download"
+  artifacts:
+    paths:
+      - artifacts/*
+  except:
+    variables:
+      - $BIZHUB_DISABLE == "true"
+
+Download Secrets:
+  stage: integrationtest
+  only:
+    - master
+  <<: *job_template
+  needs:
+    - job: Download Dependencies
+      artifacts: true
+  image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
+  script:
+    - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
+    - echo $RUNNER_MOUNT_PATH
+    - export BETRAANTRAG_PASSWORD=password
+    - export BETRAANTRAG_USERNAME=hallo world
+    - echo $BETRAANTRAG_USERNAME
+    - echo $BETRAANTRAG_PASSWORD
+    - echo "BETRAANTRAG_USERNAME=$BETRAANTRAG_USERNAME" >> betrauser.env
+    - echo "BETRAANTRAG_PASSWORD=$BETRAANTRAG_PASSWORD" >> betrauser.env
+  artifacts:
+    reports:
+      dotenv: betrauser.env
+
+Integration Test:
+  stage: integrationtest
+  <<: *job_template
+  image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
+  only:
+    - master
+  needs:
+    - job: Download Dependencies
+      artifacts: true
+    - job: Download Secrets
+  dependencies:
+    - Download Dependencies
+    - Download Secrets
+  script:
+    - echo $BETRAANTRAG_USERNAME
+    - echo $BETRAANTRAG_PASSWORD
+    - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
+  artifacts:
+    when: always
+    name: "Cucumber Report"
+    paths:
+      - cucumber.html
+      - ${JUNIT_REPORT_FILENAME}
+    reports:
+      junit: ${JUNIT_REPORT_FILENAME}
+  except:
+    variables:
+      - $BIZHUB_DISABLE == "true"
