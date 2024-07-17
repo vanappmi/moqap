@@ -76,8 +76,6 @@ Upload Artifacts:
 
 Download Dependencies:
   extends: .Download-Artifacts
-  only:
-    - master
   stage: integrationtest
   <<: *job_template
   after_script:
