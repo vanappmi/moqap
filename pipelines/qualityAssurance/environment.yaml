@@ -26,7 +26,6 @@ variables:
     BETRAANTRAG_USERNAME:BETRAANTRAG_USERNAME,
     BETRAANTRAG_PASSWORD:BETRAANTRAG_PASSWORD
 
-
 stages:
   - .pre
   - build-jar
@@ -57,8 +56,6 @@ Upload Artifacts:
   stage: upload
   <<: *job_template
   extends: .Upload-Artifacts
-  only:
-    - branches
   environment:
     name: ${DEPLOY_ENV}
   dependencies:
@@ -93,8 +90,6 @@ Download Dependencies:
 
 Download Secrets:
   stage: integrationtest
-  only:
-    - master
   <<: *job_template
   needs:
     - job: Download Dependencies
@@ -117,8 +112,6 @@ Integration Test:
   stage: integrationtest
   <<: *job_template
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
-  only:
-    - master
   needs:
     - job: Download Dependencies
       artifacts: true
