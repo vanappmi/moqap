@@ -87,9 +87,9 @@ Download Dependencies:
   <<: *job_template
   after_script:
     - mkdir -p ./artifacts/
-    - cp download/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
+    - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
   variables:
-    ARTIFACTORY_PATH: "cna-bbpneo-dev-docker-stage-local/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
+    ARTIFACTORY_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG/artifacts/"
     TARGET_DIR: "download"
     SECRETS:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
