@@ -65,6 +65,7 @@ Upload Artifacts:
   needs:
     - job: Build Jar
   before_script:
+    - echo $AWS_SM_SECRET_PATH
     - !reference [.template secrets, script]
     - echo $ARTIFACTORY_USER
   after_script:
