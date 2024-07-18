@@ -4,30 +4,30 @@ include:
     ref: "5.0.0"
     file:
       - "/artifactory/download_artifacts_dir.yml" #gibt es noch nicht in den includes muss in pipeline.yaml hinterlegt werden
+      - "/artifactory/clean_artifactory.yml"
       - "/artifactory/upload_artifacts_dir.yml"
       - "/eks/kaniko/kaniko.yml"
   - "/pipelines/settings.yaml"
-  - "/pipelines/stages/integrationtest.yaml"
 
 .job_template: &job_template
   tags:
     - $PROJECT_RUNNER_TAG
 
 variables:
-  PROJECT_RUNNER_TAG: "eks-entwicklung"
+  PROJECT_RUNNER_TAG: "eks-dev"
+  DEV_DOCKER_REPO: "cna-3bservices-dev-docker-stage-local"
   SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
-  TARGET_DOCKER_REPO: "${PROD_DOCKER_REPO}"
+  TARGET_DOCKER_REPO: "cna-3bservices-prod-docker-stage-local"
   ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
-  DEPLOY_ENV: "int"
+  ARTIFACT_NAME: $CI_PROJECT_NAME
+  DEPLOY_ENV: "testframework thinks"
   BIZHUB_DISABLE: "false"
-  PROPERTY_FILE: "ci.properties"
   JUNIT_REPORT_FILENAME: "results.octane.xml"
   SECRETS:
     BETRAANTRAG_USERNAME:BETRAANTRAG_USERNAME,
     BETRAANTRAG_PASSWORD:BETRAANTRAG_PASSWORD
 
 stages:
-  - .pre
   - build-jar
   - upload
   - integrationtest
@@ -56,6 +56,8 @@ Upload Artifacts:
   stage: upload
   <<: *job_template
   extends: .Upload-Artifacts
+  only:
+    - master
   environment:
     name: ${DEPLOY_ENV}
   dependencies:
@@ -73,6 +75,8 @@ Upload Artifacts:
 
 Download Dependencies:
   extends: .Download-Artifacts
+  only:
+    - master
   stage: integrationtest
   <<: *job_template
   after_script:
@@ -90,6 +94,8 @@ Download Dependencies:
 
 Download Secrets:
   stage: integrationtest
+  only:
+    - master
   <<: *job_template
   needs:
     - job: Download Dependencies
@@ -112,6 +118,8 @@ Integration Test:
   stage: integrationtest
   <<: *job_template
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
+  only:
+    - master
   needs:
     - job: Download Dependencies
       artifacts: true
