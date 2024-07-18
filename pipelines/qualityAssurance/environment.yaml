@@ -73,6 +73,7 @@ Upload Artifacts:
     - echo "CI_PROJECT_NAME '$CI_PROJECT_NAME'"
     - echo "CI_COMMIT_REF_NAME '$CI_COMMIT_REF_NAME'"
     - echo "$DEPLOY_ENV '$DEPLOY_ENV'"
+    - echo $ARTIFACTORY_PATH
   variables:
     TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG/"
     SECRETS:
@@ -86,6 +87,7 @@ Download Dependencies:
   stage: integrationtest
   <<: *job_template
   after_script:
+    - echo $ARTIFACTORY_PATH
     - mkdir -p ./artifacts/
     - ls -al downloads
     - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUGartifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
