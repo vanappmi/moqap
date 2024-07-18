@@ -17,7 +17,7 @@ variables:
   PROJECT_RUNNER_TAG: "eks-entwicklung"
   DEV_DOCKER_REPO: "cna-bbpneo-dev-docker-stage-local"
   SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
-  TARGET_DOCKER_REPO: "cna-bbpneo-prod-docker-stage-local"
+  TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
   ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
   ARTIFACT_NAME: $CI_PROJECT_NAME
   DEPLOY_ENV: "testframework thinks"
@@ -25,9 +25,7 @@ variables:
   JUNIT_REPORT_FILENAME: "results.octane.xml"
   SECRETS:
     BETRAANTRAG_USERNAME:BETRAANTRAG_USERNAME,
-    BETRAANTRAG_PASSWORD:BETRAANTRAG_PASSWORD,
-    ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USERNAME,
-    ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+    BETRAANTRAG_PASSWORD:BETRAANTRAG_PASSWORD
 
 stages:
   - build-jar
@@ -66,6 +64,9 @@ Upload Artifacts:
     - Build Jar
   needs:
     - job: Build Jar
+  before_script:
+    - !reference [.template secrets, script]
+    - echo $ARTIFACTORY_USER
   after_script:
     - echo "DEV_DOCKER_REPO '$DEV_DOCKER_REPO'"
     - echo "CI_PROJECT_NAMESPACE '$CI_PROJECT_NAMESPACE'"
