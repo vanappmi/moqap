@@ -87,9 +87,10 @@ Download Dependencies:
   <<: *job_template
   after_script:
     - mkdir -p ./artifacts/
+    - ls -al downloads
     - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUGartifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
   variables:
-    ARTIFACTORY_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG/"
+    ARTIFACTORY_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG"
     TARGET_DIR: "download"
     SECRETS:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
