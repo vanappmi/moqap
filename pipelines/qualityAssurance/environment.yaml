@@ -25,7 +25,9 @@ variables:
   JUNIT_REPORT_FILENAME: "results.octane.xml"
   SECRETS:
     BETRAANTRAG_USERNAME:BETRAANTRAG_USERNAME,
-    BETRAANTRAG_PASSWORD:BETRAANTRAG_PASSWORD
+    BETRAANTRAG_PASSWORD:BETRAANTRAG_PASSWORD,
+    ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
+    ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
 
 stages:
   - build-jar
@@ -54,20 +56,19 @@ Build Jar:
 
 Upload Artifacts:
   stage: upload
-  <<: *job_template
   extends: .Upload-Artifacts
+  <<: *job_template
   only:
     - master
   environment:
     name: ${DEPLOY_ENV}
+  artifacts:
+    paths:
+      - artifacts/*
   dependencies:
     - Build Jar
   needs:
     - job: Build Jar
-  before_script:
-    - echo $AWS_SM_SECRET_PATH
-    - !reference [.template secrets, script]
-    - echo $ARTIFACTORY_USER
   after_script:
     - echo "DEV_DOCKER_REPO '$DEV_DOCKER_REPO'"
     - echo "CI_PROJECT_NAMESPACE '$CI_PROJECT_NAMESPACE'"
@@ -76,9 +77,6 @@ Upload Artifacts:
     - echo "$DEPLOY_ENV '$DEPLOY_ENV'"
   variables:
     TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG/"
-    SECRETS:
-      ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USERNAME,
-      ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
 
 Download Dependencies:
   extends: .Download-Artifacts
