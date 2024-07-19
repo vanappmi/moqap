@@ -89,7 +89,8 @@ Download Dependencies:
   after_script:
     - echo $ARTIFACTORY_PATH
     - mkdir -p ./artifacts/
-    - ls -al download
+    - ls -al download/cnp
+    - tree download
     - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA/$CI_ENVIRONMENT_SLUG/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
   variables:
     ARTIFACTORY_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG"
