@@ -89,7 +89,6 @@ Download Dependencies:
     - echo $ARTIFACTORY_PATH
     - echo $TARGET_PATH
     - mkdir -p ./artifacts/
-    - chmod 777 -R ./artifacts/
     - ls -lR download
     - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$DEPLOY_ENV/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
   variables:
