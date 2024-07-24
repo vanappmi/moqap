@@ -76,7 +76,6 @@ Upload Artifacts:
     - echo "CI_PROJECT_NAMESPACE '$CI_PROJECT_NAMESPACE'"
     - echo "CI_PROJECT_NAME '$CI_PROJECT_NAME'"
     - echo "CI_COMMIT_REF_NAME '$CI_COMMIT_REF_NAME'"
-    - echo "CI_ENVIRONMENT_SLUG '$CI_ENVIRONMENT_SLUG'"
     - echo "DEPLOY_ENV '$DEPLOY_ENV'"
     - echo $TARGET_PATH
 
@@ -91,7 +90,7 @@ Download Dependencies:
     - echo $TARGET_PATH
     - mkdir -p ./artifacts/
     - ls -lR download
-    - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA/$DEPLOY_ENV/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
+    - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$DEPLOY_ENV/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
   variables:
     ARTIFACTORY_PATH: "$MAVEN_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG"
     TARGET_DIR: "download"
