@@ -15,12 +15,10 @@ include:
 
 variables:
   PROJECT_RUNNER_TAG: "eks-entwicklung"
-  DEV_DOCKER_REPO: "cna-bbpneo-dev-docker-stage-local"
-  SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
-  TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
+  MAVEN_DOCKER_REPO: "cna-bbpneo-commonlibs-maven-stage-local"
   ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
   ARTIFACT_NAME: $CI_PROJECT_NAME
-  DEPLOY_ENV: "testframework thinks"
+  DEPLOY_ENV: "dev"
   BIZHUB_DISABLE: "false"
   JUNIT_REPORT_FILENAME: "results.octane.xml"
   SECRETS:
@@ -67,18 +65,20 @@ Upload Artifacts:
     - Build Jar
   needs:
     - job: Build Jar
-  after_script:
-    - echo "DEV_DOCKER_REPO '$DEV_DOCKER_REPO'"
-    - echo "CI_PROJECT_NAMESPACE '$CI_PROJECT_NAMESPACE'"
-    - echo "CI_PROJECT_NAME '$CI_PROJECT_NAME'"
-    - echo "CI_COMMIT_REF_NAME '$CI_COMMIT_REF_NAME'"
-    - echo "DEPLOY_ENV '$DEPLOY_ENV'"
-    - echo $TARGET_PATH
   variables:
-    TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG/"
+    TARGET_PATH: "$MAVEN_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG/"
+    ARTIFACTS_DIR: "artifacts"
     SECRETS:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
       ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  after_script:
+    - echo "MAVEN_DOCKER_REPO '$MAVEN_DOCKER_REPO'"
+    - echo "CI_PROJECT_NAMESPACE '$CI_PROJECT_NAMESPACE'"
+    - echo "CI_PROJECT_NAME '$CI_PROJECT_NAME'"
+    - echo "CI_COMMIT_REF_NAME '$CI_COMMIT_REF_NAME'"
+    - echo "CI_ENVIRONMENT_SLUG '$CI_ENVIRONMENT_SLUG'"
+    - echo "DEPLOY_ENV '$DEPLOY_ENV'"
+    - echo $TARGET_PATH
 
 Download Dependencies:
   extends: .Download-Artifacts
@@ -93,7 +93,7 @@ Download Dependencies:
     - ls -lR download
     - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA/$DEPLOY_ENV/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
   variables:
-    ARTIFACTORY_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG"
+    ARTIFACTORY_PATH: "$MAVEN_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG"
     TARGET_DIR: "download"
     SECRETS:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
