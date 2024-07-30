@@ -22,10 +22,23 @@ Build Jar:
   except:
     variables:
       - $BUILD_DISABLE == "true"
+  before_script:
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+  cache:
+    key:
+      files:
+        - gradle/wrapper/gradle-wrapper.properties
+    paths:
+      - ".gradle/caches"
+      - ".gradle/wrapper"
+      - cache/caches/
+      - cache/notifications/
+      - cache/wrapper/
+    policy: pull-push
   script:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
-    - gradle clean build jacocoTestCoverageVerification bootJar
+    - ./gradlew --build-cache --gradle-user-home cache/ build jacocoTestCoverageVerification bootJar
     - mkdir -p ./artifacts/
     - cp build/libs/*.jar ./artifacts/
   artifacts:
