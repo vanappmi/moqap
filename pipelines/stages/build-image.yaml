@@ -22,6 +22,7 @@ Build Image STAGE:
       CI_REGISTRY_USER:RUNNER_ARTIFACTORY_USER,
       CI_REGISTRY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
   before_script:
+    - !reference [ .template secrets, script ]
     - echo $CI_REGISTRY_USER
 #  rules:
 #    - if: $TRIGGER_BUILD_MANUALLY == "true"
