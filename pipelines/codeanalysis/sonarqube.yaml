@@ -15,22 +15,6 @@ SonarQube:
       ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
   tags:
     - $PROJECT_RUNNER_TAG
-  cache:
-    key:
-      files:
-        - gradle/wrapper/gradle-wrapper.properties
-    paths:
-      - ".gradle/caches"
-      - ".gradle/wrapper"
-      - cache/caches/
-      - cache/notifications/
-      - cache/wrapper/
-    policy: pull-push
-  before_script:
-    - export GRADLE_USER_HOME=`pwd`/.gradle
-    - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
-    - echo $GRADLE_OPTS
-    - ./gradlew --build-cache --gradle-user-home cache/ build jacocoTestCoverageVerification
   after_script:
     - mkdir -p artifacts/public
     - curl --output "artifacts/public/alert_status.svg" "$SONARQUBE_HOST_URL/api/project_badges/measure?project=$SONARQUBE_PROJECT_KEY&metric=alert_status"
