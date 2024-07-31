@@ -22,18 +22,3 @@ Build Image STAGE:
     SECRETS:
       CI_REGISTRY_USER:RUNNER_ARTIFACTORY_USER,
       CI_REGISTRY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
-  before_script:
-    - !reference [ .template secrets, script ]
-    - echo $CI_REGISTRY_USER
-    - echo $CI_REGISTRY
-    - echo $KANIKO_IMAGE_TAG
-    - echo $KANIKO_CONTEXT_DIR
-    - echo $DOCKER_CONFIG
-    - echo $KANIKO_DOCKERFILE
-    - echo $KANIKO_SOURCE_REPO
-#  rules:
-#    - if: $TRIGGER_BUILD_MANUALLY == "true"
-#      when: manual
-#      allow_failure: true
-#    - if: $TRIGGER_BUILD_MANUALLY == "false"
-#      when: always
