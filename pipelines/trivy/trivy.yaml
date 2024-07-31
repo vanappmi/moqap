@@ -24,11 +24,10 @@ Trivy Check Image:
     - if: '$DEPLOY_ENV != "dev" && $DEPLOY_ENV  != "int"'
   variables:
     TRIVY_ADD_CMD: "--no-progress --timeout 30m --offline-scan --debug --scanners vuln"
-    TRIVY_USERNAME: $ARTIFACTORY_USER
-    TRIVY_PASSWORD: $ARTIFACTORY_PASSWORD
     TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
-  before_script:
-    - AWS_SM_SECRET_PATH=""
+    SECRETS:
+      TRIVY_USERNAME:RUNNER_ARTIFACTORY_USER,
+      TRIVY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
 
 Trivy Check Repo:
   extends: .Trivy Scan
@@ -42,6 +41,7 @@ Trivy Check Repo:
   variables:
     TRIVY_TARGET: "$CI_PROJECT_DIR"
     TRIVY_SCAN_CMD: "filesystem"
+    SECRETS:
+      TRIVY_USERNAME:RUNNER_ARTIFACTORY_USER,
+      TRIVY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
   allow_failure: true
-  before_script:
-    - AWS_SM_SECRET_PATH=""
