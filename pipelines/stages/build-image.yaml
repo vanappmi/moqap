@@ -24,6 +24,8 @@ Build Image STAGE:
   before_script:
     - !reference [ .template secrets, script ]
     - echo $CI_REGISTRY_USER
+    - echo $CI_REGISTRY
+    - echo $KANIKO_IMAGE_TAG
 #  rules:
 #    - if: $TRIGGER_BUILD_MANUALLY == "true"
 #      when: manual
