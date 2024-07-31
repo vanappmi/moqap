@@ -19,5 +19,6 @@ Clean Artifactory:
     DAYS: 30
     CONFIG_FILE: pipelines/clean_artifactory_conf.yaml
     DRY_RUN: "false"
-  before_script:
-    - AWS_SM_SECRET_PATH=""
+    SECRETS:
+      ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
+      ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
