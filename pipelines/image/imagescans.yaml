@@ -45,17 +45,6 @@ Scan Service Deployment Image (Java21):
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan Amazon Coretto 18-alpine base:
-  stage: security-scan
-  variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:18-alpine"
-  trigger:
-    include:
-      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
-        ref: "$CURRENT_VERSION" # branch
-        file: "pipelines/trivy/trivy-scanimage.yaml"
-    strategy: depend
-
 Scan Amazon Coretto 19-alpine base:
   stage: security-scan
   variables:
@@ -89,13 +78,13 @@ Scan AWS Client Image:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan Gitlab Runner Image v17.2.1:
-  stage: security-scan
-  variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine-v17.2.1"
-  trigger:
-    include:
-      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
-        ref: "$CURRENT_VERSION" # branch
-        file: "pipelines/trivy/trivy-scanimage.yaml"
-    strategy: depend
+#Scan Gitlab Runner Image v17.2.1:
+#  stage: security-scan
+#  variables:
+#    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine-v17.2.1"
+#  trigger:
+#    include:
+#      - project: "cnp/bbpneo/02-ops/moqap" # dbds moqap project
+#        ref: "$CURRENT_VERSION" # branch
+#        file: "pipelines/trivy/trivy-scanimage.yaml"
+#    strategy: depend
