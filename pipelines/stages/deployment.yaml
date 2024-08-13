@@ -15,7 +15,7 @@ Deployment STAGE:
     - if: ($DEPLOY_ENV == "au" || $DEPLOY_ENV  == "lup" || $DEPLOY_ENV  == "prod") && $CI_COMMIT_BRANCH
       needs:
         - job: Trivy Check Image
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-2
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
   <<: *job_template
   dependencies:
     - Trivy Check Image
