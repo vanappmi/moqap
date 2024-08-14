@@ -28,7 +28,7 @@ stages:
   - security-scan
   - stage-artifacts
 
-Artifacts STAGE:
+Build Image:
   extends: .kaniko-build
   stage: build-image
   tags:
@@ -41,7 +41,7 @@ Artifacts STAGE:
       CI_REGISTRY_USER:RUNNER_ARTIFACTORY_USER,
       CI_REGISTRY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
 
-Promote STAGE:
+Promote STAGE prod repo:
   extends: .Stage-Artifacts
   stage: stage-artifacts
   tags:
