@@ -49,9 +49,9 @@ Deployment STAGE:
     # update new tag in shared-cluster-ops repo
     ######################################################################################
     # clone shared-cluster-ops repo
-    # https://git.tech.rz.db.de/cnp/dbds/dbds-ops.git
+    # https://git.tech.rz.db.de/cnp/bbpneo/bbpneo-ops.git
     - ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
-    - git clone git@ssh.git.tech.rz.db.de:cnp/dbds/baseimages/basis-gitlab-runner-image.git
+    - git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/03-baseimages/basis-gitlab-runner-image.git
     - cd basis-gitlab-runner-image
     - git status
     - ls -al
