@@ -30,7 +30,9 @@ Deployment STAGE:
     - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
     - export SSH_PRIVATE_KEY_1=$(getSecret RUNNER_SSH_KEY $AWS_SM_SECRET_PATH $FAIL SSH_PRIVATE_KEY_)
     - echo $SSH_PRIVATE_KEY_1 | tail -c 100
-    - echo "$SSH_PRIVATE_KEY_1" | base64 -d | tr -d "\r" | tail -c 100
+    - echo "$SSH_PRIVATE_KEY_1" | base64 -d | tr -d "\r" | tail -c 150
+    - echo "$SSH_PRIVATE_KEY_1" | base64 -d | tail -c 150
+    - echo "$SSH_PRIVATE_KEY_1" | base64 -d | base64 | base64 -d | tail -c 150
     ######################################################################################
     # install everything
     ######################################################################################
@@ -45,7 +47,8 @@ Deployment STAGE:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     # - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - ssh-add <(echo "$SSH_PRIVATE_KEY_1" | base64 -d | tr -d "\r")
+    # - ssh-add <(echo "$SSH_PRIVATE_KEY_1" | base64 -d | tr -d "\r")
+    - ssh-add <(echo "$SSH_PRIVATE_KEY_1" | base64 -d)
     - ssh-add -l
     ################################################
     #- mkdir -p ~/.ssh
