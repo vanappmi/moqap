@@ -48,12 +48,12 @@ Deployment STAGE:
     - ssh-add <(echo "$SSH_PRIVATE_KEY_1" | base64 -d | tr -d "\r")
     - ssh-add -l
     ################################################
-    - mkdir -p ~/.ssh
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - chmod og= ~/.ssh
-    - chmod og= ~/.ssh/config
-    - ls -al ~/.ssh
-    - cat ~/.ssh/config
+    #- mkdir -p ~/.ssh
+    #- echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    #- chmod og= ~/.ssh
+    #- chmod og= ~/.ssh/config
+    #- ls -al ~/.ssh
+    #- cat ~/.ssh/config
     ################################################
     - echo $CI_COMMIT_SHORT_SHA;
     - export LOWERCASE_REF_NAME="$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
