@@ -33,6 +33,9 @@ Download Dependencies:
   variables:
     ARTIFACTORY_PATH: "${DEV_DOCKER_REPO}/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
     TARGET_DIR: "download"
+    SECRETS:
+      ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
+      ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
   artifacts:
     paths:
       - artifacts/*
