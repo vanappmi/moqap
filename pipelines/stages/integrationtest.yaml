@@ -33,7 +33,7 @@ Download Dependencies:
     - mkdir -p ./artifacts/
     - ls -lR download
     # - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$DEPLOY_ENV/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
-    - cp download/cna-bbpneo-commonlibs-maven-stage-local/cnp/bbpneo/07-quality-assurance-and-test/testframework/master/dev/artifacts/testframework-1.0-SNAPSHOT-all.jar artifacts
+    - cp download/cnp/bbpneo/07-quality-assurance-and-test/testframework/master/dev/artifacts/testframework-1.0-SNAPSHOT-all.jar artifacts
   variables:
     ARTIFACTORY_PATH: "$MAVEN_DOCKER_REPO/cnp/bbpneo/07-quality-assurance-and-test/testframework/master/"
 
