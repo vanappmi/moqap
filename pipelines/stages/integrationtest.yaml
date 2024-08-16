@@ -12,7 +12,6 @@ variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
   BASE_SERVICE_URL: $BASE_SERVICE_URL
   PROPERTY_FILE: "ci.properties"
-  RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-${STAGE_ENV}"
   JUNIT_REPORT_FILENAME: "results.octane.xml"
   MAVEN_DOCKER_REPO: "cna-bbpneo-commonlibs-maven-stage-local"
 
@@ -48,8 +47,6 @@ Download Dependencies:
 Integration Test:
   stage: integrationtest
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
-  variables:
-    AWS_SM_SECRET_PATH: $RUNNER_MOUNT_PATH
   rules:
     - if: ($CI_PROJECT_NAME == "betraprocess" || $CI_PROJECT_NAME == "tveservice") && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
       needs:
