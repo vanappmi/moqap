@@ -29,7 +29,8 @@ Download Dependencies:
       when: always
   after_script:
     - mkdir -p ./artifacts/
-    - cp download/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
+    - ls -lR download
+    - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$DEPLOY_ENV/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
   variables:
     ARTIFACTORY_PATH: "${DEV_DOCKER_REPO}/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
     TARGET_DIR: "download"
