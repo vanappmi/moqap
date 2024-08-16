@@ -14,6 +14,7 @@ variables:
   PROPERTY_FILE: "ci.properties"
   RUNNER_MOUNT_PATH: "/tmp/${PROJECT_NAME}/${PROJECT_NAME}-${STAGE_ENV}/${PROJECT_NAME}-secret-claim-${STAGE_ENV}"
   JUNIT_REPORT_FILENAME: "results.octane.xml"
+  MAVEN_DOCKER_REPO: "cna-bbpneo-commonlibs-maven-stage-local"
 
 default:
   tags:
@@ -34,7 +35,8 @@ Download Dependencies:
     # - cp download/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$DEPLOY_ENV/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
     - cp download/cna-bbpneo-commonlibs-maven-stage-local/cnp/bbpneo/07-quality-assurance-and-test/testframework/master/dev/artifacts/testframework-1.0-SNAPSHOT-all.jar artifacts
   variables:
-    ARTIFACTORY_PATH: "$MAVEN_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_ENVIRONMENT_SLUG/"
+    ARTIFACTORY_PATH: "$MAVEN_DOCKER_REPO/cnp/bbpneo/07-quality-assurance-and-test/testframework/master/"
+
     TARGET_DIR: "download"
     SECRETS:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
