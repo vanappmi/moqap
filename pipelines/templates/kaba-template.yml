@@ -127,7 +127,7 @@ whitesource_NPM:
 #### Build Jobs ###
 build_npm:
   stage: compile
-  image: cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-gitlab-runner-image:java-21-node
+  image: cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-gitlab-runner-image:java-22-node
   script:
     - cd ./${PROJECT_FOLDER}
     - npm install
