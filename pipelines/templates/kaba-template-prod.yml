@@ -52,7 +52,7 @@ variables:
 #### Build Jobs ###
 build_npm:
   stage: compile
-  image: cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-gitlab-runner-image:java-22-node
+  image: cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
   script:
     - cd ./${PROJECT_FOLDER}
     - npm install
