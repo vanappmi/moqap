@@ -2,7 +2,7 @@
 ### Imports ###
 include:
   - project: "moqap/starterpaket/pipeline"
-    ref: "4.0.9"
+    ref: "7.0.0"
     file:
       - "template.yaml"
 
