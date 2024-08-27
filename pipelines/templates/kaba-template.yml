@@ -5,6 +5,10 @@ include:
     ref: "4.0.9"
     file:
       - "template.yaml"
+  - project: "moqap/modules/karate-runner"
+    ref: "4.0.9"
+    file:
+      - "karate-runner.yml"
 
 
 ### Stages ###
@@ -19,6 +23,7 @@ stages:
   - security-scan
   - deploy
   - pentest
+  - integration-test
   - cleanup
 
 
@@ -39,8 +44,12 @@ variables:
   PROJECT_RUNNER_TAG: eks-entwicklung
   PROJECT_NAMESPACE: bbpneo-runner
   PROJECT_ABR: camunda
-  # Projekt Variablen #
+  # Artifactory
+  ARTIFACTORY_USERNAME: "RUNNER_ARTIFACTORY_USER"
+  ARTIFACTORY_PASSWORD: "RUNNER_ARTIFACTORY_PASSWORD"
+  # SonarQube #
   SONARQUBE_HOST_URL: "https://sonarqube.bbpneo-dev.cnp-test.comp.db.de"
+  SONARQUBE_TOKEN: "BBPNEO_SONARQUBE_LOGIN_TOKEN"
   # Trivy #
   TRIVY_EXIT_CODE_LOW: 0
   TRIVY_EXIT_CODE_MEDIUM: 0
@@ -48,14 +57,13 @@ variables:
   TRIVY_SEVERITY: "CRITICAL"
   # Argo #
   ARGOCD_UPDATE_TARGET_REVISION: "true"
-  ARGOCD_TRIGGER_SYNC: "false"
-  ARGOCD_WAIT_FOR_SYNC: "false"
+  ARGOCD_TRIGGER_SYNC: "true"
+  ARGOCD_WAIT_FOR_SYNC: "true"
+
   ARGOCD_OPS_REPO_ACCESS_TOKEN: "BBPNEO_OPS_REPO_ACCESS_TOKEN"
-  # Artifactory
-  ARTIFACTORY_USERNAME: "RUNNER_ARTIFACTORY_USER"
-  ARTIFACTORY_PASSWORD: "RUNNER_ARTIFACTORY_PASSWORD"
-  # Sonar
-  SONARQUBE_TOKEN: "BBPNEO_SONARQUBE_LOGIN_TOKEN"
+  # Karate #
+  KARATE_ENV_DEV: "dev"
+  KARATE_ENV_ABNAHME: "abnahme"
 
 
 ### YAML-Lint ###
@@ -169,7 +177,6 @@ compile_gradle:
       when: on_success
     - when: never
 
-
 ### Upload HELM Charts ###
 upload_helmcharts:
   image: dbnetzcio-sandbox-docker-prod-local.bahnhub.tech.rz.db.de/helm-deploy:1.7.3
@@ -246,4 +253,20 @@ deploy_argo:
       variables:
         ARGOCD_APP_SPEC_PATH: $ARGOCD_APP_SPEC_ABNAHME_PATH
         ARGOCD_HELM_VALUES_YQ_EXPRESSION: $ARGOCD_HELM_VALUES_ABNAHME_EXPRESSION
+    - when: never
+
+integration-test:
+  stage: integration-test
+  extends: .Karate Runner
+  needs:
+    - job: deploy_argo
+  variables:
+    KARATE_ENV: $KARATE_ENV_DEV
+  rules:
+    - if: '($CI_COMMIT_BRANCH == "develop") && ($PROJECT_FOLDER == "backend")'
+      when: on_success
+    - if: '($CI_COMMIT_BRANCH == "main") && ($PROJECT_FOLDER == "backend")'
+      variables:
+        KARATE_ENV: $KARATE_ENV_ABNAHME
+      when: on_success
     - when: never
