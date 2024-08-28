@@ -5,10 +5,10 @@ include:
     ref: "4.0.9"
     file:
       - "template.yaml"
-  - project: "moqap/modules/karate-runner"
+  - project: "moqap/modules"
     ref: "4.0.9"
     file:
-      - "karate-runner.yml"
+      - "karate-runner/karate-runner.yml"
 
 
 ### Stages ###
