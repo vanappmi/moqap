@@ -97,14 +97,14 @@ variables:
 
 sonarqube:
   rules:
-    - if: '($RUN_SONARQUBE == "yes") && ($TECHSTACK != "NPM") && ($CI_COMMIT_BRANCH == "develop")'
+    - if: '($RUN_SONARQUBE == "yes") && ($MQP_STAPAK_TECHSTACK != "NPM") && ($CI_COMMIT_BRANCH == "develop")'
       when: on_success
     - when: never
 
 
 sonarqube_NPM:
   rules:
-    - if: '($RUN_SONARQUBE == "yes") && ($TECHSTACK == "NPM") && ($CI_COMMIT_BRANCH == "develop")'
+    - if: '($RUN_SONARQUBE == "yes") && ($MQP_STAPAK_TECHSTACK == "NPM") && ($CI_COMMIT_BRANCH == "develop")'
       when: on_success
     - when: never
 
@@ -122,14 +122,14 @@ sonarqube_NPM:
 
 whitesource_gradle:
   rules:
-    - if: '($RUN_WHITESOURCE == "yes") && ($TECHSTACK == "Gradle") && ($CI_COMMIT_BRANCH == "develop")'
+    - if: '($RUN_WHITESOURCE == "yes") && ($MQP_STAPAK_TECHSTACK == "Gradle") && ($CI_COMMIT_BRANCH == "develop")'
       when: on_success
     - when: never
 
 
 whitesource_NPM:
   rules:
-    - if: '($RUN_WHITESOURCE == "yes") && ($TECHSTACK == "NPM") && ($CI_COMMIT_BRANCH == "develop")'
+    - if: '($RUN_WHITESOURCE == "yes") && ($MQP_STAPAK_TECHSTACK == "NPM") && ($CI_COMMIT_BRANCH == "develop")'
       when: on_success
     - when: never
 
