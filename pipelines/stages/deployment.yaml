@@ -76,7 +76,7 @@ Deployment STAGE:
     - ls -al
     # use yq to replace the tag with the current commit hash
     # https://stackoverflow.com/questions/69648216/yq-issue-adding-yaml-into-yaml/69649872#69649872
-    - o="$(yq e '.spec.source.helm.values' $DEPLOY_TEMPLATE | yq e '.branch=strenv(LOWERCASE_REF_NAME)' -)" yq e -i '.spec.source.helm.values = strenv(o)' $DEPLOY_TEMPLATE
+    - yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.environment == strenv(VERSION_ENV)) | .branch) |= strenv(DEPLOY_BRANCH)' $DEPLOY_TEMPLATE
     # - yq e -i '.spec.source.targetRevision = strenv(DEPLOY_BRANCH)' $DEPLOY_TEMPLATE
     - cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
     - cat $DEPLOY_TEMPLATE
