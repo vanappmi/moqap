@@ -8,6 +8,9 @@ include:
     - $PROJECT_RUNNER_TAG
 
 lint_dockerfile:
+  rules:
+    - if: $IS_COMMONLIB == "true"
+      when: never
   extends: .lint_dockerfile
   stage: static-codeanalysis
   <<: *job_template
