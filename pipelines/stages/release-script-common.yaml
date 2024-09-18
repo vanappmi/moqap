@@ -1,0 +1,82 @@
+---
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+start-release:
+  stage: release
+  <<: *job_template
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  script:
+    - echo "start release"
+
+release-script:
+  stage: release
+  <<: *job_template
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  needs:
+    - job: start-release
+  dependencies:
+    - start-release
+  variables:
+    HTTP_PROXY: "http://webproxy.comp.db.de:8080"
+    HTTPS_PROXY: "http://webproxy.comp.db.de:8080"
+    NO_PROXY: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
+    http_proxy: "http://webproxy.comp.db.de:8080"
+    https_proxy: "http://webproxy.comp.db.de:8080"
+    no_proxy: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
+    GRADLE_OPTS: $GRADLE_OPTS_OWN
+    SECRETS:
+      CONFLUENCE_KEY_SECRET:RUNNER_CONFLUENCE_KEY
+  script:
+    - !reference [ .template secrets, script ]
+    # Git config
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh-add -l
+    - ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
+    - git config --global user.email "dbds@pipeline.com"
+    - git config --global user.name "dbds Release-Pipeline"
+    # 1. Aktuelle Release Version holen
+    - git remote set-url origin $GIT_REPO_SSH_URL
+    - git remote -v
+    - git fetch
+    - git checkout development
+    - CURRENT_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
+    - OLD_VERSION=$(cat gradle.properties | grep "oldVersion" | cut -d "=" -f2 | tr -dc '0-9.')
+    - echo "Current version $CURRENT_VERSION"
+    # 2. Versionsnummer inkrementieren (im Moment nur minor)
+    - MAJOR=$(echo "$CURRENT_VERSION" | cut -d "." -f1)
+    - MINOR=$(echo "$CURRENT_VERSION" | cut -d "." -f2)
+    - PATCH=$(echo "$CURRENT_VERSION" | cut -d "." -f3)
+    - PATCH=$((PATCH + 1))
+    - NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+    - echo "New version $NEW_VERSION"
+    # 3. Release Branch anlegen
+    - NEW_BRANCHNAME=Release-$CURRENT_VERSION
+    - git checkout -b $NEW_BRANCHNAME
+    # 4. Auf Development Branch Tag anlegen mit Namen v<Versionsnummer>
+    - git tag -a "v$CURRENT_VERSION" -m "Tag for Release 'v$CURRENT_VERSION'."
+    - git tag
+    - git push origin "v$CURRENT_VERSION"
+    # 6. Neuen Branch pushen -> Releasepipeline triggern
+    - git remote set-url origin $GIT_REPO_SSH_URL
+    - git push origin $NEW_BRANCHNAME
+    # 7. Inkrementierte Versionsnummer in gradle.properties zurückschreiben
+    - git checkout development
+    - echo $GRADLE_OPTS
+    - sed -i "s/$OLD_VERSION/$CURRENT_VERSION/g" gradle.properties
+    - sed -i "s/$CURRENT_VERSION/$NEW_VERSION/g" gradle.properties
+    - cat gradle.properties
+    - git add .
+    - git commit -m "Change to new version '$NEW_VERSION'."
+    # 8. development Branch pushen
+    - git remote set-url origin $GIT_REPO_SSH_URL
+    - git push origin development
+  artifacts:
+    paths:
+      - src/target/*
+      - artifacts/*
+      - .gradle/
+  when: manual
+  allow_failure: true
