@@ -1,6 +1,6 @@
 ---
 variables:
-  CURRENT_VERSION: "V1.5"
+  CURRENT_VERSION: "V1.6"
   PROJECT_NAME: $CI_PROJECT_NAME
   PREFIX_CI_DEPLOYMENT_NAME: $PROJECT_NAME
   DEV_HELM: "./child-pipelines/${DEPLOY_ENV}/values-${DEPLOY_ENV}.yaml"
@@ -45,3 +45,4 @@ variables:
   GITLEAKS_START_COMMIT: ""
   # Secretpath
   AWS_SM_SECRET_PATH: "/runner/secrets/gitlab-runner-secret"
+  IS_COMMONLIB: "false"
