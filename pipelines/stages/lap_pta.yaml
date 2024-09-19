@@ -25,11 +25,12 @@ LaP & PTA Test:
     TESTCASE_PATH: "test/lup/3BServices_LuP_Test.jmx"
     PLUGIN_PATH: "test/lup/plugins"
     ARTIFACTS_DIR: "artifacts"
+    SECRETS:
+      BETRAANTRAG_USERNAME:betraprocess_api_username,
+      BETRAANTRAG_PASSWORD:betraprocess_api_password
   before_script:
-    - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
+    - !reference [ .template secrets, script ]
     - echo $RUNNER_MOUNT_PATH
-    - export BETRAANTRAG_USERNAME=$(getSecret betraprocess_api_username $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_USERNAME)
-    - export BETRAANTRAG_PASSWORD=$(getSecret betraprocess_api_password $RUNNER_MOUNT_PATH $FAIL BETRAANTRAG_PASSWORD)
     - export BASE_SERVICE_URL=$(echo $BASE_SERVICE_URL | cut -c 9-)
     - echo $BASE_SERVICE_URL
     - echo $BETRAANTRAG_USERNAME
