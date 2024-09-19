@@ -1,5 +1,9 @@
 ---
 include:
+  - project: "moqap/modules"
+    ref: "5.0.0"
+    file:
+      - "/templates/moqap_templates.yml"
   - "/pipelines/settings.yaml"
   - "/pipelines/stages/release-script.yaml"
 
