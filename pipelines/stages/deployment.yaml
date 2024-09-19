@@ -89,6 +89,7 @@ Deployment STAGE:
         cat $DEPLOY_TEMPLATE
       else
         git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/02-ops/eks-deployment-helm-chart.git
+        cd eks-deployment-helm-chart
         if [ $DEPLOY_ENV == "dev" ];
         then
           export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-dev.yaml"
