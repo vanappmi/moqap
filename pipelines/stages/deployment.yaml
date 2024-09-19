@@ -26,9 +26,12 @@ Deployment STAGE:
     http_proxy: "http://webproxy.comp.db.de:8080"
     https_proxy: "http://webproxy.comp.db.de:8080"
     no_proxy: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
+    SECRETS:
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY
   script:
-    - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
-    - export SSH_PRIVATE_KEY=$(getSecret RUNNER_SSH_KEY $AWS_SM_SECRET_PATH $FAIL SSH_PRIVATE_KEY)
+    - !reference [ .template secrets, script ]
+    # - getSecret() { awk -F\""$1"\":\" '{if (NF > 1 ) print $2; else exit 1;}' < "$2" | awk -F"\",\"|\"}" '{print $1}' || FAIL="$3\n-> $4" ; }
+    # - export SSH_PRIVATE_KEY=$(getSecret RUNNER_SSH_KEY $AWS_SM_SECRET_PATH $FAIL SSH_PRIVATE_KEY)
     # - echo $SSH_PRIVATE_KEY | tail -c 100
     # - echo $SSH_PRIVATE_KEY | base64 -d | tail -c 100
     ######################################################################################
@@ -65,28 +68,58 @@ Deployment STAGE:
     # clone shared-cluster-ops repo
     # https://git.tech.rz.db.de/cnp/bbpneo/bbpneo-ops.git
     - ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
-    - git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
     - |
-      if [ $DEPLOY_ENV == "prod" ];
+      if [ $IS_CRONJOB != "true" ];
       then
-        cd bbpneo-ops/bbpneo-prod/deployment
+        git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
+        if [ $DEPLOY_ENV == "prod" ];
+        then
+          cd bbpneo-ops/bbpneo-prod/deployment
+        else
+          cd bbpneo-ops/bbpneo-iat/deployment/
+        fi
+        ls -al
+        # use yq to replace the tag with the current commit hash
+        # https://stackoverflow.com/questions/69648216/yq-issue-adding-yaml-into-yaml/69649872#69649872
+        yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(VERSION_ENV)) | .branch) |= strenv(LOWERCASE_REF_NAME)' $DEPLOY_TEMPLATE
+        # - yq -i '.spec.generators.0.matrix.generators.0.list.elements.0.environment = strenv(VERSION_ENV)' $DEPLOY_TEMPLATE
+        # - yq -i '.spec.generators.0.matrix.generators.0.list.elements.0.branch = strenv(LOWERCASE_REF_NAME)' $DEPLOY_TEMPLATE
+        # - yq e -i '.spec.source.targetRevision = strenv(DEPLOY_BRANCH)' $DEPLOY_TEMPLATE
+        cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
+        cat $DEPLOY_TEMPLATE
       else
-        cd bbpneo-ops/bbpneo-iat/deployment/
+        git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/02-ops/eks-deployment-helm-chart.git
+        if [ $DEPLOY_ENV == "dev" ];
+        then
+          export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-dev.yaml"
+        fi
+        if [ $DEPLOY_ENV == "int" ];
+        then
+          export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-int.yaml"
+        fi
+        if [ $DEPLOY_ENV == "au" ];
+        then
+          export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-au.yaml"
+        fi
+        if [ $DEPLOY_ENV == "lup" ];
+        then
+          export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-lup.yaml"
+        fi
+        if [ $DEPLOY_ENV == "prod" ];
+        then
+          export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-prod.yaml"
+        fi
+        echo $DEPLOY_ENV
+        echo $DEPLOY_TEMPLATE
+        yq e -i '.dispatcherCore.branch = strenv(LOWERCASE_REF_NAME)' $DEPLOY_TEMPLATE
+        cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
+        cat $DEPLOY_TEMPLATE
       fi
-    - ls -al
-    # use yq to replace the tag with the current commit hash
-    # https://stackoverflow.com/questions/69648216/yq-issue-adding-yaml-into-yaml/69649872#69649872
-    - yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(VERSION_ENV)) | .branch) |= strenv(LOWERCASE_REF_NAME)' $DEPLOY_TEMPLATE
-    # - yq -i '.spec.generators.0.matrix.generators.0.list.elements.0.environment = strenv(VERSION_ENV)' $DEPLOY_TEMPLATE
-    # - yq -i '.spec.generators.0.matrix.generators.0.list.elements.0.branch = strenv(LOWERCASE_REF_NAME)' $DEPLOY_TEMPLATE
-    # - yq e -i '.spec.source.targetRevision = strenv(DEPLOY_BRANCH)' $DEPLOY_TEMPLATE
-    - cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
-    - cat $DEPLOY_TEMPLATE
     - git config --global user.email "bbpneo@pipeline.com"
     - git config --global user.name "bbpneo Pipeline"
     - git add $DEPLOY_TEMPLATE
     - git commit -m "update $DEPLOY_TEMPLATE"
-    - git push --set-upstream origin master
+    - git push
     ######################################################################################
     # trigger argocd sync
     ######################################################################################
