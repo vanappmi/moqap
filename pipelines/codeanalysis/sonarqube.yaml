@@ -17,6 +17,7 @@ SonarQube:
   tags:
     - $PROJECT_RUNNER_TAG
   before_script:
+    - !reference [ .template secrets, script ]
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
