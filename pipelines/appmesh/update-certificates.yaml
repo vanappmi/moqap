@@ -40,7 +40,7 @@ list_certificates:
     ######################################################################################
     - |
       git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
-      cd bbpneo-iat/cnp-api
+      cd bbpneo-ops/bbpneo-iat/cnp-api
       ls -al $DEPLOY_TEMPLATE
     ######################################################################################
     - echo $KUBECONFIG_PATH
