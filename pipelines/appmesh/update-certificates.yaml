@@ -54,6 +54,6 @@ list_certificates:
     - echo $CERTIFICATE_ARNS
     ######################################################################################
     - |
-      - yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
+      yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
       cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
       cat $DEPLOY_TEMPLATE
