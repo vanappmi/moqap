@@ -40,12 +40,7 @@ list_certificates:
     ######################################################################################
     - |
       git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
-      if [ $DEPLOY_ENV == "prod" ];
-      then
-        cd bbpneo-prod/cnp-api
-      else
-        cd bbpneo-iat/cnp-api
-      fi
+      cd bbpneo-iat/cnp-api
       ls -al $DEPLOY_TEMPLATE
     ######################################################################################
     - echo $KUBECONFIG_PATH
