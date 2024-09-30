@@ -1,0 +1,33 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "5.0.0"
+    file:
+      - "/templates/moqap_templates.yml"
+
+stages:
+  - .pre
+  - list_certificates
+  - .post
+
+# List Certificates
+list_certificates:
+  image: cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  tags:
+    - eks-entwicklung
+  stage: list_certificates
+  variables:
+    AWS_SM_SECRET_PATH: "/runner/secrets/gitlab-runner-secret"
+    KUBECONFIG_PATH: /tmp/kubeconfig.yaml
+    SECRETS:
+      CNP_API_BBPNEO_IAT_KUBECONFIG:CNP_API_BBPNEO_IAT_KUBECONFIG
+  script:
+    - !reference [.template secrets, script]
+    - echo $KUBECONFIG_PATH
+    - touch $KUBECONFIG_PATH
+    - echo "$CNP_API_BBPNEO_IAT_KUBECONFIG" > $KUBECONFIG_PATH
+    - export KUBECONFIG=$KUBECONFIG_PATH
+    - kubectl config get-contexts
+    - echo "Listing certificates..."
+    - kubectl get certificates.cnp.comp.db.de -n bbpneo-iat --context cnp-api-iat-v4-zgjrp -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.resources.aws-certificate.externalName}{"\n"}{end}' -l cnp.comp.db.de/appmesh=dbds
+    - kubectl get certificates.cnp.comp.db.de -n bbpneo-iat --context cnp-api-iat-v4-zgjrp -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev
