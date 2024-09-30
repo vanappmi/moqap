@@ -50,9 +50,10 @@ list_certificates:
     - kubectl config get-contexts
     - echo "Listing certificates..."
     - kubectl get certificates.cnp.comp.db.de -n bbpneo-iat --context cnp-api-iat-v4-zgjrp -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.resources.aws-certificate.externalName}{"\n"}{end}' -l cnp.comp.db.de/appmesh=dbds
-    - export CERTIFICATE_ARNS=(echo "kubectl get certificates.cnp.comp.db.de -n bbpneo-iat --context cnp-api-iat-v4-zgjrp -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev")
+    - export CERTIFICATE_ARNS=$(kubectl get certificates.cnp.comp.db.de -n bbpneo-iat --context cnp-api-iat-v4-zgjrp -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev)
     - echo $CERTIFICATE_ARNS
     ######################################################################################
     - |
+      - yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
       cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
       cat $DEPLOY_TEMPLATE
