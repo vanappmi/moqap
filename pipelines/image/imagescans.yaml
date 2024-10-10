@@ -78,10 +78,10 @@ Scan AWS Client Image:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan Gitlab Runner Image v17.2.1:
+Scan Gitlab Runner Image alpine-v17.4.0:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine-v17.2.1"
+    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine-v17.4.0"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
