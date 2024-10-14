@@ -88,3 +88,14 @@ Scan gitlab-runner:alpine3.19-bleeding:
         ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
+
+Scan sonarqube:
+  stage: security-scan
+  variables:
+    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/library/sonarqube"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
