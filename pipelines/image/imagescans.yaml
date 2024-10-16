@@ -89,10 +89,10 @@ Scan gitlab-runner:alpine3.19-bleeding:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan sonarqube:
+Scan sonarqube:9.9.3-community:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/library/sonarqube"
+    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/library/sonarqube:9.9.3-community"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -100,10 +100,10 @@ Scan sonarqube:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan postgres:16.4-alpine3.20:
+Scan postgres-image:postgres-17:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/postgres:16.4-alpine3.20"
+    TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/postgres-image:postgres-17"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
