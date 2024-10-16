@@ -99,3 +99,14 @@ Scan sonarqube:
         ref: "$CURRENT_VERSION" # branch
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
+
+Scan postgres:16.4-alpine3.20:
+  stage: security-scan
+  variables:
+    TRIVY_TARGET: "cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/postgres:16.4-alpine3.20"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
