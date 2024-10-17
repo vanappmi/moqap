@@ -57,12 +57,14 @@ variables:
   TRIVY_SEVERITY: "CRITICAL"
   # Argo #
   MQP_ARGOCD_UPDATE_TARGET_REVISION: "true"
-  MQP_ARGOCD_TRIGGER_SYNC: "false"
-  MQP_ARGOCD_WAIT_FOR_SYNC: "false"
+  MQP_ARGOCD_TRIGGER_SYNC: "true"
+  MQP_ARGOCD_WAIT_FOR_SYNC: "true"
+  MQP_ARGOCD_REFRESH: "true"
 
   MQP_ARGOCD_OPS_REPO_ACCESS_TOKEN: "BBPNEO_OPS_REPO_ACCESS_TOKEN"
-#  MQP_ARGOCD_INSTANCE_AUTH_TOKEN: "BBPNEO_IAT_APPS_ARGOCD_SYNC_TOKEN"
-#  MQP_ARGOCD_AUTH_TOKEN: "BBPNEO_IAT_OPS_ARGOCD_SYNC_TOKEN"
+  MQP_ARGOCD_INSTANCE_AUTH_TOKEN: "BBPNEO_IAT_APPS_ARGOCD_SYNC_TOKEN"
+  MQP_ARGOCD_AUTH_TOKEN: "BBPNEO_IAT_OPS_ARGOCD_SYNC_TOKEN"
+
   # Karate #
   KARATE_ENV_DEV: "dev"
   KARATE_ENV_ABNAHME: "abnahme"
@@ -96,15 +98,11 @@ variables:
     - when: never
 
 sonarqube:
+  extends:
+    - .Sonarqube-Java21
+    - .sonarqube-templ
   rules:
-    - if: '($RUN_SONARQUBE == "yes") && ($MQP_STAPAK_TECHSTACK != "NPM") && ($CI_COMMIT_BRANCH == "develop")'
-      when: on_success
-    - when: never
-
-
-sonarqube_NPM:
-  rules:
-    - if: '($RUN_SONARQUBE == "yes") && ($MQP_STAPAK_TECHSTACK == "NPM") && ($CI_COMMIT_BRANCH == "develop")'
+    - if: '($RUN_SONARQUBE == "yes") && ($CI_COMMIT_BRANCH == "develop")'
       when: on_success
     - when: never
 
@@ -163,7 +161,7 @@ build_npm:
 
 compile_gradle:
   stage: compile
-  image: docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:21-alpine
+  image: docker-hub-remote.bahnhub.tech.rz.db.de/library/gradle:latest
   script:
     - cd ./${PROJECT_FOLDER}
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
@@ -248,8 +246,8 @@ deploy_argo:
     MQP_ARGOCD_APP_SPEC_PATH: $MQP_ARGOCD_APP_SPEC_DEV_PATH
     MQP_ARGOCD_YQ_CUSTOM_EXPRESSION: $MQP_ARGOCD_HELM_VALUES_DEV_EXPRESSION
     SECRETS:
-#      MQP_ARGOCD_INSTANCE_AUTH_TOKEN:$MQP_ARGOCD_INSTANCE_AUTH_TOKEN
-#      MQP_ARGOCD_AUTH_TOKEN:$MQP_ARGOCD_AUTH_TOKEN
+      MQP_ARGOCD_INSTANCE_AUTH_TOKEN:$MQP_ARGOCD_INSTANCE_AUTH_TOKEN,
+      MQP_ARGOCD_AUTH_TOKEN:$MQP_ARGOCD_AUTH_TOKEN,
       MQP_ARGOCD_OPS_REPO_ACCESS_TOKEN:$MQP_ARGOCD_OPS_REPO_ACCESS_TOKEN
   rules:
     - if: '($CI_COMMIT_BRANCH == "develop") && ($RUN_ARGO_DEPLOYMENT == "yes")'
