@@ -2,11 +2,11 @@
 ### Imports ###
 include:
   - project: "moqap/starterpaket/pipeline"
-    ref: "7.0.0"
+    ref: "9.0.0"
     file:
       - "template.yaml"
   - project: "moqap/modules"
-    ref: "7.0.0"
+    ref: "9.0.0"
     file:
       - "karate-runner/karate-runner.yml"
 

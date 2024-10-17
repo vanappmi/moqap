@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "5.0.0"
+    ref: "9.0.0"
     file:
       - "/artifactory/download_artifacts_dir.yml" #gibt es noch nicht in den includes muss in pipeline.yaml hinterlegt werden
       - "/templates/moqap_templates.yml"
