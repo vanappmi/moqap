@@ -161,7 +161,7 @@ build_npm:
 
 compile_gradle:
   stage: compile
-  image: docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:21-alpine
+  image: docker-hub-remote.bahnhub.tech.rz.db.de/library/gradle:latest
   script:
     - cd ./${PROJECT_FOLDER}
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
