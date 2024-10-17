@@ -98,15 +98,11 @@ variables:
     - when: never
 
 sonarqube:
+  extends:
+    - .Sonarqube-Java21
+    - .sonarqube-templ
   rules:
-    - if: '($RUN_SONARQUBE == "yes") && ($MQP_STAPAK_TECHSTACK != "NPM") && ($CI_COMMIT_BRANCH == "develop")'
-      when: on_success
-    - when: never
-
-
-sonarqube_NPM:
-  rules:
-    - if: '($RUN_SONARQUBE == "yes") && ($MQP_STAPAK_TECHSTACK == "NPM") && ($CI_COMMIT_BRANCH == "develop")'
+    - if: '($RUN_SONARQUBE == "yes") && ($CI_COMMIT_BRANCH == "develop")'
       when: on_success
     - when: never
 
