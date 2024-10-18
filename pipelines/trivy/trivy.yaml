@@ -41,8 +41,11 @@ Trivy Check Repo:
   variables:
     TRIVY_TARGET: "$CI_PROJECT_DIR"
     TRIVY_SCAN_CMD: "filesystem"
-    MQP_TRIVY_EXIT_CODE_HIGH: 0
-    TRIVY_EXIT_CODE_HIGH: 0
+    MQP_TRIVY_EXIT_CODE_HIGH: 2
+    TRIVY_EXIT_CODE_HIGH: 2
     SECRETS:
       TRIVY_USERNAME:RUNNER_ARTIFACTORY_USER,
       TRIVY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  allow_failure:
+      exit_codes: # User defined exit code
+        - 2
