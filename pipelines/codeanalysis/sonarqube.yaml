@@ -8,7 +8,7 @@ SonarQube:
   extends: .Sonarqube-Java17
   stage: static-codeanalysis
   variables:
-    SONARQUBE_HOST_URL: "https://dbds-sonarqube.cnp-test.comp.db.de/"
+    SONARQUBE_HOST_URL: "https://bbpneo-sonarqube.cnp-test.comp.db.de/"
     SONARQUBE_SOURCE_DIR: "src"
     SECRETS:
       SONARQUBE_TOKEN:$SONARQUBE_USER_ID_TOKEN,
