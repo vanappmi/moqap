@@ -18,8 +18,8 @@ Trivy Check Image:
   stage: security-scan
   <<: *job_template
   variables:
-    TRIVY_ADD_CMD: "--no-progress --timeout 30m --offline-scan --debug --scanners vuln"
-    TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
+    MQP_TRIVY_ADD_CM: "--no-progress --timeout 30m --offline-scan --debug --scanners vuln"
+    MQP_TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     MQP_TRIVY_EXIT_CODE_HIGH: 2
     TRIVY_EXIT_CODE_HIGH: 2
     SECRETS:
