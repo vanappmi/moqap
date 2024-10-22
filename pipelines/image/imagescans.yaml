@@ -7,7 +7,7 @@ variables:
   DEPLOY_ENV: "dev"
   CI_REGISTRY: "${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de"
   KANIKO_IMAGE_TAG: $CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
-  TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$KANIKO_IMAGE_TAG"
+  MQP_TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$KANIKO_IMAGE_TAG"
   SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
   TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
   ARTIFACT_NAME: $CI_PROJECT_NAME
@@ -15,7 +15,7 @@ variables:
 Scan basis-pipeline-image:version-3:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3"
+    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -26,7 +26,7 @@ Scan basis-pipeline-image:version-3:
 Scan basis-deployment-image:java-21:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21"
+    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -37,7 +37,7 @@ Scan basis-deployment-image:java-21:
 Scan amazoncorretto:19-alpine:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:19-alpine"
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:19-alpine"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -48,7 +48,7 @@ Scan amazoncorretto:19-alpine:
 Scan amazoncorretto:21-alpine:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:21-alpine"
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:21-alpine"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -59,7 +59,7 @@ Scan amazoncorretto:21-alpine:
 Scan aws-cli:latest:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazon/aws-cli:latest"
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazon/aws-cli:latest"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -70,7 +70,7 @@ Scan aws-cli:latest:
 Scan gitlab-runner-helper:x86_64-bleeding:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "gitlab-docker-remote.bahnhub.tech.rz.db.de/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-bleeding"
+    MQP_TRIVY_TARGET: "gitlab-docker-remote.bahnhub.tech.rz.db.de/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-bleeding"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -81,7 +81,7 @@ Scan gitlab-runner-helper:x86_64-bleeding:
 Scan gitlab-runner:alpine3.19-bleeding:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine3.19-bleeding"
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine3.19-bleeding"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -92,7 +92,7 @@ Scan gitlab-runner:alpine3.19-bleeding:
 #Scan sonarqube:10.0.0-community:
 #  stage: security-scan
 #  variables:
-#    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/library/sonarqube:10.0.0-community"
+#    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/library/sonarqube:10.0.0-community"
 #  trigger:
 #    include:
 #      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -103,7 +103,7 @@ Scan gitlab-runner:alpine3.19-bleeding:
 Scan postgres-image:postgres-17:
   stage: security-scan
   variables:
-    TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/postgres-image:postgres-17"
+    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/postgres-image:postgres-17"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -114,7 +114,7 @@ Scan postgres-image:postgres-17:
 #Scan blackbox-exporter:v0.25.0:
 #  stage: security-scan
 #  variables:
-#    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/prom/blackbox-exporter:v0.25.0"
+#    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/prom/blackbox-exporter:v0.25.0"
 #  trigger:
 #    include:
 #      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
