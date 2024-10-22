@@ -48,7 +48,7 @@ variables:
   ARTIFACTORY_USERNAME: "RUNNER_ARTIFACTORY_USER"
   ARTIFACTORY_PASSWORD: "RUNNER_ARTIFACTORY_PASSWORD"
   # SonarQube #
-  SONARQUBE_HOST_URL: "https://sonarqube.bbpneo-dev.cnp-test.comp.db.de"
+  SONARQUBE_HOST_URL: "https://bbpneo-sonarqube.cnp-test.comp.db.de/"
   SONARQUBE_TOKEN: "BBPNEO_SONARQUBE_LOGIN_TOKEN"
   # Trivy #
   TRIVY_EXIT_CODE_LOW: 0
