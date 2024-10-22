@@ -121,14 +121,3 @@ Scan postgres-image:postgres-17:
 #        ref: "$CURRENT_VERSION" # branch
 #        file: "pipelines/trivy/trivy-scanimage.yaml"
 #    strategy: depend
-
-Scan blackbox-exporter:
-  stage: security-scan
-  variables:
-    TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/bitnami/blackbox-exporter"
-  trigger:
-    include:
-      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
-        ref: "$CURRENT_VERSION" # branch
-        file: "pipelines/trivy/trivy-scanimage.yaml"
-    strategy: depend
