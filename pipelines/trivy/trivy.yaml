@@ -45,7 +45,7 @@ Trivy Check Repo:
           optional: true
   variables:
     MQP_TRIVY_TARGET: "$CI_PROJECT_DIR"
-    MQP_TRIVY_ADD_CM: "filesystem"
+    MQP_TRIVY_SCAN_CMD: "filesystem"
     SECRETS:
       TRIVY_USERNAME:RUNNER_ARTIFACTORY_USER,
       TRIVY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
