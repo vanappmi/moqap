@@ -98,8 +98,8 @@ list_certificates bbpneo prod:
     - export KUBECONFIG=$KUBECONFIG_PATH
     - kubectl config get-contexts
     - echo "Listing certificates..."
-    - kubectl get certificates.cnp.comp.db.de -n bbpneo-prod --context cnp-api-prod-v2-vk5z8 -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.resources.aws-certificate.externalName}{"\n"}{end}' -l cnp.comp.db.de/appmesh=dbds
-    - export CERTIFICATE_ARNS=$(kubectl get certificates.cnp.comp.db.de -n bbpneo-prod --context cnp-api-prod-v2-vk5z8 -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev)
+    - kubectl get certificates.cnp.comp.db.de -n bbpneo-prod --context bbpneo-prod-qx4bx -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.resources.aws-certificate.externalName}{"\n"}{end}' -l cnp.comp.db.de/appmesh=dbds
+    - export CERTIFICATE_ARNS=$(kubectl get certificates.cnp.comp.db.de -n bbpneo-prod --context bbpneo-prod-qx4bx -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev)
     - echo $CERTIFICATE_ARNS
     ######################################################################################
     - yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
