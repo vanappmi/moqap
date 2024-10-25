@@ -57,10 +57,16 @@ list_certificates bbpneo iat:
     - cat $DEPLOY_TEMPLATE
     - git config --global user.email "bbpneo@pipeline.com"
     - git config --global user.name "bbpneo Pipeline"
+    - git config pull.rebase true   # rebase
     - git add $DEPLOY_TEMPLATE
     - git commit -m "update $DEPLOY_TEMPLATE"
     - git pull
     - git push
+  https://git:
+    tech:
+      rz:
+        db:
+          de/cnp/bbpneo/02-ops/appmesh_certificates/-/jobs/270439487:
 
 #list_certificates bbpneo prod:
 #  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
