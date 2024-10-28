@@ -1,0 +1,21 @@
+version: v2
+license: LicenseRef-DBISL
+contacts: 
+  - BARD.InfraTec.op@deutschebahn.com
+confidentiality: internal
+reference-ids: []
+protected-branches:
+  - master
+  - V1.0
+  - V1.1
+  - V1.2
+  - V1.3
+  - V1.4
+  - V1.5
+  - V1.6
+usage-scenario: 
+  - local
+custom:
+  integrity: normal
+  availability: normal
+  confidentiality: normal
