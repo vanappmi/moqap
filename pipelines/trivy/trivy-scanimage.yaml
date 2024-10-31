@@ -18,7 +18,7 @@ Trivy Check Image:
   stage: security-scan
   <<: *job_template
   variables:
-    MQP_TRIVY_ADD_CM: "--no-progress --timeout 30m --offline-scan --debug --scanners vuln"
+    MQP_TRIVY_ADD_CMD: "--no-progress --timeout 30m --offline-scan --debug --scanners vuln"
     MQP_TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     MQP_TRIVY_COMPLIANCE_SCAN: false
     MQP_TRIVY_EXIT_CODE_HIGH: 2
