@@ -44,6 +44,7 @@ Trivy Check Repo:
         - job: Build Image STAGE
           optional: true
   variables:
+    MQP_TRIVY_ADD_CMD: "--debug"
     MQP_TRIVY_TARGET: "$CI_PROJECT_DIR"
     MQP_TRIVY_SCAN_CMD: "filesystem"
     SECRETS:
