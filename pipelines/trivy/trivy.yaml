@@ -34,6 +34,7 @@ Trivy Check Image:
   allow_failure:
     exit_codes: # User defined exit code
       - 2
+
 Trivy Check Repo:
   extends: .Trivy Scan
   stage: security-scan
