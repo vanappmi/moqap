@@ -1,0 +1,12 @@
+---
+Deployment BizHub:
+  stage: bizhub-deploy
+  variables:
+#    STAGE: "review"
+    CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # bbpneo moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "/pipelines/bizhub/bizhub-v3-api.yaml"
+    strategy: depend
