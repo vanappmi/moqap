@@ -6,7 +6,7 @@ include:
     file:
       - "template.yaml"
   - project: "moqap/modules"
-    ref: "9.0.0"
+    ref: "10.0.0"
     file:
       - "karate-runner/karate-runner.yml"
 
@@ -64,8 +64,8 @@ variables:
   MQP_ARGOCD_OPS_REPO_ACCESS_TOKEN: "BBPNEO_OPS_REPO_ACCESS_TOKEN"
   MQP_ARGOCD_INSTANCE_AUTH_TOKEN: "BBPNEO_IAT_APPS_ARGOCD_SYNC_TOKEN"
   MQP_ARGOCD_AUTH_TOKEN: "BBPNEO_IAT_OPS_ARGOCD_SYNC_TOKEN"
-  MQP_ARGOCD_REFRESH_TARGET_APP_DEV: "bbpneo-entwicklung-kaba"
-  MQP_ARGOCD_REFRESH_TARGET_APP_ABNAHME: "bbpneo-abnahme"
+  MQP_ARGOCD_REFRESH_TARGET_APP_DEV: "bbpneo-entwicklung-kaba-$ARGO_CD_APP_NAME"
+  MQP_ARGOCD_REFRESH_TARGET_APP_ABNAHME: "bbpneo-abnahme-$ARGO_CD_APP_NAME"
 
   # Karate #
   KARATE_ENV_DEV: "dev"
