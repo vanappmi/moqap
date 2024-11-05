@@ -74,6 +74,7 @@ publish_product_apic_review:
   after_script:
     - echo $DEPLOYER_APP_CLIENT_ID
     - echo $DEPLOYER_APP_CLIENT_SECRET
+    - echo $OPENSHIFT_NAMESPACE
   rules:
     - if: $DEPLOY_ENV == "dev"
   tags:
