@@ -41,8 +41,6 @@ bizhub_base:
     - echo $CONNECT_CONFIG
     - echo "FIELD_DEPLOYER_APP_CLIENT_ID=$FIELD_DEPLOYER_APP_CLIENT_ID"
     - echo "FIELD_DEPLOYER_APP_CLIENT_SECRET=$FIELD_DEPLOYER_APP_CLIENT_SECRET"
-    - echo $BIZHUB_DEPLOYER_APP_CLIENT_ID | tail -c5
-    - echo $FIELD_DEPLOYER_APP_CLIENT_SECRET | tail -c5
     - echo "SPACE_NAME=$SPACE_NAME"
     - |
       if [ $DEPLOY_ENV == "au" ] || [ $DEPLOY_ENV == "lup" ] || [ $DEPLOY_ENV == "prod" ];
@@ -73,6 +71,9 @@ lint_connect_config:
 publish_product_apic_review:
   before_script:
     - !reference [bizhub_base, before_script]
+  after_script:
+    - echo $DEPLOYER_APP_CLIENT_ID
+    - echo $DEPLOYER_APP_CLIENT_SECRET
   rules:
     - if: $DEPLOY_ENV == "dev"
   tags:
