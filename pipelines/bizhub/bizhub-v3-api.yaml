@@ -4,10 +4,10 @@ include:
     ref: "3.3.7"
 #    ref: "10.0.0"
     file: "/business-hub/api-portal/api-only-v3.yml"
-  - project: "moqap/modules"
-    ref: "10.0.0"
-    file:
-      - "/templates/moqap_templates.yml"
+#  - project: "moqap/modules"
+#    ref: "10.0.0"
+#    file:
+#      - "/templates/moqap_templates.yml"
 
 variables:
   STAGE_ENV: "dev"
@@ -23,9 +23,9 @@ variables:
   SECRETS:
     SERVICE_USER:$FIELD_SERVICE_USER,
     SERVICE_PASSWORD:$FIELD_SERVICE_PASSWORD,
-    SPACE_NAME:RUNNER_BIZHUB_SPACE_NAME
-#    BIZHUB_DEPLOYER_APP_CLIENT_ID: $FIELD_DEPLOYER_APP_CLIENT_ID,
-#    BIZHUB_DEPLOYER_APP_CLIENT_SECRET: $FIELD_DEPLOYER_APP_CLIENT_SECRET
+    SPACE_NAME:RUNNER_BIZHUB_SPACE_NAME,
+    FIELD_DEPLOYER_APP_CLIENT_ID:bbr_bizhub_api_client,
+    FIELD_DEPLOYER_APP_CLIENT_SECRET:bbr_bizhub_api_key
 
 workflow:
   rules:
