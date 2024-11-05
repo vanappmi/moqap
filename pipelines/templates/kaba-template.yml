@@ -6,7 +6,7 @@ include:
     file:
       - "template.yaml"
   - project: "moqap/modules"
-    ref: "9.0.0"
+    ref: "10.0.0"
     file:
       - "karate-runner/karate-runner.yml"
 
