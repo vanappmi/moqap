@@ -19,6 +19,7 @@ variables:
   SPACE_NAME: "bbpneo"
   SERVICE_USER: $FIELD_SERVICE_USER
   SERVICE_PASSWORD: $FIELD_SERVICE_PASSWORD
+  CI_DEBUG_TRACE: "true"
 #  SECRETS:
 #    SERVICE_USER:$FIELD_SERVICE_USER,
 #    SERVICE_PASSWORD:$FIELD_SERVICE_PASSWORD,
@@ -71,10 +72,6 @@ lint_connect_config:
 publish_product_apic_review:
   before_script:
     - !reference [bizhub_base, before_script]
-  after_script:
-    - echo $DEPLOYER_APP_CLIENT_ID
-    - echo $DEPLOYER_APP_CLIENT_SECRET
-    - echo $OPENSHIFT_NAMESPACE
   rules:
     - if: $DEPLOY_ENV == "dev"
   tags:
