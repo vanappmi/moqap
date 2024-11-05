@@ -9,8 +9,8 @@ variables:
   STAGE_ENV: "dev"
   API_ONLY_V3_USE_NEW_AUTH: "true"
   DEBUG_API_ONLY_V3_CONNECT_CONFIG: "true"
-  FIELD_DEPLOYER_APP_CLIENT_ID: "bbr_bizhub_api_client"
-  FIELD_DEPLOYER_APP_CLIENT_SECRET: "bbr_bizhub_api_key"
+  FIELD_DEPLOYER_APP_CLIENT_ID: "bbr_bizhub_api_key"
+  FIELD_DEPLOYER_APP_CLIENT_SECRET: "bbr_bizhub_api_client"
   FIELD_SERVICE_USER: "service-user"
   FIELD_SERVICE_PASSWORD: "service-password"
   CONNECT_CONFIG: $BIZHUB_CONNECT_CONFIG
