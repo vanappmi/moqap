@@ -29,7 +29,7 @@ workflow:
 
 bizhub_base:
   before_script:
-    - !reference [ .template secrets, script ]
+#    - !reference [ .template secrets, script ]
     - echo "DEPLOY_ENV=$DEPLOY_ENV"
     - export BIZHUB_DEPLOYER_APP_CLIENT_ID="$FIELD_DEPLOYER_APP_CLIENT_ID"
     - export BIZHUB_DEPLOYER_APP_CLIENT_SECRET="$FIELD_DEPLOYER_APP_CLIENT_SECRET"
