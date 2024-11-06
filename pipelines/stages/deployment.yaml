@@ -96,7 +96,7 @@ Deployment STAGE:
         cd eks-deployment-helm-chart
         if [ $DEPLOY_ENV == "dev" ];
         then
-          export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-dev.yaml"
+          export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-dev-babedas.yaml"
         fi
         if [ $DEPLOY_ENV == "int" ];
         then
