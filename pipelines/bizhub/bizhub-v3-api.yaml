@@ -23,7 +23,7 @@ variables:
   SPACE_NAME: "bbpneo"
   SERVICE_USER: $FIELD_SERVICE_USER
   SERVICE_PASSWORD: $FIELD_SERVICE_PASSWORD
-#  CI_DEBUG_TRACE: "true"
+  CI_DEBUG_TRACE: "true"
 #  SECRETS:
 #    DEPLOYER_APP_CLIENT_ID:bbr_bizhub_api_client,
 #    DEPLOYER_APP_CLIENT_SECRET:bbr_bizhub_api_key
