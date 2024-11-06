@@ -98,6 +98,10 @@ Deployment STAGE:
         then
           export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-dev-babedas.yaml"
         fi
+        if [ $DEPLOY_ENV == "dev-b1" ];
+        then
+          export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-dev-b1.yaml"
+        fi
         if [ $DEPLOY_ENV == "int" ];
         then
           export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-int.yaml"
