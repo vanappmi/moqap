@@ -1,8 +1,8 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "4.0.12"
-#    ref: "3.3.7"
+#    ref: "4.0.12"
+    ref: "3.3.7"
 #    ref: "10.0.0"
     file: "/business-hub/api-portal/api-only-v3.yml"
 
