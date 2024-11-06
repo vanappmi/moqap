@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "4.0.0"
+    ref: "4.0.12"
 #    ref: "3.3.7"
 #    ref: "10.0.0"
     file: "/business-hub/api-portal/api-only-v3.yml"
@@ -12,6 +12,9 @@ variables:
   DEBUG_API_ONLY_V3_CONNECT_CONFIG: "true"
   BIZHUB_DEPLOYER_APP_CLIENT_ID: "bbr_bizhub_api_client"
   BIZHUB_DEPLOYER_APP_CLIENT_SECRET: "bbr_bizhub_api_key"
+  FIELD_DEPLOYER_APP_CLIENT_ID: "bbr_bizhub_api_client"
+  FIELD_DEPLOYER_APP_CLIENT_SECRET: "bbr_bizhub_api_key"
+  IGNORE_API_ONLY_V3_ENV_CHECK: "true"
   FIELD_SERVICE_USER: "service-user"
   FIELD_SERVICE_PASSWORD: "service-password"
   CONNECT_CONFIG: $BIZHUB_CONNECT_CONFIG
