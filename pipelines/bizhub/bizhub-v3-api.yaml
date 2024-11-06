@@ -10,11 +10,8 @@ variables:
   STAGE_ENV: "dev"
 #  API_ONLY_V3_USE_NEW_AUTH: "true"
   DEBUG_API_ONLY_V3_CONNECT_CONFIG: "true"
-  BIZHUB_DEPLOYER_APP_CLIENT_ID: "bbr_bizhub_api_client"
-  BIZHUB_DEPLOYER_APP_CLIENT_SECRET: "bbr_bizhub_api_key"
   FIELD_DEPLOYER_APP_CLIENT_ID: "bbr_bizhub_api_client"
   FIELD_DEPLOYER_APP_CLIENT_SECRET: "bbr_bizhub_api_key"
-  IGNORE_API_ONLY_V3_ENV_CHECK: "true"
   FIELD_SERVICE_USER: "service-user"
   FIELD_SERVICE_PASSWORD: "service-password"
   CONNECT_CONFIG: $BIZHUB_CONNECT_CONFIG
@@ -23,7 +20,7 @@ variables:
   SPACE_NAME: "bbpneo"
   SERVICE_USER: $FIELD_SERVICE_USER
   SERVICE_PASSWORD: $FIELD_SERVICE_PASSWORD
-  CI_DEBUG_TRACE: "true"
+  CI_DEBUG_TRACE: "false"
 #  SECRETS:
 #    DEPLOYER_APP_CLIENT_ID:bbr_bizhub_api_client,
 #    DEPLOYER_APP_CLIENT_SECRET:bbr_bizhub_api_key
