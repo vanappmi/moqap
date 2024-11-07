@@ -1,0 +1,155 @@
+.template modules string empty:
+  script:
+    - echo "-------- MoQ-AP Module \"$MOQAP_MODULE\", Release 4.0.12 --------"
+
+.template modules string:
+  script:
+    - |
+      echo -e "\n";
+      echo "\$\$\      \$\$\            \$\$\$\$\$\$\           \$\$\$\$\$\$\  \$\$\$\$\$\$\$\\";
+      echo "\$\$\$\    \$\$\$ |          \$\$  __\$\$\         \$\$  __\$\$\ \$\$  __\$\$\\";
+      echo "\$\$\$\$\  \$\$\$\$ | \$\$\$\$\$\$\  \$\$ /  \$\$ |        \$\$ /  \$\$ |\$\$ |  \$\$ |";
+      echo "\$\$\\$\$\\$\$ \$\$ |\$\$  __\$\$\ \$\$ |  \$\$ |\$\$\$\$\$\$\ \$\$\$\$\$\$\$\$ |\$\$\$\$\$\$\$  |";
+      echo "\$\$ \\$\$\$  \$\$ |\$\$ /  \$\$ |\$\$ |  \$\$ |\______|\$\$  __\$\$ |\$\$  ____/";
+      echo "\$\$ |\\$  /\$\$ |\$\$ |  \$\$ |\$\$ \$\$\\$\$ |        \$\$ |  \$\$ |\$\$ |";
+      echo "\$\$ | \_/ \$\$ |\\$\$\$\$\$\$  |\\$\$\$\$\$\$ /         \$\$ |  \$\$ |\$\$ |";
+      echo "\__|     \__| \______/  \___\$\$\$\         \__|  \__|\__|";
+      echo "                            \___|";
+      # echo -e "\n";
+      echo -e " Release: InfraTec";
+      echo -e " Module:  $MOQAP_MODULE\n";
+
+.template send usage data:
+  script:
+    - |
+      if [ -z "$SEND_MOQAP_DATA" ]; then
+        echo "Sending usage data to MoQ-AP...";
+        echo "For more information see the readme here: https://git.tech.rz.db.de/moqap/modules .";
+        MOQAP_URL="https://moqap-datenkrake.cnp-test.comp.db.de/telemetry";
+        DATA='{
+            "project":'\"$CI_PROJECT_PATH\"',
+            "module":'\"$MOQAP_MODULE\"',
+            "version":"4.0.12",
+            "pipeline":'\"$CI_PIPELINE_ID\"',
+            "image":'\"$CI_JOB_IMAGE\"'
+           }';
+        if command -v wget &> /dev/null; then
+          ##
+          ## Since some distributions (like Alpine) use the BusyBox wget, we have to use this workaround.
+          ## The standard wget seems to support all proxy variables:
+          ## https://www.gnu.org/software/wget/manual/html_node/Proxies.html
+          ##
+          ## BusyBox wget seems to use only http_proxy as environment variables.
+          ## https://git.busybox.net/busybox/tree/networking/wget.c
+          ##
+          ## If the DB proxy is set, the MOQAP_URL is not accessible.
+          ##
+          ## If no proxies are to be used, you must set a flag.
+          ## BUT: Busybox wget does not share all flags with the standard wget.
+          ##
+          ## e.g. busybox wget:     -Y off     --> turns off proxy use
+          ##      standard wget:    --no-proxy --> turns off proxy use
+          ##
+          ## The only solution I have found is to unset the http_proxy and re-set it after the MoQ AP data has been sent.
+          ##
+          if [ "$http_proxy" ]; then
+            HTTP_PROXY_BACKUP="$http_proxy";
+            unset http_proxy;
+            RESTORE_HTTP_PROXY="true";
+          fi;
+          wget -O- -q --server-response --header="Content-Type:application/json" --post-data="$DATA" \
+          "$MOQAP_URL" 2>&1 | awk '/^  HTTP/{print "wget - HTTP-Code: "$2}' || echo "Data could not be sent!";
+          if [ "$RESTORE_HTTP_PROXY" ]; then
+            http_proxy="$HTTP_PROXY_BACKUP";
+            export http_proxy;
+          fi;
+        elif command -v curl &> /dev/null; then
+          curl -w 'cURL - HTTP-Code: %{http_code}\n' -o /dev/null -fs -X POST -H "Content-Type:application/json" -d "$DATA" \
+          "$MOQAP_URL" || echo "Data could not be sent!";
+        else
+          echo "Neither curl nor wget could be found! No Data send!";
+        fi;
+      fi;
+
+.template secrets:
+  script:
+    - |
+      export OLDIFS=$IFS;
+      if [ "$SOPS" = "true" ]; then
+        if [ -n "$AGE_SECRET_KEY_PATH" ]; then
+          if [ ! -f "$AGE_SECRET_KEY_PATH" ]; then
+              echo -e "[ERROR] Invalid AGE_SECRET_KEY_PATH \"$AGE_SECRET_KEY_PATH\"!\n[ERROR] Exiting with error code 1!";
+              exit 1;
+          fi;
+          echo "[INFO] Importing AGE KEY from $AGE_SECRET_KEY_PATH ...";
+          AGE_SECRET_KEY=$(echo -e $(awk -F\""AGE-SECRET-KEY"\":\" '{print $2}' < "$AGE_SECRET_KEY_PATH" | awk -F"\",\"|\"}" '{print $1}'));
+          export SOPS_AGE_KEY=AGE-SECRET-KEY-$(echo "$AGE_SECRET_KEY" | awk -F"AGE-SECRET-KEY-" '{print $2}' | tr -d '[:space:]');
+        else
+          if [ -z "$SOPS_AGE_KEY" ]; then
+            echo -e "[INFO] Importing AGE KEY failed from 'SOPS_AGE_KEY' or 'AGE_SECRET_KEY_PATH'! \n[ERROR] Exiting with error code 1!";
+            exit 1;
+          fi;
+          echo "[INFO] Importing AGE KEY from GitLab variable 'SOPS_AGE_KEY' ...";
+        fi;
+      fi;
+      if [ -n "$AWS_SM_SECRET_PATH" ]; then
+        if [ ! -f "$AWS_SM_SECRET_PATH" ]; then
+            echo -e "[ERROR] Invalid AWS_SM_SECRET_PATH \"$AWS_SM_SECRET_PATH\"!\n[ERROR] Exiting with error code 1!";
+            exit 1;
+        fi;
+        echo "[INFO] Using mounted AWS secrets to retrieve secrets...";
+        if [ "$SOPS" = "true" ]; then
+          echo "[INFO] Using SOPS to decrypt secrets...";
+          SOPS_FILE=$(awk -F\""SOPS_FILE"\":\" '{print $2}' < "$AWS_SM_SECRET_PATH" | awk -F"\",\"|\"}" '{print $1}');
+          echo -e "$SOPS_FILE" > sops_file.yml;
+        fi;
+        IFS=',';
+        set -a;
+        echo "[INFO] SECRETS mapping:";
+        for ENTRY in $SECRETS;
+        do
+          IFS=',';
+          echo "[INFO]   $(echo $ENTRY | tr -d '[:space:]')";
+          VAR=$( echo "$ENTRY" | awk -F':' '{print $1}' | tr -d '[:space:]' );
+          FIELD=$(echo "$ENTRY" | awk -F':' '{print $2}' | tr -d '[:space:]');
+          IFS='⛄';
+          if [ "$SOPS" = "true" ]; then
+            SECRET=$( sops -d --extract '["'"$FIELD"'"]' sops_file.yml );
+          else
+            SECRET=$(echo -e $(awk -F\""$FIELD"\":\" '{print $2}' < "$AWS_SM_SECRET_PATH" | awk -F"\",\"|\"}" '{print $1}'));
+          fi;
+          if [ -z "$SECRET" ]; then
+            FAIL="$FAIL\n-> $VAR";
+          fi;
+          export "$VAR"="$SECRET";
+        done;
+        set +a;
+        unset SECRET;
+      elif [ "$SOPS" = "true" ]; then
+        echo "[INFO] Using SOPS Secret File to retrieve secrets...";
+        IFS=',';
+        echo "[INFO] SECRETS mapping:";
+        set -a;
+        for ENTRY in $SECRETS;
+        do
+          IFS=',';
+          echo "[INFO]   $(echo $ENTRY | tr -d '[:space:]')";
+          VAR=$( echo "$ENTRY" | awk -F':' '{print $1}' | tr -d '[:space:]' );
+          FIELD=$( echo "$ENTRY" | awk -F':' '{print $2}' | tr -d '[:space:]' );
+          IFS='⛄';
+          SECRET=$( sops -d --extract '["'"$FIELD"'"]'  "$SOPS_SECRET_FILE_PATH" );
+          if [ -z "$SECRET" ]; then
+              FAIL="$FAIL\n-> $VAR";
+          fi;
+          export "$VAR"="$SECRET";
+        done;
+        set +a;
+        unset SECRET;
+      else
+        echo -e "[WARN] AWS-SM path or SOPS isn't set, using the existing variables now!";
+      fi;
+      if [ -n "$FAIL" ]; then
+        echo -e "[ERROR] An error occured while trying to read: $FAIL\n[INFO] Please verify secret names and/or SOPS_SECRET_FILE_PATH!\n[ERROR] Exiting with error code 1!";
+        exit 1;
+      fi;
+      export IFS=$OLDIFS;
