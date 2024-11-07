@@ -6,7 +6,7 @@
 Deployment STAGE:
   stage: argo-cd-deploy
   rules:
-    - if: ($DEPLOY_ENV == "dev-babedas" || $DEPLOY_ENV  == "int") && $CI_COMMIT_BRANCH
+    - if: ($DEPLOY_ENV == "dev-babedas" || $DEPLOY_ENV  == "int" || $DEPLOY_ENV  == "dev") && $CI_COMMIT_BRANCH
       needs:
         - job: Trivy Check Image
         - job: Build Image STAGE
@@ -94,7 +94,7 @@ Deployment STAGE:
       else
         git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/02-ops/eks-deployment-helm-chart.git
         cd eks-deployment-helm-chart
-        if [ $DEPLOY_ENV == "dev-babedas ];
+        if [ $DEPLOY_ENV == "dev-babedas || $DEPLOY_ENV  == "dev" ];
         then
           export DEPLOY_TEMPLATE="helm-charts/values/bbpneo-dispatchercore-dev-babedas.yaml"
         fi
