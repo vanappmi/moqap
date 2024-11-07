@@ -1,32 +1,21 @@
 ---
 include:
-  - project: "moqap/modules"
-#    ref: "4.0.12"
-    ref: "3.3.7"
-#    ref: "10.0.0"
-    file: "/business-hub/api-portal/api-only-v3.yml"
+    - "/pipelines/bizhub/api-only-v3.yml"
+    - "/pipelines/templates/moqap_templates.yml"
 
 variables:
   STAGE_ENV: "dev"
-#  API_ONLY_V3_USE_NEW_AUTH: "true"
   DEBUG_API_ONLY_V3_CONNECT_CONFIG: "true"
-  FIELD_DEPLOYER_APP_CLIENT_ID: "bbr_bizhub_api_client"
-  FIELD_DEPLOYER_APP_CLIENT_SECRET: "bbr_bizhub_api_key"
-  FIELD_SERVICE_USER: "service-user"
-  FIELD_SERVICE_PASSWORD: "service-password"
   CONNECT_CONFIG: $BIZHUB_CONNECT_CONFIG
   DEPLOY_ENV: ""
-  SOPS: "false"
-  SPACE_NAME: "bbpneo"
-  SERVICE_USER: $FIELD_SERVICE_USER
-  SERVICE_PASSWORD: $FIELD_SERVICE_PASSWORD
   CI_DEBUG_TRACE: "false"
-#  SECRETS:
-#    DEPLOYER_APP_CLIENT_ID:bbr_bizhub_api_client,
-#    DEPLOYER_APP_CLIENT_SECRET:bbr_bizhub_api_key
-#    SPACE_NAME:RUNNER_BIZHUB_SPACE_NAME,
-#    SERVICE_USER:$FIELD_SERVICE_USER,
-#    SERVICE_PASSWORD:$FIELD_SERVICE_PASSWORD,
+  # LOG_LEVEL: "debug"
+  SECRETS:
+    SPACE_NAME:RUNNER_BIZHUB_SPACE_NAME,
+    BIZHUB_DEPLOYER_APP_CLIENT_ID:RUNNER_BIZHUB_APP_CLIENT_ID,
+    BIZHUB_DEPLOYER_APP_CLIENT_SECRET:RUNNER_BIZHUB_APP_CLIENT_SECRET,
+    SERVICE_USER:${CI_PROJECT_NAME}_api_username,
+    SERVICE_PASSWORD:${CI_PROJECT_NAME}_api_password
 
 workflow:
   rules:
@@ -34,16 +23,13 @@ workflow:
 
 bizhub_base:
   before_script:
-#    - !reference [ .template secrets, script ]
+    - !reference [ .template secrets, script ]
     - echo "DEPLOY_ENV=$DEPLOY_ENV"
-    - export BIZHUB_DEPLOYER_APP_CLIENT_ID="$FIELD_DEPLOYER_APP_CLIENT_ID"
-    - export BIZHUB_DEPLOYER_APP_CLIENT_SECRET="$FIELD_DEPLOYER_APP_CLIENT_SECRET"
     - echo "SERVICE_USER=$SERVICE_USER"
     - echo "AWS_SM_SECRET_PATH=$AWS_SM_SECRET_PATH"
     - echo $CONNECT_CONFIG
-    - echo "FIELD_DEPLOYER_APP_CLIENT_ID=$FIELD_DEPLOYER_APP_CLIENT_ID"
-    - echo "FIELD_DEPLOYER_APP_CLIENT_SECRET=$FIELD_DEPLOYER_APP_CLIENT_SECRET"
     - echo "SPACE_NAME=$SPACE_NAME"
+    - echo "CI_JOB_IMAGE=$CI_JOB_IMAGE"
     - |
       if [ $DEPLOY_ENV == "au" ] || [ $DEPLOY_ENV == "lup" ] || [ $DEPLOY_ENV == "prod" ];
       then
