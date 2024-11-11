@@ -10,6 +10,8 @@ variables:
 Whitesource:
   extends: .Whitesource Scan Gradle
   stage: static-codeanalysis
+  needs:
+    - job: Build Jar
   variables:
     WS_SERVER_URL: "https://whitesource.int-app.comp.db.de/agent"
     WS_API_URL: "https://whitesource.int-app.comp.db.de/api"
