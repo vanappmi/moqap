@@ -14,5 +14,7 @@ lint_dockerfile:
   extends: .lint_dockerfile
   stage: static-codeanalysis
   <<: *job_template
+  needs:
+    - job: Build Jar
   variables:
     LINT_DOCKERFILE_PATH: "Dockerfile"

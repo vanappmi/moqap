@@ -24,8 +24,8 @@ include:
 
 stages:
   - .pre
-  - static-codeanalysis
   - build-jar
+  - static-codeanalysis
   - build-image
   - upload
   - security-scan

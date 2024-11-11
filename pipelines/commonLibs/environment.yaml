@@ -14,8 +14,8 @@ include:
 
 stages:
   - .pre
-  - static-codeanalysis
   - build-jar
+  - static-codeanalysis
   - .post
 
 variables:
