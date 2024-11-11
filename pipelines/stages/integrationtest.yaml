@@ -31,6 +31,10 @@ Download Dependencies:
   variables:
     ARTIFACTORY_PATH: "cna-3bservices-dev-docker-stage-local/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
     TARGET_DIR: "download"
+    AWS_SM_SECRET_PATH: $RUNNER_MOUNT_PATH
+    SECRETS:
+      ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER
+      ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
   artifacts:
     paths:
       - artifacts/*
