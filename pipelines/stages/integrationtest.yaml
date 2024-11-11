@@ -23,7 +23,7 @@ Download Dependencies:
   extends: .Download-Artifacts
   stage: integrationtest
   rules:
-    - if: ($CI_PROJECT_NAME == "tve") && $CI_COMMIT_BRANCH
+    - if: ($CI_PROJECT_NAME == "tve2") && $CI_COMMIT_BRANCH
       when: always
   after_script:
     - mkdir -p ./artifacts/
@@ -42,7 +42,7 @@ Integration Test:
   stage: integrationtest
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   rules:
-    - if: ($CI_PROJECT_NAME == "tve") && $CI_COMMIT_BRANCH
+    - if: ($CI_PROJECT_NAME == "tve2") && $CI_COMMIT_BRANCH
       needs:
         - job: Download Dependencies
           artifacts: true
