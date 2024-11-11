@@ -21,7 +21,6 @@ include:
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/stages/integrationtest.yaml"
   - "/pipelines/artifactory/clean_artifactory.yaml"
-  - "/pipelines/templates/moqap_templates.yml"
 
 stages:
   - .pre
