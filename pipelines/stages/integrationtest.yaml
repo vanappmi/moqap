@@ -41,14 +41,11 @@ Download Dependencies:
 Integration Test:
   stage: integrationtest
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
-  variables:
-    AWS_SM_SECRET_PATH: $RUNNER_MOUNT_PATH
   rules:
-    - if: ($CI_PROJECT_NAME == "betraprocess" || $CI_PROJECT_NAME == "tveservice") && $BIZHUB_DISABLE != "true" && $CI_COMMIT_BRANCH
+    - if: ($CI_PROJECT_NAME == "tveservice") && $CI_COMMIT_BRANCH
       needs:
         - job: Download Dependencies
           artifacts: true
-        - job: Deployment BizHub
       when: always
   dependencies:
     - Download Dependencies
