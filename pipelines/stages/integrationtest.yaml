@@ -32,7 +32,7 @@ Download Dependencies:
     ARTIFACTORY_PATH: "cna-3bservices-dev-docker-stage-local/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/"
     TARGET_DIR: "download"
     SECRETS:
-      ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER
+      ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
       ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
   artifacts:
     paths:
