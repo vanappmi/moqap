@@ -9,21 +9,17 @@ include:
       - "/eks/kaniko/kaniko.yml"
   - "/pipelines/settings.yaml"
 
-.job_template: &job_template
-  tags:
-    - $PROJECT_RUNNER_TAG
+
 
 variables:
   PROJECT_RUNNER_TAG: "eks-entwicklung"
   MAVEN_DOCKER_REPO: "cna-bbpneo-commonlibs-maven-stage-local"
-  ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
-  ARTIFACT_NAME: $CI_PROJECT_NAME
   DEPLOY_ENV: "dev"
-  BIZHUB_DISABLE: "false"
   JUNIT_REPORT_FILENAME: "results.octane.xml"
-  SECRETS:
-    BETRAANTRAG_USERNAME:BETRAANTRAG_USERNAME,
-    BETRAANTRAG_PASSWORD:BETRAANTRAG_PASSWORD
+
+  .job_template: &job_template
+    tags:
+      - $PROJECT_RUNNER_TAG
 
 stages:
   - build-jar
@@ -100,30 +96,6 @@ Download Dependencies:
   artifacts:
     paths:
       - artifacts/*
-  except:
-    variables:
-      - $BIZHUB_DISABLE == "true"
-
-Download Secrets:
-  stage: integrationtest
-  only:
-    - master
-  <<: *job_template
-  needs:
-    - job: Download Dependencies
-      artifacts: true
-  image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
-  script:
-    - echo $RUNNER_MOUNT_PATH
-    - export BETRAANTRAG_PASSWORD=password
-    - export BETRAANTRAG_USERNAME=hallo world
-    - echo $BETRAANTRAG_USERNAME
-    - echo $BETRAANTRAG_PASSWORD
-    - echo "BETRAANTRAG_USERNAME=$BETRAANTRAG_USERNAME" >> betrauser.env
-    - echo "BETRAANTRAG_PASSWORD=$BETRAANTRAG_PASSWORD" >> betrauser.env
-  artifacts:
-    reports:
-      dotenv: betrauser.env
 
 Integration Test:
   stage: integrationtest
@@ -150,6 +122,3 @@ Integration Test:
       - ${JUNIT_REPORT_FILENAME}
     reports:
       junit: ${JUNIT_REPORT_FILENAME}
-  except:
-    variables:
-      - $BIZHUB_DISABLE == "true"
