@@ -80,7 +80,7 @@ Upload Artifacts:
 Download Dependencies:
   extends: .Download-Artifacts
   only:
-    - master
+    - master2
   stage: integrationtest
   <<: *job_template
   after_script:
@@ -111,8 +111,6 @@ Integration Test:
   dependencies:
     - Download Dependencies
   script:
-    - echo $BETRAANTRAG_USERNAME
-    - echo $BETRAANTRAG_PASSWORD
     - java -jar ./artifacts/testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
