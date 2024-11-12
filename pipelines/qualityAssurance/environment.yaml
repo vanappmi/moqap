@@ -29,8 +29,12 @@ Build Jar:
   <<: *job_template
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   script:
-    - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
-    - echo $GRADLE_OPTS
+    - echo "MAVEN_DOCKER_REPO '$MAVEN_DOCKER_REPO'"
+    - echo "CI_PROJECT_NAMESPACE '$CI_PROJECT_NAMESPACE'"
+    - echo "CI_PROJECT_NAME '$CI_PROJECT_NAME'"
+    - echo "CI_COMMIT_REF_NAME '$CI_COMMIT_REF_NAME'"
+    - echo "CI_ENVIRONMENT_SLUG '$CI_ENVIRONMENT_SLUG'"
+    - echo "TARGET_PATH '$TARGET_PATH'"
     - chmod +x ./gradlew
     - ./gradlew clean jar
     - mkdir -p ./artifacts/
@@ -70,8 +74,8 @@ Upload Artifacts:
     - echo "CI_PROJECT_NAMESPACE '$CI_PROJECT_NAMESPACE'"
     - echo "CI_PROJECT_NAME '$CI_PROJECT_NAME'"
     - echo "CI_COMMIT_REF_NAME '$CI_COMMIT_REF_NAME'"
-    - echo "DEPLOY_ENV '$DEPLOY_ENV'"
-    - echo $TARGET_PATH
+    - echo "CI_ENVIRONMENT_SLUG '$CI_ENVIRONMENT_SLUG'"
+    - echo "TARGET_PATH '$TARGET_PATH'"
 
 Download Dependencies:
   extends: .Download-Artifacts
