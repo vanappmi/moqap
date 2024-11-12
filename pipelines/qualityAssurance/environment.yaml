@@ -18,6 +18,7 @@ variables:
   MAVEN_DOCKER_REPO: "cna-bbpneo-commonlibs-maven-stage-local"
   DEPLOY_ENV: "dev"
   JUNIT_REPORT_FILENAME: "results.octane.xml"
+  ARTIFACT_NAME: "TestFramework"
 
 stages:
   - build-jar
@@ -29,12 +30,6 @@ Build Jar:
   <<: *job_template
   image: docker-hub-remote.bahnhub.tech.rz.db.de/openjdk:19-jdk-alpine3.16
   script:
-    - echo "MAVEN_DOCKER_REPO '$MAVEN_DOCKER_REPO'"
-    - echo "CI_PROJECT_NAMESPACE '$CI_PROJECT_NAMESPACE'"
-    - echo "CI_PROJECT_NAME '$CI_PROJECT_NAME'"
-    - echo "CI_COMMIT_REF_NAME '$CI_COMMIT_REF_NAME'"
-    - echo "CI_ENVIRONMENT_SLUG '$CI_ENVIRONMENT_SLUG'"
-    - echo "TARGET_PATH '$TARGET_PATH'"
     - chmod +x ./gradlew
     - ./gradlew clean jar
     - mkdir -p ./artifacts/
