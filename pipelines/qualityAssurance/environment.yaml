@@ -104,7 +104,6 @@ Integration Test:
   needs:
     - job: Download Dependencies
       artifacts: true
-    - job: Download Secrets
   dependencies:
     - Download Dependencies
     - Download Secrets
