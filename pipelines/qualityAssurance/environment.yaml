@@ -106,7 +106,6 @@ Integration Test:
       artifacts: true
   dependencies:
     - Download Dependencies
-    - Download Secrets
   script:
     - echo $BETRAANTRAG_USERNAME
     - echo $BETRAANTRAG_PASSWORD
