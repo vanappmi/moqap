@@ -9,17 +9,15 @@ include:
       - "/eks/kaniko/kaniko.yml"
   - "/pipelines/settings.yaml"
 
-
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
 
 variables:
   PROJECT_RUNNER_TAG: "eks-entwicklung"
   MAVEN_DOCKER_REPO: "cna-bbpneo-commonlibs-maven-stage-local"
   DEPLOY_ENV: "dev"
   JUNIT_REPORT_FILENAME: "results.octane.xml"
-
-  .job_template: &job_template
-    tags:
-      - $PROJECT_RUNNER_TAG
 
 stages:
   - build-jar
