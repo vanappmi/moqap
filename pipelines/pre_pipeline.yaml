@@ -10,25 +10,10 @@ stages:
 Entwicklungsumgebung:
   stage: dev
   include: 
-    - local: pipelines/pipeline.yaml
+    - local: /pipelines/dev/environment.yaml
       rules:
         - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT4/ || $CI_COMMIT_BRANCH =~ /^BABEDAS/ ) && $CI_COMMIT_TAG == null
           when: always
-
-  variables:
-    CI_DEBUG_TRACE: "true"
-    VERSION_ENV: "bbr-dev"
-    # SONARQUBE variables
-    SONARQUBE_PROJECT_KEY: "BauBetrieblicheRegelung---Featurebranch"
-    GITLEAKS_START_COMMIT: "b077b815fd38e8f98bea26b024fe6a3533a464dc"
-    DEPLOY_ENV: "dev"
-    STAGE_ENV: "dev"
-    LAP_TEST_DISABLE: "true"
-    TRIGGER_BUILD_MANUALLY: "true"
-    PROJECT_RUNNER_TAG: "eks-entwicklung"
-    BIZHUB_CONNECT_CONFIG: "pipelines/dev/bizhub/connect.yaml"
-    BASE_SERVICE_URL: "https://${CI_PROJECT_NAME}-dev.bbpneo-iat.cnp-test.comp.db.de"
-    SERVICE_URL: "https://${CI_PROJECT_NAME}-dev.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
 
 Entwicklungsumgebung B1:
   stage: dev
