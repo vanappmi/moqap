@@ -11,8 +11,10 @@ Entwicklungsumgebung:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT4/ || $CI_COMMIT_BRANCH =~ /^BABEDAS/ ) && $CI_COMMIT_TAG == null
       when: always
-  include: 
-    - local: 'pipelines/environments/dev/environment.yaml'
+  trigger:
+    include: 
+      - local: pipelines/environments/dev/environment.yaml
+    strategy: depend
   variables:
     CI_DEBUG_TRACE: "true"
     VERSION_ENV: "bbr-dev"
