@@ -17,6 +17,7 @@ variables:
   TARGET_IMAGE_TAG: "$CI_COMMIT_REF_NAME-prod-$CI_COMMIT_SHORT_SHA"
   ARTIFACT_NAME: $CI_PROJECT_NAME
   CI_REGISTRY: "${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de"
+  BIZHUB_CONNECT_CONFIG: "pipelines/prod/bizhub/connect.yaml"
 
 stages:
   - .pre

@@ -10,3 +10,4 @@ variables:
   LAP_TEST_DISABLE: "false"
   TRIGGER_BUILD_MANUALLY: "false"
   PROJECT_RUNNER_TAG: "eks-integration"
+  BIZHUB_CONNECT_CONFIG: "pipelines/int/bizhub/connect.yaml"

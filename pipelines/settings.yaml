@@ -1,6 +1,8 @@
 ---
 variables:
   CURRENT_VERSION: "V1.6"
+  DEPLOY_BRANCH: "$CI_COMMIT_REF_NAME"
+  DEPLOY_TEMPLATE: "${CI_PROJECT_NAME}/${CI_PROJECT_NAME}.yaml"
   PROJECT_NAME: $CI_PROJECT_NAME
   PREFIX_CI_DEPLOYMENT_NAME: $PROJECT_NAME
   DEV_HELM: "./child-pipelines/${DEPLOY_ENV}/values-${DEPLOY_ENV}.yaml"
@@ -16,8 +18,8 @@ variables:
   CI_REGISTRY: "${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de"
     # LIQUIBASE
   LIQUIBASE_DISABLE: "true"
-  FIELD_DB_URL: "database-url"
-  FIELD_DB_USER: "database-user"
+  FIELD_DB_URL: "${CI_PROJECT_NAME}_api_username"
+  FIELD_DB_USER: "${CI_PROJECT_NAME}_api_password"
   FIELD_DB_PASSWORD: "database-password"
   # BIZHUB
   BIZHUB_DISABLE: "true"
