@@ -16,7 +16,7 @@ Entwicklungsumgebung:
     include:
     - project: "cnp/bbpneo/02-ops/moqap"
       ref: "$CI_COMMIT_REF_NAME"
-      file: /pipelines/dev/environment.yaml
+      file: pipelines/environments/dev/environment.yaml
     strategy: depend
 
 Entwicklungsumgebung B1:
