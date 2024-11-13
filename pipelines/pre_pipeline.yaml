@@ -14,9 +14,6 @@ Entwicklungsumgebung:
       when: always
   trigger:
     include:
-    - project: "cnp/bbpneo/02-ops/moqap"
-      ref: "$CI_COMMIT_REF_NAME"
-      file: pipelines/environments/dev/environment.yaml
     - local: "pipelines/dev/environment.yaml"
     strategy: depend
 
