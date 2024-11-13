@@ -4,7 +4,7 @@ variables:
   DEPLOY_BRANCH: "$CI_COMMIT_REF_NAME"
   DEPLOY_TEMPLATE: "${CI_PROJECT_NAME}/${CI_PROJECT_NAME}.yaml"
   PROJECT_NAME: $CI_PROJECT_NAME
-  PREFIX_CI_DEPLOYMENT_NAME: $PROJECT_NAME
+  PREFIX_CI_DEPLOYMENT_NAME: $CI_PROJECT_NAME
   DEV_HELM: "./child-pipelines/${DEPLOY_ENV}/values-${DEPLOY_ENV}.yaml"
   # HTTP PROXY
   HTTP_PROXY_HOST: "webproxy.comp.db.de"
@@ -28,6 +28,7 @@ variables:
   WS_SERVER_URL: "https://whitesource.int-app.comp.db.de/agent"
   WS_API_URL: "https://whitesource.int-app.comp.db.de/api"
   WS_CONFIG_FILE: "/opt/whitesource/wss-unified-agent.config"
+  WHITESOURCE_CONFIG_FILE: "config/whitesource.cfg"
   # ARTIFACTORY
   ARTIFACTORY_URL: "https://bahnhub.tech.rz.db.de/artifactory/"
   DEV_DOCKER_REPO: "cna-bbpneo-dev-docker-stage-local"

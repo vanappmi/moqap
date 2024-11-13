@@ -18,6 +18,8 @@ variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
   CI_REGISTRY: "${AU_DOCKER_REPO}.bahnhub.tech.rz.db.de"
   BIZHUB_CONNECT_CONFIG: "pipelines/au/bizhub/connect.yaml"
+  BASE_SERVICE_URL: "https://${CI_PROJECT_NAME}-au.bbpneo-iat.cnp-test.comp.db.de"
+  SERVICE_URL: "https://${CI_PROJECT_NAME}-au.bbpneo-au.svc.cluster.local:443/actuator/info"
 
 stages:
   - .pre
