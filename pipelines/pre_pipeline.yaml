@@ -13,7 +13,7 @@ Entwicklungsumgebung:
       when: always
   trigger:
     include: 
-      - local: /pipelines/environments/dev/environment.yaml
+      - local: 'pipelines/environments/dev/environment.yaml'
     strategy: depend
   variables:
     CI_DEBUG_TRACE: "true"
