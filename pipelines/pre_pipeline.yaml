@@ -1,4 +1,8 @@
 ---
+include:
+  # Generic pipeline description for all stages
+  - "pipelines/pipeline.yaml"
+
 stages:
   - dev
   - int
@@ -9,12 +13,10 @@ stages:
 
 Entwicklungsumgebung:
   stage: dev
-  include: 
-    - local: /pipelines/dev/environment.yaml
-      rules:
-        - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT4/ || $CI_COMMIT_BRANCH =~ /^BABEDAS/ ) && $CI_COMMIT_TAG == null
-          when: always
-
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT4/ || $CI_COMMIT_BRANCH =~ /^BABEDAS/ ) && $CI_COMMIT_TAG == null
+      when: always
+      
 Entwicklungsumgebung B1:
   stage: dev
   rules:
