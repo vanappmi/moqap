@@ -13,6 +13,7 @@ Whitesource:
   needs:
     - job: Build Jar
   variables:
+    WHITESOURCE_PROJECTTOKEN: "${CI_PROJECT_NAME}_whitesource_project_token"
     WS_SERVER_URL: "https://whitesource.int-app.comp.db.de/agent"
     WS_API_URL: "https://whitesource.int-app.comp.db.de/api"
     WS_CONFIG_FILE: "$CI_PROJECT_DIR/config/whitesource.cfg"

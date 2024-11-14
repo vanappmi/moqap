@@ -10,6 +10,7 @@ SonarQube:
   needs:
     - job: Build Jar
   variables:
+    SONARQUBE_USER_ID_TOKEN: "${CI_PROJECT_NAME}_sonarqube_user_id_token"
     SONARQUBE_HOST_URL: "https://bbpneo-sonarqube.cnp-test.comp.db.de/"
     SONARQUBE_SOURCE_DIR: "src"
     SONARQUBE_JAVA_BINARIES_DIR: "build"
