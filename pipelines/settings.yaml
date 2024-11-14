@@ -25,7 +25,7 @@ variables:
   FIELD_DB_PASSWORD: "database-password"
   # BIZHUB
   BIZHUB_DISABLE: "true"
-  BIZHUB_CONNECT_CONFIG: ""
+  BIZHUB_CONNECT_CONFIG: "pipelines/bizhub/connect.yaml"
   # WHITESOURCE
   WS_SERVER_URL: "https://whitesource.int-app.comp.db.de/agent"
   WS_API_URL: "https://whitesource.int-app.comp.db.de/api"
