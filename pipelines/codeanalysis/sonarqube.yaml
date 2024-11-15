@@ -10,7 +10,7 @@ SonarQube:
   needs:
     - job: Build Jar
   variables:
-    SONARQUBE_HOST_URL: "https://bbpneo-sonarqube.cnp-test.comp.db.de/"
+    SONARQUBE_HOST_URL: "https://bbpneo-sonarqube.bbpneo-iat.cnp-test.comp.db.de/"
     SONARQUBE_SOURCE_DIR: "src"
     SONARQUBE_JAVA_BINARIES_DIR: "build"
     SECRETS:
