@@ -25,9 +25,7 @@ Build Jar:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
     - echo $ARTIFACTORY_USER
-    - ls -al ./gradlew
     - chmod -v 777 ./gradlew
-    - ls -al ./gradlew
     - |
       if [ "$IS_COMMONLIB" == "true" ]; then
         ./gradlew --build-cache --gradle-user-home cache/ build jacocoTestCoverageVerification publish
