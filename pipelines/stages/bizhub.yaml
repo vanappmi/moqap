@@ -4,6 +4,10 @@ Deployment BizHub:
   variables:
 #    STAGE: "review"
     CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
+    visibilityOrgs: |-
+      - 3bdatenservices
+    subscribeOrgs: |-
+      - 3bdatenservices
   rules:
     - if: $BIZHUB_DISABLE != "true"
       needs:
