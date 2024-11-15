@@ -7,7 +7,7 @@ variables:
   VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
   PREFIX_CI_DEPLOYMENT_NAME: $CI_PROJECT_NAME
   DEV_HELM: "./child-pipelines/${DEPLOY_ENV}/values-${DEPLOY_ENV}.yaml"
-  SONARQUBE_USER_ID_TOKEN: "${CI_PROJECT_NAME}_sonarqube_user_id_token"
+  SONARQUBE_USER_ID_TOKEN: "BBPNEO_SONARQUBE_LOGIN_TOKEN"
   WHITESOURCE_PROJECTTOKEN: "${CI_PROJECT_NAME}_whitesource_project_token"
   # HTTP PROXY
   HTTP_PROXY_HOST: "webproxy.comp.db.de"
