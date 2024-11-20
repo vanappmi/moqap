@@ -27,6 +27,7 @@ variables:
   PROJECT_RUNNER_TAG: "eks-integration"
   BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
   SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
+  SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}---Masterbranch"
 
 stages:
   - .pre
