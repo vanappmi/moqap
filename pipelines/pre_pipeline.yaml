@@ -38,7 +38,7 @@ Renovate:
 Pipeline will not run:
   stage: dev
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && $CI_COMMIT_BRANCH !~ /^BBPT4/ && $CI_COMMIT_BRANCH !~ /^BABEDAS/ && $CI_COMMIT_BRANCH !~ /^BBPT7/ && $CI_COMMIT_BRANCH !~ /^BONE/ && $CI_COMMIT_TAG == null
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && $CI_COMMIT_BRANCH !~ /^BBPT4/ && $CI_COMMIT_BRANCH !~ /^BABEDAS/ && $CI_COMMIT_BRANCH !~ /^BBPT7/ && $CI_COMMIT_BRANCH !~ /^BONE/ && $CI_COMMIT_BRANCH !~ /^renovate/ && $CI_COMMIT_TAG == null
       when: always
   trigger:
     include: /pipelines/stop.yaml
