@@ -26,6 +26,15 @@ Entwicklungsumgebung B1:
     include: /pipelines/dev-b1/environment.yaml
     strategy: depend
 
+Renovate:
+  stage: dev
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "development"  && $CI_COMMIT_BRANCH !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^renovate/ || $CI_COMMIT_BRANCH =~ /^renovate/ ) && $CI_COMMIT_TAG == null
+      when: always
+  trigger:
+    include: /pipelines/dev/environment.yaml
+    strategy: depend
+
 Pipeline will not run:
   stage: dev
   rules:
