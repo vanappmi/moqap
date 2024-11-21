@@ -26,7 +26,7 @@ variables:
     - export DEPLOYER_APP_CLIENT_SECRET=$BIZHUB_DEPLOYER_APP_CLIENT_SECRET
     # - export STAGE=$STAGE
     - export APPLICATION_SERVICE_URL=$(cat APPLICATION_SERVICE_URL.txt)
-    - export APPLICATION_URL=$(cat APPLICATION_URL.txt)
+    - export APPLICATION_URL=$BASE_SERVICE_URL
     - export APPLICATION_SERVICE_NAME=$(cat APPLICATION_SERVICE_URL.txt)
     - export OPENSHIFT_NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
     # echo
