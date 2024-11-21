@@ -20,6 +20,7 @@ variables:
   BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-prod.cnp-test.comp.db.de"
   SERVICE_URL: "https://${VERSION_ENV}.bbpneo-prod.svc.cluster.local:443/actuator/info"
   DEPLOY_TEMPLATE: "${CI_PROJECT_NAME}/${CI_PROJECT_NAME}-prod.yaml"
+  STAGE: "prod"
 
 stages:
   - .pre

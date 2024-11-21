@@ -19,6 +19,7 @@ variables:
   CI_REGISTRY: "${AU_DOCKER_REPO}.bahnhub.tech.rz.db.de"
   BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
   SERVICE_URL: "https://${VERSION_ENV}.bbpneo-au.svc.cluster.local:443/actuator/info"
+  STAGE: "at"
 
 stages:
   - .pre

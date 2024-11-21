@@ -13,3 +13,4 @@ variables:
   PROJECT_RUNNER_TAG: "eks-entwicklung"
   BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
   SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-b1.svc.cluster.local:443/actuator/info"
+  STAGE: "review"

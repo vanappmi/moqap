@@ -20,6 +20,7 @@ variables:
   CI_REGISTRY: "${LUP_DOCKER_REPO}.bahnhub.tech.rz.db.de"
   BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
   SERVICE_URL: "https://${VERSION_ENV}.bbpneo-lup.svc.cluster.local:443/actuator/info"
+  STAGE: "lup"
 
 stages:
   - .pre
