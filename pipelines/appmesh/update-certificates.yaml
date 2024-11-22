@@ -1,9 +1,6 @@
 ---
 include:
-  - project: "moqap/modules"
-    ref: "10.0.0"
-    file:
-      - "/templates/moqap_templates.yml"
+  - "/templates/moqap_templates.yml"
   - "/pipelines/settings.yaml"
 
 stages:
@@ -59,7 +56,7 @@ list_certificates bbpneo iat:
     - git config pull.rebase true   # rebase
     ######################################################################################
     - yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
-    - !reference [.template update deployments]
+    - !reference [.template update deployments, script]
     - cat $DEPLOY_TEMPLATE
     - git add $DEPLOY_TEMPLATE
     - git commit -m "update $DEPLOY_TEMPLATE"
