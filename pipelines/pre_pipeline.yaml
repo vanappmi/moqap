@@ -56,7 +56,7 @@ Pipeline will not run:
 Integrationstestumgebung:
   stage: int
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
       when: always
   trigger:
     include: /pipelines/int/environment.yaml
