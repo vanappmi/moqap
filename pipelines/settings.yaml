@@ -46,6 +46,7 @@ variables:
   SERVICE_URL: ""
   imageVersion: ""
   BUILD_DISABLE: "false"
+  CI_REGRESSIONS_TESTS: "false"
   # CRONJOB
   IS_CRONJOB: "false"
   # SECRETS SCAN
