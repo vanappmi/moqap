@@ -166,8 +166,8 @@
         export version=$( echo $secret | awk -F, {'print $3'} );
         export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
         yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .objectNameDbAdmin) |= strenv(claim)' $DEPLOY_TEMPLATE;
-        # git add $DEPLOY_TEMPLATE;
-        # git commit -m "update $DEPLOY_TEMPLATE";
+        git add $DEPLOY_TEMPLATE;
+        git commit -m "update $DEPLOY_TEMPLATE";
       done;
       for cert in $(kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{.metadata.labels.cnp\.comp\.db\.de\/component},{.metadata.labels.cnp\.comp\.db\.de\/release}{"\n"}{end}' -l cnp.comp.db.de/component);
       do
@@ -177,6 +177,6 @@
         export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
         # echo "claim: --$arn-- component: --$component-- version: --$version--";
         yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
-        # git add $DEPLOY_TEMPLATE;
-        # git commit -m "update $DEPLOY_TEMPLATE";
+        git add $DEPLOY_TEMPLATE;
+        git commit -m "update $DEPLOY_TEMPLATE";
       done;
