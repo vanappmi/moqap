@@ -114,5 +114,6 @@ list_certificates bbpneo prod:
     - git config pull.rebase true   # rebase
     - git add --all
     - git diff --quiet || git commit -m "update deployments"
-    - git pull
+    - git status
+    # - git pull
     - git push
