@@ -64,7 +64,6 @@ list_certificates bbpneo iat:
         export DEPLOY_TEMPLATE="bbpneo-iat/deployment/$component/$component.yaml"
         # echo "claim: --$claim-- component: --$component-- version: --$version--"
         yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .objectNameDbAdmin) |= strenv(claim)' $DEPLOY_TEMPLATE
-        cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
         git add $DEPLOY_TEMPLATE
         git commit -m "update $DEPLOY_TEMPLATE"
       done
@@ -76,11 +75,9 @@ list_certificates bbpneo iat:
         export DEPLOY_TEMPLATE="bbpneo-iat/deployment/$component/$component.yaml"
         # echo "claim: --$arn-- component: --$component-- version: --$version--"
         yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE
-        cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
         git add $DEPLOY_TEMPLATE
         git commit -m "update $DEPLOY_TEMPLATE"
       done
-    - cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
     - cat $DEPLOY_TEMPLATE
     - git add $DEPLOY_TEMPLATE
     - git commit -m "update $DEPLOY_TEMPLATE"
