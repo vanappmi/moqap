@@ -57,7 +57,7 @@ list_certificates bbpneo iat:
     - git config pull.rebase true   # rebase
     ######################################################################################
     - yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
-    - ./deployments_update.sh bbpneo-iat cnp-api-iat-v4-zgjrp
+    - ./pipelines/appmesh/deployments_update.sh bbpneo-iat cnp-api-iat-v4-zgjrp
     - cat $DEPLOY_TEMPLATE
     - git add $DEPLOY_TEMPLATE
     - git commit -m "update $DEPLOY_TEMPLATE"
