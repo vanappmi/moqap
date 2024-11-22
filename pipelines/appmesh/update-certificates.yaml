@@ -58,8 +58,8 @@ list_certificates bbpneo iat:
     - yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
     - !reference [.template update deployments, script]
     - cat $DEPLOY_TEMPLATE
-    - git add $DEPLOY_TEMPLATE
-    - git commit -m "update $DEPLOY_TEMPLATE"
+    - git add -a
+    - git commit -m "update deployments"
     - git pull
     - git push
 
