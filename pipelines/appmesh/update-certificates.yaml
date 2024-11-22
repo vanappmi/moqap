@@ -59,7 +59,7 @@ list_certificates bbpneo iat:
     - !reference [.template update deployments, script]
     - cat $DEPLOY_TEMPLATE
     - git add --all
-    - git commit -m "update deployments"
+    - git diff --quiet || git commit -m "update deployments"
     - git pull
     - git push
 
