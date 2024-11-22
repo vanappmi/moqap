@@ -23,3 +23,8 @@ stages:
 
 variables:
   IS_COMMONLIB: "true"
+  DEPLOY_ENV: "dev"
+  STAGE_ENV: "dev"
+  IS_RELEASE: "true"
+  CI_REGISTRY: "cna-bbpneo-commonlibs-maven-stage-local.bahnhub.tech.rz.db.de"
+  PROJECT_RUNNER_TAG: "eks-entwicklung"

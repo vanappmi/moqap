@@ -21,6 +21,5 @@ stages:
 variables:
   DEPLOY_ENV: "dev"
   STAGE_ENV: "dev"
-  LAP_TEST_DISABLE: "true"
   PROJECT_RUNNER_TAG: "eks-entwicklung"
   IS_COMMONLIB: "true"
