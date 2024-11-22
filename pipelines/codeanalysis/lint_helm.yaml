@@ -1,0 +1,34 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "10.0.0"
+    file:
+      - "/lint/helm/lint_helm.yml"
+
+variables:
+  PROJECT_RUNNER_TAG: "eks-entwicklung"
+
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+lint_helm eks:
+  extends: .lint_helm
+  stage: static-codeanalysis
+  <<: *job_template
+  variables:
+    LINT_HELM_PATH: "./helm-charts/eks"
+
+lint_helm cnp-api:
+  extends: .lint_helm
+  stage: static-codeanalysis
+  <<: *job_template
+  variables:
+    LINT_HELM_PATH: "./helm-charts/cnp-api"
+
+lint_helm grafana-dashboard:
+  extends: .lint_helm
+  stage: static-codeanalysis
+  <<: *job_template
+  variables:
+    LINT_HELM_PATH: "./helm-charts/grafana-dashboard"
