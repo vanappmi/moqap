@@ -25,9 +25,10 @@ Download Dependencies:
   rules:
     - if: ($CI_REGRESSIONS_TESTS == "true") && $CI_COMMIT_BRANCH
       when: always
-  after_script:
+  before_script:
     - mkdir -p ./artifacts/
-    - cp download/cnp/dbds/bbpneo-3bds/testframework/master/int/artifacts/testframework-1.0-SNAPSHOT-all.jar  artifacts
+  after_script:
+    - find ./download/ -name testframework-1.0-SNAPSHOT-all.jar -exec cp {} artifacts \;
   variables:
     ARTIFACTORY_PATH: "cna-bbpneo-commonlibs-maven-stage-local/cnp/bbpneo/07-quality-assurance-and-test/testframework/master/dev/artifacts/"
     TARGET_DIR: "download"
@@ -51,7 +52,7 @@ Integration Test:
     - Download Dependencies
   script:
     - !reference [ .template secrets, script ]
-    - cp ./artifacts/testframework-1.0-SNAPSHOT-all.jar .
+    - find ./artifacts/ -name testframework-1.0-SNAPSHOT-all.jar -exec cp {} ./ \;
     - java -jar testframework-1.0-SNAPSHOT-all.jar
   artifacts:
     when: always
