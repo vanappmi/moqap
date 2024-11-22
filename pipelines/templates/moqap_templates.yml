@@ -157,7 +157,6 @@
 .template update deployments:
   script:
     - |
-      set -x
       export OLDIFS=$IFS;
       for secret in $(kubectl get secret.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-secret.name},{.metadata.labels.cnp\.comp\.db\.de\/component},{.metadata.labels.cnp\.comp\.db\.de\/release}{"\n"}{end}' -l cnp.comp.db.de/component);
       do
