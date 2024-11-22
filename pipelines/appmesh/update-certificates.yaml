@@ -1,6 +1,6 @@
 ---
 include:
-  - "/templates/moqap_templates.yml"
+  - "/pipelines/templates/moqap_templates.yml"
   - "/pipelines/settings.yaml"
 
 stages:
