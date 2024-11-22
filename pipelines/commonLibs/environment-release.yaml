@@ -28,4 +28,4 @@ variables:
   IS_RELEASE: "true"
   CI_REGISTRY: "cna-bbpneo-commonlibs-maven-stage-local.bahnhub.tech.rz.db.de"
   PROJECT_RUNNER_TAG: "eks-entwicklung"
-  SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}
+  SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}"
