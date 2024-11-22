@@ -23,7 +23,7 @@ list_certificates bbpneo iat:
     no_proxy: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
     KUBECONFIG_PATH: /tmp/kubeconfig.yaml
     DEPLOY_TEMPLATE: "$STAGE/cnp-api/appmesh.yaml"
-    KUBE_CONTEXT: "$KUBE_CONTEXT"
+    KUBE_CONTEXT: "cnp-api-iat-v4-zgjrp"
     STAGE: "bbpneo-iat"
     SECRETS:
       CNP_API_BBPNEO_IAT_KUBECONFIG:CNP_API_BBPNEO_IAT_KUBECONFIG,
@@ -56,30 +56,7 @@ list_certificates bbpneo iat:
     - git config pull.rebase true   # rebase
     ######################################################################################
     - yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
-    - |
-      for secret in $(kubectl get secret.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-secret.name},{.metadata.labels.cnp\.comp\.db\.de\/component},{.metadata.labels.cnp\.comp\.db\.de\/release}{"\n"}{end}' -l cnp.comp.db.de/component);
-      do
-        export claim=$( echo $secret | awk -F, {'print $1'} );
-        export component=$( echo $secret | awk -F, {'print $2'} );
-        export version=$( echo $secret | awk -F, {'print $3'} );
-        export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
-        # echo "claim: --$claim-- component: --$component-- version: --$version--";
-        yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .objectNameDbAdmin) |= strenv(claim)' $DEPLOY_TEMPLATE;
-        git add $DEPLOY_TEMPLATE;
-        git commit -m "update $DEPLOY_TEMPLATE";
-      done;
-
-      for cert in $(kubectl get certificates.cnp.comp.db.de -n $1 --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{.metadata.labels.cnp\.comp\.db\.de\/component},{.metadata.labels.cnp\.comp\.db\.de\/release}{"\n"}{end}' -l cnp.comp.db.de/component);
-      do
-        export arn=$( echo $cert | awk -F, {'print $1'} );
-        export component=$( echo $cert | awk -F, {'print $2'} );
-        export version=$( echo $cert | awk -F, {'print $3'} );
-        export DEPLOY_TEMPLATE="$1/deployment/$component/$component.yaml";
-        # echo "claim: --$arn-- component: --$component-- version: --$version--";
-        yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
-        git add $DEPLOY_TEMPLATE;
-        git commit -m "update $DEPLOY_TEMPLATE";
-      done;
+    - !reference [.template update deployments, script]
     - cat $DEPLOY_TEMPLATE
     - git add $DEPLOY_TEMPLATE
     - git commit -m "update $DEPLOY_TEMPLATE"
