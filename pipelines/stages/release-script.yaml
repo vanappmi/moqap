@@ -69,7 +69,10 @@ release-script:
     # 7. Inkrementierte Versionsnummer in gradle.properties zurückschreiben
     - git checkout development
     - echo $GRADLE_OPTS
-    - ./gradlew generateGitLog
+    - if [ $IS_CRONJOB != "true" ];
+      then
+        ./gradlew generateGitLog
+      fi
     - sed -i "s/$OLD_VERSION/$CURRENT_VERSION/g" gradle.properties
     - sed -i "s/$CURRENT_VERSION/$NEW_VERSION/g" gradle.properties
     - cat gradle.properties
