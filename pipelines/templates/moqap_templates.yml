@@ -163,7 +163,7 @@
         export claim=$( echo $secret | awk -F, {'print $1'} );
         export component=$( echo $secret | awk -F, {'print $2'} );
         export version=$( echo $secret | awk -F, {'print $3'} );
-        if [ $STAGE = "bbpneo-iat"]; then
+        if [ $STAGE == "bbpneo-iat"]; then
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
           yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .objectNameDbAdmin) |= strenv(claim)' $DEPLOY_TEMPLATE;
         else
@@ -178,7 +178,7 @@
         export version=$( echo $cert | awk -F, {'print $3'} );
         export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
         # echo "claim: --$arn-- component: --$component-- version: --$version--";
-        if [ $STAGE = "bbpneo-iat"]; then
+        if [ $STAGE == "bbpneo-iat"]; then
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
           yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
         else
