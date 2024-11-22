@@ -25,7 +25,9 @@ list_certificates bbpneo iat:
     https_proxy: "http://webproxy.comp.db.de:8080"
     no_proxy: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
     KUBECONFIG_PATH: /tmp/kubeconfig.yaml
-    DEPLOY_TEMPLATE: "bbpneo-iat/cnp-api/appmesh.yaml"
+    DEPLOY_TEMPLATE: "$STAGE/cnp-api/appmesh.yaml"
+    KUBE_CONTEXT: "$KUBE_CONTEXT"
+    STAGE: "iat"
     SECRETS:
       CNP_API_BBPNEO_IAT_KUBECONFIG:CNP_API_BBPNEO_IAT_KUBECONFIG,
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY
@@ -48,16 +50,16 @@ list_certificates bbpneo iat:
     - export KUBECONFIG=$KUBECONFIG_PATH
     - kubectl config get-contexts
     - echo "Listing certificates..."
-    - kubectl get certificates.cnp.comp.db.de -n bbpneo-iat --context cnp-api-iat-v4-zgjrp -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.resources.aws-certificate.externalName}{"\n"}{end}' -l cnp.comp.db.de/appmesh=dbds
-    - kubectl get CertifiedResourceRecordSet -n bbpneo-iat --context cnp-api-iat-v4-zgjrp -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.resources.aws-certificate.externalName}{"\n"}{end}' -l cnp.comp.db.de/appmesh=dbds
-    - export CERTIFICATE_ARNS="$(kubectl get certificates.cnp.comp.db.de -n bbpneo-iat --context cnp-api-iat-v4-zgjrp -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev),$(kubectl get CertifiedResourceRecordSet -n bbpneo-iat --context cnp-api-iat-v4-zgjrp -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev)"
+    - kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.resources.aws-certificate.externalName}{"\n"}{end}' -l cnp.comp.db.de/appmesh=dbds
+    - kubectl get CertifiedResourceRecordSet -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.resources.aws-certificate.externalName}{"\n"}{end}' -l cnp.comp.db.de/appmesh=dbds
+    - export CERTIFICATE_ARNS="$(kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev),$(kubectl get CertifiedResourceRecordSet -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev)"
     - echo $CERTIFICATE_ARNS
     - git config --global user.email "bbpneo@pipeline.com"
     - git config --global user.name "bbpneo Pipeline"
     - git config pull.rebase true   # rebase
     ######################################################################################
     - yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
-    - ./pipelines/appmesh/deployments_update.sh bbpneo-iat cnp-api-iat-v4-zgjrp
+    - !reference [.template update deployments]
     - cat $DEPLOY_TEMPLATE
     - git add $DEPLOY_TEMPLATE
     - git commit -m "update $DEPLOY_TEMPLATE"
