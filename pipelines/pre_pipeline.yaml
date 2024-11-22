@@ -1,4 +1,7 @@
 ---
+include:
+  - "/pipelines/settings.yaml"
+
 stages:
   - dev
   - int
