@@ -24,7 +24,7 @@ list_certificates bbpneo iat:
     KUBECONFIG_PATH: /tmp/kubeconfig.yaml
     DEPLOY_TEMPLATE: "$STAGE/cnp-api/appmesh.yaml"
     KUBE_CONTEXT: "$KUBE_CONTEXT"
-    STAGE: "iat"
+    STAGE: "bbpneo-iat"
     SECRETS:
       CNP_API_BBPNEO_IAT_KUBECONFIG:CNP_API_BBPNEO_IAT_KUBECONFIG,
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY
