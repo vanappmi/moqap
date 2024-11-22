@@ -176,7 +176,6 @@
         export arn=$( echo $cert | awk -F, {'print $1'} );
         export component=$( echo $cert | awk -F, {'print $2'} );
         export version=$( echo $cert | awk -F, {'print $3'} );
-        export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
         # echo "claim: --$arn-- component: --$component-- version: --$version--";
         if [ "$STAGE" = "bbpneo-iat"]; then
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
