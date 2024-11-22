@@ -19,6 +19,8 @@ stages:
   - .post
 
 variables:
+  DEPLOY_ENV: "dev"
+  STAGE_ENV: "dev"
+  LAP_TEST_DISABLE: "true"
+  PROJECT_RUNNER_TAG: "eks-entwicklung"
   IS_COMMONLIB: "true"
-  ARTIFACTORY_USER: $ARTIFACTORY_USER
-  ARTIFACTORY_PASSWORD: $ARTIFACTORY_PASSWORD
