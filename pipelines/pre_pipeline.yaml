@@ -64,6 +64,8 @@ Integrationstestumgebung:
 
 Release:
   stage: int
+  needs:
+    - job: Integrationstestumgebung
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
       when: always
@@ -73,8 +75,6 @@ Release:
 
 Release CommonLibs:
   stage: int
-  needs:
-    - job: Integrationstestumgebung
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "true"
       when: always
