@@ -169,7 +169,7 @@
         # git add $DEPLOY_TEMPLATE;
         # git commit -m "update $DEPLOY_TEMPLATE";
       done;
-      for cert in $(kubectl get certificates.cnp.comp.db.de -n $1 --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{.metadata.labels.cnp\.comp\.db\.de\/component},{.metadata.labels.cnp\.comp\.db\.de\/release}{"\n"}{end}' -l cnp.comp.db.de/component);
+      for cert in $(kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{.metadata.labels.cnp\.comp\.db\.de\/component},{.metadata.labels.cnp\.comp\.db\.de\/release}{"\n"}{end}' -l cnp.comp.db.de/component);
       do
         export arn=$( echo $cert | awk -F, {'print $1'} );
         export component=$( echo $cert | awk -F, {'print $2'} );
