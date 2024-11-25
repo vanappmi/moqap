@@ -9,7 +9,6 @@ stages:
   - lup
   - prod
 
-
 Entwicklungsumgebung:
   stage: dev
   rules:
@@ -23,7 +22,7 @@ Entwicklungsumgebung:
 Entwicklungsumgebung B1:
   stage: dev
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT7/ || $CI_COMMIT_BRANCH =~ /^BONE/ ) && $CI_COMMIT_TAG == null
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT7/ || $CI_COMMIT_BRANCH =~ /^BONE/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
       when: always
   trigger:
     include: /pipelines/dev-b1/environment.yaml
@@ -88,7 +87,7 @@ Release CommonLibs:
 Release-Build:
   stage: int
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "true"
       when: always
   trigger:
     include: /pipelines/int/release-build.yaml
