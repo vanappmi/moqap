@@ -166,10 +166,10 @@
         export version=$( echo $secret | awk -F, {'print $3'} );
         if [ "$STAGE" = "bbpneo-iat" ]; then
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
-          yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .objectNameDbAdmin) |= strenv(claim)' $DEPLOY_TEMPLATE;
+          yq -v -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .objectNameDbAdmin) |= strenv(claim)' $DEPLOY_TEMPLATE;
         else
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component-prod.yaml";
-          o="$(yq e '.spec.source.helm.values' $DEPLOY_TEMPLATE | yq e '.secretProviderClass.objectNameDbAdmin=strenv(version)' -)" yq e -i '.spec.source.helm.values = strenv(o)' $DEPLOY_TEMPLATE
+          o="$(yq e -v '.spec.source.helm.values' $DEPLOY_TEMPLATE | yq e '.secretProviderClass.objectNameDbAdmin=strenv(version)' -)" yq e -i '.spec.source.helm.values = strenv(o)' $DEPLOY_TEMPLATE
         fi;
       done;
       for cert in $(kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{.metadata.labels.cnp\.comp\.db\.de\/component},{.metadata.labels.cnp\.comp\.db\.de\/release}{"\n"}{end}' -l cnp.comp.db.de/component);
@@ -180,10 +180,10 @@
         # echo "claim: --$arn-- component: --$component-- version: --$version--";
         if [ "$STAGE" = "bbpneo-iat" ]; then
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
-          yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
+          yq -v -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
         else
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component-prod.yaml";
-          o="$(yq e '.spec.source.helm.values' $DEPLOY_TEMPLATE | yq e '.virtualNode.certificateARN=strenv(arn)' -)" yq e -i '.spec.source.helm.values = strenv(o)' $DEPLOY_TEMPLATE
+          o="$(yq -v e '.spec.source.helm.values' $DEPLOY_TEMPLATE | yq e '.virtualNode.certificateARN=strenv(arn)' -)" yq e -i '.spec.source.helm.values = strenv(o)' $DEPLOY_TEMPLATE
         fi;
       done;
       set +v
