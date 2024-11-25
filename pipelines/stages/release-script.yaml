@@ -69,8 +69,9 @@ release-script:
     # 7. Inkrementierte Versionsnummer in gradle.properties zurückschreiben
     - git checkout development
     - echo $GRADLE_OPTS
+    - echo $IS_CRONJOB
     - |
-      if [ $IS_CRONJOB != "true" ];
+      if [ -z "$IS_CRONJOB" ] | [ $IS_CRONJOB != "true" ];
       then
         ./gradlew generateGitLog
       fi
