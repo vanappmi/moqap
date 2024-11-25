@@ -157,7 +157,7 @@
 .template update deployments:
   script:
     - |
-      set -x
+      set -v
       export OLDIFS=$IFS;
       for secret in $(kubectl get secret.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-secret.name},{.metadata.labels.cnp\.comp\.db\.de\/component},{.metadata.labels.cnp\.comp\.db\.de\/release}{"\n"}{end}' -l cnp.comp.db.de/component);
       do
@@ -186,3 +186,4 @@
           o="$(yq e '.spec.source.helm.values' $DEPLOY_TEMPLATE | yq e '.virtualNode.certificateARN=strenv(arn)' -)" yq e -i '.spec.source.helm.values = strenv(o)' $DEPLOY_TEMPLATE
         fi;
       done;
+      set +v

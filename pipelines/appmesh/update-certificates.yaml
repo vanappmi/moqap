@@ -59,7 +59,7 @@ list_certificates bbpneo iat:
     - !reference [.template update deployments, script]
     - cat $DEPLOY_TEMPLATE
     - git add --all
-    - git diff --quiet || git commit -m "update deployments"
+    - git diff --quiet || git commit -a -m "update deployments"
     - git pull
     - git push
 
@@ -113,7 +113,7 @@ list_certificates bbpneo prod:
     - git config --global user.name "bbpneo Pipeline"
     - git config pull.rebase true   # rebase
     - git add --all
-    - git diff --quiet || git commit -m "update deployments"
+    - git diff --quiet || git commit -a -m "update deployments"
     - git status
     # - git pull
     - git push
