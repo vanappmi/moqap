@@ -1,6 +1,6 @@
 ---
-include:
-  - "/pipelines/settings.yaml"
+variables:
+  IS_COMMONLIB: "false"
 
 stages:
   - dev
