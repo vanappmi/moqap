@@ -1,8 +1,7 @@
 include:
   - project: "bizhub/pipeline/products/bizhub-connect-v3-api-only"
-    ref: "6.3"
+    ref: "6.4"
     file: "product-bizhub-connect-v3-api-only.yaml"
-#  - https://bahnhub.tech.rz.db.de/artifactory/business-hub-generic-release-local/release/products/bizhub-connect-v3-api-only/6.3.0-20241023085917-2d5c12d.yaml
 
 variables:
   CI_DEBUG_TRACE: "false"
