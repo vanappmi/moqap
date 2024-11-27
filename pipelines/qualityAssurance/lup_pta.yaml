@@ -5,6 +5,7 @@ include:
     file:
       - "/artifactory/upload_artifacts_dir.yml"
       - "/jmeter/jmeter.yml"
+  - "/pipelines/settings.yaml"
 
 variables:
   PROJECT_RUNNER_TAG: "eks-entwicklung"
