@@ -1,0 +1,75 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "10.2.0"
+    file:
+      - "/artifactory/upload_artifacts_dir.yml"
+      - "/jmeter/jmeter.yml"
+
+variables:
+  PROJECT_RUNNER_TAG: "eks-entwicklung"
+  DEV_DOCKER_REPO: "cna-bbpneo-dev-docker-stage-local"
+  SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
+  TARGET_DOCKER_REPO: "cna-bbpneo-prod-docker-stage-local"
+  ARTIFACT_NAME: $CI_PROJECT_NAME
+  DEPLOY_ENV: "LuP Repo"
+
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+stages:
+  - upload
+  - lup
+
+Upload Artifacts:
+  stage: upload
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "master"
+      when: always
+  <<: *job_template
+  extends: .Upload-Artifacts
+  environment:
+    name: ${DEPLOY_ENV}
+  before_script:
+    - cp -r src artifacts
+    - ls artifacts
+  after_script:
+    - echo "DEV_DOCKER_REPO '$DEV_DOCKER_REPO'"
+    - echo "CI_PROJECT_NAMESPACE '$CI_PROJECT_NAMESPACE'"
+    - echo "CI_PROJECT_NAME '$CI_PROJECT_NAME'"
+    - echo "CI_COMMIT_REF_NAME '$CI_COMMIT_REF_NAME'"
+    - echo "DEPLOY_ENV '$DEPLOY_ENV'"
+  variables:
+    TARGET_PATH: "$DEV_DOCKER_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/"
+
+Lup Execution:
+  stage: lup
+  rules:
+    - if: '$JMX_FILE && $BASE_SERVICE_URL && $CI_COMMIT_BRANCH == "master"'
+      when: always
+  <<: *job_template
+  variables:
+    CMMD_VAR: "-JbaseURL=${BASE_SERVICE_URL}"
+    ES_INDEX: "jmeter-results-${JMX_FILE}-${CI_COMMIT_SHORT_SHA}"
+    ES_PORT: "80"
+    ES_PROTOCOL: "https"
+    TESTCASE_PATH: "src/${JMX_FILE}.jmx"
+    PLUGIN_PATH: "plugins/"
+    ARTIFACTS_DIR: "artifacts"
+  extends: .jmeter
+  before_script:
+    - echo $JMX_FILE
+    - echo $BASE_SERVICE_URL
+    - echo $USERNAME
+    - export CMMD_VAR="-JbaseURL=${BASE_SERVICE_URL} -JapiUsername=${USERNAME} -JapiPasswort=${PASSWORD}"
+    - mkdir -p ./artifacts/
+    - sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $TESTCASE_PATH
+    - sed -i -e "s/REPLACE_ELASTIC_HOST/$ES_HOST/g" $TESTCASE_PATH
+    - sed -i -e "s/REPLACE_ELASTIC_PORT/$ES_PORT/g" $TESTCASE_PATH
+    - sed -i -e "s/REPLACE_ELASTIC_PROTOCOL/$ES_PROTOCOL/g" $TESTCASE_PATH
+  artifacts:
+    paths:
+      - artifacts/*
+  timeout: 4 hours
+
