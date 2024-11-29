@@ -90,16 +90,16 @@ Scan gitlab-runner:alpine3.19-bleeding:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-#Scan sonarqube:10.0.0-community:
-#  stage: security-scan
-#  variables:
-#    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/library/sonarqube:10.0.0-community"
-#  trigger:
-#    include:
-#      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
-#        ref: "$CURRENT_VERSION" # branch
-#        file: "pipelines/trivy/trivy-scanimage.yaml"
-#    strategy: depend
+Scan sonarqube:10.0.0-community:
+  stage: security-scan
+  variables:
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/library/sonarqube:10.0.0-community"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
 
 Scan postgres-image:postgres-17:
   stage: security-scan
@@ -112,16 +112,16 @@ Scan postgres-image:postgres-17:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-#Scan blackbox-exporter:v0.25.0:
-#  stage: security-scan
-#  variables:
-#    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/prom/blackbox-exporter:v0.25.0"
-#  trigger:
-#    include:
-#      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
-#        ref: "$CURRENT_VERSION" # branch
-#        file: "pipelines/trivy/trivy-scanimage.yaml"
-#    strategy: depend
+Scan blackbox-exporter:v0.25.0:
+  stage: security-scan
+  variables:
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/prom/blackbox-exporter:v0.25.0"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
 
 Scan renovate:38.142.5:
   stage: security-scan
@@ -134,10 +134,21 @@ Scan renovate:38.142.5:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan influxdb:1.11.7-alpine:
+Scan influxdb:2.7.10:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/influxdb:1.11.7-alpine"
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/influxdb:2.7.10"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
+Scan pushgateway:1.4.2:
+  stage: security-scan
+  variables:
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/prom/pushgateway:v1.4.2"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
