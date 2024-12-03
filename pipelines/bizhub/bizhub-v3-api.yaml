@@ -30,6 +30,7 @@ bizhub_base:
     - echo $CONNECT_CONFIG
     - echo "SPACE_NAME=$SPACE_NAME"
     - echo "CI_JOB_IMAGE=$CI_JOB_IMAGE"
+    - echo "BASE_SERVICE_URL=$BASE_SERVICE_URL"
     - |
       if [ $DEPLOY_ENV == "au" ] || [ $DEPLOY_ENV == "lup" ] || [ $DEPLOY_ENV == "prod" ];
       then
