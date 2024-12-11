@@ -22,15 +22,14 @@ LaP & PTA Test:
     ES_INDEX: "jmeter-results-${CI_PROJECT_NAME}-${CI_COMMIT_SHORT_SHA}"
     ES_PORT: "80"
     ES_PROTOCOL: "https"
-    TESTCASE_PATH: "test/lup/3BServices_LuP_Test.jmx"
-    PLUGIN_PATH: "test/lup/plugins"
+    MQP_JMETER_TESTCASE_PATH: "test/lup/3BServices_LuP_Test.jmx"
+    MQP_JMETER_PLUGIN_PATH: "test/lup/plugins"
     ARTIFACTS_DIR: "artifacts"
     SECRETS:
       BETRAANTRAG_USERNAME:betraprocess_api_username,
       BETRAANTRAG_PASSWORD:betraprocess_api_password
   before_script:
     - !reference [ .template secrets, script ]
-    - echo $RUNNER_MOUNT_PATH
     - export BASE_SERVICE_URL=$(echo $BASE_SERVICE_URL | cut -c 9-)
     - echo $BASE_SERVICE_URL
     - echo $BETRAANTRAG_USERNAME
