@@ -58,8 +58,8 @@ Lup Execution:
     ES_INDEX: "jmeter-results-${JMX_FILE}-${CI_COMMIT_SHORT_SHA}"
     ES_PORT: "80"
     ES_PROTOCOL: "https"
-    TESTCASE_PATH: "src/${JMX_FILE}.jmx"
-    PLUGIN_PATH: "plugins/"
+    MQP_JMETER_TESTCASE_PATH: "src/${JMX_FILE}.jmx"
+    MQP_JMETER_PLUGIN_PATH: "plugins/"
     ARTIFACTS_DIR: "artifacts"
   extends: .jmeter
   before_script:
@@ -68,10 +68,10 @@ Lup Execution:
     - echo $USERNAME
     - export CMMD_VAR="-JbaseURL=${BASE_SERVICE_URL} -JapiUsername=${USERNAME} -JapiPasswort=${PASSWORD}"
     - mkdir -p ./artifacts/
-    - sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $TESTCASE_PATH
-    - sed -i -e "s/REPLACE_ELASTIC_HOST/$ES_HOST/g" $TESTCASE_PATH
-    - sed -i -e "s/REPLACE_ELASTIC_PORT/$ES_PORT/g" $TESTCASE_PATH
-    - sed -i -e "s/REPLACE_ELASTIC_PROTOCOL/$ES_PROTOCOL/g" $TESTCASE_PATH
+    - sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $MQP_JMETER_TESTCASE_PATH
+    - sed -i -e "s/REPLACE_ELASTIC_HOST/$ES_HOST/g" $MQP_JMETER_TESTCASE_PATH
+    - sed -i -e "s/REPLACE_ELASTIC_PORT/$ES_PORT/g" $MQP_JMETER_TESTCASE_PATH
+    - sed -i -e "s/REPLACE_ELASTIC_PROTOCOL/$ES_PROTOCOL/g" $MQP_JMETER_TESTCASE_PATH
   artifacts:
     paths:
       - artifacts/*
