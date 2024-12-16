@@ -133,10 +133,21 @@ Scan renovate:38.142.5:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan influxdb:1.11.7-alpine:
+Scan postgres-exporter-0.16.0:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/influxdb:1.11.7-alpine"
+    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/postgres-exporter-image:postgres-exporter-0.16.0"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
+Scan nova:13113499:
+  stage: security-scan
+  variables:
+    MQP_TRIVY_TARGET: "cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/nova:13113499"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
