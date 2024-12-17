@@ -9,6 +9,10 @@ Build Go:
   image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/golang:golang-1.23.4
   script:
     - echo $PATH
+    - ls -al /usr
+    - ls -al /usr/local
+    - ls -al /usr/local/go
+    - ls -al /usr/local/go/bin
     - go version
     - echo "Update all Go Modlues"
     - go get -u -t all
