@@ -8,8 +8,11 @@ Build Go:
   <<: *job_template
   image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/golang:golang-1.23.4
   script:
-    - ls -al
-    - echo $ARTIFACTORY_USER
+    - echo "Update all Go Modlues"
+    - go get -u -t all
+    - go mod tidy
+    - echo "build executable"
+    - GOARCH=amd64 GOOS=linux go build ./cmd/postgres_exporter/
     - mkdir -p ./artifacts/
     - cp postgres_exporter ./artifacts/
   artifacts:
