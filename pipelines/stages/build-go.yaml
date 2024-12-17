@@ -8,6 +8,8 @@ Build Go:
   <<: *job_template
   image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/golang:golang-1.23.4
   script:
+    - echo $PATH
+    - go version
     - echo "Update all Go Modlues"
     - go get -u -t all
     - go mod tidy
