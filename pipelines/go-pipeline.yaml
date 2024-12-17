@@ -8,7 +8,6 @@ include:
   - "/pipelines/settings.yaml"
   - "/pipelines/stages/build-go.yaml"
   - "/pipelines/stages/build-go-image.yaml"
-  - "/pipelines/stages/upload-artifacts.yaml"
   - "/pipelines/trivy/trivy.yaml"
 
 stages:
