@@ -12,6 +12,7 @@ include:
 
 variables:
   PROJECT_RUNNER_TAG: "eks-entwicklung"
+  DEPLOY_ENV: "dev"
 
 stages:
   - .pre

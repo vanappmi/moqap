@@ -3,7 +3,7 @@
   tags:
     - $PROJECT_RUNNER_TAG
 
-Build Image STAGE:
+Build Go Image:
   extends: .kaniko-build
   dependencies:
     - Build Go
