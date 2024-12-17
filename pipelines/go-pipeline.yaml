@@ -10,13 +10,13 @@ include:
       - "/trivy/trivy.yml"
   - "/pipelines/settings.yaml"
   - "/pipelines/stages/build-go.yaml"
-  - "/pipelines/stages/build-image.yaml"
+  - "/pipelines/stages/build-go-image.yaml"
   - "/pipelines/stages/upload-artifacts.yaml"
   - "/pipelines/trivy/trivy.yaml"
 
 stages:
   - .pre
   - build-go
-  - build-image
+  - build-go-image
   - security-scan
   - .post
