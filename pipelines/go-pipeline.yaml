@@ -10,6 +10,9 @@ include:
   - "/pipelines/stages/build-go-image.yaml"
   - "/pipelines/trivy/trivy.yaml"
 
+variables:
+  PROJECT_RUNNER_TAG: "eks-entwicklung"
+
 stages:
   - .pre
   - build-go
