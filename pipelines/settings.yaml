@@ -54,3 +54,4 @@ variables:
   # Secretpath
   AWS_SM_SECRET_PATH: "/runner/secrets/gitlab-runner-secret"
   IS_COMMONLIB: "false"
+  BUILD: "JAVA"
