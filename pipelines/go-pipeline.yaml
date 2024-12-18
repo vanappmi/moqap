@@ -20,7 +20,7 @@ variables:
   TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
   SOURCE_IMAGE_TAG: "$CI_COMMIT_REF_NAME-dev-$CI_COMMIT_SHORT_SHA"
   TARGET_IMAGE_TAG: "$imageVersion"
-  BUILD_CMD: "./cmd/postgres_exporter/"
+  BUILD_CMD: ""
 
 stages:
   - .pre
