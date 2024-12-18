@@ -13,10 +13,15 @@ Trivy Check Image:
   stage: security-scan
   <<: *job_template
   rules:
-    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int")
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "JAVA"
       allow_failure: true
       needs:
         - job: Build Image STAGE
+          optional: true
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "GO"
+      allow_failure: true
+      needs:
+        - job: Build Go Image
           optional: true
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV  == "au" || $DEPLOY_ENV  == "lup" || $DEPLOY_ENV  == "prod")
       when: manual

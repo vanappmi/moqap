@@ -11,12 +11,16 @@ include:
   - "/pipelines/trivy/trivy.yaml"
 
 variables:
+  BUILD: "GO"
   PROJECT_RUNNER_TAG: "eks-entwicklung"
   DEPLOY_ENV: "dev"
+  SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
+  TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
 
 stages:
   - .pre
   - build-go
   - build-go-image
   - security-scan
+  - stage-artifacts
   - .post
