@@ -144,6 +144,17 @@ Scan postgres-exporter-0.16.0:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
+Scan postgres-exporter:master-dev-24fba39e:
+  stage: security-scan
+  variables:
+    MQP_TRIVY_TARGET: "cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/postgres-exporter:master-dev-24fba39e"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
 Scan nova:13113499:
   stage: security-scan
   variables:
