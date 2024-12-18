@@ -15,7 +15,7 @@ Build Go:
     - go get -u -t all
     - go mod tidy
     - echo "build executable"
-    - GOARCH=amd64 GOOS=linux go build ./cmd/postgres_exporter/
+    - GOARCH=amd64 GOOS=linux go build $BUILD_CMD
     - mkdir -p ./artifacts/
     - cp postgres_exporter ./artifacts/
   artifacts:
