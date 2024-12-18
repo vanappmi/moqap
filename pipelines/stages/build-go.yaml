@@ -11,6 +11,9 @@ Build Go:
     - export PATH=$PATH:/usr/local/go/bin
     - echo $PATH
     - go version
+    - echo "Clean cache"
+    - go clean -cache
+    - go clean -modcache
     - echo "Update all Go Modlues"
     - go get -u -t all
     - go mod tidy
