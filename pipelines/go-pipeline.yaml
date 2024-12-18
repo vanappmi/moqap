@@ -8,6 +8,7 @@ include:
   - "/pipelines/settings.yaml"
   - "/pipelines/stages/build-go.yaml"
   - "/pipelines/stages/build-go-image.yaml"
+  - "/pipelines/stages/stage-artifacts.yaml"
   - "/pipelines/trivy/trivy.yaml"
 
 variables:
@@ -16,6 +17,8 @@ variables:
   DEPLOY_ENV: "dev"
   SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
   TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
+  SOURCE_TAG: "$CI_PROJECT_NAME"
+  TARGET_TAG: "$imageVersion"
 
 stages:
   - .pre
