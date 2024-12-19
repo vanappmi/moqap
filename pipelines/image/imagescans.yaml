@@ -78,7 +78,7 @@ Scan gitlab-runner-helper:x86_64-bleeding:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan gitlab-runner:alpine3.19-bleeding:
+Scan gitlab-runner:alpine3.21-bleeding:
   stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine3.21-bleeding"
