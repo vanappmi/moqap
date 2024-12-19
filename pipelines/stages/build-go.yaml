@@ -22,10 +22,11 @@ Build Go:
       fi
     - go mod tidy
     - echo "build executable"
+    - mkdir -p build
     - echo $BUILD_CMD
-    - GOARCH=amd64 GOOS=linux go build $BUILD_CMD
+    - GOARCH=amd64 GOOS=linux go -o build build $BUILD_CMD
     - mkdir -p ./artifacts/
-    - cp postgres_exporter ./artifacts/
+    - cp build/ ./artifacts/
   artifacts:
     paths:
       - artifacts/*
