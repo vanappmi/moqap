@@ -15,7 +15,7 @@ Build Go:
     - go clean -cache
     - go clean -modcache
     - |
-      if [$IS_UPDATE == "true"];
+      if [ $IS_UPDATE == "true" ];
       then
         echo "Update all Go Modlues"
         go get -u -t all
