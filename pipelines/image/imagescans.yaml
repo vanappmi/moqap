@@ -81,7 +81,7 @@ Scan gitlab-runner-helper:x86_64-bleeding:
 Scan gitlab-runner:alpine3.19-bleeding:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine3.19-bleeding"
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine3.21-bleeding"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
