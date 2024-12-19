@@ -17,16 +17,14 @@ Build Go:
     - |
       if [ $IS_UPDATE == "true" ];
       then
-        echo "Update all Go Modlues"
+        echo "Update all Go Modules"
         go get -u -t all
       fi
     - go mod tidy
     - echo "build executable"
     - mkdir -p build
     - echo $BUILD_CMD
-    - GOARCH=amd64 GOOS=linux go build -o build $BUILD_CMD
-    - mkdir -p ./artifacts/
-    - cp -a /build/. /artifacts/
+    - GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
   artifacts:
     paths:
       - artifacts/*
