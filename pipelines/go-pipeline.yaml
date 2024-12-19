@@ -21,6 +21,7 @@ variables:
   SOURCE_IMAGE_TAG: "$CI_COMMIT_REF_NAME-dev-$CI_COMMIT_SHORT_SHA"
   TARGET_IMAGE_TAG: "$imageVersion"
   BUILD_CMD: ""
+  IS_UPDATE: false
 
 stages:
   - .pre

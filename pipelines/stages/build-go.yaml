@@ -14,8 +14,12 @@ Build Go:
     - echo "Clean cache"
     - go clean -cache
     - go clean -modcache
-    - echo "Update all Go Modlues"
-    - go get -u -t all
+    - |
+      if [$IS_UPDATE == "true"];
+      then
+        echo "Update all Go Modlues"
+        go get -u -t all
+      fi
     - go mod tidy
     - echo "build executable"
     - echo $BUILD_CMD
