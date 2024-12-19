@@ -26,7 +26,7 @@ Build Go:
     - echo $BUILD_CMD
     - GOARCH=amd64 GOOS=linux go build -o build $BUILD_CMD
     - mkdir -p ./artifacts/
-    - cp build/ ./artifacts/
+    - cp -a /build/. /artifacts/
   artifacts:
     paths:
       - artifacts/*
