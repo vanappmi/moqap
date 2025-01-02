@@ -111,10 +111,10 @@ Scan postgres-image:postgres-17:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan renovate:38.142.5:
+Scan renovate:39:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/renovate/renovate:38.142.5"
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/renovate/renovate:39"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
