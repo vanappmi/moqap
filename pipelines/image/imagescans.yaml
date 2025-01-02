@@ -111,6 +111,17 @@ Scan postgres-image:postgres-17:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
+Scan renovate:38.142.5:
+  stage: security-scan
+  variables:
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/renovate/renovate:38.142.5"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
 #Scan blackbox-exporter:v0.25.0:
 #  stage: security-scan
 #  variables:
@@ -122,10 +133,10 @@ Scan postgres-image:postgres-17:
 #        file: "pipelines/trivy/trivy-scanimage.yaml"
 #    strategy: depend
 
-Scan renovate:38.142.5:
+Scan blackbox-exporter:blackbox-exporter-0.25.0:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/renovate/renovate:38.142.5"
+    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/blackbox-exporter:blackbox-exporter-0.25.0"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
