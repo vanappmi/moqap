@@ -67,10 +67,10 @@ Scan aws-cli:latest:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan gitlab-runner-helper:x86_64-bleeding:
+Scan gitlab-runner-helper:x86_64-v17.6.1:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "gitlab-docker-remote.bahnhub.tech.rz.db.de/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-bleeding"
+    MQP_TRIVY_TARGET: "gitlab-docker-remote.bahnhub.tech.rz.db.de/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v17.6.1"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -78,10 +78,10 @@ Scan gitlab-runner-helper:x86_64-bleeding:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan gitlab-runner:alpine3.21-bleeding:
+Scan gitlab-runner:alpine3.19-v17.6.1:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine3.21-bleeding"
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine3.19-v17.6.1"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
