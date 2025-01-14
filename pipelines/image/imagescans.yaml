@@ -89,17 +89,6 @@ Scan gitlab-runner:alpine3.19-v17.6.1:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-Scan gitlab-runner:alpine3.19-d5bcc808:
-  stage: security-scan
-  variables:
-    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine3.19-d5bcc808"
-  trigger:
-    include:
-      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
-        ref: "$CURRENT_VERSION" # branch
-        file: "pipelines/trivy/trivy-scanimage.yaml"
-    strategy: depend
-
 #Scan sonarqube:10.0.0-community:
 #  stage: security-scan
 #  variables:
