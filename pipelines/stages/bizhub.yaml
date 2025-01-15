@@ -3,6 +3,7 @@ Deployment BizHub:
   stage: bizhub-deploy
   variables:
     CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
+    visibilityType: custom
     visibilityOrgs: |-
       - 3bdatenservices
     subscribeOrgs: |-
