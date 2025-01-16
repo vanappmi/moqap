@@ -29,9 +29,9 @@ variables:
   BIZHUB_DISABLE: "true"
   BIZHUB_CONNECT_CONFIG: "pipelines/bizhub/connect.yaml"
   BIZHUB_VISIBILITY_TYPE: "custom"
-  BIZHUB_VISIBILITY_ORGS: "|-
+  BIZHUB_VISIBILITY_ORGS:
     - 3bdatenservices
-    - dbinfragodatenanalysten"
+    - dbinfragodatenanalysten
   BIZHUB_SUBSCRIBE_ORGS: |-
     - 3bdatenservices
   # WHITESOURCE
