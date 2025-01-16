@@ -31,6 +31,7 @@ variables:
   BIZHUB_VISIBILITY_TYPE: "custom"
   BIZHUB_VISIBILITY_ORGS: |-
     - 3bdatenservices
+    - dbinfragodatenanalysten
   BIZHUB_SUBSCRIBE_ORGS: |-
     - 3bdatenservices
   # WHITESOURCE
