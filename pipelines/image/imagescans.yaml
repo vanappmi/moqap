@@ -191,7 +191,7 @@ Scan pushgateway:pushgateway-1.10.0:
 Scan nocodb:0.258.3:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/nocodb/nocodb:0.258.3"
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/nocodb/nocodb:0.258.3"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
