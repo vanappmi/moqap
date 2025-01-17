@@ -3,11 +3,9 @@ Deployment BizHub:
   stage: bizhub-deploy
   variables:
     CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
-    visibilityType: "custom"
-    visibilityOrgs: |-
-      - 3bdatenservices
-    subscribeOrgs: |-
-      - 3bdatenservices
+    visibilityType: $BIZHUB_VISIBILITY_TYPE
+    visibilityOrgs: $BIZHUB_VISIBILITY_ORGS
+    subscribeOrgs: $BIZHUB_SUBSCRIBE_ORGS
   rules:
     - if: $BIZHUB_DISABLE != "true"
       needs:
