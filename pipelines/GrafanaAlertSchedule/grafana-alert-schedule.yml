@@ -1,0 +1,88 @@
+include:
+  - "/pipelines/templates/moqap_templates.yml"
+  - "/pipelines/settings.yaml"
+
+
+stages:
+  - .pre
+  - update_cluster_alert
+  - .post
+
+# Update Cluster Alert
+update_cluster_alert bbpneo iat:
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  tags:
+    - eks-entwicklung
+  stage: update_cluster_alert
+  variables:
+    HTTP_PROXY: "http://webproxy.comp.db.de:8080"
+    HTTPS_PROXY: "http://webproxy.comp.db.de:8080"
+    NO_PROXY: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
+    http_proxy: "http://webproxy.comp.db.de:8080"
+    https_proxy: "http://webproxy.comp.db.de:8080"
+    no_proxy: ".amazon.com,.amazonaws.com,.aws.db.de,.cluster.local,.comp.db.de,.dbcs.db.de,.internal,.intranet-test.deutschebahn.com,.intranet.deutschebahn.com,.mail.db.de,.ose.db.de,.rz.db.de,.svc,.unix.db.de,10.193.0.1,127.0.0.1,169.254.169.254,dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com,ip-10-107-227-150.eu-central-1.compute.internal,localhost"
+    KUBECONFIG_PATH: /tmp/kubeconfig.yaml
+    DEPLOY_TEMPLATE: "$STAGE/cnp-api/appmesh.yaml"
+    KUBE_CONTEXT: "cnp-api-iat-v4-zgjrp"
+    STAGE: "bbpneo-iat"
+    SECRETS:
+      CNP_API_BBPNEO_IAT_KUBECONFIG:CNP_API_BBPNEO_IAT_KUBECONFIG,
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY
+    ALERTS_FILE_PATHS: "bbpneo-iat/deployment/grafana-alarme/e2e/alert-3-invalid-values-prod.yaml bbpneo-iat/deployment/grafana-alarme/e2e/alert-anmelden.yaml"
+    IS_PAUSED: "true"
+
+
+  script:
+    - !reference [ .template secrets, script ]
+    ##############################################
+    - export ARGOCD_SERVER=argocd.cnp.comp.db.de
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
+    - ssh-add -l
+    - ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
+    - git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
+    - cd bbpneo-ops
+
+    - echo "Before edit:"
+    - |  
+      for file in $ALERTS_FILE_PATHS; do
+        echo "File: $file";
+        cat "$file";
+      done
+    - echo "After edit:"
+
+    # Update the `isPaused` field for all specified files
+    - |
+      for file in $ALERTS_FILE_PATHS; do
+        if [ "$IS_PAUSED" == "true" ]; then
+          echo "Updating alert in $file to isPaused: true"
+          sed -i "s/isPaused: false/isPaused: $IS_PAUSED/g" "$file"
+        elif [ "$IS_PAUSED" == "false" ]; then
+          echo "Reverting alert in $file to isPaused: false"
+          sed -i "s/isPaused: true/isPaused: $IS_PAUSED/g" "$file"
+        else
+          echo "Invalid value for IS_PAUSED, skipping update for $file."
+        fi
+        grep "isPaused: $IS_PAUSED" "$file" || echo "Change not found in $file!"
+      done
+
+    # Commit and push changes if applicable
+    - git config --global user.email "bbpneo@pipeline.com"
+    - git config --global user.name "bbpneo Pipeline"
+    - git add $ALERTS_FILE_PATHS
+    - if [ ! -z "$(git status -s)" ]; then
+        git commit -a -m "Update isPaused to $IS_PAUSED for Cluster alerts";
+      fi;
+    - git status
+    - git push
+
+  only:
+    - schedules
+
+
+
+
+
+
+
+
