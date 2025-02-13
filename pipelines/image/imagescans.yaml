@@ -188,6 +188,17 @@ Scan pushgateway:pushgateway-1.10.0:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
+Scan golang:golang-1.24.0:
+  stage: security-scan
+  variables:
+    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/golang:golang-1.24.0"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/trivy/trivy-scanimage.yaml"
+    strategy: depend
+
 #Scan nocodb:0.258.3:
 #  stage: security-scan
 #  variables:
