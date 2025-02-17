@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "11.2.0"
+    ref: "11.2.1"
     file:
       - "/lint/helm/lint_helm.yml"
 
