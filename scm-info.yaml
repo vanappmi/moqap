@@ -13,7 +13,9 @@ protected-branches:
   - V1.4
   - V1.5
   - V1.6
-usage-scenario: 
+  - V1.7
+  - V1.8
+usage-scenario:
   - local
 custom:
   integrity: normal
