@@ -1,6 +1,7 @@
 ---
 variables:
   IS_COMMONLIB: "false"
+  BIZHUB_DEPLOY_ONLY: "false"
 
 stages:
   - dev
@@ -8,21 +9,21 @@ stages:
   - au
   - lup
   - prod
+  - bizhub
 
 Entwicklungsumgebung:
   stage: dev
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT4/ || $CI_COMMIT_BRANCH =~ /^BABEDAS/ ) && $CI_COMMIT_TAG == null
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT4/ || $CI_COMMIT_BRANCH =~ /^BABEDAS/ ) && $CI_COMMIT_TAG == null && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
   trigger:
-    include:
-    - local: "pipelines/dev/environment.yaml"
+    include: /pipelines/dev/environment.yaml
     strategy: depend
 
 Entwicklungsumgebung B1:
   stage: dev
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT7/ || $CI_COMMIT_BRANCH =~ /^BONE/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT7/ || $CI_COMMIT_BRANCH =~ /^BONE/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
   trigger:
     include: /pipelines/dev-b1/environment.yaml
@@ -31,7 +32,7 @@ Entwicklungsumgebung B1:
 Renovate:
   stage: dev
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "development"  && $CI_COMMIT_BRANCH !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^renovate/ || $CI_COMMIT_BRANCH =~ /^renovate/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "development"  && $CI_COMMIT_BRANCH !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^renovate/ || $CI_COMMIT_BRANCH =~ /^renovate/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
   trigger:
     include: /pipelines/int/release-build.yaml
@@ -40,7 +41,7 @@ Renovate:
 Renovate CommonLibs:
   stage: dev
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "development"  && $CI_COMMIT_BRANCH !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^renovate/ || $CI_COMMIT_BRANCH =~ /^renovate/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "true"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "development"  && $CI_COMMIT_BRANCH !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^renovate/ || $CI_COMMIT_BRANCH =~ /^renovate/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "true" && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
   trigger:
     include: /pipelines/dev/environment.yaml
@@ -58,7 +59,7 @@ Pipeline will not run:
 Integrationstestumgebung:
   stage: int
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
   trigger:
     include: /pipelines/int/environment.yaml
@@ -69,7 +70,7 @@ Release:
   needs:
     - job: Integrationstestumgebung
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
   trigger:
     include: /pipelines/int/release.yaml
@@ -87,7 +88,7 @@ Release CommonLibs:
 Release-Build:
   stage: int
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
   trigger:
     include: /pipelines/int/release-build.yaml
@@ -98,7 +99,7 @@ Abnahmetestumgebung:
   needs:
     - job: Release-Build
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
   trigger:
     include: /pipelines/au/environment.yaml
@@ -109,7 +110,7 @@ LUP-Umgebung:
   needs:
     - job: Release-Build
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
   trigger:
     include: /pipelines/lup/environment.yaml
@@ -120,8 +121,23 @@ Produktionsumgebung:
   needs:
     - job: Abnahmetestumgebung
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
   trigger:
     include: /pipelines/prod/environment.yaml
     strategy: depend
+
+Bizhub-Deployment:
+  stage: bizhub
+  rules:
+    - if: $BIZHUB_DEPLOY_ONLY == "true"
+      when: always
+  trigger:
+    include:
+      - local: /pipelines/bizhub/bizhub-variables.yml
+      - project: "cnp/bbpneo/02-ops/moqap"
+# TODO      ref: "$CURRENT_VERSION"
+        ref: "V1.7-bizhub"
+        file: "/pipelines/stages/deploy-bizhub-only.yaml"
+    strategy: depend
+  allow_failure: true
