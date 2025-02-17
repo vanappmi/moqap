@@ -12,7 +12,6 @@ Deployment BizHub:
   trigger:
     include:
     - project: "cnp/bbpneo/02-ops/moqap"
-# TODO     ref: "$CURRENT_VERSION"
-      ref: "V1.7-bizhub"
+      ref: "V1.8"
       file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend

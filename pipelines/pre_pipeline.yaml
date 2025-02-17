@@ -136,8 +136,7 @@ Bizhub-Deployment:
     include:
       - local: /pipelines/bizhub/bizhub-variables.yml
       - project: "cnp/bbpneo/02-ops/moqap"
-# TODO      ref: "$CURRENT_VERSION"
-        ref: "V1.7-bizhub"
+        ref: "V1.8"
         file: "/pipelines/stages/deploy-bizhub-only.yaml"
     strategy: depend
   allow_failure: true
