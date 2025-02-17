@@ -1,0 +1,112 @@
+---
+include:
+  - "/pipelines/templates/moqap_templates.yml"
+  - "/pipelines/settings.yaml"
+
+stages:
+  - .pre
+  - bizhub-deploy
+  - .post
+
+variables:
+  DEPLOY_ENV: "dev"
+  STAGE_ENV: "dev"
+  VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+  BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+  SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+  STAGE: "review"
+
+Deployment BizHub dev:
+  stage: bizhub-deploy
+  variables:
+    DEPLOY_ENV: "dev"
+    STAGE_ENV: "dev"
+    VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+    BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+    STAGE: "review"
+    PROJECT_RUNNER_TAG: "eks-entwicklung"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+# TODO     ref: "$CURRENT_VERSION"
+        ref: "V1.7-bizhub"
+        file: "/pipelines/bizhub/bizhub-v3-api.yaml"
+    strategy: depend
+  when: manual
+
+Deployment BizHub int:
+  stage: bizhub-deploy
+  variables:
+    DEPLOY_ENV: "int"
+    STAGE_ENV: "int"
+    VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+    BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+    STAGE: "manual"
+    PROJECT_RUNNER_TAG: "eks-integration"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        # TODO     ref: "$CURRENT_VERSION"
+        ref: "V1.7-bizhub"
+        file: "/pipelines/bizhub/bizhub-v3-api.yaml"
+    strategy: depend
+  when: manual
+
+Deployment BizHub lup:
+  stage: bizhub-deploy
+  variables:
+    DEPLOY_ENV: "lup"
+    STAGE_ENV: "lup"
+    VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+    BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+    STAGE: "lup"
+    PROJECT_RUNNER_TAG: "eks-lup"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        # TODO     ref: "$CURRENT_VERSION"
+        ref: "V1.7-bizhub"
+        file: "/pipelines/bizhub/bizhub-v3-api.yaml"
+    strategy: depend
+  when: manual
+
+Deployment BizHub au:
+  stage: bizhub-deploy
+  variables:
+    DEPLOY_ENV: "au"
+    STAGE_ENV: "au"
+    VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+    BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+    STAGE: "at"
+    PROJECT_RUNNER_TAG: "eks-abnahme"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        # TODO     ref: "$CURRENT_VERSION"
+        ref: "V1.7-bizhub"
+        file: "/pipelines/bizhub/bizhub-v3-api.yaml"
+    strategy: depend
+  when: manual
+
+Deployment BizHub prod:
+  stage: bizhub-deploy
+  variables:
+    DEPLOY_ENV: "prod"
+    STAGE_ENV: "prod"
+    VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+    BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+    STAGE: "prod"
+    PROJECT_RUNNER_TAG: "eks-produktion"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        # TODO     ref: "$CURRENT_VERSION"
+        ref: "V1.7-bizhub"
+        file: "/pipelines/bizhub/bizhub-v3-api.yaml"
+    strategy: depend
+  when: manual

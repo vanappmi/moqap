@@ -3,9 +3,6 @@ Deployment BizHub:
   stage: bizhub-deploy
   variables:
     CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
-    visibilityType: $BIZHUB_VISIBILITY_TYPE
-    visibilityOrgs: $BIZHUB_VISIBILITY_ORGS
-    subscribeOrgs: $BIZHUB_SUBSCRIBE_ORGS
   rules:
     - if: $BIZHUB_DISABLE != "true"
       needs:
@@ -15,6 +12,7 @@ Deployment BizHub:
   trigger:
     include:
     - project: "cnp/bbpneo/02-ops/moqap"
-      ref: "$CURRENT_VERSION"
+# TODO     ref: "$CURRENT_VERSION"
+      ref: "V1.7-bizhub"
       file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
