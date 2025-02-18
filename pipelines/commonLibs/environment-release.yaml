@@ -11,7 +11,7 @@ include:
   - "/pipelines/stages/codeanalysis.yaml"
   - "/pipelines/stages/build-jar.yaml"
   - "/pipelines/settings.yaml"
-  - "/pipelines/stages/release-script-common.yaml"
+  - "/pipelines/stages/release-script.yaml"
   - "/pipelines/stages/secrets-scan.yaml"
 
 stages:

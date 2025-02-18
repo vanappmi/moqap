@@ -71,7 +71,7 @@ release-script:
     - echo $GRADLE_OPTS
     - echo $IS_CRONJOB
     - |
-      if [ -z "$IS_CRONJOB" ] || [ $IS_CRONJOB != "true" ];
+      if [ -z "$IS_CRONJOB" ] || [ $IS_CRONJOB != "true" ] || [ $IS_COMMONLIB == "false" ];
       then
         ./gradlew generateGitLog;
       fi
