@@ -28,9 +28,8 @@ update_cluster_alert bbpneo iat:
     SECRETS:
       CNP_API_BBPNEO_IAT_KUBECONFIG:CNP_API_BBPNEO_IAT_KUBECONFIG,
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY
-    ALERTS_FILE_PATHS: "bbpneo-iat/deployment/grafana-alarme/e2e/alert-3-invalid-values-prod.yaml bbpneo-iat/deployment/grafana-alarme/e2e/alert-anmelden.yaml"
+    ALERTS_FILE_PATHS: "grafana-alerts/e2e-alerts/e2e.yaml"
     IS_PAUSED: "true"
-
 
   script:
     - !reference [ .template secrets, script ]
@@ -44,14 +43,14 @@ update_cluster_alert bbpneo iat:
     - cd bbpneo-ops
 
     - echo "Before edit:"
-    - |  
+    - |
       for file in $ALERTS_FILE_PATHS; do
         echo "File: $file";
         cat "$file";
       done
     - echo "After edit:"
 
-    # Update the `isPaused` field for all specified files
+    # Update the `isPaused` field for the specified file
     - |
       for file in $ALERTS_FILE_PATHS; do
         if [ "$IS_PAUSED" == "true" ]; then
@@ -71,18 +70,10 @@ update_cluster_alert bbpneo iat:
     - git config --global user.name "bbpneo Pipeline"
     - git add $ALERTS_FILE_PATHS
     - if [ ! -z "$(git status -s)" ]; then
-        git commit -a -m "Update isPaused to $IS_PAUSED for Cluster alerts";
+      git commit -a -m "Update isPaused to $IS_PAUSED for Cluster alerts";
       fi;
     - git status
     - git push
 
   only:
     - schedules
-
-
-
-
-
-
-
-
