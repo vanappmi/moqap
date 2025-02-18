@@ -130,7 +130,7 @@ Produktionsumgebung:
 Bizhub-Deployment:
   stage: bizhub
   rules:
-    - if: $BIZHUB_DEPLOY_ONLY == "true"
+    - if: $BIZHUB_DEPLOY_ONLY == "true" && $CI_COMMIT_BRANCH  == "development"
       when: always
   trigger:
     include:
