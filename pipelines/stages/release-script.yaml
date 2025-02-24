@@ -90,3 +90,9 @@ release-script:
       - .gradle/
   when: manual
   allow_failure: true
+  variables:
+    GRADLE_OPTS_OWN: "-Dhttps.proxyHost=webproxy.comp.db.de -Dhttps.proxyPort=8080 -Dhttp.nonProxyHosts=*.tech.rz.db.de|*.dbcs.db.de|*.amazonaws.com|*.aws.db.de|*.cluster.local|*.internal|*.intranet-test.deutschebahn.com|*.intranet.deutschebahn.com|*.mail.db.de|*.ose.db.de|*.rz.db.de|*.svc|*.unix.db.de|127.0.0.1|dbcs-Maste-C6UND8OK4HFR-3e69d5b84ddd5126.elb.eu-central-1.amazonaws.com|ip-10-107-227-150.eu-central-1.compute.internal|localhost|*.comp.db.de"
+    SECRETS:
+      ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
+      ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+
