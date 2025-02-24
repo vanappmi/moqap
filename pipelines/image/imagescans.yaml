@@ -147,7 +147,7 @@ Scan blackbox-exporter:blackbox-exporter-0.25.0:
 Scan postgres-exporter:v0.17.0:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/postgres-exporter:v0.17.0"
+    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/prometheuscommunity/postgres-exporter:v0.17.0"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
