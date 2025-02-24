@@ -40,6 +40,7 @@ variables:
   AU_DOCKER_REPO: "cna-bbpneo-au-docker-stage-local"
   LUP_DOCKER_REPO: "cna-bbpneo-lup-docker-stage-local"
   PROD_DOCKER_REPO: "cna-bbpneo-prod-docker-stage-local"
+  MAVEN_REPO: "cna-bbpneo-commonlibs-maven-stage-local"
   # KANIKO
   KANIKO_IMAGE_TAG: "$CI_COMMIT_REF_NAME-$CI_ENVIRONMENT_SLUG-$CI_COMMIT_SHORT_SHA"
   # TESTS
