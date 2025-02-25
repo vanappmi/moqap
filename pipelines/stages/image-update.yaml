@@ -1,5 +1,9 @@
 ---
 include:
+  - project: "moqap/modules"
+    ref: "11.2.1"
+    file:
+      - "/artifactory/download_artifacts_dir.yml"
   - "/pipelines/templates/moqap_templates.yml"
   - "/pipelines/settings.yaml"
 
@@ -23,9 +27,13 @@ stages:
 
 Find JAR:
   stage: find-jar
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  extends: .Download-Artifacts
   <<: *job_template
-  script:
-    - echo "Ready..."
+  variables:
+    ARTIFACTORY_PATH: "$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-*/*/$CI_ENVIRONMENT_SLUG/*.jar"
+    TARGET_DIR: "artifacts"
+    SECRETS:
+      ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
+      ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
 
 
