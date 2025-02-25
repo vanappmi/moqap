@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "11.2.1"
+    ref: "11.2.2"
     file:
       - "/artifactory/download_artifacts_dir.yml"
   - "/pipelines/templates/moqap_templates.yml"
@@ -30,7 +30,7 @@ Find JAR:
   extends: .Download-Artifacts
   <<: *job_template
   variables:
-    ARTIFACTORY_PATH: "$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-*/*/$CI_ENVIRONMENT_SLUG/*.jar"
+    ARTIFACTORY_PATH: "$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-*/*/int/*.jar"
     TARGET_DIR: "artifacts"
     SECRETS:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
