@@ -7,6 +7,10 @@ include:
   tags:
     - $PROJECT_RUNNER_TAG
 
+variables:
+  DEPLOY_ENV: "dev"
+  STAGE_ENV: "dev"
+
 stages:
   - .pre
   - find-jar
