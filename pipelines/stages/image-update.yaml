@@ -1,0 +1,26 @@
+---
+include:
+  - "/pipelines/templates/moqap_templates.yml"
+  - "/pipelines/settings.yaml"
+
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+stages:
+  - .pre
+  - find-jar
+#  - build-image
+#  - security-scan
+#  - argo-cd-deploy
+#  - bizhub-deploy
+#  - .post
+
+Find JAR:
+  stage: find-jar
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  <<: *job_template
+  script:
+    - echo "Ready..."
+
+
