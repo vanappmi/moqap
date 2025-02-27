@@ -72,6 +72,7 @@ release-script:
     - git checkout development
     - echo $GRADLE_OPTS
     - echo $IS_CRONJOB
+    - chmod +x ./gradlew
     - |
       if [ -z "$IS_CRONJOB" ] || [ $IS_CRONJOB != "true" ] || [ $IS_COMMONLIB == "false" ];
       then
