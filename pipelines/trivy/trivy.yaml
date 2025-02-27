@@ -40,10 +40,11 @@ Trivy Check Image:
     exit_codes: # User defined exit code
       - 2
   before_script:
+    - echo $MQP_TRIVY_TARGET
     - |
       if [ $IMAGE_UPDATE == "true" ];
-        export MQP_TRIVY_TARGET=$(echo "$MQP_TRIVY_TARGET-$CI_PIPELINE_CREATED_AT" | tr ':' '.')
       then
+        export MQP_TRIVY_TARGET=$(echo "$MQP_TRIVY_TARGET-$CI_PIPELINE_CREATED_AT" | tr ':' '.')
       fi
     - echo $MQP_TRIVY_TARGET
 
