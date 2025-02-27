@@ -19,7 +19,7 @@ variables:
 stages:
   - .pre
   - find-jar
-#  - build-image
+  - build-image
 #  - security-scan
 #  - argo-cd-deploy
 #  - bizhub-deploy
@@ -48,3 +48,16 @@ Find JAR:
   artifacts:
     paths:
       - artifacts/*
+
+Build Image:
+  extends: .kaniko-build
+  stage: build-image
+  tags:
+    - ${PROJECT_RUNNER_TAG}
+  environment:
+    name: ${DEPLOY_ENV}
+  variables:
+    KANIKO_SOURCE_REPO: ${PROD_DOCKER_REPO}
+    SECRETS:
+      CI_REGISTRY_USER:RUNNER_ARTIFACTORY_USER,
+      CI_REGISTRY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
