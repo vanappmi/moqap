@@ -19,7 +19,6 @@ variables:
   DEPLOY_ENV: "int"
   STAGE_ENV: "int"
   PROJECT_RUNNER_TAG: "eks-integration"
-  IMAGE_UPDATE: "true"
 
 stages:
   - .pre
@@ -36,7 +35,6 @@ Find JAR:
   variables:
     ARTIFACTORY_PATH: "$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-*/*/int/*.jar"
     TARGET_DIR: "artifacts"
-    IMAGE_UPDATE: $IMAGE_UPDATE
     SECRETS:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
       ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD

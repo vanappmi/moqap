@@ -146,10 +146,10 @@ Bizhub-Deployment:
 Image-Update:
   stage: image-update
   rules:
-    - if: $CI_COMMIT_BRANCH  != "development" && $IMAGE_UPDATE == "true"
-      when: always
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
       when: always
+      variables:
+        IMAGE_UPDATE: "true"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
