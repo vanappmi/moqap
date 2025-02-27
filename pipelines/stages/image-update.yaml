@@ -4,6 +4,7 @@ include:
     ref: "11.2.2"
     file:
       - "/artifactory/download_artifacts_dir.yml"
+      - "/eks/kaniko/kaniko.yml"
   - "/pipelines/templates/moqap_templates.yml"
   - "/pipelines/settings.yaml"
 
