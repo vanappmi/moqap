@@ -19,6 +19,7 @@ variables:
   DEPLOY_ENV: "int"
   STAGE_ENV: "int"
   PROJECT_RUNNER_TAG: "eks-integration"
+  IMAGE_UPDATE: "true"
 
 stages:
   - .pre
