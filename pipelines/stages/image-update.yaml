@@ -41,7 +41,9 @@ Find JAR:
     - export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$CURRENT_VERSION/*/int/*$CURRENT_VERSION.jar"
     - echo $ARTIFACTORY_PATH
   after_script:
-    - touch artifatcs/cnp/test.jar
+    - cd artifatcs/cnp
+    - touch test.jar
+    - cd ../..
     - ls -Ral
     - find artifacts -name '*.jar' -print -ls
     - mv -i $(find artifacts -name '*.jar' -type f -exec ls -t1 {} + | head -1) artifacts
