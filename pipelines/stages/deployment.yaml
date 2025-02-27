@@ -58,12 +58,12 @@ Deployment STAGE:
     #- cat ~/.ssh/config
     ################################################
     - echo $CI_COMMIT_SHORT_SHA;
+    - export LOWERCASE_REF_NAME="$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
     - |
       if [ $IMAGE_UPDATE == "true" ];
       then
-        export LOWERCASE_REF_NAME="$KANIKO_IMAGE_TAG-$CI_PIPELINE_CREATED_AT"
-      else
-        export LOWERCASE_REF_NAME="$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
+        PIPELINE_CREATED=$(echo "$CI_PIPELINE_CREATED_AT" | tr ':' '.')
+        export LOWERCASE_REF_NAME="$LOWERCASE_REF_NAME-$PIPELINE_CREATED"
       fi
     # - export LOWERCASE_REF_NAME="$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
     - echo $LOWERCASE_REF_NAME
