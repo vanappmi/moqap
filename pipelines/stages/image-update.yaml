@@ -35,5 +35,8 @@ Find JAR:
     SECRETS:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
       ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  before_script:
+    - CURRENT_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
+    - echo $CURRENT_VERSION
 
 
