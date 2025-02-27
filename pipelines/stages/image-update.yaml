@@ -5,8 +5,10 @@ include:
     file:
       - "/artifactory/download_artifacts_dir.yml"
       - "/eks/kaniko/kaniko.yml"
+      - "/trivy/trivy.yml"
   - "/pipelines/templates/moqap_templates.yml"
   - "/pipelines/settings.yaml"
+  - "/pipelines/trivy/trivy.yaml"
 
 .job_template: &job_template
   tags:
@@ -21,7 +23,7 @@ stages:
   - .pre
   - find-jar
   - build-image
-#  - security-scan
+  - security-scan
 #  - argo-cd-deploy
 #  - bizhub-deploy
 #  - .post
