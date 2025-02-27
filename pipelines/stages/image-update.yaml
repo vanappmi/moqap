@@ -16,9 +16,9 @@ include:
     - $PROJECT_RUNNER_TAG
 
 variables:
-  DEPLOY_ENV: "dev"
-  STAGE_ENV: "dev"
-  PROJECT_RUNNER_TAG: "eks-entwicklung"
+  DEPLOY_ENV: "int"
+  STAGE_ENV: "int"
+  PROJECT_RUNNER_TAG: "eks-integration"
 
 stages:
   - .pre
