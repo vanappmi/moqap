@@ -40,6 +40,8 @@ Find JAR:
     - echo $CURRENT_VERSION
     - export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$CURRENT_VERSION/*/int/*$CURRENT_VERSION.jar"
     - echo $ARTIFACTORY_PATH
+  after_script:
+    - ls -Ral artifacts
   artifacts:
     paths:
       - artifacts/*
