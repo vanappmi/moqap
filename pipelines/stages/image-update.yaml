@@ -38,5 +38,4 @@ Find JAR:
   before_script:
     - CURRENT_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $CURRENT_VERSION
-
-
+    - export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$CURRENT_VERSION/*/int/*$CURRENT_VERSION.jar"
