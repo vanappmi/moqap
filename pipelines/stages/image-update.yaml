@@ -41,8 +41,7 @@ Find JAR:
     - export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$CURRENT_VERSION/*/int/*$CURRENT_VERSION.jar"
     - echo $ARTIFACTORY_PATH
   after_script:
-    - ls -al
-    - cd artifatcs/cnp
+    - cd artifacts/cnp
     - touch test.jar
     - cd ../..
     - ls -Ral
