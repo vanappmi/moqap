@@ -44,7 +44,7 @@ Find JAR:
     - RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
     - find artifacts -name "*$RELEASE_VERSION.jar" -print -ls
-    - mv -i $(find artifacts -name '*.jar' -type f -exec ls -t1 {} + | head -1) artifacts
+    - mv -i $(find artifacts -name "*$RELEASE_VERSION.jar" -type f -exec ls -t1 {} + | head -1) artifacts
   artifacts:
     paths:
       - artifacts/*
