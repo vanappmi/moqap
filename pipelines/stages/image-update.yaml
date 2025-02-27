@@ -43,9 +43,6 @@ Find JAR:
     - echo $RELEASE_VERSION
     - export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$RELEASE_VERSION/*/int/*$RELEASE_VERSION.jar"
     - echo $ARTIFACTORY_PATH
-    # setzen der Service_URL für Deployment
-    - echo "SERVICE_URL=https://${CI_PROJECT_NAME}-${DEPLOY_ENV}.bbpneo-${DEPLOY_ENV}-babedas.svc.cluster.local:443/actuator/info"
-    - echo "SERVICE_URL=https://${CI_PROJECT_NAME}-${DEPLOY_ENV}.bbpneo-${DEPLOY_ENV}-babedas.svc.cluster.local:443/actuator/info" >> build.env
   after_script:
     - RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
@@ -54,8 +51,7 @@ Find JAR:
   artifacts:
     paths:
       - artifacts/*
-    reports:
-      dotenv: build.env
+
 Build Image STAGE:
   extends: .kaniko-build
   stage: build-image

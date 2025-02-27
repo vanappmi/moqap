@@ -141,6 +141,11 @@ Deployment STAGE:
     # wait until deployment completed
     #    - argocd app wait dpf-datanet-$env-artenkartierung-backend --grpc-web
     - |
+      if [ $SERVICE_URL == "" ];
+      then
+        echo "SERVICE_URL is empty"
+        export SERVICE_URL="https://${CI_PROJECT_NAME}-${DEPLOY_ENV}.bbpneo-${DEPLOY_ENV}.svc.cluster.local:443/actuator/info"
+      fi
       if [ $IS_CRONJOB != "true" ];
       then
         echo "SERVICE_URL=$SERVICE_URL"
