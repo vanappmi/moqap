@@ -42,6 +42,7 @@ Find JAR:
     - echo $ARTIFACTORY_PATH
   after_script:
     - find artifacts -name '*$CURRENT_VERSION.jar' -print -ls
+    - mv -i $(find artifacts -name '*$CURRENT_VERSION.jar' -type f -exec ls -t1 {} + | head -1)
   artifacts:
     paths:
       - artifacts/*
