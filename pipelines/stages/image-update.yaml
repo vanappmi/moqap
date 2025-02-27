@@ -52,7 +52,7 @@ Find JAR:
     paths:
       - artifacts/*
 
-Build Image:
+Build Image STAGE:
   extends: .kaniko-build
   stage: build-image
   tags:
