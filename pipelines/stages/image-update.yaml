@@ -44,11 +44,13 @@ Find JAR:
     - echo $RELEASE_VERSION
     - export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$RELEASE_VERSION/*/int/*$RELEASE_VERSION.jar"
     - echo $ARTIFACTORY_PATH
+    - echo $IMAGE_UPDATE
   after_script:
     - RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
     - find artifacts -name "*$RELEASE_VERSION.jar" -print -ls
     - mv -i $(find artifacts -name "*$RELEASE_VERSION.jar" -type f -exec ls -t1 {} + | head -1) artifacts
+    - echo $IMAGE_UPDATE
   artifacts:
     paths:
       - artifacts/*
@@ -74,3 +76,4 @@ Build Image STAGE:
   before_script:
     - export KANIKO_IMAGE_TAG=$(echo $KANIKO_IMAGE_TAG | tr ':' '.')
     - echo $KANIKO_IMAGE_TAG
+    - echo $IMAGE_UPDATE
