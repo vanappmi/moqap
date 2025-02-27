@@ -25,6 +25,7 @@ stages:
   - find-jar
   - build-image
   - security-scan
+  - prepare-deployment
   - argo-cd-deploy
   - .post
 
@@ -66,3 +67,15 @@ Build Image STAGE:
     SECRETS:
       CI_REGISTRY_USER:RUNNER_ARTIFACTORY_USER,
       CI_REGISTRY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
+
+Prepare Deployment:
+  stage: prepare-deployment
+  needs:
+    - job: Trivy Check Image
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  <<: *job_template
+  script:
+    - echo "SERVICE_URL=\"https://${CI_PROJECT_NAME}-${DEPLOY_ENV}.bbpneo-${DEPLOY_ENV}-babedas.svc.cluster.local:443/actuator/info\"" >> build.env
+  artifacts:
+    reports:
+      dotenv: build.env
