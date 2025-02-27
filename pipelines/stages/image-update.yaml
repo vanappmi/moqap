@@ -57,11 +57,14 @@ Build Image STAGE:
   stage: build-image
   needs:
     - job: Find JAR
-  tags:
-    - ${PROJECT_RUNNER_TAG}
+  <<: *job_template
   environment:
     name: ${DEPLOY_ENV}
+  artifacts:
+    paths:
+      - artifacts/*
   variables:
+    KANIKO_IMAGE_NAME: $CI_PROJECT_NAME
     KANIKO_SOURCE_REPO: ${PROD_DOCKER_REPO}
     SECRETS:
       CI_REGISTRY_USER:RUNNER_ARTIFACTORY_USER,
