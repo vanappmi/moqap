@@ -9,6 +9,7 @@ include:
   - "/pipelines/templates/moqap_templates.yml"
   - "/pipelines/settings.yaml"
   - "/pipelines/trivy/trivy.yaml"
+  - "/pipelines/stages/deployment.yaml"
 
 .job_template: &job_template
   tags:
@@ -24,9 +25,8 @@ stages:
   - find-jar
   - build-image
   - security-scan
-#  - argo-cd-deploy
-#  - bizhub-deploy
-#  - .post
+  - argo-cd-deploy
+  - .post
 
 Find JAR:
   stage: find-jar
@@ -55,6 +55,8 @@ Find JAR:
 Build Image STAGE:
   extends: .kaniko-build
   stage: build-image
+  needs:
+    - job: Find JAR
   tags:
     - ${PROJECT_RUNNER_TAG}
   environment:
