@@ -36,14 +36,14 @@ Find JAR:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
       ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
   before_script:
-    - CURRENT_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
-    - echo $CURRENT_VERSION
-    - export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$CURRENT_VERSION/*/int/*$CURRENT_VERSION.jar"
+    - RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
+    - echo $RELEASE_VERSION
+    - export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$RELEASE_VERSION/*/int/*$RELEASE_VERSION.jar"
     - echo $ARTIFACTORY_PATH
   after_script:
-#    - CURRENT_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
-    - echo $CURRENT_VERSION
-    - find artifacts -name "*$CURRENT_VERSION.jar" -print -ls
+    - RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
+    - echo $RELEASE_VERSION
+    - find artifacts -name "*$RELEASE_VERSION.jar" -print -ls
     - mv -i $(find artifacts -name '*.jar' -type f -exec ls -t1 {} + | head -1) artifacts
   artifacts:
     paths:
