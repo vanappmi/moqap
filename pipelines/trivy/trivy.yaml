@@ -39,6 +39,13 @@ Trivy Check Image:
   allow_failure:
     exit_codes: # User defined exit code
       - 2
+  before_script:
+    - |
+      if [ $IMAGE_UPDATE == "true" ];
+        export MQP_TRIVY_TARGET=$(echo "$MQP_TRIVY_TARGET-$CI_PIPELINE_CREATED_AT" | tr ':' '.')
+      then
+      fi
+    - echo $MQP_TRIVY_TARGET
 
 Trivy Check Repo:
   extends: .Trivy Scan
