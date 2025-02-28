@@ -63,8 +63,8 @@ release-script:
     - git tag
     - git push origin "v$CURRENT_VERSION"
     # 5. Changelog Änderungen werden auf Confluence übernommen
-    - chmod u+x changelogReader.sh
-    - ./changelogReader.sh $CONFLUENCE_KEY_SECRET
+    #- chmod u+x changelogReader.sh
+    #- ./changelogReader.sh $CONFLUENCE_KEY_SECRET
     # 6. Neuen Branch pushen -> Releasepipeline triggern
     - git remote set-url origin $GIT_REPO_SSH_URL
     - git push origin $NEW_BRANCHNAME
@@ -73,11 +73,11 @@ release-script:
     - echo $GRADLE_OPTS
     - echo $IS_CRONJOB
     - chmod +x ./gradlew
-    - |
-      if [ -z "$IS_CRONJOB" ] || [ $IS_CRONJOB != "true" ] || [ $IS_COMMONLIB == "false" ];
-      then
-        ./gradlew generateGitLog;
-      fi
+    #- |
+    #  if [ -z "$IS_CRONJOB" ] || [ $IS_CRONJOB != "true" ] || [ $IS_COMMONLIB == "false" ];
+    #  then
+    #    ./gradlew generateGitLog;
+    #  fi
     - sed -i "s/$OLD_VERSION/$CURRENT_VERSION/g" gradle.properties
     - sed -i "s/$CURRENT_VERSION/$NEW_VERSION/g" gradle.properties
     - cat gradle.properties
