@@ -22,16 +22,28 @@ variables:
 
 stages:
   - .pre
+  - start-pipeline
   - find-jar
   - build-image
   - security-scan
   - argo-cd-deploy
   - .post
 
+Start ReleasePipeline:
+  stage: start-pipeline
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  <<: *job_template
+  rules:
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  == "development"
+  script:
+    - echo "Start Pipeline..."
+
 Find JAR:
   stage: find-jar
   extends: .Download-Artifacts
   <<: *job_template
+  rules:
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
   variables:
     ARTIFACTORY_PATH: "$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-*/*/int/*.jar"
     TARGET_DIR: "artifacts"
@@ -58,6 +70,8 @@ Build Image STAGE:
   needs:
     - job: Find JAR
   <<: *job_template
+  rules:
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
   environment:
     name: ${DEPLOY_ENV}
   artifacts:

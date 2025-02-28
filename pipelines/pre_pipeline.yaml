@@ -150,6 +150,10 @@ Image-Update:
       when: always
       variables:
         IMAGE_UPDATE: "true"
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  == "development"
+      when: always
+      variables:
+        IMAGE_UPDATE: "true"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
