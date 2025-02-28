@@ -10,7 +10,6 @@ Build Image STAGE:
   needs:
     - job: Build Jar
     - job: SonarQube
-    - job: Whitesource
   stage: build-image
   <<: *job_template
   environment:

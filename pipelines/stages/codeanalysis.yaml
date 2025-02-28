@@ -1,7 +1,6 @@
 ---
 include:
   - "/pipelines/codeanalysis/sonarqube.yaml"
-  - "/pipelines/codeanalysis/whitesource.yaml"
 
 .job_template: &job_template
   tags:
