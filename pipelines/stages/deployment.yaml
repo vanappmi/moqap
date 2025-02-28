@@ -6,13 +6,13 @@
 Deployment STAGE:
   stage: argo-cd-deploy
   rules:
-    - if: ($DEPLOY_ENV == "dev-babedas" || $DEPLOY_ENV  == "int" || $DEPLOY_ENV  == "dev") && $CI_COMMIT_BRANCH
+    - if: ($DEPLOY_ENV == "dev-babedas" || $DEPLOY_ENV  == "int" || $DEPLOY_ENV  == "dev") && $CI_COMMIT_BRANCH && $IMAGE_UPDATE == "false"
       needs:
         - job: Trivy Check Image
         - job: Build Image STAGE
           artifacts: true
           optional: true
-    - if: ($DEPLOY_ENV == "au" || $DEPLOY_ENV  == "lup" || $DEPLOY_ENV  == "prod") && $CI_COMMIT_BRANCH
+    - if: ($DEPLOY_ENV == "au" || $DEPLOY_ENV  == "lup" || $DEPLOY_ENV  == "prod") && $CI_COMMIT_BRANCH && $IMAGE_UPDATE == "false"
       needs:
         - job: Trivy Check Image
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
