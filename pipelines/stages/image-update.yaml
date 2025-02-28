@@ -40,7 +40,7 @@ Start ReleasePipeline:
     - RELEASE_VERSION=$(cat gradle.properties | grep "oldVersion" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
     - export TOK="glptt-6ee7ed7d614b7ba9e629d2456caff328599e4b38"
-    - curl -X POST -F token=$TOK -F ref=Release-$RELEASE_VERSION https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
+    - curl -X POST -F token=$TOK -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
 
 Find JAR:
   stage: find-jar
