@@ -78,8 +78,8 @@ release-script:
     #  then
     #    ./gradlew generateGitLog;
     #  fi
-    - sed -i "s/$CURRENT_VERSION/$NEW_VERSION/g" gradle.properties
-    - sed -i "s/$OLD_VERSION/$CURRENT_VERSION/g" gradle.properties
+    - sed -i "s/version=$CURRENT_VERSION/version=$NEW_VERSION/g" gradle.properties
+    - sed -i "s/oldVersion=$OLD_VERSION/oldVersion=$CURRENT_VERSION/g" gradle.properties
     - cat gradle.properties
     - git add .
     - git commit -m "Change to new version '$NEW_VERSION'."
