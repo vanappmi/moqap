@@ -39,7 +39,7 @@ Start ReleasePipeline:
     ARTIFACTORY_PATH: "$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-*/*/int/*.jar"
     TARGET_DIR: "artifacts"
     SECRETS:
-      TRIGGER_TOKEN:${CI_PROJECT_NAME}_trigger_token"
+      TRIGGER_TOKEN:${CI_PROJECT_NAME}_trigger_token
   script:
     - !reference [ .template secrets, script ]
     - echo "Start Pipeline..."
