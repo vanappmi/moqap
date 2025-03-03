@@ -146,13 +146,13 @@ Bizhub-Deployment:
 Image-Update:
   stage: image-update
   rules:
-    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/ && $DEPLOY_ENV == "au"
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/ && $DEPLOY_ENV == "au" && $STAGE_ENV == "au"
       when: always
       variables:
         IMAGE_UPDATE: "true"
         DEPLOY_ENV: "au"
         STAGE_ENV: "au"
-    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/ && $DEPLOY_ENV == "prod"
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/ && $DEPLOY_ENV == "prod" && $STAGE_ENV == "prod"
       when: always
       variables:
         IMAGE_UPDATE: "true"
