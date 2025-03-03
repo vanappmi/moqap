@@ -79,7 +79,7 @@ Deployment STAGE:
     - |
       if [ $IS_CRONJOB != "true" ];
       then
-        git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.
+        git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
         echo $DEPLOY_ENV
         if [ $DEPLOY_ENV == "prod" ];
         then
