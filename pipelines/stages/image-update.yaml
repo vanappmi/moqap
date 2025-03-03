@@ -61,7 +61,7 @@ Start ReleasePipeline:
     #- cd ../../../bbpneo-ops/bbpneo-iat/deployment/
     - cd bbpneo-ops/bbpneo-iat/deployment/
     - export DEPLOY_TEMPLATE="${CI_PROJECT_NAME}/${CI_PROJECT_NAME}.yaml"
-    - RELEASE_VERSION_AU=$(yq '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.environment == "au") .releaseVersion)' DEPLOY_TEMPLATE)
+    - RELEASE_VERSION_AU=$(yq '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.environment == "au") .releaseVersion)' $DEPLOY_TEMPLATE)
     - echo $RELEASE_VERSION_AU
     ########################################################
     # au
