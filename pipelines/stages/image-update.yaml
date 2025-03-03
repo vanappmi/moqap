@@ -102,3 +102,8 @@ Build Image STAGE:
     - echo $IMAGE_UPDATE
     - echo $DEPLOY_ENV
     - echo $PROD_DOCKER_REPO
+    - |
+      if [ $DEPLOY_ENV == "au" ];
+      then
+        export KANIKO_SOURCE_REPO=${AU_DOCKER_REPO}
+      fi
