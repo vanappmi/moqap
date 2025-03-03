@@ -6,6 +6,7 @@ include:
       - "/artifactory/download_artifacts_dir.yml"
       - "/eks/kaniko/kaniko.yml"
       - "/trivy/trivy.yml"
+      - "/artifactory/stage_artifacts.yml"
   - "/pipelines/templates/moqap_templates.yml"
   - "/pipelines/settings.yaml"
   - "/pipelines/trivy/trivy.yaml"
@@ -25,6 +26,7 @@ stages:
   - start-pipeline
   - find-jar
   - build-image
+  - stage-artifacts
   - security-scan
   - argo-cd-deploy
   - .post
@@ -36,8 +38,6 @@ Start ReleasePipeline:
   rules:
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  == "development"
   variables:
-    ARTIFACTORY_PATH: "$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-*/*/int/*.jar"
-    TARGET_DIR: "artifacts"
     SECRETS:
       TRIGGER_TOKEN:${CI_PROJECT_NAME}_trigger_token
   script:
@@ -48,7 +48,7 @@ Start ReleasePipeline:
     # au
     - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
     # prod
-    - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"prod\"" -F "variables[STAGE_ENV]=\"prod\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-produktion\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
+    #- curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"prod\"" -F "variables[STAGE_ENV]=\"prod\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-produktion\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
 
 Find JAR:
   stage: find-jar
@@ -104,3 +104,40 @@ Build Image STAGE:
     - echo $STAGE_ENV
     - echo $PROD_DOCKER_REPO
     - echo $CI_REGISTRY
+
+Promote stage Artifactory:
+  extends: .Stage-Artifacts
+  stage: stage-artifacts
+  <<: *job_template
+  rules:
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
+  variables:
+    SOURCE_PATH: "$SOURCE_DOCKER_REPO"
+    TARGET_PATH: "$TARGET_DOCKER_REPO"
+    SOURCE_TAG: "$SOURCE_IMAGE_TAG"
+    TARGET_TAG: "$TARGET_IMAGE_TAG"
+    SECRETS:
+      ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
+      ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  before_script:
+    - export ARTIFACT_NAME=$CI_PROJECT_NAME
+    - export SOURCE_DOCKER_REPO=$DEV_DOCKER_REPO
+    - export SOURCE_IMAGE_TAG=$(echo "$CI_COMMIT_REF_NAME-dev-$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_CREATED_AT" | tr ':' '.')
+    - export TARGET_IMAGE_TAG=$(echo "$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_CREATED_AT" | tr ':' '.')
+    - |
+      if [ $DEPLOY_ENV == "au" ];
+      then
+        export TARGET_DOCKER_REPO=$AU_DOCKER_REPO
+      fi
+      if [ $DEPLOY_ENV == "prod" ];
+      then
+        export TARGET_DOCKER_REPO=$PROD_DOCKER_REPO
+      fi
+    - echo $ARTIFACT_NAME
+    - echo $SOURCE_PATH
+    - echo $TARGET_PATH
+    - echo $ARTIFACTORY_URL
+    - echo $ARTIFACTORY_USER
+    - echo $OPTIONS
+    - echo $SOURCE_IMAGE_TAG
+    - echo $TARGET_IMAGE_TAG
