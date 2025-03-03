@@ -45,8 +45,9 @@ Start ReleasePipeline:
     - echo "Start Pipeline..."
     - RELEASE_VERSION=$(cat gradle.properties | grep "oldVersion" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
+    - echo $CI_REPOSITORY_URL
     # au
-    - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
+    # - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
     # prod
     #- curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"prod\"" -F "variables[STAGE_ENV]=\"prod\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-produktion\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
 
