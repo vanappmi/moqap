@@ -65,7 +65,7 @@ Start ReleasePipeline:
     - echo $RELEASE_VERSION_AU
     ########################################################
     # au
-    # - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
+    - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION-AU -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
     # prod
     #- curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"prod\"" -F "variables[STAGE_ENV]=\"prod\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-produktion\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
 
