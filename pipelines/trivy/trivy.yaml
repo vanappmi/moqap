@@ -47,12 +47,12 @@ Trivy Check Image:
       if [ $IMAGE_UPDATE == "true" ] && [ $DEPLOY_ENV == "au" ];
       then
         PIPELINE_CREATED=$(echo "$CI_PIPELINE_CREATED_AT" | tr ':' '.')
-        export MQP_TRIVY_TARGET="${AU_DOCKER_REPO}.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:$C{I_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}-${PIPELINE_CREATED}"
+        export MQP_TRIVY_TARGET="${AU_DOCKER_REPO}.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}-${PIPELINE_CREATED}"
       fi
       if [ $IMAGE_UPDATE == "true" ] && [ $DEPLOY_ENV == "prod" ];
       then
         PIPELINE_CREATED=$(echo "$CI_PIPELINE_CREATED_AT" | tr ':' '.')
-        export MQP_TRIVY_TARGET="${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:$C{I_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}-${PIPELINE_CREATED}"
+        export MQP_TRIVY_TARGET="${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}-${PIPELINE_CREATED}"
       fi
     - echo $MQP_TRIVY_TARGET
 
