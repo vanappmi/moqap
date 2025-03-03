@@ -100,3 +100,5 @@ Build Image STAGE:
     - export KANIKO_IMAGE_TAG=$(echo $KANIKO_IMAGE_TAG | tr ':' '.')
     - echo $KANIKO_IMAGE_TAG
     - echo $IMAGE_UPDATE
+    - echo $DEPLOY_ENV
+    - echo $PROD_DOCKER_REPO
