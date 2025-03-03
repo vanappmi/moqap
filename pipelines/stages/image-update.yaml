@@ -107,4 +107,8 @@ Build Image STAGE:
       then
         export KANIKO_SOURCE_REPO=$AU_DOCKER_REPO
       fi
+      if [ $DEPLOY_ENV == "prod" ];
+      then
+        export KANIKO_SOURCE_REPO=$PROD_DOCKER_REPO
+      fi
     - echo $KANIKO_SOURCE_REPO
