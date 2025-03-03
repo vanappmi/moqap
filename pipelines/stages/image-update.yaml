@@ -101,14 +101,15 @@ Build Image STAGE:
     - echo $KANIKO_IMAGE_TAG
     - echo $IMAGE_UPDATE
     - echo $DEPLOY_ENV
+    - echo $STAGE_ENV
     - echo $PROD_DOCKER_REPO
     - |
       if [ $DEPLOY_ENV == "au" ];
       then
-        export KANIKO_SOURCE_REPO=$AU_DOCKER_REPO
+        export CI_REGISTRY=$AU_DOCKER_REPO
       fi
       if [ $DEPLOY_ENV == "prod" ];
       then
-        export KANIKO_SOURCE_REPO=$PROD_DOCKER_REPO
+        export CI_REGISTRY=$PROD_DOCKER_REPO
       fi
-    - echo $KANIKO_SOURCE_REPO
+    - echo $CI_REGISTRY
