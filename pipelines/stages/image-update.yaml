@@ -121,17 +121,19 @@ Promote stage Artifactory:
       ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
   before_script:
     - export ARTIFACT_NAME=$CI_PROJECT_NAME
-    - export SOURCE_DOCKER_REPO=$DEV_DOCKER_REPO
-    - export SOURCE_IMAGE_TAG=$(echo "$CI_COMMIT_REF_NAME-dev-$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_CREATED_AT" | tr ':' '.')
+    - export SOURCE_PATH=$DEV_DOCKER_REPO
+    - export SOURCE_IMAGE_TAG=$(echo "$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_CREATED_AT" | tr ':' '.')
+    - export SOURCE_TAG=$SOURCE_IMAGE_TAG
     - export TARGET_IMAGE_TAG=$(echo "$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_CREATED_AT" | tr ':' '.')
+    - export TARGET_TAG=$TARGET_IMAGE_TAG
     - |
       if [ $DEPLOY_ENV == "au" ];
       then
-        export TARGET_DOCKER_REPO=$AU_DOCKER_REPO
+        export TARGET_PATH=$AU_DOCKER_REPO
       fi
       if [ $DEPLOY_ENV == "prod" ];
       then
-        export TARGET_DOCKER_REPO=$PROD_DOCKER_REPO
+        export TARGET_PATH=$PROD_DOCKER_REPO
       fi
     - echo $ARTIFACT_NAME
     - echo $SOURCE_PATH
@@ -140,4 +142,6 @@ Promote stage Artifactory:
     - echo $ARTIFACTORY_USER
     - echo $OPTIONS
     - echo $SOURCE_IMAGE_TAG
+    - echo $SOURCE_TAG
     - echo $TARGET_IMAGE_TAG
+    - echo $TARGET_TAG
