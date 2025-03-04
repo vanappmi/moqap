@@ -93,7 +93,9 @@ Deployment STAGE:
           # https://stackoverflow.com/questions/69648216/yq-issue-adding-yaml-into-yaml/69649872#69649872
           yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(VERSION_ENV)) | .branch) |= strenv(LOWERCASE_REF_NAME)' $DEPLOY_TEMPLATE
         fi
-        RELEASE_VERSION=$CI_COMMIT_REF_NAME | cut -d "-" -f2 | tr -dc '0-9.'
+        # ToDo
+        echo $CI_COMMIT_REF_NAME
+        RELEASE_VERSION=$CI_COMMIT_REF_NAME | cut -d "-" -f2 | cut -d "-" -f1 | tr -dc '0-9.'
         echo $RELEASE_VERSION
         ls -al
         # use yq to replace the tag with the current commit hash
