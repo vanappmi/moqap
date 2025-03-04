@@ -1,0 +1,4 @@
+.template releaseversion:
+  script:
+    - |
+      echo "get release version for au and prod from ops repo..."
