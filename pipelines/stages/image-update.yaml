@@ -99,12 +99,12 @@ Find JAR:
       ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY
   before_script:
-    - RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
+    #- RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
     - export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$RELEASE_VERSION/*/int/*$RELEASE_VERSION.jar"
     - echo $ARTIFACTORY_PATH
   after_script:
-    - RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
+    #- RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
     - find artifacts -name "*$RELEASE_VERSION.jar" -print -ls
     - mv -i $(find artifacts -name "*$RELEASE_VERSION.jar" -type f -exec ls -t1 {} + | head -1) artifacts
