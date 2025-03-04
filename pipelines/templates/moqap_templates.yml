@@ -1,6 +1,6 @@
 .template modules string empty:
   script:
-    - echo "-------- MoQ-AP Module \"$MOQAP_MODULE\", Release 4.0.12 --------"
+    - echo "-------- MoQ-AP Module \"$MOQAP_MODULE\", Release InfraTec --------"
 
 .template modules string:
   script:
