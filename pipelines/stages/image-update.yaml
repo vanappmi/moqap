@@ -80,7 +80,7 @@ Get Release Version:
         export RELEASE_VERSION=$RELEASE_VERSION_PROD
       fi
     - echo $RELEASE_VERSION
-    - echo $RELEASE_VERSION >> build.env
+    - echo "RELEASE_VERSION=$RELEASE_VERSION" >> build.env
   artifacts:
     reports:
       dotenv: build.env
