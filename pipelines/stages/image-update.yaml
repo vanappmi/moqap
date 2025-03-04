@@ -43,7 +43,8 @@ Start ReleasePipeline:
       TRIGGER_TOKEN:${CI_PROJECT_NAME}_trigger_token,
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY
   script:
-    - !reference [ .template secrets, releaseversion, script ]
+    - !reference [ .template secrets, script ]
+    - !reference [ .template releaseversion, script ]
     - echo "Start Pipeline..."
     - RELEASE_VERSION=$(cat gradle.properties | grep "oldVersion" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
