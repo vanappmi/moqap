@@ -82,7 +82,7 @@ Deployment STAGE:
         git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
         echo $DEPLOY_ENV
         echo $CI_COMMIT_REF_NAME
-        RELEASE_VERSION=$(echo $CI_COMMIT_REF_NAME | cut -d "-" -f2)
+        export RELEASE_VERSION=$(echo $CI_COMMIT_REF_NAME | cut -d "-" -f2)
         echo "RELEASE_VERSION: $RELEASE_VERSION"
         if [ $DEPLOY_ENV == "prod" ];
         then
