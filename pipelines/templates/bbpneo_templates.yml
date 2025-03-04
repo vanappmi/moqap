@@ -23,3 +23,4 @@
         export RELEASE_VERSION_PROD=$(yq '.spec.source.helm.values' | grep 'releaseVersion' $DEPLOY_TEMPLATE | cut -d ":" -f2 | tr -dc '0-9.')
       fi
       echo "RELEASE_VERSION_PROD:$RELEASE_VERSION_PROD"
+      cd ../../..

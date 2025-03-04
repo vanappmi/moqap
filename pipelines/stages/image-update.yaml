@@ -48,22 +48,11 @@ Start ReleasePipeline:
     - echo "Start Pipeline..."
     - RELEASE_VERSION=$(cat gradle.properties | grep "oldVersion" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
-    #- eval $(ssh-agent -s)
-    #- ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
-    #- ssh-add -l
-    #- ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
-    #- git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
     # AU
-    #- cd bbpneo-ops/bbpneo-iat/deployment/
-    #- export DEPLOY_TEMPLATE="${CI_PROJECT_NAME}/${CI_PROJECT_NAME}.yaml"
-    #- RELEASE_VERSION_AU=$(yq '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.environment == "au") .releaseVersion)' $DEPLOY_TEMPLATE)
     - echo $RELEASE_VERSION_AU
-    - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION_AU -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
+    #- curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION_AU -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
     # PROD
-    #- cd ../../../bbpneo-ops/bbpneo-prod/deployment
-    #- export DEPLOY_TEMPLATE="${CI_PROJECT_NAME}/${CI_PROJECT_NAME}-prod.yaml"
-    #- RELEASE_VERSION_PROD=$(yq '.spec.source.helm.values' | grep 'releaseVersion' $DEPLOY_TEMPLATE | cut -d ":" -f2 | tr -dc '0-9.')'
-    #- echo $RELEASE_VERSION_PROD
+    - echo $RELEASE_VERSION_PROD
     #- curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"prod\"" -F "variables[STAGE_ENV]=\"prod\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-produktion\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
 
 Find JAR:
