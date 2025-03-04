@@ -46,8 +46,6 @@ Start ReleasePipeline:
     - !reference [ .template secrets, script ]
     - !reference [ .template release-version, script ]
     - echo "Start Pipeline..."
-    - RELEASE_VERSION=$(cat gradle.properties | grep "oldVersion" | cut -d "=" -f2 | tr -dc '0-9.')
-    - echo $RELEASE_VERSION
     # AU
     - echo $RELEASE_VERSION_AU
     #- curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION_AU -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" https://git.tech.rz.db.de/api/v4/projects/277423/trigger/pipeline
@@ -66,7 +64,8 @@ Find JAR:
     TARGET_DIR: "artifacts"
     SECRETS:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
-      ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+      ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY
   before_script:
     - RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
