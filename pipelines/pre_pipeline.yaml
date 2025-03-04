@@ -170,4 +170,3 @@ Image-Update:
         ref: "V1.8"
         file: "/pipelines/stages/image-update.yaml"
     strategy: depend
-  allow_failure: true
