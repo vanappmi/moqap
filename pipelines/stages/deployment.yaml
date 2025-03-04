@@ -95,7 +95,7 @@ Deployment STAGE:
         fi
         # ToDo
         echo $CI_COMMIT_REF_NAME
-        RELEASE_VERSION=$CI_COMMIT_REF_NAME | cut -d "-" -f2 | cut -d "-" -f1 | tr -dc '0-9.'
+        RELEASE_VERSION=$CI_COMMIT_REF_NAME | cut -d "-" -f2
         echo $RELEASE_VERSION
         ls -al
         # use yq to replace the tag with the current commit hash
