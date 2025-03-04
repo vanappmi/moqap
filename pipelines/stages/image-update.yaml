@@ -25,6 +25,7 @@ variables:
 stages:
   - .pre
   - start-pipeline
+  - get-release-version
   - find-jar
   - build-image
   - stage-artifacts
@@ -54,6 +55,36 @@ Start Image Update Pipeline:
     - echo "Start Image Update Pipeline for PROD"
     - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"prod\"" -F "variables[STAGE_ENV]=\"prod\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-produktion\"" $TRIGGER_URL
 
+Get Release Version:
+  stage: get-release-version
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  <<: *job_template
+  rules:
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
+  variables:
+    ARTIFACTORY_PATH: "$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-*/*/int/*.jar"
+    TARGET_DIR: "artifacts"
+    SECRETS:
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY
+  script:
+    - !reference [ .template secrets, script ]
+    - !reference [ .template release-version, script ]
+    - echo $DEPLOY_ENV
+    - |
+      if [ $DEPLOY_ENV == "au" ];
+      then
+        export RELEASE_VERSION=$RELEASE_VERSION_AU
+      fi
+      if [ $DEPLOY_ENV == "prod" ];
+      then
+        export RELEASE_VERSION=$RELEASE_VERSION_PROD
+      fi
+    - echo $RELEASE_VERSION
+    - echo $RELEASE_VERSION >> build.env
+  artifacts:
+    reports:
+      dotenv: build.env
+
 Find JAR:
   stage: find-jar
   extends: .Download-Artifacts
@@ -68,32 +99,12 @@ Find JAR:
       ARTIFACTORY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY
   before_script:
-    - !reference [ .template secrets, script ]
-    - !reference [ .template release-version, script ]
-    - echo $DEPLOY_ENV
-    - |
-      if [ $DEPLOY_ENV == "au" ];
-      then
-        export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$RELEASE_VERSION_AU/*/int/*$RELEASE_VERSION_AU.jar"
-      fi
-      if [ $DEPLOY_ENV == "prod" ];
-      then
-        export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$RELEASE_VERSION_PROD/*/int/*$RELEASE_VERSION_PROD.jar"
-      fi
+    - RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
+    - echo $RELEASE_VERSION
+    - export ARTIFACTORY_PATH="$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Release-$RELEASE_VERSION/*/int/*$RELEASE_VERSION.jar"
     - echo $ARTIFACTORY_PATH
   after_script:
-    - !reference [ .template secrets, script ]
-    - !reference [ .template release-version, script ]
-    - echo $DEPLOY_ENV
-    - |
-      if [ $DEPLOY_ENV == "au" ];
-      then
-        export RELEASE_VERSION=$RELEASE_VERSION_AU
-      fi
-      if [ $DEPLOY_ENV == "prod" ];
-      then
-        export RELEASE_VERSION=$RELEASE_VERSION_PROD
-      fi
+    - RELEASE_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
     - echo $RELEASE_VERSION
     - find artifacts -name "*$RELEASE_VERSION.jar" -print -ls
     - mv -i $(find artifacts -name "*$RELEASE_VERSION.jar" -type f -exec ls -t1 {} + | head -1) artifacts
