@@ -49,7 +49,9 @@ list_certificates bbpneo iat:
     - echo "Listing certificates..."
     - kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.resources.aws-certificate.externalName}{"\n"}{end}' -l cnp.comp.db.de/appmesh=dbds
     - kubectl get CertifiedResourceRecordSet -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.resources.aws-certificate.externalName}{"\n"}{end}' -l cnp.comp.db.de/appmesh=dbds
-    - export CERTIFICATE_ARNS="$(kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev),$(kubectl get CertifiedResourceRecordSet -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev)"
+    # - export CERTIFICATE_ARNS="$(kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev),$(kubectl get CertifiedResourceRecordSet -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev)"
+    # Erst die CertifiedResourceRecordSets und dann die Certificates
+    - export CERTIFICATE_ARNS="$(kubectl get CertifiedResourceRecordSet -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev),$(kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{end}' -l cnp.comp.db.de/appmesh=dbds | rev | cut -c2- | rev)"
     - echo $CERTIFICATE_ARNS
     - git config --global user.email "bbpneo@pipeline.com"
     - git config --global user.name "bbpneo Pipeline"
