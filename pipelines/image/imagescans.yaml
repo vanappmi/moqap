@@ -122,7 +122,7 @@ Scan renovate/renovate:39.169:
         file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
-#Scan blackbox-exporter:v0.26.0:
+Scan blackbox-exporter:v0.26.0:
   stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/prom/blackbox-exporter:v0.26.0"
