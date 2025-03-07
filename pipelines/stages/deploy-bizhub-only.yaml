@@ -29,7 +29,7 @@ Deployment BizHub dev:
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "V1.8"
+        ref: "$CURRENT_VERSION"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   when: manual
@@ -41,13 +41,13 @@ Deployment BizHub int:
     STAGE_ENV: "int"
     VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
     BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
     STAGE: "manual"
     PROJECT_RUNNER_TAG: "eks-integration"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "V1.8"
+        ref: "$CURRENT_VERSION"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   when: manual
@@ -59,13 +59,13 @@ Deployment BizHub lup:
     STAGE_ENV: "lup"
     VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
     BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-lup.svc.cluster.local:443/actuator/info"
     STAGE: "lup"
     PROJECT_RUNNER_TAG: "eks-lup"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "V1.8"
+        ref: "$CURRENT_VERSION"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   when: manual
@@ -77,13 +77,13 @@ Deployment BizHub au:
     STAGE_ENV: "au"
     VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
     BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-au.svc.cluster.local:443/actuator/info"
     STAGE: "at"
     PROJECT_RUNNER_TAG: "eks-abnahme"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "V1.8"
+        ref: "$CURRENT_VERSION"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   when: manual
@@ -95,13 +95,13 @@ Deployment BizHub prod:
     STAGE_ENV: "prod"
     VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
     BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-prod.svc.cluster.local:443/actuator/info"
     STAGE: "prod"
     PROJECT_RUNNER_TAG: "eks-produktion"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "V1.8"
+        ref: "$CURRENT_VERSION"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   when: manual
