@@ -52,8 +52,8 @@ Start Image Update Pipeline:
     - echo "Start Image Update Pipeline for AU"
     - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION_AU -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" $TRIGGER_URL
     # PROD
-    #- echo "Start Image Update Pipeline for PROD"
-    #- curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"prod\"" -F "variables[STAGE_ENV]=\"prod\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-produktion\"" $TRIGGER_URL
+    - echo "Start Image Update Pipeline for PROD"
+    - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"prod\"" -F "variables[STAGE_ENV]=\"prod\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-produktion\"" $TRIGGER_URL
 
 Get Release Version:
   stage: get-release-version
