@@ -35,7 +35,7 @@ Entwicklungsumgebung:
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
         STAGE: "review"
-        KANIKO_IMAGE_TAG: "$CI_COMMIT_REF_NAME-$CI_ENVIRONMENT_SLUG-$CI_COMMIT_SHORT_SHA"
+        KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-dev-$CI_COMMIT_SHORT_SHA"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
