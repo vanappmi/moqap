@@ -9,9 +9,6 @@ include:
       - "/lint/dockerfile/lint_dockerfile.yml"
       - "/jmeter/jmeter.yml"
       - "/eks/kaniko/kaniko.yml"
-      - "/trivy/trivy.yml"
-      - "/gitleaks/gitleaks.yml"
-  - "/pipelines/settings.yaml"
   - "/pipelines/stages/codeanalysis.yaml"
   - "/pipelines/stages/build-jar.yaml"
   - "/pipelines/stages/build-image.yaml"
@@ -21,16 +18,6 @@ include:
   - "/pipelines/security/syft.yaml"
   - "/pipelines/security/grant.yaml"
   - "/pipelines/security/grype.yaml"
-
-variables:
-  DEPLOY_ENV: "int"
-  STAGE_ENV: "dev"
-  LAP_TEST_DISABLE: "false"
-  TRIGGER_BUILD_MANUALLY: "false"
-  PROJECT_RUNNER_TAG: "eks-integration"
-  BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-  SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
-  SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}---Masterbranch"
 
 stages:
   - .pre

@@ -7,10 +7,8 @@ include:
       - "/artifactory/upload_artifacts_dir.yml"
       - "/lint/dockerfile/lint_dockerfile.yml"
       - "/eks/kaniko/kaniko.yml"
-  - "/pipelines/settings.yaml"
   - "/pipelines/stages/codeanalysis.yaml"
   - "/pipelines/stages/build-jar.yaml"
-  - "/pipelines/settings.yaml"
   - "/pipelines/stages/release-script.yaml"
   - "/pipelines/stages/secrets-scan.yaml"
 
@@ -20,12 +18,3 @@ stages:
   - static-codeanalysis
   - release
   - .post
-
-variables:
-  IS_COMMONLIB: "true"
-  DEPLOY_ENV: "dev"
-  STAGE_ENV: "dev"
-  IS_RELEASE: "true"
-  CI_REGISTRY: "cna-bbpneo-commonlibs-maven-stage-local.bahnhub.tech.rz.db.de"
-  PROJECT_RUNNER_TAG: "eks-entwicklung"
-  SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}"

@@ -76,8 +76,21 @@ Renovate:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "development"  && $CI_COMMIT_BRANCH !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^renovate/ || $CI_COMMIT_BRANCH =~ /^renovate/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
       when: always
+      variables:
+        DEPLOY_ENV: "int"
+        STAGE_ENV: "dev"
+        LAP_TEST_DISABLE: "false"
+        TRIGGER_BUILD_MANUALLY: "false"
+        PROJECT_RUNNER_TAG: "eks-integration"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
+        SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}---Masterbranch"
   trigger:
-    include: /pipelines/int/release-build.yaml
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        ref: "$CURRENT_VERSION"
+        file: "/pipelines/environments/int/release-build.yaml"
     strategy: depend
 
 Renovate CommonLibs:
@@ -85,8 +98,17 @@ Renovate CommonLibs:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "development"  && $CI_COMMIT_BRANCH !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^renovate/ || $CI_COMMIT_BRANCH =~ /^renovate/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "true" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
       when: always
+      variables:
+        DEPLOY_ENV: "dev"
+        STAGE_ENV: "dev"
+        PROJECT_RUNNER_TAG: "eks-entwicklung"
+        IS_COMMONLIB: "true"
+        SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}"
   trigger:
-    include: /pipelines/dev/environment.yaml
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        ref: "$CURRENT_VERSION"
+        file: "/pipelines/commonLibs/environment.yaml"
     strategy: depend
 
 Pipeline will not run:
@@ -95,7 +117,10 @@ Pipeline will not run:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && $CI_COMMIT_BRANCH !~ /^BBPT4/ && $CI_COMMIT_BRANCH !~ /^BABEDAS/ && $CI_COMMIT_BRANCH !~ /^BBPT7/ && $CI_COMMIT_BRANCH !~ /^BONE/ && $CI_COMMIT_BRANCH !~ /^renovate/ && $CI_COMMIT_TAG == null
       when: always
   trigger:
-    include: /pipelines/stop.yaml
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        ref: "$CURRENT_VERSION"
+        file: "/pipelines/stop.yaml"
     strategy: depend
 
 Integrationstestumgebung:
@@ -103,8 +128,26 @@ Integrationstestumgebung:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false"
       when: always
+      variables:
+        BIZHUB_DISABLE: "${INT_BIZHUB_DISABLE}"
+        BIZHUB_VISIBILITY_TYPE: "${INT_BIZHUB_VISIBILITY_TYPE}"
+        BIZHUB_VISIBILITY_ORGS: "${INT_BIZHUB_VISIBILITY_ORGS}"
+        BIZHUB_SUBSCRIBE_ORGS: "${INT_BIZHUB_SUBSCRIBE_ORGS}"
+        DEPLOY_ENV: "int"
+        STAGE_ENV: "dev"
+        LAP_TEST_DISABLE: "false"
+        TRIGGER_BUILD_MANUALLY: "false"
+        PROJECT_RUNNER_TAG: "eks-integration"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
+        STAGE: "manual"
+        KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}"
   trigger:
-    include: /pipelines/int/environment.yaml
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        ref: "$CURRENT_VERSION"
+        file: "/pipelines/environments/int/environment.yaml"
     strategy: depend
 
 Release:
@@ -114,8 +157,13 @@ Release:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
       when: always
+      variables:
+        PROJECT_RUNNER_TAG: "eks-integration"
   trigger:
-    include: /pipelines/int/release.yaml
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        ref: "$CURRENT_VERSION"
+        file: "/pipelines/environments/int/release.yaml"
     strategy: depend
 
 Release CommonLibs:
@@ -123,8 +171,20 @@ Release CommonLibs:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "true" && $GITLAB_USER_LOGIN != "techuser-duflor0011"
       when: always
+      variables:
+        IS_COMMONLIB: "true"
+        DEPLOY_ENV: "dev"
+        STAGE_ENV: "dev"
+        IS_RELEASE: "true"
+        CI_REGISTRY: "cna-bbpneo-commonlibs-maven-stage-local.bahnhub.tech.rz.db.de"
+        PROJECT_RUNNER_TAG: "eks-entwicklung"
+        SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}"
+        GIT_REPO_SSH_URL: "${GIT_REPO_SSH_URL}"
   trigger:
-    include: /pipelines/dev/environment-release.yaml
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        ref: "$CURRENT_VERSION"
+        file: "/pipelines/commonLibs/environment-release.yaml"
     strategy: depend
 
 Release-Build:
@@ -132,8 +192,21 @@ Release-Build:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
       when: always
+      variables:
+        DEPLOY_ENV: "int"
+        STAGE_ENV: "dev"
+        LAP_TEST_DISABLE: "false"
+        TRIGGER_BUILD_MANUALLY: "false"
+        PROJECT_RUNNER_TAG: "eks-integration"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
+        SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}---Masterbranch"
   trigger:
-    include: /pipelines/int/release-build.yaml
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        ref: "$CURRENT_VERSION"
+        file: "/pipelines/environments/int/release-build.yaml"
     strategy: depend
 
 Abnahmetestumgebung:

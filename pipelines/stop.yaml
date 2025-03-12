@@ -1,0 +1,13 @@
+---
+stages:
+  - .pre
+  - stop
+
+Stop Pipeline:
+  stage: stop
+  image: cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  tags:
+    - eks-entwicklung
+  script:
+    - echo Der Featurebranch sollte mit BBPT4 (oder BABEDAS) bzw. BBPT7 (oder BONE) beginnen
+    - exit 1

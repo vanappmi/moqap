@@ -57,3 +57,4 @@ Print Variables:
     - echo $STAGE
     - echo $KANIKO_IMAGE_TAG
     - echo $NAMESPACE
+    - echo $GIT_REPO_SSH_URL

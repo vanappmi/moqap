@@ -4,11 +4,7 @@ include:
     ref: "11.3.0"
     file:
       - "/templates/moqap_templates.yml"
-  - "/pipelines/settings.yaml"
   - "/pipelines/stages/release-script.yaml"
-
-variables:
-  PROJECT_RUNNER_TAG: "eks-integration"
 
 stages:
   - .pre

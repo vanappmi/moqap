@@ -7,7 +7,6 @@ include:
       - "/artifactory/upload_artifacts_dir.yml"
       - "/lint/dockerfile/lint_dockerfile.yml"
       - "/eks/kaniko/kaniko.yml"
-  - "/pipelines/settings.yaml"
   - "/pipelines/stages/codeanalysis.yaml"
   - "/pipelines/stages/build-jar.yaml"
   - "/pipelines/stages/secrets-scan.yaml"
@@ -17,10 +16,3 @@ stages:
   - build-jar
   - static-codeanalysis
   - .post
-
-variables:
-  DEPLOY_ENV: "dev"
-  STAGE_ENV: "dev"
-  PROJECT_RUNNER_TAG: "eks-entwicklung"
-  IS_COMMONLIB: "true"
-  SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}"
