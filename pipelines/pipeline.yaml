@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "11.2.2"
+    ref: "11.3.0"
     file:
       - "/artifactory/download_artifacts_dir.yml"
       - "/artifactory/upload_artifacts_dir.yml"
@@ -21,6 +21,9 @@ include:
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/stages/integrationtest.yaml"
   - "/pipelines/artifactory/clean_artifactory.yaml"
+  - "/pipelines/security/syft.yaml"
+  - "/pipelines/security/grant.yaml"
+  - "/pipelines/security/grype.yaml"
 
 stages:
   - .pre
