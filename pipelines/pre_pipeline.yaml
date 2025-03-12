@@ -39,7 +39,7 @@ Entwicklungsumgebung:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
         ref: "$CURRENT_VERSION"
-        file: "/pipelines/environments/dev/environment.yaml"
+        file: "/pipelines/pipeline.yaml"
     strategy: depend
 
 Entwicklungsumgebung B1:
