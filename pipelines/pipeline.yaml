@@ -50,3 +50,12 @@ Print Variables:
     - echo ${BIZHUB_VISIBILITY_TYPE}
     - echo ${BIZHUB_VISIBILITY_ORGS}
     - echo ${BIZHUB_SUBSCRIBE_ORGS}
+    - echo $DEPLOY_ENV
+    - echo $STAGE_ENV
+    - echo $LAP_TEST_DISABLE
+    - echo $TRIGGER_BUILD_MANUALLY
+    - echo $PROJECT_RUNNER_TAG
+    - echo $VERSION_ENV
+    - echo $BASE_SERVICE_URL
+    - echo $SERVICE_URL
+    - echo $STAGE
