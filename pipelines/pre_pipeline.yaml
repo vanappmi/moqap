@@ -147,7 +147,7 @@ Integrationstestumgebung:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
         ref: "$CURRENT_VERSION"
-        file: "/pipelines/environments/int/environment.yaml"
+        file: "/pipeline.yaml"
     strategy: depend
 
 Release:
