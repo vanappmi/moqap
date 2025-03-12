@@ -35,7 +35,7 @@ Entwicklungsumgebung:
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
         STAGE: "review"
-        KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-dev-$CI_COMMIT_SHORT_SHA"
+        KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -48,8 +48,27 @@ Entwicklungsumgebung B1:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT7/ || $CI_COMMIT_BRANCH =~ /^BONE/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
       when: always
+      variables:
+        BIZHUB_DISABLE: "${DEV_B1_BIZHUB_DISABLE}"
+        BIZHUB_VISIBILITY_TYPE: "${DEV_B1_BIZHUB_VISIBILITY_TYPE}"
+        BIZHUB_VISIBILITY_ORGS: "${DEV_B1_BIZHUB_VISIBILITY_ORGS}"
+        BIZHUB_SUBSCRIBE_ORGS: "${DEV_B1_BIZHUB_SUBSCRIBE_ORGS}"
+        DEPLOY_ENV: "dev"
+        STAGE_ENV: "dev"
+        LAP_TEST_DISABLE: "true"
+        TRIGGER_BUILD_MANUALLY: "true"
+        PROJECT_RUNNER_TAG: "eks-entwicklung"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}-b1"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-b1.svc.cluster.local:443/actuator/info"
+        STAGE: "review"
+        KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-dev-b1-$CI_COMMIT_SHORT_SHA"
+        NAMESPACE: "dev-b1"
   trigger:
-    include: /pipelines/dev-b1/environment.yaml
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        ref: "$CURRENT_VERSION"
+        file: "/pipelines/pipeline.yaml"
     strategy: depend
 
 Renovate:
