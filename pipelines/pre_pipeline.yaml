@@ -250,7 +250,6 @@ Bizhub-Deployment:
       when: always
   trigger:
     include:
-      - local: /pipelines/bizhub/bizhub-variables.yml
       - project: "cnp/bbpneo/02-ops/moqap"
         ref: "$CURRENT_VERSION"
         file: "/pipelines/stages/deploy-bizhub-only.yaml"
