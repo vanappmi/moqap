@@ -17,7 +17,7 @@ Clean Artifactory:
   <<: *job_template
   variables:
     DAYS: 30
-    CONFIG_FILE: pipelines/clean_artifactory_conf.yaml
+    CONFIG_FILE: clean_artifactory_conf.yaml
     DRY_RUN: "false"
     SECRETS:
       ARTIFACTORY_USER:RUNNER_ARTIFACTORY_USER,
