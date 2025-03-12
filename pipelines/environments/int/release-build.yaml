@@ -18,6 +18,9 @@ include:
   - "/pipelines/stages/upload-artifacts.yaml"
   - "/pipelines/stages/secrets-scan.yaml"
   - "/pipelines/trivy/trivy.yaml"
+  - "/pipelines/security/syft.yaml"
+  - "/pipelines/security/grant.yaml"
+  - "/pipelines/security/grype.yaml"
 
 variables:
   DEPLOY_ENV: "int"
