@@ -27,9 +27,12 @@ variables:
   FIELD_DB_USER: "${CI_PROJECT_NAME}_api_password"
   FIELD_DB_PASSWORD: "database-password"
   # BIZHUB
-  BIZHUB_DISABLE: "true"
-  BIZHUB_CONNECT_CONFIG: "pipelines/bizhub/connect.yaml"
+  BIZHUB_CONNECT_CONFIG: "bizhub/connect.yaml"
   BIZHUB_DEPLOY_ONLY: "false"
+  BIZHUB_DISABLE: "true"
+  BIZHUB_VISIBILITY_TYPE: ""
+  BIZHUB_VISIBILITY_ORGS: ""
+  BIZHUB_SUBSCRIBE_ORGS: ""
   # WHITESOURCE
   WS_SERVER_URL: "https://whitesource.int-app.comp.db.de/agent"
   WS_API_URL: "https://whitesource.int-app.comp.db.de/api"
