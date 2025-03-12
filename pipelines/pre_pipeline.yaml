@@ -202,6 +202,7 @@ Release-Build:
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
         SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}---Masterbranch"
+        KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
