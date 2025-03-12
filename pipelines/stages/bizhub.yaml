@@ -7,6 +7,8 @@ Deployment BizHub:
     - if: $BIZHUB_DISABLE != "true"
       needs:
         - job: Deployment STAGE
+      variables:
+        PROJECT_RUNNER_TAG: "$PROJECT_RUNNER_TAG"
     - if: $BIZHUB_DISABLE == "true"
       when: never
   trigger:
