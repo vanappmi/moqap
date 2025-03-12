@@ -5,6 +5,9 @@ include:
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/stages/deployment.yaml"
   - "/pipelines/stages/bizhub.yaml"
+  - "/pipelines/security/syft.yaml"
+  - "/pipelines/security/grant.yaml"
+  - "/pipelines/security/grype.yaml"
 
 # Stage-specific variables
 variables:
