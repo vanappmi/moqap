@@ -9,8 +9,6 @@ include:
       - "/lint/dockerfile/lint_dockerfile.yml"
       - "/jmeter/jmeter.yml"
       - "/eks/kaniko/kaniko.yml"
-      - "/trivy/trivy.yml"
-  - "/pipelines/settings.yaml"
   - "/pipelines/stages/codeanalysis.yaml"
   - "/pipelines/stages/build-jar.yaml"
   - "/pipelines/stages/build-image.yaml"

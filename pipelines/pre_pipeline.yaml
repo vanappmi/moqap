@@ -1,4 +1,7 @@
 ---
+include:
+  - "/pipelines/settings.yaml"
+
 variables:
   IS_COMMONLIB: "false"
   BIZHUB_DEPLOY_ONLY: "false"
