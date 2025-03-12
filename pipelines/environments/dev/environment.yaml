@@ -1,4 +1,0 @@
----
-include:
-  # Generic pipeline description for all stages
-  - "pipelines/pipeline.yaml"
