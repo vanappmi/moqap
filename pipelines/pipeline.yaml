@@ -35,3 +35,14 @@ stages:
   - integrationtest
   - cleanup
   - .post
+
+Print Variables:
+  stage: build-jar
+  tags:
+    - $PROJECT_RUNNER_TAG
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  before_script:
+    - echo $DEV_BIZHUB_DISABLE
+    - echo $DEV_BIZHUB_VISIBILITY_TYPE
+    - echo $DEV_BIZHUB_VISIBILITY_ORGS
+    - echo $DEV_BIZHUB_SUBSCRIBE_ORGS
