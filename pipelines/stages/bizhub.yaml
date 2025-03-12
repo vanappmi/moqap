@@ -16,7 +16,7 @@ Deployment BizHub:
         STAGE: "${STAGE}"
         DEPLOY_ENV: "${DEPLOY_ENV}"
         STAGE_ENV: "${STAGE_ENV}"
-        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        BASE_SERVICE_URL: "${BASE_SERVICE_URL}"
     - if: $BIZHUB_DISABLE == "true"
       when: never
   trigger:
