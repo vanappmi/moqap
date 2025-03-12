@@ -13,6 +13,7 @@ Deployment BizHub:
         BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE}"
         BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS}"
         BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS}"
+        STAGE: "review"
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
     - if: $BIZHUB_DISABLE == "true"
       when: never
