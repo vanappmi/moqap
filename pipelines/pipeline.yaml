@@ -60,4 +60,3 @@ Print Variables:
     - echo $SERVICE_URL
     - echo $STAGE
     - echo $KANIKO_IMAGE_TAG
-    - echo $PROJECT_RUNNER_TAG
