@@ -138,7 +138,7 @@ Bizhub-Deployment:
     include:
       - local: /pipelines/bizhub/bizhub-variables.yml
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "V1.8"
+        ref: "$CURRENT_VERSION"
         file: "/pipelines/stages/deploy-bizhub-only.yaml"
     strategy: depend
   allow_failure: true
@@ -167,6 +167,6 @@ Image-Update:
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "V1.8"
+        ref: "$CURRENT_VERSION"
         file: "/pipelines/stages/image-update.yaml"
     strategy: depend
