@@ -1,0 +1,59 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "11.3.0"
+    file: "/anchore/grype/grype.yml"
+
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+Grype Check Image:
+  extends: .Grype
+  stage: security-scan
+  <<: *job_template
+  rules:
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "JAVA" && $IMAGE_UPDATE == "false"
+      allow_failure: true
+      needs:
+        - job: Build Image STAGE
+          optional: true
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "GO"
+      allow_failure: true
+      needs:
+        - job: Build Go Image
+          optional: true
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "au" || $DEPLOY_ENV == "lup" || $DEPLOY_ENV == "prod") && $IMAGE_UPDATE == "false"
+      when: manual
+      allow_failure: true
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
+    - if: '$DEPLOY_ENV != "dev" && $DEPLOY_ENV  != "int"'
+  variables:
+    MQP_ANCHOR_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
+    SECRETS:
+      MQP_ANCHOR_USERNAME:RUNNER_ARTIFACTORY_USER,
+      MQP_ANCHOR_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  allow_failure: true
+
+Grype Check Repo:
+  extends: .Grype
+  stage: security-scan
+  <<: *job_template
+  rules:
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "JAVA" && $IMAGE_UPDATE == "false"
+      needs:
+        - job: Build Image STAGE
+          optional: true
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "GO"
+      allow_failure: true
+      needs:
+        - job: Build Go Image
+          optional: true
+  variables:
+    MQP_ANCHOR_TARGET: "$CI_PROJECT_DIR"
+    MQP_ANCHOR_REPO_BRANCH: "$CI_COMMIT_BRANCH"
+    SECRETS:
+      MQP_ANCHOR_USERNAME:RUNNER_ARTIFACTORY_USER,
+      MQP_ANCHOR_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
+      MQP_ANCHOR_REPO_ACCESS_TOKEN:BBPNEO_GITLAB_GROUP_API_AND_READ_REPO_TOKEN
+  allow_failure: true
