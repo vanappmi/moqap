@@ -273,6 +273,16 @@ Bizhub-Deployment:
         PROD_BIZHUB_VISIBILITY_TYPE: "${PROD_BIZHUB_VISIBILITY_TYPE}"
         PROD_BIZHUB_VISIBILITY_ORGS: "${PROD_BIZHUB_VISIBILITY_ORGS}"
         PROD_BIZHUB_SUBSCRIBE_ORGS: "${PROD_BIZHUB_SUBSCRIBE_ORGS}"
+        # other
+        CURRENT_VERSION: "${CURRENT_VERSION}"
+        AWS_SM_SECRET_PATH: "/runner/secrets/gitlab-runner-secret"
+        DEPLOY_ENV: "dev"
+        STAGE_ENV: "dev"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+        STAGE: "review"
+        BIZHUB_CONNECT_CONFIG: "bizhub/connect.yaml"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
