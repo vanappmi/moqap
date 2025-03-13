@@ -229,6 +229,7 @@ Abnahmetestumgebung:
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-au.svc.cluster.local:443/actuator/info"
         STAGE: "at"
+        KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
