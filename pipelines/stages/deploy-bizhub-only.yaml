@@ -23,9 +23,9 @@ Deployment BizHub dev:
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
         STAGE: "review"
         PROJECT_RUNNER_TAG: "eks-entwicklung"
-        BIZHUB_VISIBILITY_TYPE: "${DEV_BIZHUB_VISIBILITY_TYPE_X}"
-        BIZHUB_VISIBILITY_ORGS: "${DEV_BIZHUB_VISIBILITY_ORGS_X}"
-        BIZHUB_SUBSCRIBE_ORGS: "${DEV_BIZHUB_SUBSCRIBE_ORGS_X}"
+        BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE_DEV}"
+        BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS_DEV}"
+        BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS_DEV}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -47,9 +47,9 @@ Deployment BizHub int:
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
         STAGE: "manual"
         PROJECT_RUNNER_TAG: "eks-integration"
-        BIZHUB_VISIBILITY_TYPE: "${INT_BIZHUB_VISIBILITY_TYPE}"
-        BIZHUB_VISIBILITY_ORGS: "${INT_BIZHUB_VISIBILITY_ORGS}"
-        BIZHUB_SUBSCRIBE_ORGS: "${INT_BIZHUB_SUBSCRIBE_ORGS}"
+        BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE_INT}"
+        BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS_INT}"
+        BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS_INT}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -71,9 +71,9 @@ Deployment BizHub lup:
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-lup.svc.cluster.local:443/actuator/info"
         STAGE: "lup"
         PROJECT_RUNNER_TAG: "eks-lup"
-        BIZHUB_VISIBILITY_TYPE: "${LUP_BIZHUB_VISIBILITY_TYPE}"
-        BIZHUB_VISIBILITY_ORGS: "${LUP_BIZHUB_VISIBILITY_ORGS}"
-        BIZHUB_SUBSCRIBE_ORGS: "${LUP_BIZHUB_SUBSCRIBE_ORGS}"
+        BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE_LUP}"
+        BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS_LUP}"
+        BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS_LUP}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -95,9 +95,9 @@ Deployment BizHub au:
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-au.svc.cluster.local:443/actuator/info"
         STAGE: "at"
         PROJECT_RUNNER_TAG: "eks-abnahme"
-        BIZHUB_VISIBILITY_TYPE: "${AU_BIZHUB_VISIBILITY_TYPE}"
-        BIZHUB_VISIBILITY_ORGS: "${AU_BIZHUB_VISIBILITY_ORGS}"
-        BIZHUB_SUBSCRIBE_ORGS: "${AU_BIZHUB_SUBSCRIBE_ORGS}"
+        BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE_AU}"
+        BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS_AU}"
+        BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS_AU}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -119,9 +119,9 @@ Deployment BizHub prod:
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-prod.svc.cluster.local:443/actuator/info"
         STAGE: "prod"
         PROJECT_RUNNER_TAG: "eks-produktion"
-        BIZHUB_VISIBILITY_TYPE: "${PROD_BIZHUB_VISIBILITY_TYPE}"
-        BIZHUB_VISIBILITY_ORGS: "${PROD_BIZHUB_VISIBILITY_ORGS}"
-        BIZHUB_SUBSCRIBE_ORGS: "${PROD_BIZHUB_SUBSCRIBE_ORGS}"
+        BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE_PROD}"
+        BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS_PROD}"
+        BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS_PROD}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -149,25 +149,21 @@ Print Variables:
     - echo ${BASE_SERVICE_URL}
     - echo ${SERVICE_URL}
     - echo ${STAGE}
-    - echo ${DEV_BIZHUB_VISIBILITY_TYPE}
-    - echo ${DEV_BIZHUB_VISIBILITY_ORGS}
-    - echo ${DEV_BIZHUB_SUBSCRIBE_ORGS}
-    - echo ${DEV_B1_BIZHUB_VISIBILITY_TYPE}
-    - echo ${DEV_B1_BIZHUB_VISIBILITY_ORGS}
-    - echo ${DEV_B1_BIZHUB_SUBSCRIBE_ORGS}
-    - echo ${INT_BIZHUB_VISIBILITY_TYPE}
-    - echo ${INT_BIZHUB_VISIBILITY_ORGS}
-    - echo ${INT_BIZHUB_SUBSCRIBE_ORGS}
-    - echo ${AU_BIZHUB_VISIBILITY_TYPE}
-    - echo ${AU_BIZHUB_VISIBILITY_ORGS}
-    - echo ${AU_BIZHUB_SUBSCRIBE_ORGS}
-    - echo ${LUP_BIZHUB_VISIBILITY_TYPE}
-    - echo ${LUP_BIZHUB_VISIBILITY_ORGS}
-    - echo ${LUP_BIZHUB_SUBSCRIBE_ORGS}
-    - echo ${PROD_BIZHUB_VISIBILITY_TYPE}
-    - echo ${PROD_BIZHUB_VISIBILITY_ORGS}
-    - echo ${PROD_BIZHUB_SUBSCRIBE_ORGS}
-    - echo "#####"
-    - echo ${DEV_BIZHUB_VISIBILITY_TYPE_X}
-    - echo ${DEV_BIZHUB_VISIBILITY_ORGS_X}
-    - echo ${DEV_BIZHUB_SUBSCRIBE_ORGS_X}
+    - echo ${BIZHUB_VISIBILITY_TYPE_DEV}
+    - echo ${BIZHUB_VISIBILITY_ORGS_DEV}
+    - echo ${BIZHUB_SUBSCRIBE_ORGS_DEV}
+    - echo ${BIZHUB_VISIBILITY_TYPE_DEV_B1}
+    - echo ${BIZHUB_VISIBILITY_ORGS_DEV_B1}
+    - echo ${BIZHUB_SUBSCRIBE_ORGS_DEV_B1}
+    - echo ${BIZHUB_VISIBILITY_TYPE_INT}
+    - echo ${BIZHUB_VISIBILITY_ORGS_INT}
+    - echo ${BIZHUB_SUBSCRIBE_ORGS_INT}
+    - echo ${BIZHUB_VISIBILITY_TYPE_AU}
+    - echo ${BIZHUB_VISIBILITY_ORGS_AU}
+    - echo ${BIZHUB_SUBSCRIBE_ORGS_AU}
+    - echo ${BIZHUB_VISIBILITY_TYPE_LUP}
+    - echo ${BIZHUB_VISIBILITY_ORGS_LUP}
+    - echo ${BIZHUB_SUBSCRIBE_ORGS_LUP}
+    - echo ${BIZHUB_VISIBILITY_TYPE_PROD}
+    - echo ${BIZHUB_VISIBILITY_ORGS_PROD}
+    - echo ${BIZHUB_SUBSCRIBE_ORGS_PROD}
