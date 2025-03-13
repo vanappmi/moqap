@@ -250,7 +250,7 @@ Bizhub-Deployment:
       when: always
       variables:
         # dev
-        DEV_BIZHUB_VISIBILITY_TYPE: "${DEV_BIZHUB_VISIBILITY_TYPE}"
+        DEV_BIZHUB_VISIBILITY_TYPE: "test" # "${DEV_BIZHUB_VISIBILITY_TYPE}"
         DEV_BIZHUB_VISIBILITY_ORGS: "${DEV_BIZHUB_VISIBILITY_ORGS}"
         DEV_BIZHUB_SUBSCRIBE_ORGS: "${DEV_BIZHUB_SUBSCRIBE_ORGS}"
         # dev-b1
