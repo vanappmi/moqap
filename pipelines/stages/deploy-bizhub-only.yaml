@@ -35,6 +35,7 @@ Deployment BizHub dev:
         ref: "$CURRENT_VERSION"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
+  when: manual
 
 Deployment BizHub int:
   stage: bizhub-deploy
@@ -58,6 +59,7 @@ Deployment BizHub int:
         ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
+  when: manual
 
 Deployment BizHub lup:
   stage: bizhub-deploy
@@ -81,6 +83,7 @@ Deployment BizHub lup:
         ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
+  when: manual
 
 Deployment BizHub au:
   stage: bizhub-deploy
@@ -104,6 +107,7 @@ Deployment BizHub au:
         ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
+  when: manual
 
 Deployment BizHub prod:
   stage: bizhub-deploy
@@ -127,6 +131,7 @@ Deployment BizHub prod:
         ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
+  when: manual
 
 Print Variables:
   stage: bizhub-deploy
