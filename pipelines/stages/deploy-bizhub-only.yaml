@@ -7,6 +7,10 @@ stages:
   - bizhub-deploy
   - .post
 
+variables:
+  # "cnp/bbpneo/02-ops/moqap"
+  CURRENT_VERSION: "V2.0"
+
 Deployment BizHub dev:
   stage: bizhub-deploy
   variables:
