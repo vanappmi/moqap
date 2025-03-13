@@ -1,6 +1,5 @@
 ---
 include:
-  - "/pipelines/settings.yaml"
   - "/pipelines/stages/stage-artifacts.yaml"
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/stages/deployment.yaml"
