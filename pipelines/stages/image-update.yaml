@@ -50,10 +50,10 @@ Start Image Update Pipeline:
     - echo "Start Pipeline..."
     # AU
     - echo "Start Image Update Pipeline for AU"
-    - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION_AU -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" $TRIGGER_URL
+    - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION_AU -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"au\"" -F "variables[STAGE_ENV]=\"au\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-abnahme\"" -F "variables[DEPLOY_TEMPLATE]=\"$DEPLOY_TEMPLATE_AU\"" $TRIGGER_URL
     # PROD
     - echo "Start Image Update Pipeline for PROD"
-    - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION_PROD -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"prod\"" -F "variables[STAGE_ENV]=\"prod\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-produktion\"" $TRIGGER_URL
+    - curl -X POST -F token=$TRIGGER_TOKEN -F ref=Release-$RELEASE_VERSION_PROD -F "variables[IMAGE_UPDATE]=true" -F "variables[DEPLOY_ENV]=\"prod\"" -F "variables[STAGE_ENV]=\"prod\"" -F "variables[PROJECT_RUNNER_TAG]=\"eks-produktion\"" -F "variables[DEPLOY_TEMPLATE]=\"$DEPLOY_TEMPLATE_PROD\"" $TRIGGER_URL
 
 Get Release Version:
   stage: get-release-version
