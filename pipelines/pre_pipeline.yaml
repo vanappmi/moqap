@@ -274,7 +274,6 @@ Bizhub-Deployment:
         PROD_BIZHUB_VISIBILITY_ORGS: "${PROD_BIZHUB_VISIBILITY_ORGS}"
         PROD_BIZHUB_SUBSCRIBE_ORGS: "${PROD_BIZHUB_SUBSCRIBE_ORGS}"
         # other
-        AWS_SM_SECRET_PATH: "/runner/secrets/gitlab-runner-secret"
         DEPLOY_ENV: "dev"
         STAGE_ENV: "dev"
         VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
