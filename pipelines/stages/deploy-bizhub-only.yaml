@@ -11,6 +11,7 @@ variables:
   # "cnp/bbpneo/02-ops/moqap"
   CURRENT_VERSION: "V2.0"
   AWS_SM_SECRET_PATH: "/runner/secrets/gitlab-runner-secret"
+  BIZHUB_CONNECT_CONFIG: "bizhub/connect.yaml"
 
 Deployment BizHub dev:
   stage: bizhub-deploy
