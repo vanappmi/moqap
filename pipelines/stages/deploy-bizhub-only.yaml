@@ -17,7 +17,7 @@ Deployment BizHub dev:
   stage: bizhub-deploy
   rules:
     - if: $BIZHUB_DEPLOY_ONLY == "true"
-      when: always
+      when: manual
       variables:
         DEPLOY_ENV: "dev"
         STAGE_ENV: "dev"
@@ -35,13 +35,12 @@ Deployment BizHub dev:
         ref: "$CURRENT_VERSION"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
-  when: manual
 
 Deployment BizHub int:
   stage: bizhub-deploy
   rules:
     - if: $BIZHUB_DEPLOY_ONLY == "true"
-      when: always
+      when: manual
       variables:
         DEPLOY_ENV: "int"
         STAGE_ENV: "int"
@@ -59,13 +58,12 @@ Deployment BizHub int:
         ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
-  when: manual
 
 Deployment BizHub lup:
   stage: bizhub-deploy
   rules:
     - if: $BIZHUB_DEPLOY_ONLY == "true"
-      when: always
+      when: manual
       variables:
         DEPLOY_ENV: "lup"
         STAGE_ENV: "lup"
@@ -83,13 +81,12 @@ Deployment BizHub lup:
         ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
-  when: manual
 
 Deployment BizHub au:
   stage: bizhub-deploy
   rules:
     - if: $BIZHUB_DEPLOY_ONLY == "true"
-      when: always
+      when: manual
       variables:
         DEPLOY_ENV: "au"
         STAGE_ENV: "au"
@@ -107,13 +104,12 @@ Deployment BizHub au:
         ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
-  when: manual
 
 Deployment BizHub prod:
   stage: bizhub-deploy
   rules:
     - if: $BIZHUB_DEPLOY_ONLY == "true"
-      when: always
+      when: manual
       variables:
         DEPLOY_ENV: "prod"
         STAGE_ENV: "prod"
@@ -131,7 +127,6 @@ Deployment BizHub prod:
         ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
-  when: manual
 
 Print Variables:
   stage: bizhub-deploy
