@@ -15,17 +15,20 @@ variables:
 
 Deployment BizHub dev:
   stage: bizhub-deploy
-  variables:
-    DEPLOY_ENV: "dev"
-    STAGE_ENV: "dev"
-    VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
-    BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
-    STAGE: "review"
-    PROJECT_RUNNER_TAG: "eks-entwicklung"
-    BIZHUB_VISIBILITY_TYPE: "${DEV_BIZHUB_VISIBILITY_TYPE}"
-    BIZHUB_VISIBILITY_ORGS: "${DEV_BIZHUB_VISIBILITY_ORGS}"
-    BIZHUB_SUBSCRIBE_ORGS: "${DEV_BIZHUB_SUBSCRIBE_ORGS}"
+  rules:
+    - if: $BIZHUB_DEPLOY_ONLY == "true"
+      when: always
+      variables:
+        DEPLOY_ENV: "dev"
+        STAGE_ENV: "dev"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
+        STAGE: "review"
+        PROJECT_RUNNER_TAG: "eks-entwicklung"
+        BIZHUB_VISIBILITY_TYPE: "${DEV_BIZHUB_VISIBILITY_TYPE}"
+        BIZHUB_VISIBILITY_ORGS: "${DEV_BIZHUB_VISIBILITY_ORGS}"
+        BIZHUB_SUBSCRIBE_ORGS: "${DEV_BIZHUB_SUBSCRIBE_ORGS}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -36,17 +39,20 @@ Deployment BizHub dev:
 
 Deployment BizHub int:
   stage: bizhub-deploy
-  variables:
-    DEPLOY_ENV: "int"
-    STAGE_ENV: "int"
-    VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
-    BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
-    STAGE: "manual"
-    PROJECT_RUNNER_TAG: "eks-integration"
-    BIZHUB_VISIBILITY_TYPE: "${INT_BIZHUB_VISIBILITY_TYPE}"
-    BIZHUB_VISIBILITY_ORGS: "${INT_BIZHUB_VISIBILITY_ORGS}"
-    BIZHUB_SUBSCRIBE_ORGS: "${INT_BIZHUB_SUBSCRIBE_ORGS}"
+  rules:
+    - if: $BIZHUB_DEPLOY_ONLY == "true"
+      when: always
+      variables:
+        DEPLOY_ENV: "int"
+        STAGE_ENV: "int"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
+        STAGE: "manual"
+        PROJECT_RUNNER_TAG: "eks-integration"
+        BIZHUB_VISIBILITY_TYPE: "${INT_BIZHUB_VISIBILITY_TYPE}"
+        BIZHUB_VISIBILITY_ORGS: "${INT_BIZHUB_VISIBILITY_ORGS}"
+        BIZHUB_SUBSCRIBE_ORGS: "${INT_BIZHUB_SUBSCRIBE_ORGS}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -57,17 +63,20 @@ Deployment BizHub int:
 
 Deployment BizHub lup:
   stage: bizhub-deploy
-  variables:
-    DEPLOY_ENV: "lup"
-    STAGE_ENV: "lup"
-    VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
-    BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-lup.svc.cluster.local:443/actuator/info"
-    STAGE: "lup"
-    PROJECT_RUNNER_TAG: "eks-lup"
-    BIZHUB_VISIBILITY_TYPE: "${LUP_BIZHUB_VISIBILITY_TYPE}"
-    BIZHUB_VISIBILITY_ORGS: "${LUP_BIZHUB_VISIBILITY_ORGS}"
-    BIZHUB_SUBSCRIBE_ORGS: "${LUP_BIZHUB_SUBSCRIBE_ORGS}"
+  rules:
+    - if: $BIZHUB_DEPLOY_ONLY == "true"
+      when: always
+      variables:
+        DEPLOY_ENV: "lup"
+        STAGE_ENV: "lup"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-lup.svc.cluster.local:443/actuator/info"
+        STAGE: "lup"
+        PROJECT_RUNNER_TAG: "eks-lup"
+        BIZHUB_VISIBILITY_TYPE: "${LUP_BIZHUB_VISIBILITY_TYPE}"
+        BIZHUB_VISIBILITY_ORGS: "${LUP_BIZHUB_VISIBILITY_ORGS}"
+        BIZHUB_SUBSCRIBE_ORGS: "${LUP_BIZHUB_SUBSCRIBE_ORGS}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -78,17 +87,20 @@ Deployment BizHub lup:
 
 Deployment BizHub au:
   stage: bizhub-deploy
-  variables:
-    DEPLOY_ENV: "au"
-    STAGE_ENV: "au"
-    VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
-    BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-au.svc.cluster.local:443/actuator/info"
-    STAGE: "at"
-    PROJECT_RUNNER_TAG: "eks-abnahme"
-    BIZHUB_VISIBILITY_TYPE: "${AU_BIZHUB_VISIBILITY_TYPE}"
-    BIZHUB_VISIBILITY_ORGS: "${AU_BIZHUB_VISIBILITY_ORGS}"
-    BIZHUB_SUBSCRIBE_ORGS: "${AU_BIZHUB_SUBSCRIBE_ORGS}"
+  rules:
+    - if: $BIZHUB_DEPLOY_ONLY == "true"
+      when: always
+      variables:
+        DEPLOY_ENV: "au"
+        STAGE_ENV: "au"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-au.svc.cluster.local:443/actuator/info"
+        STAGE: "at"
+        PROJECT_RUNNER_TAG: "eks-abnahme"
+        BIZHUB_VISIBILITY_TYPE: "${AU_BIZHUB_VISIBILITY_TYPE}"
+        BIZHUB_VISIBILITY_ORGS: "${AU_BIZHUB_VISIBILITY_ORGS}"
+        BIZHUB_SUBSCRIBE_ORGS: "${AU_BIZHUB_SUBSCRIBE_ORGS}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -99,17 +111,20 @@ Deployment BizHub au:
 
 Deployment BizHub prod:
   stage: bizhub-deploy
-  variables:
-    DEPLOY_ENV: "prod"
-    STAGE_ENV: "prod"
-    VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
-    BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-    SERVICE_URL: "https://${VERSION_ENV}.bbpneo-prod.svc.cluster.local:443/actuator/info"
-    STAGE: "prod"
-    PROJECT_RUNNER_TAG: "eks-produktion"
-    BIZHUB_VISIBILITY_TYPE: "${PROD_BIZHUB_VISIBILITY_TYPE}"
-    BIZHUB_VISIBILITY_ORGS: "${PROD_BIZHUB_VISIBILITY_ORGS}"
-    BIZHUB_SUBSCRIBE_ORGS: "${PROD_BIZHUB_SUBSCRIBE_ORGS}"
+  rules:
+    - if: $BIZHUB_DEPLOY_ONLY == "true"
+      when: always
+      variables:
+        DEPLOY_ENV: "prod"
+        STAGE_ENV: "prod"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-prod.svc.cluster.local:443/actuator/info"
+        STAGE: "prod"
+        PROJECT_RUNNER_TAG: "eks-produktion"
+        BIZHUB_VISIBILITY_TYPE: "${PROD_BIZHUB_VISIBILITY_TYPE}"
+        BIZHUB_VISIBILITY_ORGS: "${PROD_BIZHUB_VISIBILITY_ORGS}"
+        BIZHUB_SUBSCRIBE_ORGS: "${PROD_BIZHUB_SUBSCRIBE_ORGS}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
