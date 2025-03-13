@@ -1,7 +1,4 @@
 ---
-include:
-  - "/pipelines/templates/moqap_templates.yml"
-
 stages:
   - .pre
   - bizhub-deploy
@@ -26,9 +23,9 @@ Deployment BizHub dev:
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
         STAGE: "review"
         PROJECT_RUNNER_TAG: "eks-entwicklung"
-        BIZHUB_VISIBILITY_TYPE: "${DEV_BIZHUB_VISIBILITY_TYPE}"
-        BIZHUB_VISIBILITY_ORGS: "${DEV_BIZHUB_VISIBILITY_ORGS}"
-        BIZHUB_SUBSCRIBE_ORGS: "${DEV_BIZHUB_SUBSCRIBE_ORGS}"
+        BIZHUB_VISIBILITY_TYPE: "${DEV_BIZHUB_VISIBILITY_TYPE_X}"
+        BIZHUB_VISIBILITY_ORGS: "${DEV_BIZHUB_VISIBILITY_ORGS_X}"
+        BIZHUB_SUBSCRIBE_ORGS: "${DEV_BIZHUB_SUBSCRIBE_ORGS_X}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -170,3 +167,7 @@ Print Variables:
     - echo ${PROD_BIZHUB_VISIBILITY_TYPE}
     - echo ${PROD_BIZHUB_VISIBILITY_ORGS}
     - echo ${PROD_BIZHUB_SUBSCRIBE_ORGS}
+    - echo "#####"
+    - echo ${DEV_BIZHUB_VISIBILITY_TYPE_X}
+    - echo ${DEV_BIZHUB_VISIBILITY_ORGS_X}
+    - echo ${DEV_BIZHUB_SUBSCRIBE_ORGS_X}
