@@ -15,6 +15,9 @@ variables:
   BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
   SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
   STAGE: "review"
+  BIZHUB_VISIBILITY_TYPE: ""
+  BIZHUB_VISIBILITY_ORGS: ""
+  BIZHUB_SUBSCRIBE_ORGS: ""
 
 Deployment BizHub dev:
   stage: bizhub-deploy
