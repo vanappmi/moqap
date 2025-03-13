@@ -44,7 +44,7 @@ Deployment BizHub int:
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "$CURRENT_VERSION"
+        ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   when: manual
@@ -65,7 +65,7 @@ Deployment BizHub lup:
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "$CURRENT_VERSION"
+        ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   when: manual
@@ -86,7 +86,7 @@ Deployment BizHub au:
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "$CURRENT_VERSION"
+        ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   when: manual
@@ -107,7 +107,7 @@ Deployment BizHub prod:
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "$CURRENT_VERSION"
+        ref: "${CURRENT_VERSION}"
         file: "/pipelines/bizhub/bizhub-v3-api.yaml"
     strategy: depend
   when: manual
