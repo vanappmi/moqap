@@ -1,6 +1,5 @@
 ---
 include:
-  - "/pipelines/settings.yaml"
   - "/pipelines/stages/stage-artifacts.yaml"
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/stages/deployment.yaml"
@@ -11,19 +10,12 @@ include:
 
 # Stage-specific variables
 variables:
-  DEPLOY_ENV: "au"
-  STAGE_ENV: "au"
-  PROJECT_RUNNER_TAG: "eks-abnahme"
-  VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
   SOURCE_DOCKER_REPO: $DEV_DOCKER_REPO
   TARGET_DOCKER_REPO: $AU_DOCKER_REPO
   SOURCE_IMAGE_TAG: "$CI_COMMIT_REF_NAME-int-$CI_COMMIT_SHORT_SHA"
   TARGET_IMAGE_TAG: "$CI_COMMIT_REF_NAME-au-$CI_COMMIT_SHORT_SHA"
   ARTIFACT_NAME: $CI_PROJECT_NAME
   CI_REGISTRY: "${AU_DOCKER_REPO}.bahnhub.tech.rz.db.de"
-  BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
-  SERVICE_URL: "https://${VERSION_ENV}.bbpneo-au.svc.cluster.local:443/actuator/info"
-  STAGE: "at"
 
 stages:
   - .pre
@@ -33,3 +25,26 @@ stages:
   - bizhub-deploy
   - dynamic-test
   - .post
+
+Print Variables:
+  stage: stage-artifacts
+  tags:
+    - $PROJECT_RUNNER_TAG
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  script:
+    - echo ${BIZHUB_DISABLE}
+    - echo ${BIZHUB_VISIBILITY_TYPE}
+    - echo ${BIZHUB_VISIBILITY_ORGS}
+    - echo ${BIZHUB_SUBSCRIBE_ORGS}
+    - echo $DEPLOY_ENV
+    - echo $STAGE_ENV
+    - echo $LAP_TEST_DISABLE
+    - echo $TRIGGER_BUILD_MANUALLY
+    - echo $PROJECT_RUNNER_TAG
+    - echo $VERSION_ENV
+    - echo $BASE_SERVICE_URL
+    - echo $SERVICE_URL
+    - echo $STAGE
+    - echo $KANIKO_IMAGE_TAG
+    - echo $NAMESPACE
+    - echo $GIT_REPO_SSH_URL

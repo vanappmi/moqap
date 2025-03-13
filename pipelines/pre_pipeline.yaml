@@ -217,8 +217,23 @@ Abnahmetestumgebung:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
       when: always
+      variables:
+        BIZHUB_DISABLE: "${AU_BIZHUB_DISABLE}"
+        BIZHUB_VISIBILITY_TYPE: "${AU_BIZHUB_VISIBILITY_TYPE}"
+        BIZHUB_VISIBILITY_ORGS: "${AU_BIZHUB_VISIBILITY_ORGS}"
+        BIZHUB_SUBSCRIBE_ORGS: "${AU_BIZHUB_SUBSCRIBE_ORGS}"
+        DEPLOY_ENV: "au"
+        STAGE_ENV: "au"
+        PROJECT_RUNNER_TAG: "eks-abnahme"
+        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
+        SERVICE_URL: "https://${VERSION_ENV}.bbpneo-au.svc.cluster.local:443/actuator/info"
+        STAGE: "at"
   trigger:
-    include: /pipelines/au/environment.yaml
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        ref: "$CURRENT_VERSION"
+        file: "/pipelines/environments/au/environment.yaml"
     strategy: depend
 
 LUP-Umgebung:
