@@ -3,6 +3,7 @@ Deployment BizHub:
   stage: bizhub-deploy
   variables:
     CONNECT_CONFIG: "$BIZHUB_CONNECT_CONFIG"
+    CURRENT_VERSION: "$CURRENT_VERSION"
   rules:
     - if: $BIZHUB_DISABLE != "true"
       needs:
