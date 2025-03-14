@@ -62,7 +62,7 @@ Entwicklungsumgebung B1:
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-b1.svc.cluster.local:443/actuator/info"
         STAGE: "review"
-        KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-dev-b1-$CI_COMMIT_SHORT_SHA"
+        KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-dev-$CI_COMMIT_SHORT_SHA"
         NAMESPACE: "dev-b1"
   trigger:
     include:
