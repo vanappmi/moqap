@@ -40,7 +40,7 @@ bizhub_base:
     - |
       if [ $DEPLOY_ENV == "au" ] || [ $DEPLOY_ENV == "lup" ] || [ $DEPLOY_ENV == "prod" ];
       then
-        CURRENT_VERSION=$(cat pipelines/bizhub/product.yaml | grep "version" | cut -d ":" -f2 | tr -dc '0-9.' | tr '.' '-' )
+        CURRENT_VERSION=$(cat bizhub/product.yaml | grep "version" | cut -d ":" -f2 | tr -dc '0-9.' | tr '.' '-' )
         export CI_COMMIT_REF_SLUG=release-$CURRENT_VERSION
       fi
     - echo $CI_COMMIT_REF_SLUG
