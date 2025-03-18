@@ -36,7 +36,7 @@ Entwicklungsumgebung:
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
         STAGE: "review"
         KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}"
-        IS_CRONJOB: "${IS_CRONJOB}"
+        # IS_CRONJOB: "${IS_CRONJOB}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
