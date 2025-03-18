@@ -16,3 +16,15 @@ stages:
   - build-jar
   - static-codeanalysis
   - .post
+
+Print Variables:
+  stage: build-jar
+  tags:
+    - $PROJECT_RUNNER_TAG
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  script:
+    - echo $DEPLOY_ENV
+    - echo $STAGE_ENV
+    - echo $LAP_TEST_DISABLE
+    - echo $PROJECT_RUNNER_TAG
+    - echo $GIT_REPO_SSH_URL
