@@ -59,3 +59,4 @@ Print Variables:
     - echo $NAMESPACE
     - echo $GIT_REPO_SSH_URL
     - echo $CI_REGRESSIONS_TESTS
+    - echo $IS_CRONJOB
