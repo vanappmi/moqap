@@ -36,7 +36,6 @@ Entwicklungsumgebung:
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
         STAGE: "review"
         KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}"
-        # IS_CRONJOB: "${IS_CRONJOB}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -65,7 +64,6 @@ Entwicklungsumgebung B1:
         STAGE: "review"
         KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-dev-$CI_COMMIT_SHORT_SHA"
         NAMESPACE: "dev-b1"
-        IS_CRONJOB: "${IS_CRONJOB}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -146,7 +144,6 @@ Integrationstestumgebung:
         STAGE: "manual"
         KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}"
         CI_REGRESSIONS_TESTS: "${INT_CI_REGRESSIONS_TESTS}"
-        IS_CRONJOB: "${IS_CRONJOB}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -207,7 +204,6 @@ Release-Build:
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
         SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}---Masterbranch"
         KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}"
-        IS_CRONJOB: "${IS_CRONJOB}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -241,7 +237,6 @@ Abnahmetestumgebung:
         TARGET_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-au-${CI_COMMIT_SHORT_SHA}"
         ARTIFACT_NAME: ${CI_PROJECT_NAME}
         CI_REGISTRY: "${AU_DOCKER_REPO}.bahnhub.tech.rz.db.de"
-        IS_CRONJOB: "${IS_CRONJOB}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -276,7 +271,6 @@ LUP-Umgebung:
         ARTIFACT_NAME: ${CI_PROJECT_NAME}
         CI_REGISTRY: "${LUP_DOCKER_REPO}.bahnhub.tech.rz.db.de"
         LAP_TEST_DISABLE: "${LUP_LAP_TEST_DISABLE}"
-        IS_CRONJOB: "${IS_CRONJOB}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -311,7 +305,6 @@ Produktionsumgebung:
         ARTIFACT_NAME: ${CI_PROJECT_NAME}
         CI_REGISTRY: "${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de"
         DEPLOY_TEMPLATE: "${CI_PROJECT_NAME}/${CI_PROJECT_NAME}-prod.yaml"
-        IS_CRONJOB: "${IS_CRONJOB}"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
