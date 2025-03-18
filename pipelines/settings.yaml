@@ -54,7 +54,7 @@ variables:
   BUILD_DISABLE: "false"
   CI_REGRESSIONS_TESTS: "false"
   # CRONJOB
-  IS_CRONJOB: "false"
+  # IS_CRONJOB: "false"
   # SECRETS SCAN
   GITLEAKS_START_COMMIT: ""
   # Secretpath
