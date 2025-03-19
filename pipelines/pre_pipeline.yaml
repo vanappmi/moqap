@@ -173,7 +173,7 @@ Release:
   needs:
     - job: Integrationstestumgebung
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  == "development" && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false" && $CI_PROJECT_NAME != "messaging-manager"
       when: always
       variables:
         PROJECT_RUNNER_TAG: "eks-integration"
@@ -232,7 +232,7 @@ Abnahmetestumgebung:
   needs:
     - job: Release-Build
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false" && $CI_PROJECT_NAME != "messaging-manager"
       when: always
       variables:
         BIZHUB_DISABLE: "${AU_BIZHUB_DISABLE}"
@@ -265,7 +265,7 @@ LUP-Umgebung:
   needs:
     - job: Release-Build
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false" && $CI_PROJECT_NAME != "messaging-manager"
       when: always
       variables:
         BIZHUB_DISABLE: "${LUP_BIZHUB_DISABLE}"
@@ -299,7 +299,7 @@ Produktionsumgebung:
   needs:
     - job: Abnahmetestumgebung
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  =~ /^Release/ && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false" && $CI_PROJECT_NAME != "messaging-manager"
       when: always
       variables:
         BIZHUB_DISABLE: "${PROD_BIZHUB_DISABLE}"
