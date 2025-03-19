@@ -118,8 +118,6 @@ Build Image STAGE:
   <<: *job_template
   rules:
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
-  environment:
-    name: ${DEPLOY_ENV}
   artifacts:
     paths:
       - artifacts/*
