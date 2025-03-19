@@ -28,3 +28,4 @@ Print Variables:
     - echo $LAP_TEST_DISABLE
     - echo $PROJECT_RUNNER_TAG
     - echo $GIT_REPO_SSH_URL
+    - echo $IS_COMMONLIB

@@ -19,7 +19,7 @@ stages:
 Entwicklungsumgebung:
   stage: dev
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT4/ || $CI_COMMIT_BRANCH =~ /^BABEDAS/ ) && $CI_COMMIT_TAG == null && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT4/ || $CI_COMMIT_BRANCH =~ /^BABEDAS/ ) && $CI_COMMIT_TAG == null && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false" && IS_COMMONLIB == "false"
       when: always
       variables:
         BIZHUB_DISABLE: "${DEV_BIZHUB_DISABLE}"
@@ -46,7 +46,7 @@ Entwicklungsumgebung:
 Entwicklungsumgebung B1:
   stage: dev
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT7/ || $CI_COMMIT_BRANCH =~ /^BONE/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT7/ || $CI_COMMIT_BRANCH =~ /^BONE/ ) && $CI_COMMIT_TAG == null && $IS_COMMONLIB == "false" && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false"  && IS_COMMONLIB == "false"
       when: always
       variables:
         BIZHUB_DISABLE: "${DEV_B1_BIZHUB_DISABLE}"
@@ -69,6 +69,23 @@ Entwicklungsumgebung B1:
       - project: "cnp/bbpneo/02-ops/moqap"
         ref: "$CURRENT_VERSION"
         file: "/pipelines/pipeline.yaml"
+    strategy: depend
+
+CommonLibs:
+  stage: dev
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH  != "development"  && $CI_COMMIT_BRANCH  !~ /^Release/ && ($CI_COMMIT_BRANCH =~ /^BBPT4/ || $CI_COMMIT_BRANCH =~ /^BABEDAS/ ) && $CI_COMMIT_TAG == null && $BIZHUB_DEPLOY_ONLY == "false" && $IMAGE_UPDATE == "false" && IS_COMMONLIB == "true"
+      when: always
+      variables:
+        DEPLOY_ENV: "dev"
+        STAGE_ENV: "dev"
+        PROJECT_RUNNER_TAG: "eks-entwicklung"
+        IS_COMMONLIB: "true"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap"
+        ref: "$CURRENT_VERSION"
+        file: "pipelines/commonLibs/environment.yaml"
     strategy: depend
 
 Renovate:
