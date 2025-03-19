@@ -380,6 +380,7 @@ Image-Update:
         DEPLOY_ENV: "au"
         STAGE_ENV: "au"
         PROJECT_RUNNER_TAG: "eks-abnahme"
+        DEPLOY_TEMPLATE: "${DEPLOY_TEMPLATE}"
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/ && $DEPLOY_ENV == "prod" && $STAGE_ENV == "prod"
       when: always
       variables:
@@ -387,6 +388,7 @@ Image-Update:
         DEPLOY_ENV: "prod"
         STAGE_ENV: "prod"
         PROJECT_RUNNER_TAG: "eks-produktion"
+        DEPLOY_TEMPLATE: "${DEPLOY_TEMPLATE}"
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  == "development"
       when: always
       variables:

@@ -178,3 +178,21 @@ Promote stage Artifactory:
     - echo $SOURCE_TAG
     - echo $TARGET_IMAGE_TAG
     - echo $TARGET_TAG
+
+Print Variables:
+  stage: start-pipeline
+  tags:
+    - $PROJECT_RUNNER_TAG
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  script:
+    - echo $DEPLOY_ENV
+    - echo $STAGE_ENV
+    - echo $PROJECT_RUNNER_TAG
+    - echo $VERSION_ENV
+    - echo $BASE_SERVICE_URL
+    - echo $SERVICE_URL
+    - echo $STAGE
+    - echo $KANIKO_IMAGE_TAG
+    - echo $IS_CRONJOB
+    - echo $IS_COMMONLIB
+    - echo $DEPLOY_TEMPLATE
