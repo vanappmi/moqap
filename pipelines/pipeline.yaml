@@ -61,5 +61,3 @@ Print Variables:
     - echo $CI_REGRESSIONS_TESTS
     - echo $IS_CRONJOB
     - echo $IS_COMMONLIB
-    - cd ../../..
-    - ls -al
