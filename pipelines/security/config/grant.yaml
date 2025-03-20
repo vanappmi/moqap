@@ -1,0 +1,1227 @@
+rules:
+  - pattern: BSD Zero Clause License
+    mode: "allow"
+    name: BSD Zero Clause License
+    reason: 0BSD whitelisted by default preset
+  - pattern: 0BSD
+    mode: "allow"
+    name: BSD Zero Clause License:0BSD
+    reason: 0BSD whitelisted by default preset
+  - pattern: Attribution Assurance License
+    mode: "allow"
+    name: Attribution Assurance License
+    reason: AAL whitelisted by default preset
+  - pattern: AAL
+    mode: "allow"
+    name: Attribution Assurance License:AAL
+    reason: AAL whitelisted by default preset
+  - pattern: Academic Free License v1.1
+    mode: "allow"
+    name: Academic Free License v1.1
+    reason: AFL-1.1 whitelisted by default preset
+  - pattern: AFL-1.1
+    mode: "allow"
+    name: Academic Free License v1.1:AFL-1.1
+    reason: AFL-1.1 whitelisted by default preset
+  - pattern: Academic Free License v1.2
+    mode: "allow"
+    name: Academic Free License v1.2
+    reason: AFL-1.2 whitelisted by default preset
+  - pattern: AFL-1.2
+    mode: "allow"
+    name: Academic Free License v1.2:AFL-1.2
+    reason: AFL-1.2 whitelisted by default preset
+  - pattern: Academic Free License v2.0
+    mode: "allow"
+    name: Academic Free License v2.0
+    reason: AFL-2.0 whitelisted by default preset
+  - pattern: AFL-2.0
+    mode: "allow"
+    name: Academic Free License v2.0:AFL-2.0
+    reason: AFL-2.0 whitelisted by default preset
+  - pattern: Academic Free License v2.1
+    mode: "allow"
+    name: Academic Free License v2.1
+    reason: AFL-2.1 whitelisted by default preset
+  - pattern: AFL-2.1
+    mode: "allow"
+    name: Academic Free License v2.1:AFL-2.1
+    reason: AFL-2.1 whitelisted by default preset
+  - pattern: Academic Free License v3.0
+    mode: "allow"
+    name: Academic Free License v3.0
+    reason: AFL-3.0 whitelisted by default preset
+  - pattern: AFL-3.0
+    mode: "allow"
+    name: Academic Free License v3.0:AFL-3.0
+    reason: AFL-3.0 whitelisted by default preset
+  - pattern: GNU Affero General Public License v3.0 only
+    mode: "allow"
+    name: GNU Affero General Public License v3.0 only
+    reason: AGPL-3.0-only whitelisted by default preset
+  - pattern: AGPL-3.0-only
+    mode: "allow"
+    name: GNU Affero General Public License v3.0 only:AGPL-3.0-only
+    reason: AGPL-3.0-only whitelisted by default preset
+  - pattern: GNU Affero General Public License v3.0 or later
+    mode: "allow"
+    name: GNU Affero General Public License v3.0 or later
+    reason: AGPL-3.0-or-later whitelisted by default preset
+  - pattern: AGPL-3.0-or-later
+    mode: "allow"
+    name: GNU Affero General Public License v3.0 or later:AGPL-3.0-or-later
+    reason: AGPL-3.0-or-later whitelisted by default preset
+  - pattern: Apache License 1.1
+    mode: "allow"
+    name: Apache License 1.1
+    reason: Apache-1.1 whitelisted by default preset
+  - pattern: Apache-1.1
+    mode: "allow"
+    name: Apache License 1.1:Apache-1.1
+    reason: Apache-1.1 whitelisted by default preset
+  - pattern: Apache License 2.0
+    mode: "allow"
+    name: Apache License 2.0
+    reason: Apache-2.0 whitelisted by default preset
+  - pattern: Apache-2.0
+    mode: "allow"
+    name: Apache License 2.0:Apache-2.0
+    reason: Apache-2.0 whitelisted by default preset
+  - pattern: Adaptive Public License 1.0
+    mode: "allow"
+    name: Adaptive Public License 1.0
+    reason: APL-1.0 whitelisted by default preset
+  - pattern: APL-1.0
+    mode: "allow"
+    name: Adaptive Public License 1.0:APL-1.0
+    reason: APL-1.0 whitelisted by default preset
+  - pattern: Apple Public Source License 1.0
+    mode: "allow"
+    name: Apple Public Source License 1.0
+    reason: APSL-1.0 whitelisted by default preset
+  - pattern: APSL-1.0
+    mode: "allow"
+    name: Apple Public Source License 1.0:APSL-1.0
+    reason: APSL-1.0 whitelisted by default preset
+  - pattern: Apple Public Source License 1.1
+    mode: "allow"
+    name: Apple Public Source License 1.1
+    reason: APSL-1.1 whitelisted by default preset
+  - pattern: APSL-1.1
+    mode: "allow"
+    name: Apple Public Source License 1.1:APSL-1.1
+    reason: APSL-1.1 whitelisted by default preset
+  - pattern: Apple Public Source License 1.2
+    mode: "allow"
+    name: Apple Public Source License 1.2
+    reason: APSL-1.2 whitelisted by default preset
+  - pattern: APSL-1.2
+    mode: "allow"
+    name: Apple Public Source License 1.2:APSL-1.2
+    reason: APSL-1.2 whitelisted by default preset
+  - pattern: Apple Public Source License 2.0
+    mode: "allow"
+    name: Apple Public Source License 2.0
+    reason: APSL-2.0 whitelisted by default preset
+  - pattern: APSL-2.0
+    mode: "allow"
+    name: Apple Public Source License 2.0:APSL-2.0
+    reason: APSL-2.0 whitelisted by default preset
+  - pattern: Artistic License 1.0
+    mode: "allow"
+    name: Artistic License 1.0
+    reason: Artistic-1.0 whitelisted by default preset
+  - pattern: Artistic-1.0
+    mode: "allow"
+    name: Artistic License 1.0:Artistic-1.0
+    reason: Artistic-1.0 whitelisted by default preset
+  - pattern: Artistic License 1.0 w/clause 8
+    mode: "allow"
+    name: Artistic License 1.0 w/clause 8
+    reason: Artistic-1.0-cl8 whitelisted by default preset
+  - pattern: Artistic-1.0-cl8
+    mode: "allow"
+    name: Artistic License 1.0 w/clause 8:Artistic-1.0-cl8
+    reason: Artistic-1.0-cl8 whitelisted by default preset
+  - pattern: Artistic License 1.0 (Perl)
+    mode: "allow"
+    name: Artistic License 1.0 (Perl)
+    reason: Artistic-1.0-Perl whitelisted by default preset
+  - pattern: Artistic-1.0-Perl
+    mode: "allow"
+    name: Artistic License 1.0 (Perl):Artistic-1.0-Perl
+    reason: Artistic-1.0-Perl whitelisted by default preset
+  - pattern: Artistic License 2.0
+    mode: "allow"
+    name: Artistic License 2.0
+    reason: Artistic-2.0 whitelisted by default preset
+  - pattern: Artistic-2.0
+    mode: "allow"
+    name: Artistic License 2.0:Artistic-2.0
+    reason: Artistic-2.0 whitelisted by default preset
+  - pattern: Blue Oak Model License 1.0.0
+    mode: "allow"
+    name: Blue Oak Model License 1.0.0
+    reason: BlueOak-1.0.0 whitelisted by default preset
+  - pattern: BlueOak-1.0.0
+    mode: "allow"
+    name: Blue Oak Model License 1.0.0:BlueOak-1.0.0
+    reason: BlueOak-1.0.0 whitelisted by default preset
+  - pattern: BSD 1-Clause License
+    mode: "allow"
+    name: BSD 1-Clause License
+    reason: BSD-1-Clause whitelisted by default preset
+  - pattern: BSD-1-Clause
+    mode: "allow"
+    name: BSD 1-Clause License:BSD-1-Clause
+    reason: BSD-1-Clause whitelisted by default preset
+  - pattern: BSD 2-Clause "Simplified" License
+    mode: "allow"
+    name: BSD 2-Clause "Simplified" License
+    reason: BSD-2-Clause whitelisted by default preset
+  - pattern: BSD-2-Clause
+    mode: "allow"
+    name: BSD 2-Clause "Simplified" License:BSD-2-Clause
+    reason: BSD-2-Clause whitelisted by default preset
+  - pattern: BSD-2-Clause Plus Patent License
+    mode: "allow"
+    name: BSD-2-Clause Plus Patent License
+    reason: BSD-2-Clause-Patent whitelisted by default preset
+  - pattern: BSD-2-Clause-Patent
+    mode: "allow"
+    name: BSD-2-Clause Plus Patent License:BSD-2-Clause-Patent
+    reason: BSD-2-Clause-Patent whitelisted by default preset
+  - pattern: BSD 3-Clause "New" or "Revised" License
+    mode: "allow"
+    name: BSD 3-Clause "New" or "Revised" License
+    reason: BSD-3-Clause whitelisted by default preset
+  - pattern: BSD-3-Clause
+    mode: "allow"
+    name: BSD 3-Clause "New" or "Revised" License:BSD-3-Clause
+    reason: BSD-3-Clause whitelisted by default preset
+  - pattern: Lawrence Berkeley National Labs BSD variant license
+    mode: "allow"
+    name: Lawrence Berkeley National Labs BSD variant license
+    reason: BSD-3-Clause-LBNL whitelisted by default preset
+  - pattern: BSD-3-Clause-LBNL
+    mode: "allow"
+    name: Lawrence Berkeley National Labs BSD variant license:BSD-3-Clause-LBNL
+    reason: BSD-3-Clause-LBNL whitelisted by default preset
+  - pattern: Boost Software License 1.0
+    mode: "allow"
+    name: Boost Software License 1.0
+    reason: BSL-1.0 whitelisted by default preset
+  - pattern: BSL-1.0
+    mode: "allow"
+    name: Boost Software License 1.0:BSL-1.0
+    reason: BSL-1.0 whitelisted by default preset
+  - pattern: Cryptographic Autonomy License 1.0
+    mode: "allow"
+    name: Cryptographic Autonomy License 1.0
+    reason: CAL-1.0 whitelisted by default preset
+  - pattern: CAL-1.0
+    mode: "allow"
+    name: Cryptographic Autonomy License 1.0:CAL-1.0
+    reason: CAL-1.0 whitelisted by default preset
+  - pattern: Cryptographic Autonomy License 1.0 (Combined Work Exception)
+    mode: "allow"
+    name: Cryptographic Autonomy License 1.0 (Combined Work Exception)
+    reason: CAL-1.0-Combined-Work-Exception whitelisted by default preset
+  - pattern: CAL-1.0-Combined-Work-Exception
+    mode: "allow"
+    name: Cryptographic Autonomy License 1.0 (Combined Work Exception):CAL-1.0-Combined-Work-Exception
+    reason: CAL-1.0-Combined-Work-Exception whitelisted by default preset
+  - pattern: Computer Associates Trusted Open Source License 1.1
+    mode: "allow"
+    name: Computer Associates Trusted Open Source License 1.1
+    reason: CATOSL-1.1 whitelisted by default preset
+  - pattern: CATOSL-1.1
+    mode: "allow"
+    name: Computer Associates Trusted Open Source License 1.1:CATOSL-1.1
+    reason: CATOSL-1.1 whitelisted by default preset
+  - pattern: Common Development and Distribution License 1.0
+    mode: "allow"
+    name: Common Development and Distribution License 1.0
+    reason: CDDL-1.0 whitelisted by default preset
+  - pattern: CDDL-1.0
+    mode: "allow"
+    name: Common Development and Distribution License 1.0:CDDL-1.0
+    reason: CDDL-1.0 whitelisted by default preset
+  - pattern: CeCILL Free Software License Agreement v2.1
+    mode: "allow"
+    name: CeCILL Free Software License Agreement v2.1
+    reason: CECILL-2.1 whitelisted by default preset
+  - pattern: CECILL-2.1
+    mode: "allow"
+    name: CeCILL Free Software License Agreement v2.1:CECILL-2.1
+    reason: CECILL-2.1 whitelisted by default preset
+  - pattern: CERN Open Hardware Licence Version 2 - Permissive
+    mode: "allow"
+    name: CERN Open Hardware Licence Version 2 - Permissive
+    reason: CERN-OHL-P-2.0 whitelisted by default preset
+  - pattern: CERN-OHL-P-2.0
+    mode: "allow"
+    name: CERN Open Hardware Licence Version 2 - Permissive:CERN-OHL-P-2.0
+    reason: CERN-OHL-P-2.0 whitelisted by default preset
+  - pattern: CERN Open Hardware Licence Version 2 - Strongly Reciprocal
+    mode: "allow"
+    name: CERN Open Hardware Licence Version 2 - Strongly Reciprocal
+    reason: CERN-OHL-S-2.0 whitelisted by default preset
+  - pattern: CERN-OHL-S-2.0
+    mode: "allow"
+    name: CERN Open Hardware Licence Version 2 - Strongly Reciprocal:CERN-OHL-S-2.0
+    reason: CERN-OHL-S-2.0 whitelisted by default preset
+  - pattern: CERN Open Hardware Licence Version 2 - Weakly Reciprocal
+    mode: "allow"
+    name: CERN Open Hardware Licence Version 2 - Weakly Reciprocal
+    reason: CERN-OHL-W-2.0 whitelisted by default preset
+  - pattern: CERN-OHL-W-2.0
+    mode: "allow"
+    name: CERN Open Hardware Licence Version 2 - Weakly Reciprocal:CERN-OHL-W-2.0
+    reason: CERN-OHL-W-2.0 whitelisted by default preset
+  - pattern: CNRI Python License
+    mode: "allow"
+    name: CNRI Python License
+    reason: CNRI-Python whitelisted by default preset
+  - pattern: CNRI-Python
+    mode: "allow"
+    name: CNRI Python License:CNRI-Python
+    reason: CNRI-Python whitelisted by default preset
+  - pattern: Common Public Attribution License 1.0
+    mode: "allow"
+    name: Common Public Attribution License 1.0
+    reason: CPAL-1.0 whitelisted by default preset
+  - pattern: CPAL-1.0
+    mode: "allow"
+    name: Common Public Attribution License 1.0:CPAL-1.0
+    reason: CPAL-1.0 whitelisted by default preset
+  - pattern: Common Public License 1.0
+    mode: "allow"
+    name: Common Public License 1.0
+    reason: CPL-1.0 whitelisted by default preset
+  - pattern: CPL-1.0
+    mode: "allow"
+    name: Common Public License 1.0:CPL-1.0
+    reason: CPL-1.0 whitelisted by default preset
+  - pattern: CUA Office Public License v1.0
+    mode: "allow"
+    name: CUA Office Public License v1.0
+    reason: CUA-OPL-1.0 whitelisted by default preset
+  - pattern: CUA-OPL-1.0
+    mode: "allow"
+    name: CUA Office Public License v1.0:CUA-OPL-1.0
+    reason: CUA-OPL-1.0 whitelisted by default preset
+  - pattern: Educational Community License v1.0
+    mode: "allow"
+    name: Educational Community License v1.0
+    reason: ECL-1.0 whitelisted by default preset
+  - pattern: ECL-1.0
+    mode: "allow"
+    name: Educational Community License v1.0:ECL-1.0
+    reason: ECL-1.0 whitelisted by default preset
+  - pattern: Educational Community License v2.0
+    mode: "allow"
+    name: Educational Community License v2.0
+    reason: ECL-2.0 whitelisted by default preset
+  - pattern: ECL-2.0
+    mode: "allow"
+    name: Educational Community License v2.0:ECL-2.0
+    reason: ECL-2.0 whitelisted by default preset
+  - pattern: Eiffel Forum License v1.0
+    mode: "allow"
+    name: Eiffel Forum License v1.0
+    reason: EFL-1.0 whitelisted by default preset
+  - pattern: EFL-1.0
+    mode: "allow"
+    name: Eiffel Forum License v1.0:EFL-1.0
+    reason: EFL-1.0 whitelisted by default preset
+  - pattern: Eiffel Forum License v2.0
+    mode: "allow"
+    name: Eiffel Forum License v2.0
+    reason: EFL-2.0 whitelisted by default preset
+  - pattern: EFL-2.0
+    mode: "allow"
+    name: Eiffel Forum License v2.0:EFL-2.0
+    reason: EFL-2.0 whitelisted by default preset
+  - pattern: Entessa Public License v1.0
+    mode: "allow"
+    name: Entessa Public License v1.0
+    reason: Entessa whitelisted by default preset
+  - pattern: Entessa
+    mode: "allow"
+    name: Entessa Public License v1.0:Entessa
+    reason: Entessa whitelisted by default preset
+  - pattern: Eclipse Public License 1.0
+    mode: "allow"
+    name: Eclipse Public License 1.0
+    reason: EPL-1.0 whitelisted by default preset
+  - pattern: EPL-1.0
+    mode: "allow"
+    name: Eclipse Public License 1.0:EPL-1.0
+    reason: EPL-1.0 whitelisted by default preset
+  - pattern: Eclipse Public License 2.0
+    mode: "allow"
+    name: Eclipse Public License 2.0
+    reason: EPL-2.0 whitelisted by default preset
+  - pattern: EPL-2.0
+    mode: "allow"
+    name: Eclipse Public License 2.0:EPL-2.0
+    reason: EPL-2.0 whitelisted by default preset
+  - pattern: EU DataGrid Software License
+    mode: "allow"
+    name: EU DataGrid Software License
+    reason: EUDatagrid whitelisted by default preset
+  - pattern: EUDatagrid
+    mode: "allow"
+    name: EU DataGrid Software License:EUDatagrid
+    reason: EUDatagrid whitelisted by default preset
+  - pattern: European Union Public License 1.1
+    mode: "allow"
+    name: European Union Public License 1.1
+    reason: EUPL-1.1 whitelisted by default preset
+  - pattern: EUPL-1.1
+    mode: "allow"
+    name: European Union Public License 1.1:EUPL-1.1
+    reason: EUPL-1.1 whitelisted by default preset
+  - pattern: European Union Public License 1.2
+    mode: "allow"
+    name: European Union Public License 1.2
+    reason: EUPL-1.2 whitelisted by default preset
+  - pattern: EUPL-1.2
+    mode: "allow"
+    name: European Union Public License 1.2:EUPL-1.2
+    reason: EUPL-1.2 whitelisted by default preset
+  - pattern: Fair License
+    mode: "allow"
+    name: Fair License
+    reason: Fair whitelisted by default preset
+  - pattern: Fair
+    mode: "allow"
+    name: Fair License:Fair
+    reason: Fair whitelisted by default preset
+  - pattern: Frameworx Open License 1.0
+    mode: "allow"
+    name: Frameworx Open License 1.0
+    reason: Frameworx-1.0 whitelisted by default preset
+  - pattern: Frameworx-1.0
+    mode: "allow"
+    name: Frameworx Open License 1.0:Frameworx-1.0
+    reason: Frameworx-1.0 whitelisted by default preset
+  - pattern: GNU General Public License v2.0 only
+    mode: "allow"
+    name: GNU General Public License v2.0 only
+    reason: GPL-2.0-only whitelisted by default preset
+  - pattern: GPL-2.0-only
+    mode: "allow"
+    name: GNU General Public License v2.0 only:GPL-2.0-only
+    reason: GPL-2.0-only whitelisted by default preset
+  - pattern: GNU General Public License v2.0 or later
+    mode: "allow"
+    name: GNU General Public License v2.0 or later
+    reason: GPL-2.0-or-later whitelisted by default preset
+  - pattern: GPL-2.0-or-later
+    mode: "allow"
+    name: GNU General Public License v2.0 or later:GPL-2.0-or-later
+    reason: GPL-2.0-or-later whitelisted by default preset
+  - pattern: GNU General Public License v3.0 only
+    mode: "allow"
+    name: GNU General Public License v3.0 only
+    reason: GPL-3.0-only whitelisted by default preset
+  - pattern: GPL-3.0-only
+    mode: "allow"
+    name: GNU General Public License v3.0 only:GPL-3.0-only
+    reason: GPL-3.0-only whitelisted by default preset
+  - pattern: GNU General Public License v3.0 or later
+    mode: "allow"
+    name: GNU General Public License v3.0 or later
+    reason: GPL-3.0-or-later whitelisted by default preset
+  - pattern: GPL-3.0-or-later
+    mode: "allow"
+    name: GNU General Public License v3.0 or later:GPL-3.0-or-later
+    reason: GPL-3.0-or-later whitelisted by default preset
+  - pattern: Historical Permission Notice and Disclaimer
+    mode: "allow"
+    name: Historical Permission Notice and Disclaimer
+    reason: HPND whitelisted by default preset
+  - pattern: HPND
+    mode: "allow"
+    name: Historical Permission Notice and Disclaimer:HPND
+    reason: HPND whitelisted by default preset
+  - pattern: ICU License
+    mode: "allow"
+    name: ICU License
+    reason: ICU whitelisted by default preset
+  - pattern: ICU
+    mode: "allow"
+    name: ICU License:ICU
+    reason: ICU whitelisted by default preset
+  - pattern: Intel Open Source License
+    mode: "allow"
+    name: Intel Open Source License
+    reason: Intel whitelisted by default preset
+  - pattern: Intel
+    mode: "allow"
+    name: Intel Open Source License:Intel
+    reason: Intel whitelisted by default preset
+  - pattern: IPA Font License
+    mode: "allow"
+    name: IPA Font License
+    reason: IPA whitelisted by default preset
+  - pattern: IPA
+    mode: "allow"
+    name: IPA Font License:IPA
+    reason: IPA whitelisted by default preset
+  - pattern: IBM Public License v1.0
+    mode: "allow"
+    name: IBM Public License v1.0
+    reason: IPL-1.0 whitelisted by default preset
+  - pattern: IPL-1.0
+    mode: "allow"
+    name: IBM Public License v1.0:IPL-1.0
+    reason: IPL-1.0 whitelisted by default preset
+  - pattern: ISC License
+    mode: "allow"
+    name: ISC License
+    reason: ISC whitelisted by default preset
+  - pattern: ISC
+    mode: "allow"
+    name: ISC License:ISC
+    reason: ISC whitelisted by default preset
+  - pattern: Jam License
+    mode: "allow"
+    name: Jam License
+    reason: Jam whitelisted by default preset
+  - pattern: Jam
+    mode: "allow"
+    name: Jam License:Jam
+    reason: Jam whitelisted by default preset
+  - pattern: GNU Library General Public License v2 only
+    mode: "allow"
+    name: GNU Library General Public License v2 only
+    reason: LGPL-2.0-only whitelisted by default preset
+  - pattern: LGPL-2.0-only
+    mode: "allow"
+    name: GNU Library General Public License v2 only:LGPL-2.0-only
+    reason: LGPL-2.0-only whitelisted by default preset
+  - pattern: GNU Library General Public License v2 or later
+    mode: "allow"
+    name: GNU Library General Public License v2 or later
+    reason: LGPL-2.0-or-later whitelisted by default preset
+  - pattern: LGPL-2.0-or-later
+    mode: "allow"
+    name: GNU Library General Public License v2 or later:LGPL-2.0-or-later
+    reason: LGPL-2.0-or-later whitelisted by default preset
+  - pattern: GNU Lesser General Public License v2.1 only
+    mode: "allow"
+    name: GNU Lesser General Public License v2.1 only
+    reason: LGPL-2.1-only whitelisted by default preset
+  - pattern: LGPL-2.1-only
+    mode: "allow"
+    name: GNU Lesser General Public License v2.1 only:LGPL-2.1-only
+    reason: LGPL-2.1-only whitelisted by default preset
+  - pattern: GNU Lesser General Public License v2.1 or later
+    mode: "allow"
+    name: GNU Lesser General Public License v2.1 or later
+    reason: LGPL-2.1-or-later whitelisted by default preset
+  - pattern: LGPL-2.1-or-later
+    mode: "allow"
+    name: GNU Lesser General Public License v2.1 or later:LGPL-2.1-or-later
+    reason: LGPL-2.1-or-later whitelisted by default preset
+  - pattern: GNU Lesser General Public License v3.0 only
+    mode: "allow"
+    name: GNU Lesser General Public License v3.0 only
+    reason: LGPL-3.0-only whitelisted by default preset
+  - pattern: LGPL-3.0-only
+    mode: "allow"
+    name: GNU Lesser General Public License v3.0 only:LGPL-3.0-only
+    reason: LGPL-3.0-only whitelisted by default preset
+  - pattern: GNU Lesser General Public License v3.0 or later
+    mode: "allow"
+    name: GNU Lesser General Public License v3.0 or later
+    reason: LGPL-3.0-or-later whitelisted by default preset
+  - pattern: LGPL-3.0-or-later
+    mode: "allow"
+    name: GNU Lesser General Public License v3.0 or later:LGPL-3.0-or-later
+    reason: LGPL-3.0-or-later whitelisted by default preset
+  - pattern: Licence Libre du Québec – Permissive version 1.1
+    mode: "allow"
+    name: Licence Libre du Québec – Permissive version 1.1
+    reason: LiLiQ-P-1.1 whitelisted by default preset
+  - pattern: LiLiQ-P-1.1
+    mode: "allow"
+    name: Licence Libre du Québec – Permissive version 1.1:LiLiQ-P-1.1
+    reason: LiLiQ-P-1.1 whitelisted by default preset
+  - pattern: Licence Libre du Québec – Réciprocité version 1.1
+    mode: "allow"
+    name: Licence Libre du Québec – Réciprocité version 1.1
+    reason: LiLiQ-R-1.1 whitelisted by default preset
+  - pattern: LiLiQ-R-1.1
+    mode: "allow"
+    name: Licence Libre du Québec – Réciprocité version 1.1:LiLiQ-R-1.1
+    reason: LiLiQ-R-1.1 whitelisted by default preset
+  - pattern: Licence Libre du Québec – Réciprocité forte version 1.1
+    mode: "allow"
+    name: Licence Libre du Québec – Réciprocité forte version 1.1
+    reason: LiLiQ-Rplus-1.1 whitelisted by default preset
+  - pattern: LiLiQ-Rplus-1.1
+    mode: "allow"
+    name: Licence Libre du Québec – Réciprocité forte version 1.1:LiLiQ-Rplus-1.1
+    reason: LiLiQ-Rplus-1.1 whitelisted by default preset
+  - pattern: Lucent Public License Version 1.0
+    mode: "allow"
+    name: Lucent Public License Version 1.0
+    reason: LPL-1.0 whitelisted by default preset
+  - pattern: LPL-1.0
+    mode: "allow"
+    name: Lucent Public License Version 1.0:LPL-1.0
+    reason: LPL-1.0 whitelisted by default preset
+  - pattern: Lucent Public License v1.02
+    mode: "allow"
+    name: Lucent Public License v1.02
+    reason: LPL-1.02 whitelisted by default preset
+  - pattern: LPL-1.02
+    mode: "allow"
+    name: Lucent Public License v1.02:LPL-1.02
+    reason: LPL-1.02 whitelisted by default preset
+  - pattern: LaTeX Project Public License v1.3c
+    mode: "allow"
+    name: LaTeX Project Public License v1.3c
+    reason: LPPL-1.3c whitelisted by default preset
+  - pattern: LPPL-1.3c
+    mode: "allow"
+    name: LaTeX Project Public License v1.3c:LPPL-1.3c
+    reason: LPPL-1.3c whitelisted by default preset
+  - pattern: The MirOS Licence
+    mode: "allow"
+    name: The MirOS Licence
+    reason: MirOS whitelisted by default preset
+  - pattern: MirOS
+    mode: "allow"
+    name: The MirOS Licence:MirOS
+    reason: MirOS whitelisted by default preset
+  - pattern: MIT License
+    mode: "allow"
+    name: MIT License
+    reason: MIT whitelisted by default preset
+  - pattern: MIT
+    mode: "allow"
+    name: MIT License:MIT
+    reason: MIT whitelisted by default preset
+  - pattern: MIT No Attribution
+    mode: "allow"
+    name: MIT No Attribution
+    reason: MIT-0 whitelisted by default preset
+  - pattern: MIT-0
+    mode: "allow"
+    name: MIT No Attribution:MIT-0
+    reason: MIT-0 whitelisted by default preset
+  - pattern: MIT License Modern Variant
+    mode: "allow"
+    name: MIT License Modern Variant
+    reason: MIT-Modern-Variant whitelisted by default preset
+  - pattern: MIT-Modern-Variant
+    mode: "allow"
+    name: MIT License Modern Variant:MIT-Modern-Variant
+    reason: MIT-Modern-Variant whitelisted by default preset
+  - pattern: Motosoto License
+    mode: "allow"
+    name: Motosoto License
+    reason: Motosoto whitelisted by default preset
+  - pattern: Motosoto
+    mode: "allow"
+    name: Motosoto License:Motosoto
+    reason: Motosoto whitelisted by default preset
+  - pattern: Mozilla Public License 1.0
+    mode: "allow"
+    name: Mozilla Public License 1.0
+    reason: MPL-1.0 whitelisted by default preset
+  - pattern: MPL-1.0
+    mode: "allow"
+    name: Mozilla Public License 1.0:MPL-1.0
+    reason: MPL-1.0 whitelisted by default preset
+  - pattern: Mozilla Public License 1.1
+    mode: "allow"
+    name: Mozilla Public License 1.1
+    reason: MPL-1.1 whitelisted by default preset
+  - pattern: MPL-1.1
+    mode: "allow"
+    name: Mozilla Public License 1.1:MPL-1.1
+    reason: MPL-1.1 whitelisted by default preset
+  - pattern: Mozilla Public License 2.0
+    mode: "allow"
+    name: Mozilla Public License 2.0
+    reason: MPL-2.0 whitelisted by default preset
+  - pattern: MPL-2.0
+    mode: "allow"
+    name: Mozilla Public License 2.0:MPL-2.0
+    reason: MPL-2.0 whitelisted by default preset
+  - pattern: Mozilla Public License 2.0 (no copyleft exception)
+    mode: "allow"
+    name: Mozilla Public License 2.0 (no copyleft exception)
+    reason: MPL-2.0-no-copyleft-exception whitelisted by default preset
+  - pattern: MPL-2.0-no-copyleft-exception
+    mode: "allow"
+    name: Mozilla Public License 2.0 (no copyleft exception):MPL-2.0-no-copyleft-exception
+    reason: MPL-2.0-no-copyleft-exception whitelisted by default preset
+  - pattern: Microsoft Public License
+    mode: "allow"
+    name: Microsoft Public License
+    reason: MS-PL whitelisted by default preset
+  - pattern: MS-PL
+    mode: "allow"
+    name: Microsoft Public License:MS-PL
+    reason: MS-PL whitelisted by default preset
+  - pattern: Microsoft Reciprocal License
+    mode: "allow"
+    name: Microsoft Reciprocal License
+    reason: MS-RL whitelisted by default preset
+  - pattern: MS-RL
+    mode: "allow"
+    name: Microsoft Reciprocal License:MS-RL
+    reason: MS-RL whitelisted by default preset
+  - pattern: Mulan Permissive Software License, Version 2
+    mode: "allow"
+    name: Mulan Permissive Software License, Version 2
+    reason: MulanPSL-2.0 whitelisted by default preset
+  - pattern: MulanPSL-2.0
+    mode: "allow"
+    name: Mulan Permissive Software License, Version 2:MulanPSL-2.0
+    reason: MulanPSL-2.0 whitelisted by default preset
+  - pattern: Multics License
+    mode: "allow"
+    name: Multics License
+    reason: Multics whitelisted by default preset
+  - pattern: Multics
+    mode: "allow"
+    name: Multics License:Multics
+    reason: Multics whitelisted by default preset
+  - pattern: NASA Open Source Agreement 1.3
+    mode: "allow"
+    name: NASA Open Source Agreement 1.3
+    reason: NASA-1.3 whitelisted by default preset
+  - pattern: NASA-1.3
+    mode: "allow"
+    name: NASA Open Source Agreement 1.3:NASA-1.3
+    reason: NASA-1.3 whitelisted by default preset
+  - pattern: Naumen Public License
+    mode: "allow"
+    name: Naumen Public License
+    reason: Naumen whitelisted by default preset
+  - pattern: Naumen
+    mode: "allow"
+    name: Naumen Public License:Naumen
+    reason: Naumen whitelisted by default preset
+  - pattern: University of Illinois/NCSA Open Source License
+    mode: "allow"
+    name: University of Illinois/NCSA Open Source License
+    reason: NCSA whitelisted by default preset
+  - pattern: NCSA
+    mode: "allow"
+    name: University of Illinois/NCSA Open Source License:NCSA
+    reason: NCSA whitelisted by default preset
+  - pattern: Nethack General Public License
+    mode: "allow"
+    name: Nethack General Public License
+    reason: NGPL whitelisted by default preset
+  - pattern: NGPL
+    mode: "allow"
+    name: Nethack General Public License:NGPL
+    reason: NGPL whitelisted by default preset
+  - pattern: Nokia Open Source License
+    mode: "allow"
+    name: Nokia Open Source License
+    reason: Nokia whitelisted by default preset
+  - pattern: Nokia
+    mode: "allow"
+    name: Nokia Open Source License:Nokia
+    reason: Nokia whitelisted by default preset
+  - pattern: Non-Profit Open Software License 3.0
+    mode: "allow"
+    name: Non-Profit Open Software License 3.0
+    reason: NPOSL-3.0 whitelisted by default preset
+  - pattern: NPOSL-3.0
+    mode: "allow"
+    name: Non-Profit Open Software License 3.0:NPOSL-3.0
+    reason: NPOSL-3.0 whitelisted by default preset
+  - pattern: NTP License
+    mode: "allow"
+    name: NTP License
+    reason: NTP whitelisted by default preset
+  - pattern: NTP
+    mode: "allow"
+    name: NTP License:NTP
+    reason: NTP whitelisted by default preset
+  - pattern: OCLC Research Public License 2.0
+    mode: "allow"
+    name: OCLC Research Public License 2.0
+    reason: OCLC-2.0 whitelisted by default preset
+  - pattern: OCLC-2.0
+    mode: "allow"
+    name: OCLC Research Public License 2.0:OCLC-2.0
+    reason: OCLC-2.0 whitelisted by default preset
+  - pattern: SIL Open Font License 1.1
+    mode: "allow"
+    name: SIL Open Font License 1.1
+    reason: OFL-1.1 whitelisted by default preset
+  - pattern: OFL-1.1
+    mode: "allow"
+    name: SIL Open Font License 1.1:OFL-1.1
+    reason: OFL-1.1 whitelisted by default preset
+  - pattern: SIL Open Font License 1.1 with no Reserved Font Name
+    mode: "allow"
+    name: SIL Open Font License 1.1 with no Reserved Font Name
+    reason: OFL-1.1-no-RFN whitelisted by default preset
+  - pattern: OFL-1.1-no-RFN
+    mode: "allow"
+    name: SIL Open Font License 1.1 with no Reserved Font Name:OFL-1.1-no-RFN
+    reason: OFL-1.1-no-RFN whitelisted by default preset
+  - pattern: SIL Open Font License 1.1 with Reserved Font Name
+    mode: "allow"
+    name: SIL Open Font License 1.1 with Reserved Font Name
+    reason: OFL-1.1-RFN whitelisted by default preset
+  - pattern: OFL-1.1-RFN
+    mode: "allow"
+    name: SIL Open Font License 1.1 with Reserved Font Name:OFL-1.1-RFN
+    reason: OFL-1.1-RFN whitelisted by default preset
+  - pattern: Open Group Test Suite License
+    mode: "allow"
+    name: Open Group Test Suite License
+    reason: OGTSL whitelisted by default preset
+  - pattern: OGTSL
+    mode: "allow"
+    name: Open Group Test Suite License:OGTSL
+    reason: OGTSL whitelisted by default preset
+  - pattern: Open LDAP Public License v2.8
+    mode: "allow"
+    name: Open LDAP Public License v2.8
+    reason: OLDAP-2.8 whitelisted by default preset
+  - pattern: OLDAP-2.8
+    mode: "allow"
+    name: Open LDAP Public License v2.8:OLDAP-2.8
+    reason: OLDAP-2.8 whitelisted by default preset
+  - pattern: Open Logistics Foundation License Version 1.3
+    mode: "allow"
+    name: Open Logistics Foundation License Version 1.3
+    reason: OLFL-1.3 whitelisted by default preset
+  - pattern: OLFL-1.3
+    mode: "allow"
+    name: Open Logistics Foundation License Version 1.3:OLFL-1.3
+    reason: OLFL-1.3 whitelisted by default preset
+  - pattern: OSET Public License version 2.1
+    mode: "allow"
+    name: OSET Public License version 2.1
+    reason: OSET-PL-2.1 whitelisted by default preset
+  - pattern: OSET-PL-2.1
+    mode: "allow"
+    name: OSET Public License version 2.1:OSET-PL-2.1
+    reason: OSET-PL-2.1 whitelisted by default preset
+  - pattern: Open Software License 1.0
+    mode: "allow"
+    name: Open Software License 1.0
+    reason: OSL-1.0 whitelisted by default preset
+  - pattern: OSL-1.0
+    mode: "allow"
+    name: Open Software License 1.0:OSL-1.0
+    reason: OSL-1.0 whitelisted by default preset
+  - pattern: Open Software License 2.0
+    mode: "allow"
+    name: Open Software License 2.0
+    reason: OSL-2.0 whitelisted by default preset
+  - pattern: OSL-2.0
+    mode: "allow"
+    name: Open Software License 2.0:OSL-2.0
+    reason: OSL-2.0 whitelisted by default preset
+  - pattern: Open Software License 2.1
+    mode: "allow"
+    name: Open Software License 2.1
+    reason: OSL-2.1 whitelisted by default preset
+  - pattern: OSL-2.1
+    mode: "allow"
+    name: Open Software License 2.1:OSL-2.1
+    reason: OSL-2.1 whitelisted by default preset
+  - pattern: Open Software License 3.0
+    mode: "allow"
+    name: Open Software License 3.0
+    reason: OSL-3.0 whitelisted by default preset
+  - pattern: OSL-3.0
+    mode: "allow"
+    name: Open Software License 3.0:OSL-3.0
+    reason: OSL-3.0 whitelisted by default preset
+  - pattern: PHP License v3.0
+    mode: "allow"
+    name: PHP License v3.0
+    reason: PHP-3.0 whitelisted by default preset
+  - pattern: PHP-3.0
+    mode: "allow"
+    name: PHP License v3.0:PHP-3.0
+    reason: PHP-3.0 whitelisted by default preset
+  - pattern: PHP License v3.01
+    mode: "allow"
+    name: PHP License v3.01
+    reason: PHP-3.01 whitelisted by default preset
+  - pattern: PHP-3.01
+    mode: "allow"
+    name: PHP License v3.01:PHP-3.01
+    reason: PHP-3.01 whitelisted by default preset
+  - pattern: PostgreSQL License
+    mode: "allow"
+    name: PostgreSQL License
+    reason: PostgreSQL whitelisted by default preset
+  - pattern: PostgreSQL
+    mode: "allow"
+    name: PostgreSQL License:PostgreSQL
+    reason: PostgreSQL whitelisted by default preset
+  - pattern: Python License 2.0
+    mode: "allow"
+    name: Python License 2.0
+    reason: Python-2.0 whitelisted by default preset
+  - pattern: Python-2.0
+    mode: "allow"
+    name: Python License 2.0:Python-2.0
+    reason: Python-2.0 whitelisted by default preset
+  - pattern: Q Public License 1.0
+    mode: "allow"
+    name: Q Public License 1.0
+    reason: QPL-1.0 whitelisted by default preset
+  - pattern: QPL-1.0
+    mode: "allow"
+    name: Q Public License 1.0:QPL-1.0
+    reason: QPL-1.0 whitelisted by default preset
+  - pattern: Reciprocal Public License 1.1
+    mode: "allow"
+    name: Reciprocal Public License 1.1
+    reason: RPL-1.1 whitelisted by default preset
+  - pattern: RPL-1.1
+    mode: "allow"
+    name: Reciprocal Public License 1.1:RPL-1.1
+    reason: RPL-1.1 whitelisted by default preset
+  - pattern: Reciprocal Public License 1.5
+    mode: "allow"
+    name: Reciprocal Public License 1.5
+    reason: RPL-1.5 whitelisted by default preset
+  - pattern: RPL-1.5
+    mode: "allow"
+    name: Reciprocal Public License 1.5:RPL-1.5
+    reason: RPL-1.5 whitelisted by default preset
+  - pattern: RealNetworks Public Source License v1.0
+    mode: "allow"
+    name: RealNetworks Public Source License v1.0
+    reason: RPSL-1.0 whitelisted by default preset
+  - pattern: RPSL-1.0
+    mode: "allow"
+    name: RealNetworks Public Source License v1.0:RPSL-1.0
+    reason: RPSL-1.0 whitelisted by default preset
+  - pattern: Ricoh Source Code Public License
+    mode: "allow"
+    name: Ricoh Source Code Public License
+    reason: RSCPL whitelisted by default preset
+  - pattern: RSCPL
+    mode: "allow"
+    name: Ricoh Source Code Public License:RSCPL
+    reason: RSCPL whitelisted by default preset
+  - pattern: Simple Public License 2.0
+    mode: "allow"
+    name: Simple Public License 2.0
+    reason: SimPL-2.0 whitelisted by default preset
+  - pattern: SimPL-2.0
+    mode: "allow"
+    name: Simple Public License 2.0:SimPL-2.0
+    reason: SimPL-2.0 whitelisted by default preset
+  - pattern: Sun Industry Standards Source License v1.1
+    mode: "allow"
+    name: Sun Industry Standards Source License v1.1
+    reason: SISSL whitelisted by default preset
+  - pattern: SISSL
+    mode: "allow"
+    name: Sun Industry Standards Source License v1.1:SISSL
+    reason: SISSL whitelisted by default preset
+  - pattern: Sleepycat License
+    mode: "allow"
+    name: Sleepycat License
+    reason: Sleepycat whitelisted by default preset
+  - pattern: Sleepycat
+    mode: "allow"
+    name: Sleepycat License:Sleepycat
+    reason: Sleepycat whitelisted by default preset
+  - pattern: Sun Public License v1.0
+    mode: "allow"
+    name: Sun Public License v1.0
+    reason: SPL-1.0 whitelisted by default preset
+  - pattern: SPL-1.0
+    mode: "allow"
+    name: Sun Public License v1.0:SPL-1.0
+    reason: SPL-1.0 whitelisted by default preset
+  - pattern: Upstream Compatibility License v1.0
+    mode: "allow"
+    name: Upstream Compatibility License v1.0
+    reason: UCL-1.0 whitelisted by default preset
+  - pattern: UCL-1.0
+    mode: "allow"
+    name: Upstream Compatibility License v1.0:UCL-1.0
+    reason: UCL-1.0 whitelisted by default preset
+  - pattern: Unicode License v3
+    mode: "allow"
+    name: Unicode License v3
+    reason: Unicode-3.0 whitelisted by default preset
+  - pattern: Unicode-3.0
+    mode: "allow"
+    name: Unicode License v3:Unicode-3.0
+    reason: Unicode-3.0 whitelisted by default preset
+  - pattern: Unicode License Agreement - Data Files and Software (2016)
+    mode: "allow"
+    name: Unicode License Agreement - Data Files and Software (2016)
+    reason: Unicode-DFS-2016 whitelisted by default preset
+  - pattern: Unicode-DFS-2016
+    mode: "allow"
+    name: Unicode License Agreement - Data Files and Software (2016):Unicode-DFS-2016
+    reason: Unicode-DFS-2016 whitelisted by default preset
+  - pattern: The Unlicense
+    mode: "allow"
+    name: The Unlicense
+    reason: Unlicense whitelisted by default preset
+  - pattern: Unlicense
+    mode: "allow"
+    name: The Unlicense:Unlicense
+    reason: Unlicense whitelisted by default preset
+  - pattern: Universal Permissive License v1.0
+    mode: "allow"
+    name: Universal Permissive License v1.0
+    reason: UPL-1.0 whitelisted by default preset
+  - pattern: UPL-1.0
+    mode: "allow"
+    name: Universal Permissive License v1.0:UPL-1.0
+    reason: UPL-1.0 whitelisted by default preset
+  - pattern: Vovida Software License v1.0
+    mode: "allow"
+    name: Vovida Software License v1.0
+    reason: VSL-1.0 whitelisted by default preset
+  - pattern: VSL-1.0
+    mode: "allow"
+    name: Vovida Software License v1.0:VSL-1.0
+    reason: VSL-1.0 whitelisted by default preset
+  - pattern: W3C Software Notice and License (2002-12-31)
+    mode: "allow"
+    name: W3C Software Notice and License (2002-12-31)
+    reason: W3C whitelisted by default preset
+  - pattern: W3C
+    mode: "allow"
+    name: W3C Software Notice and License (2002-12-31):W3C
+    reason: W3C whitelisted by default preset
+  - pattern: W3C Software Notice and Document License (2015-05-13)
+    mode: "allow"
+    name: W3C Software Notice and Document License (2015-05-13)
+    reason: W3C-20150513 whitelisted by default preset
+  - pattern: W3C-20150513
+    mode: "allow"
+    name: W3C Software Notice and Document License (2015-05-13):W3C-20150513
+    reason: W3C-20150513 whitelisted by default preset
+  - pattern: Sybase Open Watcom Public License 1.0
+    mode: "allow"
+    name: Sybase Open Watcom Public License 1.0
+    reason: Watcom-1.0 whitelisted by default preset
+  - pattern: Watcom-1.0
+    mode: "allow"
+    name: Sybase Open Watcom Public License 1.0:Watcom-1.0
+    reason: Watcom-1.0 whitelisted by default preset
+  - pattern: X.Net License
+    mode: "allow"
+    name: X.Net License
+    reason: Xnet whitelisted by default preset
+  - pattern: Xnet
+    mode: "allow"
+    name: X.Net License:Xnet
+    reason: Xnet whitelisted by default preset
+  - pattern: zlib License
+    mode: "allow"
+    name: zlib License
+    reason: Zlib whitelisted by default preset
+  - pattern: Zlib
+    mode: "allow"
+    name: zlib License:Zlib
+    reason: Zlib whitelisted by default preset
+  - pattern: Zope Public License 2.0
+    mode: "allow"
+    name: Zope Public License 2.0
+    reason: ZPL-2.0 whitelisted by default preset
+  - pattern: ZPL-2.0
+    mode: "allow"
+    name: Zope Public License 2.0:ZPL-2.0
+    reason: ZPL-2.0 whitelisted by default preset
+  - pattern: Zope Public License 2.1
+    mode: "allow"
+    name: Zope Public License 2.1
+    reason: ZPL-2.1 whitelisted by default preset
+  - pattern: ZPL-2.1
+    mode: "allow"
+    name: Zope Public License 2.1:ZPL-2.1
+    reason: ZPL-2.1 whitelisted by default preset
+  - pattern: GNU General Public License v2.0 only
+    mode: "allow"
+    name: GNU General Public License v2.0 only
+    reason: GPL-2.0 whitelisted by default preset
+  - pattern: GPL-2.0
+    mode: "allow"
+    name: GNU General Public License v2.0 only:GPL-2.0
+    reason: GPL-2.0 whitelisted by default preset
+  - pattern: GNU General Public License v2.0 or later
+    mode: "allow"
+    name: GNU General Public License v2.0 or later
+    reason: GPL-2.0+ whitelisted by default preset
+  - pattern: GPL-2.0+
+    mode: "allow"
+    name: GNU General Public License v2.0 or later:GPL-2.0+
+    reason: GPL-2.0+ whitelisted by default preset
+  - pattern: GNU General Public License v3.0 only
+    mode: "allow"
+    name: GNU General Public License v3.0 only
+    reason: GPL-3.0 whitelisted by default preset
+  - pattern: GPL-3.0
+    mode: "allow"
+    name: GNU General Public License v3.0 only:GPL-3.0
+    reason: GPL-3.0 whitelisted by default preset
+  - pattern: GNU General Public License v3.0 or later
+    mode: "allow"
+    name: GNU General Public License v3.0 or later
+    reason: GPL-3.0+ whitelisted by default preset
+  - pattern: GPL-3.0+
+    mode: "allow"
+    name: GNU General Public License v3.0 or later:GPL-3.0+
+    reason: GPL-3.0+ whitelisted by default preset
+  - pattern: GNU Library General Public License v2 only
+    mode: "allow"
+    name: GNU Library General Public License v2 only
+    reason: LGPL-2.0 whitelisted by default preset
+  - pattern: LGPL-2.0
+    mode: "allow"
+    name: GNU Library General Public License v2 only:LGPL-2.0
+    reason: LGPL-2.0 whitelisted by default preset
+  - pattern: GNU Library General Public License v2 or later
+    mode: "allow"
+    name: GNU Library General Public License v2 or later
+    reason: LGPL-2.0+ whitelisted by default preset
+  - pattern: LGPL-2.0+
+    mode: "allow"
+    name: GNU Library General Public License v2 or later:LGPL-2.0+
+    reason: LGPL-2.0+ whitelisted by default preset
+  - pattern: GNU Lesser General Public License v2.1 only
+    mode: "allow"
+    name: GNU Lesser General Public License v2.1 only
+    reason: LGPL-2.1 whitelisted by default preset
+  - pattern: LGPL-2.1
+    mode: "allow"
+    name: GNU Lesser General Public License v2.1 only:LGPL-2.1
+    reason: LGPL-2.1 whitelisted by default preset
+  - pattern: GNU Lesser General Public License v2.1 or later
+    mode: "allow"
+    name: GNU Lesser General Public License v2.1 or later
+    reason: LGPL-2.1+ whitelisted by default preset
+  - pattern: LGPL-2.1+
+    mode: "allow"
+    name: GNU Lesser General Public License v2.1 or later:LGPL-2.1+
+    reason: LGPL-2.1+ whitelisted by default preset
+  - pattern: GNU Lesser General Public License v3.0 only
+    mode: "allow"
+    name: GNU Lesser General Public License v3.0 only
+    reason: LGPL-3.0 whitelisted by default preset
+  - pattern: LGPL-3.0
+    mode: "allow"
+    name: GNU Lesser General Public License v3.0 only:LGPL-3.0
+    reason: LGPL-3.0 whitelisted by default preset
+  - pattern: GNU Lesser General Public License v3.0 or later
+    mode: "allow"
+    name: GNU Lesser General Public License v3.0 or later
+    reason: LGPL-3.0+ whitelisted by default preset
+  - pattern: LGPL-3.0+
+    mode: "allow"
+    name: GNU Lesser General Public License v3.0 or later:LGPL-3.0+
+    reason: LGPL-3.0+ whitelisted by default preset
+  - pattern: Apache License 2.0
+    mode: "allow"
+    name: Apache License 2.0
+    reason: Apache License, Version 2.0 whitelisted by default preset
+  - pattern: Apache License, Version 2.0
+    mode: "allow"
+    name: Apache License 2.0:Apache License, Version 2.0
+    reason: Apache License, Version 2.0 whitelisted by default preset
+  - pattern: Apache License 2.0
+    mode: "allow"
+    name: Apache License 2.0
+    reason: The Apache Software License, Version 2.0 whitelisted by default preset
+  - pattern: The Apache Software License, Version 2.0
+    mode: "allow"
+    name: Apache License 2.0:The Apache Software License, Version 2.0
+    reason: The Apache Software License, Version 2.0 whitelisted by default preset
+  - pattern: Apache License 2.0
+    mode: "allow"
+    name: Apache License 2.0
+    reason: Apache 2.0 whitelisted by default preset
+  - pattern: Apache 2.0
+    mode: "allow"
+    name: Apache License 2.0:Apache 2.0
+    reason: Apache 2.0 whitelisted by default preset
+  ###### BBPNeo
+  - pattern: https://github.com/corretto/corretto-jdk/blob/develop/LICENSE
+    mode: "allow"
+    name: https://github.com/corretto/corretto-jdk/blob/develop/LICENSE
+    reason: AWS GNU General Public License (GPL)
+  - pattern: "X11*"
+    mode: "allow"
+    name: "X11 License"
+    reason: X Consortium for free
+  - pattern: "OpenSSL-Exception"
+    mode: "allow"
+    name: "OpenSSL-Exception"
+    reason: FSF Free/Libre
+  - pattern: "*apache*-2.0*"
+    mode: "allow"
+    name: "http://www.apache.org/licenses/LICENSE-2.0, http://www.slf4j.org/license.html"
+    reason: Apache 2.0 whitelisted by default preset
+  - pattern: "*mit-license*"
+    mode: "allow"
+    name: MIT License:MIT
+    reason: MIT whitelisted by default preset
+  - pattern: "*BSD-2-Clause*"
+    mode: "allow"
+    name: BSD 2-Clause "Simplified" License:BSD-2-Clause
+    reason: BSD-2-Clause whitelisted by default preset
+  - pattern: "*edl-v10*"
+    mode: "allow"
+    name: BSD 3-Clause "New" or "Revised" License:BSD-3-Clause
+    reason: BSD-3-Clause whitelisted by default preset
+  - pattern: "*BSD-3-Clause*"
+    mode: "allow"
+    name: BSD 3-Clause "New" or "Revised" License:BSD-3-Clause
+    reason: BSD-3-Clause whitelisted by default preset
+  - pattern: "*lgpl-2.1*"
+    mode: "allow"
+    name: GNU Lesser General Public License v2.1 only
+    reason: LGPL-2.1-only whitelisted by default preset
+  - pattern: "*CDDL+GPL-1.1*"
+    mode: "allow"
+    name: GNU General Public License v2.0 or later
+    reason: GPL-2.0-or-later whitelisted by default preset
+  - pattern: "https://h2database.com/html/license.html"
+    mode: "allow"
+    name: Eclipse Public License 1.0
+    reason: EPL-1.0 whitelisted by default preset
+  - pattern: "*epl-2.0*"
+    mode: "allow"
+    name: Eclipse Public License 2.0
+    reason: EPL-2.0 whitelisted by default preset
+  - pattern: "https://www.antlr.org/license.html"
+    mode: "allow"
+    name: BSD Zero Clause License
+    reason: 0BSD whitelisted by default preset
+  - pattern: "*Creative Commons CC0*"
+    mode: "allow"
+    name: Creative Commons (CC) license
+    reason: Creative Commons (CC) license
+  - pattern: "WITH"
+    mode: "allow"
+    name: GNU Wget
+    reason: GNU Wget is a free software package
+  ######
+  - pattern: "*"
+    name: "default-deny-all"
+    mode: "deny"
+    reason: "All licenses need to be explicitly allowed"
