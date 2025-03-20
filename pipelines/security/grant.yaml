@@ -33,6 +33,13 @@ Grant Check Image:
     SECRETS:
       MQP_ANCHOR_USERNAME:RUNNER_ARTIFACTORY_USER,
       MQP_ANCHOR_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  before_script:
+    - |
+      if [ -e config/grant.yaml ];
+      then
+        export MQP_ANCHOR_GRANT_CONFIG="config/grant.yaml"
+        export MQP_ANCHOR_GRANT_MERGE_CONFIGS="false"
+      fi
   allow_failure: true
 
 Grant Check Repo:
@@ -56,4 +63,11 @@ Grant Check Repo:
       MQP_ANCHOR_USERNAME:RUNNER_ARTIFACTORY_USER,
       MQP_ANCHOR_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD,
       MQP_ANCHOR_REPO_ACCESS_TOKEN:BBPNEO_GITLAB_GROUP_API_AND_READ_REPO_TOKEN
+  before_script:
+    - |
+      if [ -e config/grant.yaml ];
+      then
+        export MQP_ANCHOR_GRANT_CONFIG="config/grant.yaml"
+        export MQP_ANCHOR_GRANT_MERGE_CONFIGS="false"
+      fi
   allow_failure: true
