@@ -24,3 +24,15 @@
       fi
       echo "RELEASE_VERSION_PROD:$RELEASE_VERSION_PROD"
       cd ../../..
+
+.template grant:
+  script:
+    - |
+      cd ..
+      echo "get moqap repo..."
+      eval $(ssh-agent -s)
+      ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
+      ssh-add -l
+      ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
+      git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/02-ops/moqap.git
+      cd ${CI_PROJECT_NAME}
