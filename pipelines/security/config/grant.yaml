@@ -1176,6 +1176,18 @@ rules:
     mode: "allow"
     name: GNU Wget
     reason: GNU Wget is a free software package
+  - pattern: "https://github.com/stleary/JSON-java/blob/master/LICENSE"
+    mode: "allow"
+    name: JSON-java
+    reason: Public Domain
+  - pattern: "LICENSE"
+    mode: "allow"
+    name: ehcache-107
+    reason: Public Domain
+  - pattern: "The Apache License, Version 2.0"
+    mode: "allow"
+    name: Apache License 2.0:Apache 2.0
+    reason: Apache 2.0 whitelisted by default preset
   ######
   - pattern: "*"
     name: "default-deny-all"
