@@ -1164,58 +1164,14 @@ rules:
     mode: "allow"
     name: https://github.com/corretto/corretto-jdk/blob/develop/LICENSE
     reason: AWS GNU General Public License (GPL)
-  - pattern: "X11*"
-    mode: "allow"
-    name: "X11 License"
-    reason: X Consortium for free
-  - pattern: "OpenSSL-Exception"
-    mode: "allow"
-    name: "OpenSSL-Exception"
-    reason: FSF Free/Libre
-  - pattern: "*apache*-2.0*"
-    mode: "allow"
-    name: "http://www.apache.org/licenses/LICENSE-2.0, http://www.slf4j.org/license.html"
-    reason: Apache 2.0 whitelisted by default preset
-  - pattern: "*mit-license*"
-    mode: "allow"
-    name: MIT License:MIT
-    reason: MIT whitelisted by default preset
-  - pattern: "*BSD-2-Clause*"
-    mode: "allow"
-    name: BSD 2-Clause "Simplified" License:BSD-2-Clause
-    reason: BSD-2-Clause whitelisted by default preset
-  - pattern: "*edl-v10*"
-    mode: "allow"
-    name: BSD 3-Clause "New" or "Revised" License:BSD-3-Clause
-    reason: BSD-3-Clause whitelisted by default preset
-  - pattern: "*BSD-3-Clause*"
-    mode: "allow"
-    name: BSD 3-Clause "New" or "Revised" License:BSD-3-Clause
-    reason: BSD-3-Clause whitelisted by default preset
-  - pattern: "*lgpl-2.1*"
-    mode: "allow"
-    name: GNU Lesser General Public License v2.1 only
-    reason: LGPL-2.1-only whitelisted by default preset
-  - pattern: "*CDDL+GPL-1.1*"
-    mode: "allow"
-    name: GNU General Public License v2.0 or later
-    reason: GPL-2.0-or-later whitelisted by default preset
   - pattern: "https://h2database.com/html/license.html"
     mode: "allow"
     name: Eclipse Public License 1.0
     reason: EPL-1.0 whitelisted by default preset
-  - pattern: "*epl-2.0*"
-    mode: "allow"
-    name: Eclipse Public License 2.0
-    reason: EPL-2.0 whitelisted by default preset
   - pattern: "https://www.antlr.org/license.html"
     mode: "allow"
     name: BSD Zero Clause License
     reason: 0BSD whitelisted by default preset
-  - pattern: "*Creative Commons CC0*"
-    mode: "allow"
-    name: Creative Commons (CC) license
-    reason: Creative Commons (CC) license
   - pattern: "WITH"
     mode: "allow"
     name: GNU Wget
