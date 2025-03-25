@@ -1268,11 +1268,10 @@ rules:
     mode: "allow"
     name: GNU General Public License only
     reason: GPL whitelisted by default preset
-
-#  - pattern: "http://www.eclipse.org/org/documents/edl-v10.php"
-#    mode: "allow"
-#    name: Eclipse Public License 2.0:EPL-2.0
-#    reason: EPL-2.0 whitelisted by default preset
+  - pattern: "http://www.eclipse.org/org/documents/edl-v10.php"
+    mode: "allow"
+    name: BSD 3-Clause
+    reason: BSD-3-Clause whitelisted by default preset
   ######
   - pattern: "*"
     name: "default-deny-all"
