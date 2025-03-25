@@ -61,3 +61,36 @@ variables:
   AWS_SM_SECRET_PATH: "/runner/secrets/gitlab-runner-secret"
   IS_COMMONLIB: "false"
   BUILD: "JAVA"
+  # Environments defaults
+  ## dev
+  DEV_BIZHUB_DISABLE: "false"
+  DEV_BIZHUB_VISIBILITY_TYPE: "custom"
+  DEV_BIZHUB_VISIBILITY_ORGS: "[3bdatenservices]"
+  DEV_BIZHUB_SUBSCRIBE_ORGS: "[3bdatenservices]"
+  ## dev-b1
+  DEV_B1_BIZHUB_DISABLE: "false"
+  DEV_B1_BIZHUB_VISIBILITY_TYPE: "custom"
+  DEV_B1_BIZHUB_VISIBILITY_ORGS: "[3bdatenservices]"
+  DEV_B1_BIZHUB_SUBSCRIBE_ORGS: "[3bdatenservices]"
+  ## int
+  INT_BIZHUB_DISABLE: "false"
+  INT_BIZHUB_VISIBILITY_TYPE: "custom"
+  INT_BIZHUB_VISIBILITY_ORGS: "[3bdatenservices]"
+  INT_BIZHUB_SUBSCRIBE_ORGS: "[3bdatenservices]"
+  INT_CI_REGRESSIONS_TESTS: "true"
+  ## au
+  AU_BIZHUB_DISABLE: "false"
+  AU_BIZHUB_VISIBILITY_TYPE: "custom"
+  AU_BIZHUB_VISIBILITY_ORGS: "[3bdatenservices]"
+  AU_BIZHUB_SUBSCRIBE_ORGS: "[3bdatenservices]"
+  ## lup
+  LUP_BIZHUB_DISABLE: "false"
+  LUP_BIZHUB_VISIBILITY_TYPE: "custom"
+  LUP_BIZHUB_VISIBILITY_ORGS: "[3bdatenservices]"
+  LUP_BIZHUB_SUBSCRIBE_ORGS: "[3bdatenservices]"
+  LUP_LAP_TEST_DISABLE: "true"
+  ## prod
+  PROD_BIZHUB_DISABLE: "false"
+  PROD_BIZHUB_VISIBILITY_TYPE: "authenticated"
+  PROD_BIZHUB_VISIBILITY_ORGS: "[]"
+  PROD_BIZHUB_SUBSCRIBE_ORGS: "[3bdatenservices]"
