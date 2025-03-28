@@ -12,6 +12,9 @@ include:
   - "/pipelines/settings.yaml"
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/stages/deployment.yaml"
+  - "/pipelines/security/syft.yaml"
+  - "/pipelines/security/grant.yaml"
+  - "/pipelines/security/grype.yaml"
 
 .job_template: &job_template
   tags:
