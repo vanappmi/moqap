@@ -4,46 +4,85 @@ include:
     ref: "11.4.0"
     file:
       - "/jmeter/jmeter.yml"
-
+  - "pipelines/stages/load_performance.yaml"
 .job_template: &job_template
   tags:
     - $PROJECT_RUNNER_TAG
 
-LaP & PTA Test:
-  extends: .jmeter
-  stage: dynamic-test
-  <<: *job_template
+variables:
+  #DEPLOY_ENV: "lup"
+  #CI_PROJECT_NAME: "tve"
+  PROJECT_RUNNER_TAG: "eks-lup"
+  DEV_DOCKER_REPO: "cna-bbpneo-dev-docker-stage-local"
+  SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
+  TARGET_DOCKER_REPO: "cna-bbpneo-prod-docker-stage-local"
+  ARTIFACT_NAME: $CI_PROJECT_NAME
+  BASE_SERVICE_URL: "${CI_PROJECT_NAME}-lup.bbpneo-iat.cnp-test.comp.db.de"
+  LAP_TEST_DISABLE: "false"
+  NO_THREADS: ${load_test_thread}
+  NO_PAGES: ${load_test_page}
+  SECRETS:
+    SSH_PRIVATE_KEY:RUNNER_SSH_KEY
+    API_USER:${CI_PROJECT_NAME}_api_username,
+    API_PASSWORD:${CI_PROJECT_NAME}_api_password
+upload-jmx-test-files:
+  # extends: .Upload-Artifacts
+  rules:
+    - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
   needs:
+    - job: Deployment STAGE
+      optional: true
     - job: Deployment BizHub
       optional: true
-    - job: Deployment STAGE
-  variables:
-    CMMD_VAR: "-JbaseURL=${BASE_SERVICE_URL}"
-    ES_INDEX: "jmeter-results-${CI_PROJECT_NAME}-${CI_COMMIT_SHORT_SHA}"
-    ES_PORT: "80"
-    ES_PROTOCOL: "https"
-    MQP_JMETER_TESTCASE_PATH: "test/lup/3BServices_LuP_Test.jmx"
-    MQP_JMETER_PLUGIN_PATH: "test/lup/plugins"
-    ARTIFACTS_DIR: "artifacts"
-    SECRETS:
-      BETRAANTRAG_USERNAME:betraprocess_api_username,
-      BETRAANTRAG_PASSWORD:betraprocess_api_password
-  before_script:
+  stage: dynamic-test
+  <<: *job_template
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  script:
     - !reference [ .template secrets, script ]
-    - export BASE_SERVICE_URL=$(echo $BASE_SERVICE_URL | cut -c 9-)
-    - echo $BASE_SERVICE_URL
-    - echo $BETRAANTRAG_USERNAME
-    - export CMMD_VAR="-JbaseURL=${BASE_SERVICE_URL} -JapiUsername=${BETRAANTRAG_USERNAME} -JapiPasswort=${BETRAANTRAG_PASSWORD}"
-    - mkdir -p ./artifacts/
-    - sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $MQP_JMETER_TESTCASE_PATH
-    - sed -i -e "s/REPLACE_ELASTIC_HOST/$ES_HOST/g" $MQP_JMETER_TESTCASE_PATH
-    - sed -i -e "s/REPLACE_ELASTIC_PORT/$ES_PORT/g" $MQP_JMETER_TESTCASE_PATH
-    - sed -i -e "s/REPLACE_ELASTIC_PROTOCOL/$ES_PROTOCOL/g" $MQP_JMETER_TESTCASE_PATH
+    - |
+      echo "get jmx files from lap-test repository..."
+      eval $(ssh-agent -s)
+      ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
+      ssh-add -l
+      ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
+      git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/07-quality-assurance-and-test/lup-tests.git
+      mkdir -p artifacts
+      cp lup-tests/src/* ./artifacts/
+  variables:
+    SECRETS:
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY
   artifacts:
     paths:
       - artifacts/*
-  # rules dev vs. int
-  except:
-    variables:
-      - $LAP_TEST_DISABLE == "true"
+  timeout: 24 hours
+
+load-with-filter:
+  extends: .lap-test
+  rules:
+    - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
+  needs:
+    - job: upload-jmx-test-files
+  stage: dynamic-test
+  <<: *job_template
+  variables:
+    MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}-filter.jmx"
+  artifacts:
+    paths:
+      - artifacts/*
   timeout: 4 hours
+
+load-all:
+  extends: .lap-test
+  needs:
+    - job: upload-jmx-test-files
+  stage: dynamic-test
+  rules:
+    - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
+  when: manual
+  <<: *job_template
+  variables:
+    MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}.jmx"
+  artifacts:
+    paths:
+      - artifacts/*
+  timeout: 24 hours
