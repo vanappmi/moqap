@@ -27,8 +27,8 @@ variables:
     API_PASSWORD:${CI_PROJECT_NAME}_api_password
 upload-jmx-test-files:
   # extends: .Upload-Artifacts
-  rules:
-    - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
+#  rules:
+#    - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
   needs:
     - job: Deployment STAGE
       optional: true
@@ -40,6 +40,8 @@ upload-jmx-test-files:
   script:
     - !reference [ .template secrets, script ]
     - |
+      echo "get jmx files from lap-test repository...$LAP_TEST_DISABLE"
+      echo "get jmx files from lap-test repository...$DEPLOY_ENV"
       echo "get jmx files from lap-test repository..."
       eval $(ssh-agent -s)
       ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
