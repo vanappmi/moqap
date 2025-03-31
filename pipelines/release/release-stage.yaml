@@ -15,7 +15,7 @@ stages:
   - .pre
   - stage-artifacts
   - security-scan
-  - argo-cd-deploy
+ # - argo-cd-deploy
   - bizhub-deploy
   - report-upload
   - dynamic-test
