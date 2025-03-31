@@ -33,6 +33,9 @@ Grype Check Image:
     SECRETS:
       MQP_ANCHOR_USERNAME:RUNNER_ARTIFACTORY_USER,
       MQP_ANCHOR_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  artifacts:
+    paths:
+      - artifacts/*
   allow_failure: true
 
 Grype Check Repo:

@@ -1,0 +1,29 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "11.4.0"
+    file: "/defectdojo/defectdojo.yml"
+  - "/pipelines/templates/moqap_templates.yml"
+  - "/pipelines/templates/bbpneo_templates.yml"
+
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+DefectDojo:
+  stage: report-upload
+  extends: .Defectdojo
+  <<: *job_template
+  needs:
+    - job: Trivy Check Image
+    - job: Grant Check Image
+    - job: Syft Check Image
+    - job: Grype Check Image
+#    - job: SonarQube
+  variables:
+    MQP_DEFDOJ_MIN_SEVERITY_TO_REPORT: "Info"
+    MQP_DEFDOJ_TIMEZONE: "Europe/Berlin"
+    MQP_DEFDOJ_PRODUCT_NAME: $CI_PROJECT_NAME
+    SECRETS:
+      MQP_DEFDOJ_SERVER_URL:RUNNER_DEFDOJ_SERVER_URL,
+      MQP_DEFDOJ_API_KEY:RUNNER_DEFDOJ_API_KEY

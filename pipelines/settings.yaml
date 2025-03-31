@@ -94,3 +94,6 @@ variables:
   PROD_BIZHUB_VISIBILITY_TYPE: "authenticated"
   PROD_BIZHUB_VISIBILITY_ORGS: "[]"
   PROD_BIZHUB_SUBSCRIBE_ORGS: "[3bdatenservices]"
+  # DefectDojo
+  MQP_GLOBAL_DEFECTDOJO_OPERATION: "REPORT"
+  MQP_DEFDOJ_REPORT_PATH: "artifacts/defectdojo_reports"
