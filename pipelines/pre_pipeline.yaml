@@ -290,7 +290,7 @@ LUP-Umgebung:
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
-        ref: "$CURRENT_VERSION"
+        ref: "V2.0"
         file: "/pipelines/release/release-stage.yaml"
     strategy: depend
 
