@@ -36,3 +36,14 @@
       ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
       git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/02-ops/moqap.git
       cd ${CI_PROJECT_NAME}
+
+
+.template jmeter-run:
+  script:
+    - |
+      export MQP_JMETER_CMMD_VAR="-JbaseURL=${BASE_SERVICE_URL} -JapiUsername=${API_USER} -JapiPasswort=${API_PASSWORD} -JnoThreads=${NO_THREADS} -JmaxPage=${NO_PAGES} --forceDeleteResultFile"
+      mkdir -p ./artifacts/
+      sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $MQP_JMETER_TESTCASE_PATH
+      sed -i -e "s/REPLACE_ELASTIC_HOST/$ES_HOST/g" $MQP_JMETER_TESTCASE_PATH
+      sed -i -e "s/REPLACE_ELASTIC_PORT/$ES_PORT/g" $MQP_JMETER_TESTCASE_PATH
+      sed -i -e "s/REPLACE_ELASTIC_PROTOCOL/$ES_PROTOCOL/g" $MQP_JMETER_TESTCASE_PATH
