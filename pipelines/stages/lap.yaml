@@ -1,0 +1,28 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "11.3.0"
+    file:
+      - "/jmeter/jmeter.yml"
+  - "pipelines/templates/bbpneo_templates.yml"
+.lap-test:
+  stage: run-lap-test
+  variables:
+    ES_INDEX: "jmeter-results-${CI_PROJECT_NAME}-${CI_COMMIT_SHORT_SHA}"
+    ES_PORT: "80"
+    ES_PROTOCOL: "https"
+    MQP_JMETER_PLUGIN_PATH: "plugins/"
+    ARTIFACTS_DIR: "artifacts"
+    SECRETS:
+      API_USER:${CI_PROJECT_NAME}_api_username,
+      API_PASSWORD:${CI_PROJECT_NAME}_api_password
+  extends: .jmeter
+  before_script:
+    - !reference [ .template secrets, script ]
+    - !reference [ .template jmeter-run, script ]
+    - echo ${CI_PROJECT_NAME}
+    - echo ${API_USER}
+  artifacts:
+    paths:
+      - artifacts/*
+  timeout: 24 hours
