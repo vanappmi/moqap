@@ -22,6 +22,7 @@ include:
   - "/pipelines/security/syft.yaml"
   - "/pipelines/security/grant.yaml"
   - "/pipelines/security/grype.yaml"
+  - "/pipelines/defectDojo/defect-dojo.yaml"
 
 stages:
   - .pre
@@ -32,6 +33,7 @@ stages:
   - security-scan
   - argo-cd-deploy
   - bizhub-deploy
+  - report-upload
   - integrationtest
   - cleanup
   - .post
