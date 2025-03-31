@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "11.3.0"
+    ref: "11.4.0"
     file:
       - "/jmeter/jmeter.yml"
 

@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "11.3.0"
+    ref: "11.4.0"
     file: "/anchore/grant/grant.yml"
   - "/pipelines/templates/moqap_templates.yml"
   - "/pipelines/templates/bbpneo_templates.yml"
@@ -60,7 +60,7 @@ Grant Check Image:
       if [ -e artifacts/grant.yaml ];
       then
         export MQP_ANCHOR_GRANT_CONFIG="artifacts/grant.yaml"
-        export MQP_ANCHOR_GRANT_MERGE_CONFIGS="false"
+        export MQP_ANCHOR_GRANT_MERGE_CONFIGS="true"
       fi
   artifacts:
     paths:
@@ -85,7 +85,7 @@ Grant Check Repo:
       if [ -e artifacts/grant.yaml ];
       then
         export MQP_ANCHOR_GRANT_CONFIG="artifacts/grant.yaml"
-        export MQP_ANCHOR_GRANT_MERGE_CONFIGS="false"
+        export MQP_ANCHOR_GRANT_MERGE_CONFIGS="true"
       fi
   artifacts:
     paths:
