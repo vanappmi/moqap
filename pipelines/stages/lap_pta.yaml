@@ -39,10 +39,8 @@ upload-jmx-test-files:
   script:
     - !reference [ .template secrets, script ]
     - |
-      echo "get jmx files from lap-test repository...$LAP_TEST_DISABLE"
-      echo "get jmx files from lap-test repository...$DEPLOY_ENV"
-      echo "get jmx files from lap-test repository...$BASE_SERVICE_URL"
-      echo "get jmx files from lap-test repository...$BASE_SVC_URL"
+      echo "get jmx files from lap-test repository...$NO_THREADS"
+      echo "get jmx files from lap-test repository...$NO_PAGES"
       echo "get jmx files from lap-test repository..."
       eval $(ssh-agent -s)
       ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
@@ -59,7 +57,7 @@ upload-jmx-test-files:
       - artifacts/*
   timeout: 24 hours
 
-load-with-filter:
+load-filter:
   extends: .lap-test
   rules:
     - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
