@@ -61,6 +61,8 @@ Grant Check Image:
       when: manual
       allow_failure: true
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
+      needs:
+        - job: Grant Get Whitelist
     - if: '$DEPLOY_ENV != "dev" && $DEPLOY_ENV  != "int"'
   variables:
     MQP_ANCHOR_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
@@ -96,6 +98,8 @@ Grant Check Repo:
       when: manual
       allow_failure: true
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
+      needs:
+        - job: Grant Get Whitelist
     - if: '$DEPLOY_ENV != "dev" && $DEPLOY_ENV  != "int"'
   variables:
     MQP_ANCHOR_TARGET: "$CI_PROJECT_DIR"
