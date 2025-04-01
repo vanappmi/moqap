@@ -18,12 +18,7 @@ variables:
   TARGET_DOCKER_REPO: "cna-bbpneo-prod-docker-stage-local"
   ARTIFACT_NAME: $CI_PROJECT_NAME
   BASE_SVC_URL: "${CI_PROJECT_NAME}-lup.bbpneo-iat.cnp-test.comp.db.de"
-  SECRETS:
-    SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
-    API_USER:${CI_PROJECT_NAME}_api_username,
-    API_PASSWORD:${CI_PROJECT_NAME}_api_password,
-    NO_THREADS:load_test_thread,
-    NO_PAGES:load_test_page
+
 upload-jmx-test-files:
   # extends: .Upload-Artifacts
   rules:
@@ -48,7 +43,11 @@ upload-jmx-test-files:
       cp lup-tests/src/* ./artifacts/
   variables:
     SECRETS:
-      SSH_PRIVATE_KEY:RUNNER_SSH_KEY
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
+      API_USER:${CI_PROJECT_NAME}_api_username,
+      API_PASSWORD:${CI_PROJECT_NAME}_api_password,
+      NO_THREADS:load_test_thread,
+      NO_PAGES:load_test_page
   artifacts:
     paths:
       - artifacts/*
@@ -64,6 +63,12 @@ load-filter:
   <<: *job_template
   variables:
     MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}-filter.jmx"
+    SECRETS:
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
+      API_USER:${CI_PROJECT_NAME}_api_username,
+      API_PASSWORD:${CI_PROJECT_NAME}_api_password,
+      NO_THREADS:load_test_thread,
+      NO_PAGES:load_test_page
   artifacts:
     paths:
       - artifacts/*
@@ -80,6 +85,12 @@ load-all:
   <<: *job_template
   variables:
     MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}.jmx"
+    SECRETS:
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
+      API_USER:${CI_PROJECT_NAME}_api_username,
+      API_PASSWORD:${CI_PROJECT_NAME}_api_password,
+      NO_THREADS:load_test_thread,
+      NO_PAGES:load_test_page
   artifacts:
     paths:
       - artifacts/*
