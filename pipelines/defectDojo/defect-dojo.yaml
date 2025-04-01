@@ -15,7 +15,7 @@ DefectDojo:
   extends: .Defectdojo
   <<: *job_template
   rules:
-    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "int" || $DEPLOY_ENV == "au" || $DEPLOY_ENV == "lup" || $DEPLOY_ENV == "prod") && $IMAGE_UPDATE == "false"
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "int" || $DEPLOY_ENV == "au" || $DEPLOY_ENV == "prod") && $IMAGE_UPDATE == "false"
       needs:
         - job: Trivy Check Image
         - job: Grant Check Image
