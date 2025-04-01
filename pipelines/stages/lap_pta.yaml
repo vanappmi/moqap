@@ -26,11 +26,10 @@ variables:
     NO_PAGES:load_test_page
 upload-jmx-test-files:
   # extends: .Upload-Artifacts
-  #rules:
-  #  - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
+  rules:
+    - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
   needs:
     - job: Deployment STAGE
-      optional: true
     - job: Deployment BizHub
       optional: true
   stage: load-testing
@@ -39,8 +38,6 @@ upload-jmx-test-files:
   script:
     - !reference [ .template secrets, script ]
     - |
-      echo "get jmx files from lap-test repository...$NO_THREADS"
-      echo "get jmx files from lap-test repository...$NO_PAGES"
       echo "get jmx files from lap-test repository..."
       eval $(ssh-agent -s)
       ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
