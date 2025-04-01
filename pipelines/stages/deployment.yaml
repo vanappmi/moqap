@@ -16,6 +16,9 @@ Deployment STAGE:
     - if: ($DEPLOY_ENV == "au" || $DEPLOY_ENV  == "lup" || $DEPLOY_ENV  == "prod") && $CI_COMMIT_BRANCH && $IMAGE_UPDATE == "false"
       needs:
         - job: Trivy Check Image
+        - job: Grant Check Image
+        - job: Build Image STAGE
+          artifacts: true
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
       needs:
         - job: Trivy Check Image
