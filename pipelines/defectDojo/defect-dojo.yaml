@@ -23,6 +23,7 @@ DefectDojo:
         - job: Grype Check Image
     - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "dev"
       when: never
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
   variables:
     MQP_DEFDOJ_MIN_SEVERITY_TO_REPORT: "Info"
     MQP_DEFDOJ_TIMEZONE: "Europe/Berlin"
