@@ -18,7 +18,6 @@ variables:
   TARGET_DOCKER_REPO: "cna-bbpneo-prod-docker-stage-local"
   ARTIFACT_NAME: $CI_PROJECT_NAME
   BASE_SERVICE_URL: "${CI_PROJECT_NAME}-lup.bbpneo-iat.cnp-test.comp.db.de"
-  LAP_TEST_DISABLE: "false"
   SECRETS:
     SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
     API_USER:${CI_PROJECT_NAME}_api_username,
@@ -27,8 +26,8 @@ variables:
     NO_PAGES:load_test_page
 upload-jmx-test-files:
   # extends: .Upload-Artifacts
-  rules:
-    - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
+  #rules:
+  #  - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
   needs:
     - job: Deployment STAGE
       optional: true
