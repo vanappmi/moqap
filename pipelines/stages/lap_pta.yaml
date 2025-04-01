@@ -22,7 +22,7 @@ variables:
   NO_THREADS: ${load_test_thread}
   NO_PAGES: ${load_test_page}
   SECRETS:
-    SSH_PRIVATE_KEY:RUNNER_SSH_KEY
+    SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
     API_USER:${CI_PROJECT_NAME}_api_username,
     API_PASSWORD:${CI_PROJECT_NAME}_api_password
 upload-jmx-test-files:
