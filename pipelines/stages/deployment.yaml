@@ -10,6 +10,8 @@ Deployment STAGE:
       needs:
         - job: Trivy Check Image
         - job: Grant Check Image
+        - job: Syft Check Image
+        - job: Grype Check Image
         - job: Build Image STAGE
           artifacts: true
           optional: true
@@ -17,7 +19,8 @@ Deployment STAGE:
       needs:
         - job: Trivy Check Image
         - job: Grant Check Image
-        - job: Build Image STAGE
+        - job: Syft Check Image
+        - job: Grype Check Image
           artifacts: true
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
       needs:
