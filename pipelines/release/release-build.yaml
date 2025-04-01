@@ -18,6 +18,7 @@ include:
   - "/pipelines/security/syft.yaml"
   - "/pipelines/security/grant.yaml"
   - "/pipelines/security/grype.yaml"
+  - "/pipelines/defectDojo/defect-dojo.yaml"
 
 stages:
   - .pre
@@ -26,4 +27,5 @@ stages:
   - build-image
   - upload
   - security-scan
+  - report-upload
   - .post
