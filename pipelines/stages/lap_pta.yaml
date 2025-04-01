@@ -27,8 +27,8 @@ variables:
     NO_PAGES:load_test_page
 upload-jmx-test-files:
   # extends: .Upload-Artifacts
-#  rules:
-#    - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
+  rules:
+    - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
   needs:
     - job: Deployment STAGE
       optional: true
