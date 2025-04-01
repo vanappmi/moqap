@@ -76,6 +76,20 @@ Grant Check Image:
         export MQP_ANCHOR_GRANT_CONFIG="artifacts/grant.yaml"
         export MQP_ANCHOR_GRANT_MERGE_CONFIGS="true"
       fi
+    - echo $IMAGE_UPDATE
+    - echo $DEPLOY_ENV
+    - |
+      if [ $IMAGE_UPDATE == "true" ] && [ $DEPLOY_ENV == "au" ];
+      then
+        PIPELINE_CREATED=$(echo "$CI_PIPELINE_CREATED_AT" | tr ':' '.')
+        export MQP_ANCHOR_TARGET="${AU_DOCKER_REPO}.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}-${PIPELINE_CREATED}"
+      fi
+      if [ $IMAGE_UPDATE == "true" ] && [ $DEPLOY_ENV == "prod" ];
+      then
+        PIPELINE_CREATED=$(echo "$CI_PIPELINE_CREATED_AT" | tr ':' '.')
+        export MQP_ANCHOR_TARGET="${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-${DEPLOY_ENV}-${CI_COMMIT_SHORT_SHA}-${PIPELINE_CREATED}"
+      fi
+    - echo $MQP_ANCHOR_TARGET
   artifacts:
     paths:
       - artifacts/*
@@ -90,16 +104,22 @@ Grant Check Repo:
       allow_failure: true
       needs:
         - job: Grant Get Whitelist
+          optional: true
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "GO"
       allow_failure: true
       needs:
         - job: Grant Get Whitelist
+          optional: true
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "au" || $DEPLOY_ENV == "lup" || $DEPLOY_ENV == "prod") && $IMAGE_UPDATE == "false"
+      needs:
+        - job: Grant Get Whitelist
+          optional: true
       when: manual
       allow_failure: true
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
       needs:
         - job: Grant Get Whitelist
+          optional: true
     - if: '$DEPLOY_ENV != "dev" && $DEPLOY_ENV  != "int"'
   variables:
     MQP_ANCHOR_TARGET: "$CI_PROJECT_DIR"
