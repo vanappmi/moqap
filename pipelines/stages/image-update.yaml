@@ -15,6 +15,7 @@ include:
   - "/pipelines/security/syft.yaml"
   - "/pipelines/security/grant.yaml"
   - "/pipelines/security/grype.yaml"
+  - "/pipelines/defectDojo/defect-dojo.yaml"
 
 .job_template: &job_template
   tags:
@@ -34,6 +35,7 @@ stages:
   - stage-artifacts
   - security-scan
   - argo-cd-deploy
+  - report-upload
   - .post
 
 Start Image Update Pipeline:
