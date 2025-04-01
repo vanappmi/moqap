@@ -33,7 +33,7 @@ upload-jmx-test-files:
       optional: true
     - job: Deployment BizHub
       optional: true
-  stage: dynamic-test
+  stage: load-testing
   <<: *job_template
   image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
   script:
@@ -63,7 +63,7 @@ load-with-filter:
     - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
   needs:
     - job: upload-jmx-test-files
-  stage: dynamic-test
+  stage: load-testing
   <<: *job_template
   variables:
     MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}-filter.jmx"
@@ -76,7 +76,7 @@ load-all:
   extends: .lap-test
   needs:
     - job: upload-jmx-test-files
-  stage: dynamic-test
+  stage: load-testing
   rules:
     - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
   when: manual
