@@ -25,6 +25,10 @@ Deployment STAGE:
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
       needs:
         - job: Trivy Check Image
+        - job: Grant Check Image
+        - job: Syft Check Image
+        - job: Grype Check Image
+          artifacts: true
   image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
   <<: *job_template
   dependencies:

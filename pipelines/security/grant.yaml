@@ -48,8 +48,20 @@ Grant Check Image:
   extends: .Grant
   stage: security-scan
   <<: *job_template
-  needs:
-    - job: Grant Get Whitelist
+  rules:
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "JAVA" && $IMAGE_UPDATE == "false"
+      allow_failure: true
+      needs:
+        - job: Grant Get Whitelist
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "GO"
+      allow_failure: true
+      needs:
+        - job: Grant Get Whitelist
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "au" || $DEPLOY_ENV == "lup" || $DEPLOY_ENV == "prod") && $IMAGE_UPDATE == "false"
+      when: manual
+      allow_failure: true
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
+    - if: '$DEPLOY_ENV != "dev" && $DEPLOY_ENV  != "int"'
   variables:
     MQP_ANCHOR_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
     SECRETS:
@@ -71,8 +83,20 @@ Grant Check Repo:
   extends: .Grant
   stage: security-scan
   <<: *job_template
-  needs:
-    - job: Grant Get Whitelist
+  rules:
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "JAVA" && $IMAGE_UPDATE == "false"
+      allow_failure: true
+      needs:
+        - job: Grant Get Whitelist
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "GO"
+      allow_failure: true
+      needs:
+        - job: Grant Get Whitelist
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "au" || $DEPLOY_ENV == "lup" || $DEPLOY_ENV == "prod") && $IMAGE_UPDATE == "false"
+      when: manual
+      allow_failure: true
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
+    - if: '$DEPLOY_ENV != "dev" && $DEPLOY_ENV  != "int"'
   variables:
     MQP_ANCHOR_TARGET: "$CI_PROJECT_DIR"
     MQP_ANCHOR_REPO_BRANCH: "$CI_COMMIT_BRANCH"
