@@ -18,7 +18,7 @@ stages:
   - argo-cd-deploy
   - bizhub-deploy
   - report-upload
-  - dynamic-test
+  - load-testing
   - .post
 
 Print Variables:

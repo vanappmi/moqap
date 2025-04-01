@@ -17,8 +17,7 @@ variables:
   SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
   TARGET_DOCKER_REPO: "cna-bbpneo-prod-docker-stage-local"
   ARTIFACT_NAME: $CI_PROJECT_NAME
-  BASE_SERVICE_URL: "${CI_PROJECT_NAME}-lup.bbpneo-iat.cnp-test.comp.db.de"
-  LAP_TEST_DISABLE: "false"
+  BASE_SVC_URL: "${CI_PROJECT_NAME}-lup.bbpneo-iat.cnp-test.comp.db.de"
   SECRETS:
     SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
     API_USER:${CI_PROJECT_NAME}_api_username,
@@ -27,21 +26,21 @@ variables:
     NO_PAGES:load_test_page
 upload-jmx-test-files:
   # extends: .Upload-Artifacts
-#  rules:
-#    - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
+  #rules:
+  #  - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
   needs:
     - job: Deployment STAGE
       optional: true
     - job: Deployment BizHub
       optional: true
-  stage: dynamic-test
+  stage: load-testing
   <<: *job_template
   image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
   script:
     - !reference [ .template secrets, script ]
     - |
-      echo "get jmx files from lap-test repository...$LAP_TEST_DISABLE"
-      echo "get jmx files from lap-test repository...$DEPLOY_ENV"
+      echo "get jmx files from lap-test repository...$NO_THREADS"
+      echo "get jmx files from lap-test repository...$NO_PAGES"
       echo "get jmx files from lap-test repository..."
       eval $(ssh-agent -s)
       ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
@@ -58,13 +57,13 @@ upload-jmx-test-files:
       - artifacts/*
   timeout: 24 hours
 
-load-with-filter:
+load-filter:
   extends: .lap-test
   rules:
     - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
   needs:
     - job: upload-jmx-test-files
-  stage: dynamic-test
+  stage: load-testing
   <<: *job_template
   variables:
     MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}-filter.jmx"
@@ -77,7 +76,7 @@ load-all:
   extends: .lap-test
   needs:
     - job: upload-jmx-test-files
-  stage: dynamic-test
+  stage: load-testing
   rules:
     - if: $LAP_TEST_DISABLE == "false" && $DEPLOY_ENV == "lup"
   when: manual

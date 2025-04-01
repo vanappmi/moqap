@@ -286,7 +286,7 @@ LUP-Umgebung:
         TARGET_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-lup-${CI_COMMIT_SHORT_SHA}"
         ARTIFACT_NAME: ${CI_PROJECT_NAME}
         CI_REGISTRY: "${LUP_DOCKER_REPO}.bahnhub.tech.rz.db.de"
-        LAP_TEST_DISABLE: "${LUP_LAP_TEST_DISABLE}"
+        LAP_TEST_DISABLE: "false"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
