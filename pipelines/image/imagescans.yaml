@@ -90,16 +90,19 @@ Scan gitlab-runner:alpine3.19-bleeding:
         file: "pipelines/security/security-scan-suite.yaml"
     strategy: depend
 
-#Scan sonarqube:10.0.0-community:
-#  stage: security-scan
-#  variables:
-#    MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/library/sonarqube:10.0.0-community"
-#  trigger:
-#    include:
-#      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
-#        ref: "$CURRENT_VERSION" # branch
-#        file: "pipelines/trivy/trivy-scanimage.yaml"
-#    strategy: depend
+Scan sonarqube:10.0.0-community:
+  stage: security-scan
+  variables:
+    SCAN_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/library/sonarqube:10.0.0-community"
+    MQP_TRIVY_TARGET: $SCAN_TARGET
+    MQP_ANCHOR_TARGET: $SCAN_TARGET
+    MQP_DEFDOJ_PRODUCT_NAME: "sonarqube:10.0.0-community"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/security/security-scan-suite.yaml"
+    strategy: depend
 
 Scan postgres-image:postgres-17:
   variables:
