@@ -8,6 +8,7 @@ include:
       - "/anchore/grant/grant.yml"
       - "/anchore/grype/grype.yml"
       - "/defectdojo/defectdojo.yml"
+  - "/pipelines/templates/bbpneo_templates.yml"
 
 .job_template: &job_template
   tags:
