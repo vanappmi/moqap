@@ -2,15 +2,12 @@
 include:
   - project: "moqap/modules"
     ref: "11.4.0"
-    file: "/trivy/trivy.yml"
-
-  - "/pipelines/templates/moqap_templates.yml"
-  - "/pipelines/templates/bbpneo_templates.yml"
-  - "/pipelines/trivy/trivy-scanimage.yaml"
-  - "/pipelines/security/syft.yaml"
-  - "/pipelines/security/grant.yaml"
-  - "/pipelines/security/grype.yaml"
-  - "/pipelines/defectDojo/defect-dojo.yaml"
+    file:
+      - "/trivy/trivy.yml"
+      - "/anchore/syft/syft.yml"
+      - "/anchore/grant/grant.yml"
+      - "/anchore/grype/grype.yml"
+      - "/defectdojo/defectdojo.yml"
 
 .job_template: &job_template
   tags:
