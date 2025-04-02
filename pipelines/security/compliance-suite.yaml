@@ -1,0 +1,68 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "11.4.0"
+    file: "/developer-portal/compliance-suite.yml"
+  - "/pipelines/templates/moqap_templates.yml"
+  - "/pipelines/templates/bbpneo_templates.yml"
+
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+Grant Get Whitelist:
+  stage: security-scan
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  <<: *job_template
+  rules:
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "JAVA" && $IMAGE_UPDATE == "false"
+      allow_failure: true
+      needs:
+        - job: Build Image STAGE
+          optional: true
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "GO"
+      allow_failure: true
+      needs:
+        - job: Build Go Image
+          optional: true
+    - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "au" || $DEPLOY_ENV == "lup" || $DEPLOY_ENV == "prod") && $IMAGE_UPDATE == "false"
+      when: manual
+      allow_failure: true
+    - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
+    - if: '$DEPLOY_ENV != "dev" && $DEPLOY_ENV  != "int"'
+  variables:
+    SECRETS:
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY
+  script:
+    - !reference [ .template secrets, script ]
+    - !reference [ .template grant, script ]
+    - ls -al
+    - mkdir -p artifacts
+    - cd artifacts
+    - cp ../../moqap/pipelines/security/config/grant.yaml .
+  artifacts:
+    paths:
+      - artifacts/*
+
+Compliance Suite:
+  extends: .GRS
+  stage: security-scan
+  <<: *job_template
+  needs:
+    - job: Grant Get Whitelist
+  variables:
+    MQP_ANCHOR_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
+    SECRETS:
+      MQP_ANCHOR_USERNAME:RUNNER_ARTIFACTORY_USER,
+      MQP_ANCHOR_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  before_script:
+    - |
+      if [ -e artifacts/grant.yaml ];
+      then
+        export MQP_ANCHOR_GRANT_CONFIG="artifacts/grant.yaml"
+        export MQP_ANCHOR_GRANT_MERGE_CONFIGS="true"
+      fi
+  artifacts:
+    paths:
+      - artifacts/*
+  allow_failure: true
