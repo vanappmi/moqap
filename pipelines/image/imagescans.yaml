@@ -18,24 +18,12 @@ Scan basis-pipeline-image:version-3-full-scan:
     SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3"
     MQP_TRIVY_TARGET: $SCAN_TARGET
     MQP_ANCHOR_TARGET: $SCAN_TARGET
+    MQP_DEFDOJ_PRODUCT_NAME: "basis-pipeline-image:version-3"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
         ref: "$CURRENT_VERSION" # branch
         file: "pipelines/security/security-scan-suite.yaml"
-    strategy: depend
-
-
-
-Scan basis-pipeline-image:version-3:
-#  stage: security-scan
-  variables:
-    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3"
-  trigger:
-    include:
-      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
-        ref: "$CURRENT_VERSION" # branch
-        file: "pipelines/trivy/trivy-scanimage.yaml"
     strategy: depend
 
 Scan basis-deployment-image:java-21:
