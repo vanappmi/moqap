@@ -12,15 +12,17 @@ variables:
   TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
   ARTIFACT_NAME: $CI_PROJECT_NAME
 
-Scan basis-pipeline-image:version-3_GRS:
+Scan basis-pipeline-image:version-3-full-scan:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3"
+    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3"
+    MQP_TRIVY_TARGET: $SCAN_TARGET
+    MQP_ANCHOR_TARGET: $SCAN_TARGET
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
         ref: "$CURRENT_VERSION" # branch
-        file: "pipelines/security/compliance-suite.yaml"
+        file: "pipelines/security/security-scan-suite.yaml"
     strategy: depend
 
 

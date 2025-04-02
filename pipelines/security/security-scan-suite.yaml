@@ -1,0 +1,19 @@
+---
+include:
+  - "/pipelines/templates/moqap_templates.yml"
+  - "/pipelines/templates/bbpneo_templates.yml"
+  - "/pipelines/trivy/trivy.yaml"
+  - "/pipelines/security/syft.yaml"
+  - "/pipelines/security/grant.yaml"
+  - "/pipelines/security/grype.yaml"
+  - "/pipelines/defectDojo/defect-dojo.yaml"
+
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+stages:
+  - .pre
+  - security-scan
+  - report-upload
+  - .post
