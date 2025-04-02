@@ -91,7 +91,6 @@ Scan gitlab-runner:alpine3.19-bleeding:
     strategy: depend
 
 Scan sonarqube:10.0.0-community:
-  stage: security-scan
   variables:
     SCAN_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/library/sonarqube:10.0.0-community"
     MQP_TRIVY_TARGET: $SCAN_TARGET
