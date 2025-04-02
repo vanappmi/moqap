@@ -12,7 +12,7 @@ variables:
   TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
   ARTIFACT_NAME: $CI_PROJECT_NAME
 
-Scan basis-pipeline-image:version-3-full-scan:
+Scan basis-pipeline-image:version-3:
 #  stage: security-scan
   variables:
     SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3"
@@ -29,12 +29,15 @@ Scan basis-pipeline-image:version-3-full-scan:
 Scan basis-deployment-image:java-21:
 #  stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21"
+    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21"
+    MQP_TRIVY_TARGET: $SCAN_TARGET
+    MQP_ANCHOR_TARGET: $SCAN_TARGET
+    MQP_DEFDOJ_PRODUCT_NAME: "basis-deployment-image:java-21"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
         ref: "$CURRENT_VERSION" # branch
-        file: "pipelines/trivy/trivy-scanimage.yaml"
+        file: "pipelines/security/security-scan-suite.yaml"
     strategy: depend
 
 Scan amazoncorretto:19-alpine:
