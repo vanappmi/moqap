@@ -13,7 +13,7 @@ variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
 
 Scan basis-pipeline-image:version-3-full-scan:
-  stage: security-scan
+#  stage: security-scan
   variables:
     SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3"
     MQP_TRIVY_TARGET: $SCAN_TARGET
@@ -28,7 +28,7 @@ Scan basis-pipeline-image:version-3-full-scan:
 
 
 Scan basis-pipeline-image:version-3:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3"
   trigger:
@@ -39,7 +39,7 @@ Scan basis-pipeline-image:version-3:
     strategy: depend
 
 Scan basis-deployment-image:java-21:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21"
   trigger:
@@ -50,7 +50,7 @@ Scan basis-deployment-image:java-21:
     strategy: depend
 
 Scan amazoncorretto:19-alpine:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:19-alpine"
   trigger:
@@ -61,7 +61,7 @@ Scan amazoncorretto:19-alpine:
     strategy: depend
 
 Scan amazoncorretto:21-alpine:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazoncorretto:21-alpine"
   trigger:
@@ -72,7 +72,7 @@ Scan amazoncorretto:21-alpine:
     strategy: depend
 
 Scan aws-cli:latest:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/amazon/aws-cli:latest"
   trigger:
@@ -83,7 +83,7 @@ Scan aws-cli:latest:
     strategy: depend
 
 Scan gitlab-runner-helper:x86_64-bleeding:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "gitlab-docker-remote.bahnhub.tech.rz.db.de/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-bleeding"
   trigger:
@@ -94,7 +94,7 @@ Scan gitlab-runner-helper:x86_64-bleeding:
     strategy: depend
 
 Scan gitlab-runner:alpine3.19-bleeding:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/gitlab/gitlab-runner:alpine3.19-bleeding"
   trigger:
@@ -116,7 +116,7 @@ Scan gitlab-runner:alpine3.19-bleeding:
 #    strategy: depend
 
 Scan postgres-image:postgres-17:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/postgres-image:postgres-17"
   trigger:
@@ -127,7 +127,7 @@ Scan postgres-image:postgres-17:
     strategy: depend
 
 Scan renovate/renovate:39.169:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/renovate/renovate:39.169"
   trigger:
@@ -138,7 +138,7 @@ Scan renovate/renovate:39.169:
     strategy: depend
 
 Scan blackbox-exporter:v0.26.0:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/prom/blackbox-exporter:v0.26.0"
   trigger:
@@ -160,7 +160,7 @@ Scan blackbox-exporter:v0.26.0:
 #    strategy: depend
 
 Scan postgres-exporter:v0.17.1:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/prometheuscommunity/postgres-exporter:v0.17.1"
   trigger:
@@ -193,7 +193,7 @@ Scan postgres-exporter:v0.17.1:
 #    strategy: depend
 
 Scan pushgateway:pushgateway-1.10.0:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/pushgateway:pushgateway-1.10.0"
   trigger:
@@ -204,7 +204,7 @@ Scan pushgateway:pushgateway-1.10.0:
     strategy: depend
 
 Scan golang:golang-1.24.0:
-  stage: security-scan
+#  stage: security-scan
   variables:
     MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/golang:golang-1.24.0"
   trigger:
