@@ -1,8 +1,12 @@
 ---
 include:
+  - project: "moqap/modules"
+    ref: "11.4.0"
+    file: "/trivy/trivy.yml"
+
   - "/pipelines/templates/moqap_templates.yml"
   - "/pipelines/templates/bbpneo_templates.yml"
-  - "/pipelines/trivy/trivy.yaml"
+  - "/pipelines/trivy/trivy-scanimage.yaml"
   - "/pipelines/security/syft.yaml"
   - "/pipelines/security/grant.yaml"
   - "/pipelines/security/grype.yaml"
@@ -17,3 +21,110 @@ stages:
   - security-scan
   - report-upload
   - .post
+
+Trivy Check Image:
+  extends: .Trivy Scan
+  stage: security-scan
+  <<: *job_template
+  variables:
+    MQP_TRIVY_ADD_CMD: "--no-progress --timeout 30m --offline-scan --debug --scanners vuln"
+    MQP_TRIVY_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
+    MQP_TRIVY_COMPLIANCE_SCAN: false
+    MQP_TRIVY_EXIT_CODE_HIGH: 2
+    TRIVY_EXIT_CODE_HIGH: 2
+    SECRETS:
+      TRIVY_USERNAME:RUNNER_ARTIFACTORY_USER,
+      TRIVY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  artifacts:
+    paths:
+      - artifacts/*
+  allow_failure:
+    exit_codes: # User defined exit code
+      - 2
+
+Grant Get Whitelist:
+  stage: security-scan
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  <<: *job_template
+  variables:
+    SECRETS:
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY
+  script:
+    - !reference [ .template secrets, script ]
+    - !reference [ .template grant, script ]
+    - ls -al
+    - mkdir -p artifacts
+    - cd artifacts
+    - cp ../../moqap/pipelines/security/config/grant.yaml .
+  artifacts:
+    paths:
+      - artifacts/*
+
+Grant Check Image:
+  extends: .Grant
+  stage: security-scan
+  <<: *job_template
+  needs:
+    - job: Grant Get Whitelist
+  variables:
+    MQP_ANCHOR_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
+    SECRETS:
+      MQP_ANCHOR_USERNAME:RUNNER_ARTIFACTORY_USER,
+      MQP_ANCHOR_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  before_script:
+    - |
+      if [ -e artifacts/grant.yaml ];
+      then
+        export MQP_ANCHOR_GRANT_CONFIG="artifacts/grant.yaml"
+        export MQP_ANCHOR_GRANT_MERGE_CONFIGS="true"
+      fi
+  artifacts:
+    paths:
+      - artifacts/*
+  allow_failure: true
+
+Syft Check Image:
+  extends: .Syft
+  stage: security-scan
+  <<: *job_template
+  variables:
+    MQP_ANCHOR_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
+    MQP_ANCHOR_SYFT_SBOM_FORMAT: "syft-table"
+    SECRETS:
+      MQP_ANCHOR_USERNAME:RUNNER_ARTIFACTORY_USER,
+      MQP_ANCHOR_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  artifacts:
+    paths:
+      - artifacts/*
+  allow_failure: true
+
+Grype Check Image:
+  extends: .Grype
+  stage: security-scan
+  <<: *job_template
+  variables:
+    MQP_ANCHOR_TARGET: "$CI_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME-$DEPLOY_ENV-$CI_COMMIT_SHORT_SHA"
+    SECRETS:
+      MQP_ANCHOR_USERNAME:RUNNER_ARTIFACTORY_USER,
+      MQP_ANCHOR_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
+  artifacts:
+    paths:
+      - artifacts/*
+  allow_failure: true
+
+DefectDojo:
+  stage: report-upload
+  extends: .Defectdojo
+  <<: *job_template
+  needs:
+    - job: Trivy Check Image
+    - job: Grant Check Image
+    - job: Syft Check Image
+    - job: Grype Check Image
+  variables:
+    MQP_DEFDOJ_MIN_SEVERITY_TO_REPORT: "Info"
+    MQP_DEFDOJ_TIMEZONE: "Europe/Berlin"
+    MQP_DEFDOJ_PRODUCT_NAME: $CI_PROJECT_NAME
+    SECRETS:
+      MQP_DEFDOJ_SERVER_URL:RUNNER_DEFDOJ_SERVER_URL,
+      MQP_DEFDOJ_API_KEY:RUNNER_DEFDOJ_API_KEY
