@@ -72,7 +72,7 @@ load-filter:
   artifacts:
     paths:
       - artifacts/*
-  timeout: 4 hours
+  timeout: 24 hours
 
 load-all:
   extends: .lap-test
