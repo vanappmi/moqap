@@ -62,7 +62,8 @@ load-filter:
   stage: load-testing
   <<: *job_template
   variables:
-    MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}-filter.jmx"
+    MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}-filter.jmx",
+    BASE_SVC_URL: "${CI_PROJECT_NAME}-lup.bbpneo-iat.cnp-test.comp.db.de"
     SECRETS:
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
       API_USER:${CI_PROJECT_NAME}_api_username,
