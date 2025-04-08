@@ -23,6 +23,11 @@ Trivy Check Image:
       needs:
         - job: Build Go Image
           optional: true
+    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "dev" && $BUILD == "PYTHON"
+      allow_failure: true
+      needs:
+        - job: Build Image STAGE
+          optional: true
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "au" || $DEPLOY_ENV == "lup" || $DEPLOY_ENV == "prod") && $IMAGE_UPDATE == "false"
       when: manual
       allow_failure: true
@@ -72,6 +77,11 @@ Trivy Check Repo:
       allow_failure: true
       needs:
         - job: Build Go Image
+          optional: true
+    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "dev" && $BUILD == "PYTHON"
+      allow_failure: true
+      needs:
+        - job: Build Image STAGE
           optional: true
   variables:
     MQP_TRIVY_ADD_CMD: "--debug"
