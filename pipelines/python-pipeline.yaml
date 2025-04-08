@@ -6,7 +6,7 @@ include:
       - "/eks/kaniko/kaniko.yml"
       - "/trivy/trivy.yml"
   - "/pipelines/settings.yaml"
-  - "/pipelines/stages/build-image.yaml"
+  - "/pipelines/stages/build-python-image.yaml"
   - "/pipelines/stages/stage-artifacts.yaml"
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/security/syft.yaml"
