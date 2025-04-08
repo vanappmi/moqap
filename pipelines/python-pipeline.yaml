@@ -1,0 +1,35 @@
+---
+include:
+  - project: "moqap/modules"
+    ref: "11.4.0"
+    file:
+      - "/eks/kaniko/kaniko.yml"
+      - "/trivy/trivy.yml"
+  - "/pipelines/settings.yaml"
+  - "/pipelines/stages/build-image.yaml"
+  - "/pipelines/stages/stage-artifacts.yaml"
+  - "/pipelines/trivy/trivy.yaml"
+  - "/pipelines/security/syft.yaml"
+  - "/pipelines/security/grant.yaml"
+  - "/pipelines/security/grype.yaml"
+  - "/pipelines/defectDojo/defect-dojo.yaml"
+
+variables:
+  BUILD: "GO"
+  PROJECT_RUNNER_TAG: "eks-entwicklung"
+  DEPLOY_ENV: "dev"
+  ARTIFACT_NAME: $CI_PROJECT_NAME
+  SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
+  TARGET_DOCKER_REPO: ${AU_DOCKER_REPO}
+  SOURCE_IMAGE_TAG: "$CI_COMMIT_REF_NAME-dev-$CI_COMMIT_SHORT_SHA"
+  TARGET_IMAGE_TAG: "$imageVersion"
+  BUILD_CMD: ""
+  IS_UPDATE: false
+
+stages:
+  - .pre
+  - build-image
+  - security-scan
+  - stage-artifacts
+  - report-upload
+  - .post
