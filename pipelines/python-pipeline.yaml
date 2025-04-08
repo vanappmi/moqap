@@ -15,7 +15,7 @@ include:
   - "/pipelines/defectDojo/defect-dojo.yaml"
 
 variables:
-  BUILD: "GO"
+  BUILD: "PYTHON"
   PROJECT_RUNNER_TAG: "eks-entwicklung"
   DEPLOY_ENV: "dev"
   ARTIFACT_NAME: $CI_PROJECT_NAME
