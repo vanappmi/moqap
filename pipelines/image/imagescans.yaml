@@ -213,3 +213,16 @@ Scan golang:golang-1.24.0:
         ref: "$CURRENT_VERSION" # branch
         file: "pipelines/security/security-scan-suite.yaml"
     strategy: depend
+
+Scan python-image:Python-3.12.9:
+  variables:
+    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/python-image:Python-3.12.9"
+    MQP_TRIVY_TARGET: $SCAN_TARGET
+    MQP_ANCHOR_TARGET: $SCAN_TARGET
+    MQP_DEFDOJ_PRODUCT_NAME: "python-image:Python-3.12.9"
+  trigger:
+    include:
+      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
+        ref: "$CURRENT_VERSION" # branch
+        file: "pipelines/security/security-scan-suite.yaml"
+    strategy: depend
