@@ -7,7 +7,7 @@ include:
       - "/trivy/trivy.yml"
   - "/pipelines/settings.yaml"
   - "/pipelines/stages/build-python-image.yaml"
-  - "/pipelines/stages/stage-artifacts.yaml"
+  - "/pipelines/stages/deployment.yaml"
   - "/pipelines/trivy/trivy.yaml"
   - "/pipelines/security/syft.yaml"
   - "/pipelines/security/grant.yaml"
@@ -16,20 +16,15 @@ include:
 
 variables:
   BUILD: "PYTHON"
-  PROJECT_RUNNER_TAG: "eks-entwicklung"
-  DEPLOY_ENV: "dev"
-  ARTIFACT_NAME: $CI_PROJECT_NAME
-  SOURCE_DOCKER_REPO: ${DEV_DOCKER_REPO}
-  TARGET_DOCKER_REPO: ${AU_DOCKER_REPO}
-  SOURCE_IMAGE_TAG: "$CI_COMMIT_REF_NAME-dev-$CI_COMMIT_SHORT_SHA"
-  TARGET_IMAGE_TAG: "$imageVersion"
-  BUILD_CMD: ""
-  IS_UPDATE: false
+  PROJECT_RUNNER_TAG: "eks-abnahme"
+  DEPLOY_ENV: "au"
+  STAGE_ENV: "au"
+  KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-au-$CI_COMMIT_SHORT_SHA"
 
 stages:
   - .pre
   - build-image
   - security-scan
-  - stage-artifacts
+  - argo-cd-deploy
   - report-upload
   - .post
