@@ -116,12 +116,12 @@ Scan postgres-image:postgres-17:
         file: "pipelines/security/security-scan-suite.yaml"
     strategy: depend
 
-Scan renovate/renovate:39.169:
+Scan renovate/renovate:39.236:
   variables:
-    SCAN_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/renovate/renovate:39.169"
+    SCAN_TARGET: "docker-hub-remote.bahnhub.tech.rz.db.de/renovate/renovate:39.236"
     MQP_TRIVY_TARGET: $SCAN_TARGET
     MQP_ANCHOR_TARGET: $SCAN_TARGET
-    MQP_DEFDOJ_PRODUCT_NAME: "renovate:39.169"
+    MQP_DEFDOJ_PRODUCT_NAME: "renovate:39.236"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
