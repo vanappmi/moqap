@@ -21,6 +21,7 @@ variables:
   STAGE_ENV: "au"
   KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-au-$CI_COMMIT_SHORT_SHA"
   CI_REGISTRY: "${AU_DOCKER_REPO}.bahnhub.tech.rz.db.de"
+  IMAGE_UPDATE: "false"
 
 stages:
   - .pre
