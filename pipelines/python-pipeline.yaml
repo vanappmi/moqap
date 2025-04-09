@@ -22,6 +22,7 @@ variables:
   KANIKO_IMAGE_TAG: "${CI_COMMIT_REF_NAME}-au-$CI_COMMIT_SHORT_SHA"
   CI_REGISTRY: "${AU_DOCKER_REPO}.bahnhub.tech.rz.db.de"
   IMAGE_UPDATE: "false"
+  IS_PYTHONJOB: "true"
 
 stages:
   - .pre
@@ -44,3 +45,4 @@ Print Variables:
     - echo $NAMESPACE
     - echo $CI_COMMIT_BRANCH
     - echo $IMAGE_UPDATE
+    - echo $IS_PYTHONJOB

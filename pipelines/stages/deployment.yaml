@@ -171,7 +171,7 @@ Deployment STAGE:
         echo "SERVICE_URL is empty"
         export SERVICE_URL="https://${CI_PROJECT_NAME}-${DEPLOY_ENV}.bbpneo-${DEPLOY_ENV}.svc.cluster.local:443/actuator/info"
       fi
-      if [ $IS_CRONJOB != "true" ];
+      if [ $IS_CRONJOB != "true" && $IS_PYTHONJOB != "true" ];
       then
         echo "SERVICE_URL=$SERVICE_URL"
         GIT_COMMIT_ID_ABBREV=$(curl -Ss --insecure $SERVICE_URL | jq -R 'fromjson? | .git.commit.id.abbrev'  | tr -d \")

@@ -55,6 +55,8 @@ variables:
   CI_REGRESSIONS_TESTS: "false"
   # CRONJOB
   IS_CRONJOB: "false"
+  # Python
+  IS_PYTHONJOB: "false"
   # SECRETS SCAN
   GITLEAKS_START_COMMIT: ""
   # Secretpath
