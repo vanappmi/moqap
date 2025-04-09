@@ -29,3 +29,17 @@ stages:
   - argo-cd-deploy
   - report-upload
   - .post
+
+Print Variables:
+  stage: build-image
+  tags:
+    - $PROJECT_RUNNER_TAG
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  script:
+    - echo $DEPLOY_ENV
+    - echo $STAGE_ENV
+    - echo $PROJECT_RUNNER_TAG
+    - echo $KANIKO_IMAGE_TAG
+    - echo $NAMESPACE
+    - echo $CI_COMMIT_BRANCH
+    - echo $IMAGE_UPDATE
