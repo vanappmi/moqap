@@ -25,7 +25,7 @@ Grant Get Whitelist:
       needs:
         - job: Build Go Image
           optional: true
-    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "dev" && $BUILD == "PYTHON"
+    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "au" && $BUILD == "PYTHON"
       allow_failure: true
       needs:
         - job: Build Image STAGE
@@ -62,7 +62,7 @@ Grant Check Image:
       allow_failure: true
       needs:
         - job: Grant Get Whitelist
-    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "dev" && $BUILD == "PYTHON"
+    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "au" && $BUILD == "PYTHON"
       allow_failure: true
       needs:
         - job: Grant Get Whitelist
@@ -120,7 +120,7 @@ Grant Check Repo:
       needs:
         - job: Grant Get Whitelist
           optional: true
-    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "dev" && $BUILD == "PYTHON"
+    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "au" && $BUILD == "PYTHON"
       allow_failure: true
       needs:
         - job: Grant Get Whitelist
