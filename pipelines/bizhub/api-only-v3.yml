@@ -1,6 +1,6 @@
 include:
   - project: "bizhub/pipeline/products/bizhub-connect-v3-api-only"
-    ref: "6.4"
+    ref: "6.12"
     file: "product-bizhub-connect-v3-api-only.yaml"
 
 variables:
