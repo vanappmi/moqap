@@ -9,7 +9,7 @@ Build Go:
   image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/golang:golang-1.24.0
   script:
     - export PATH=$PATH:/usr/local/go/bin
-    - export GOPATH=$HOME/go
+    - export GOPATH=/usr/local/go
     - echo $PATH
     - echo $GOPATH
     - go version
@@ -28,6 +28,7 @@ Build Go:
     - echo $BUILD_CMD
     #- GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
     - make install
+    - ls -al /bin
     #- ls -al $GOPATH/bin
     #- cp $GOPATH/bin/* artifacts
   artifacts:
