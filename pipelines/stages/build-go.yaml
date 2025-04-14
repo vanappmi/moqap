@@ -29,7 +29,7 @@ Build Go:
     - mkdir -p artifacts
     - echo $BUILD_CMD
     #- GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
-    - CGO_ENABLED=1 make origin-build
+    - CGO_ENABLED=1 make install functional-tests
     - ls -al /tmp/bin
     - cp /tmp/bin/* artifacts
   artifacts:
