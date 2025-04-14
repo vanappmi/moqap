@@ -29,7 +29,7 @@ Build Go:
     - echo $BUILD_CMD
     #- GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
     - make install
-    - ls -al /tmp
+    - ls -al /tmp/bin
     #- ls -al $GOPATH/bin
     #- cp $GOPATH/bin/* artifacts
   artifacts:
