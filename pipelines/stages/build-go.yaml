@@ -30,8 +30,7 @@ Build Go:
     #- GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
     - make install
     - ls -al /tmp/bin
-    #- ls -al $GOPATH/bin
-    #- cp $GOPATH/bin/* artifacts
+    - cp /tmp/bin/* artifacts
   artifacts:
     paths:
       - artifacts/*
