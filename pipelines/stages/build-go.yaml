@@ -25,7 +25,7 @@ Build Go:
     - mkdir -p build
     - echo $BUILD_CMD
     #- GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
-    - go build -o artifacts/sops
+    - go install -o artifacts/sops
   artifacts:
     paths:
       - artifacts/*
