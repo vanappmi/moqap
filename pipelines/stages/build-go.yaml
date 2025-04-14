@@ -24,7 +24,8 @@ Build Go:
     - echo "build executable"
     - mkdir -p build
     - echo $BUILD_CMD
-    - GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
+    #- GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
+    - make install
   artifacts:
     paths:
       - artifacts/*
