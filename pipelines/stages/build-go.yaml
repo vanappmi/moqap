@@ -26,7 +26,8 @@ Build Go:
     - echo $BUILD_CMD
     #- GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
     - make install
-    - cp /root/go/bin/* artifacts
+    - ls -al $GOPATH/bin
+    - cp $GOPATH/bin/* artifacts
   artifacts:
     paths:
       - artifacts/*
