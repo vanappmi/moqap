@@ -30,4 +30,3 @@ Build Go:
   artifacts:
     paths:
       - artifacts/*
-      - bin/*
