@@ -10,6 +10,7 @@ Build Go:
   script:
     - export PATH=$PATH:/usr/local/go/bin
     - echo $PATH
+    - echo $GOPATH
     - go version
     - echo "Clean cache"
     - go clean -cache
@@ -26,8 +27,8 @@ Build Go:
     - echo $BUILD_CMD
     #- GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
     - make install
-    - ls -al $GOPATH/bin
-    - cp $GOPATH/bin/* artifacts
+    #- ls -al $GOPATH/bin
+    #- cp $GOPATH/bin/* artifacts
   artifacts:
     paths:
       - artifacts/*
