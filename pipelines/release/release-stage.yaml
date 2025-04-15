@@ -49,3 +49,4 @@ Print Variables:
     - echo $TARGET_IMAGE_TAG
     - echo $ARTIFACT_NAME
     - echo $CI_REGISTRY
+    - echo $IS_PYTHONJOB

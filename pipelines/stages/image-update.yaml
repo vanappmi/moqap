@@ -201,3 +201,4 @@ Print Variables:
     - echo $IS_CRONJOB
     - echo $IS_COMMONLIB
     - echo $DEPLOY_TEMPLATE
+    - echo $IS_PYTHONJOB
