@@ -10,6 +10,10 @@ include:
   - "/pipelines/stages/build-go-image.yaml"
   - "/pipelines/stages/stage-artifacts.yaml"
   - "/pipelines/trivy/trivy.yaml"
+  - "/pipelines/security/syft.yaml"
+  - "/pipelines/security/grant.yaml"
+  - "/pipelines/security/grype.yaml"
+  - "/pipelines/defectDojo/defect-dojo.yaml"
 
 variables:
   BUILD: "GO"
@@ -29,6 +33,7 @@ stages:
   - build-go-image
   - security-scan
   - stage-artifacts
+  - report-upload
   - .post
 
 Print Variables:
