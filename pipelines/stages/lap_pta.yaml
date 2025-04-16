@@ -18,6 +18,7 @@ variables:
   TARGET_DOCKER_REPO: "cna-bbpneo-prod-docker-stage-local"
   ARTIFACT_NAME: $CI_PROJECT_NAME
   BASE_SVC_URL: "${CI_PROJECT_NAME}-lup.bbpneo-iat.cnp-test.comp.db.de"
+  BIZHUB_URL: "apis-test.hub.db.de"
 
 upload-jmx-test-files:
   # extends: .Upload-Artifacts
@@ -46,8 +47,13 @@ upload-jmx-test-files:
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
       API_USER:${CI_PROJECT_NAME}_api_username,
       API_PASSWORD:${CI_PROJECT_NAME}_api_password,
-      NO_THREADS:load_test_thread,
-      NO_PAGES:load_test_page
+      API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
+      CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
+      API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
+      NO_THREADS:lup_thread,
+      NO_PAGES:lup_page,
+      BIZHUB_ACTIVE:lup_bizhub_active
+
   artifacts:
     paths:
       - artifacts/*
@@ -67,8 +73,12 @@ load-filter:
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
       API_USER:${CI_PROJECT_NAME}_api_username,
       API_PASSWORD:${CI_PROJECT_NAME}_api_password,
-      NO_THREADS:load_test_thread,
-      NO_PAGES:load_test_page
+      API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
+      CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
+      API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
+      NO_THREADS:lup_thread,
+      NO_PAGES:lup_page,
+      BIZHUB_ACTIVE:lup_bizhub_active
   artifacts:
     paths:
       - artifacts/*
@@ -89,8 +99,12 @@ load-all:
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
       API_USER:${CI_PROJECT_NAME}_api_username,
       API_PASSWORD:${CI_PROJECT_NAME}_api_password,
-      NO_THREADS:load_test_thread,
-      NO_PAGES:load_test_page
+      API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
+      CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
+      API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
+      NO_THREADS:lup_thread,
+      NO_PAGES:lup_page,
+      BIZHUB_ACTIVE:lup_bizhub_active
   artifacts:
     paths:
       - artifacts/*
