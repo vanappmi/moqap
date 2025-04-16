@@ -53,7 +53,6 @@
       then
          export MQP_JMETER_CMMD_VAR="-JbaseURL=${BIZHUB_URL} -JapiPath=${API_PATH}  -JclientID=${CLIENT_ID}  -JapiKey=${API_KEY}  -JnoThreads=${NO_THREADS} -JmaxPage=${NO_PAGES} --forceDeleteResultFile"
       fi
-      echo "MQP_JMETER_CMMD_VAR = ${MQP_JMETER_CMMD_VAR}"
       mkdir -p ./artifacts/
       sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $MQP_JMETER_TESTCASE_PATH
       sed -i -e "s/REPLACE_ELASTIC_HOST/$ES_HOST/g" $MQP_JMETER_TESTCASE_PATH
