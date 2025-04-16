@@ -28,10 +28,15 @@ Build Go:
     - mkdir -p build
     - mkdir -p artifacts
     - echo $BUILD_CMD
-    #- GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
-    - make install
-    - ls -al /tmp/bin
-    - cp /tmp/bin/* artifacts
+    - |
+      if [ $IS_SOPSJOB == "true" ];
+      then
+        make install
+        ls -al /tmp/bin
+        cp /tmp/bin/* artifacts
+      else
+        GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
+      fi
   artifacts:
     paths:
       - artifacts/*

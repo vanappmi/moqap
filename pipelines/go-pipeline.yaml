@@ -30,3 +30,23 @@ stages:
   - security-scan
   - stage-artifacts
   - .post
+
+Print Variables:
+  stage: build-go
+  tags:
+    - $PROJECT_RUNNER_TAG
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  script:
+    - echo $DEPLOY_ENV
+    - echo $STAGE_ENV
+    - echo $PROJECT_RUNNER_TAG
+    - echo $KANIKO_IMAGE_TAG
+    - echo $SOURCE_IMAGE_TAG
+    - echo $TARGET_IMAGE_TAG
+    - echo $NAMESPACE
+    - echo $IS_CRONJOB
+    - echo $IS_COMMONLIB
+    - echo $IS_PYTHONJOB
+    - echo $IS_SOPSJOB
+    - echo $BUILD_CMD
+    - echo $IS_UPDATE

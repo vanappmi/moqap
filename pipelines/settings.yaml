@@ -57,6 +57,8 @@ variables:
   IS_CRONJOB: "false"
   # Python
   IS_PYTHONJOB: "false"
+  # SOPS
+  IS_SOPSJOB: "false"
   # SECRETS SCAN
   GITLEAKS_START_COMMIT: ""
   # Secretpath

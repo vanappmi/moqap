@@ -3,8 +3,7 @@ include:
   - "/pipelines/settings.yaml"
 
 variables:
-  # PROJECT_RUNNER_TAG: "eks-entwicklung"
-  PROJECT_RUNNER_TAG: "spot-entwicklung"
+  PROJECT_RUNNER_TAG: "eks-entwicklung"
   DEPLOY_ENV: "dev"
   CI_REGISTRY: "${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de"
   KANIKO_IMAGE_TAG: $CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
