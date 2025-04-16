@@ -48,9 +48,9 @@
       
       export MQP_JMETER_CMMD_VAR="-JbaseURL=${BASE_SVC_URL} -JapiUsername=${API_USER} -JapiPasswort=${API_PASSWORD} -JnoThreads=${NO_THREADS} -JmaxPage=${NO_PAGES} --forceDeleteResultFile"
       
-      if [ $BIZHUB_ACTIVE=='true' ];
+      if [ $BIZHUB_ACTIVE == 'true' ];
       then
-         export MQP_JMETER_CMMD_VAR="-JbaseURL=${BIZHUB_URL} -JapiPath=${API_PATH}  -JclientID==${CLIENT_ID}  -JapiKey==${API_KEY}  -JnoThreads=${NO_THREADS} -JmaxPage=${NO_PAGES} --forceDeleteResultFile"
+         export MQP_JMETER_CMMD_VAR="-JbaseURL=${BIZHUB_URL} -JapiPath=${API_PATH}  -JclientID=${CLIENT_ID}  -JapiKey=${API_KEY}  -JnoThreads=${NO_THREADS} -JmaxPage=${NO_PAGES} --forceDeleteResultFile"
       fi
       mkdir -p ./artifacts/
       sed -i -e "s/REPLACE_ELASTIC_INDEX/$ES_INDEX/g" $MQP_JMETER_TESTCASE_PATH
