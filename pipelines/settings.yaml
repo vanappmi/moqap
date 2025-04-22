@@ -11,6 +11,8 @@ variables:
   SONARQUBE_USER_ID_TOKEN: "BBPNEO_SONARQUBE_LOGIN_TOKEN"
   SONARQUBE_PROJECT_KEY: "${CI_PROJECT_NAME}---Featurebranch"
   WHITESOURCE_PROJECTTOKEN: "${CI_PROJECT_NAME}_whitesource_project_token"
+  GIT_REPO_SSH_URL: "git@ssh.git.tech.rz.db.de:cnp/bbpneo/01-services/${CI_PROJECT_NAME}.git"
+
   # HTTP PROXY
   HTTP_PROXY_HOST: "webproxy.comp.db.de"
   HTTP_PROXY_PORT: "8080"
