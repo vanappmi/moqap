@@ -96,7 +96,7 @@ Deployment STAGE:
         echo $CI_COMMIT_REF_NAME
         export RELEASE_VERSION=$(echo $CI_COMMIT_REF_NAME | cut -d "-" -f2)
         echo "RELEASE_VERSION: $RELEASE_VERSION"
-        cat $DEPLOY_TEMPLATE
+        echo "DEPLOY_TEMPLATE: $DEPLOY_TEMPLATE"
         if [ $DEPLOY_ENV == "prod" ];
         then
           cd bbpneo-ops/bbpneo-prod/deployment
@@ -108,6 +108,8 @@ Deployment STAGE:
           cd bbpneo-ops/bbpneo-iat/deployment/
           # use yq to replace the tag with the current commit hash
           # https://stackoverflow.com/questions/69648216/yq-issue-adding-yaml-into-yaml/69649872#69649872
+          ls -al
+          cat $DEPLOY_TEMPLATE
           yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(VERSION_ENV)) | .branch) |= strenv(LOWERCASE_REF_NAME)' $DEPLOY_TEMPLATE
           if [ $DEPLOY_ENV == "au" ];
           then
