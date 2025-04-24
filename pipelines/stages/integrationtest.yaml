@@ -63,5 +63,5 @@ Integration Test:
       junit: ${JUNIT_REPORT_FILENAME}
   variables:
     SECRETS:
-      SERVICE_USER:${CI_PROJECT_NAME}_api_username,
-      SERVICE_PASSWORD:${CI_PROJECT_NAME}_api_password
+      SERVICE_USER:api_username,
+      SERVICE_PASSWORD:api_password
