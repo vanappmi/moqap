@@ -25,8 +25,8 @@ variables:
   CI_REGISTRY: "${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de"
     # LIQUIBASE
   LIQUIBASE_DISABLE: "true"
-  FIELD_DB_URL: "${CI_PROJECT_NAME}_api_username"
-  FIELD_DB_USER: "${CI_PROJECT_NAME}_api_password"
+  FIELD_DB_URL: "api_username"
+  FIELD_DB_USER: "api_password"
   FIELD_DB_PASSWORD: "database-password"
   # BIZHUB
   BIZHUB_CONNECT_CONFIG: "bizhub/connect.yaml"
