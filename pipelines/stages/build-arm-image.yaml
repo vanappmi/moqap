@@ -1,0 +1,26 @@
+---
+.job_template: &job_template
+  tags:
+    - $PROJECT_RUNNER_TAG
+
+Build Image STAGE:
+  extends: .kaniko-build
+  dependencies:
+    - Build Jar
+  needs:
+    - job: Build Jar
+    - job: SonarQube
+  stage: build-image
+  <<: *job_template
+  environment:
+    name: ${DEPLOY_ENV}
+  artifacts:
+    paths:
+      - artifacts/*
+  variables:
+    KANIKO_IMAGE_NAME: $CI_PROJECT_NAME
+    KANIKO_SOURCE_REPO: ${PROD_DOCKER_REPO}
+    KANIKO_EXTRA_CMD: "--custom-platform=linux/arm64"
+    SECRETS:
+      CI_REGISTRY_USER:RUNNER_ARTIFACTORY_USER,
+      CI_REGISTRY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
