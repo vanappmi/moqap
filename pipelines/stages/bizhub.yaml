@@ -19,7 +19,7 @@ Deployment BizHub:
         DEPLOY_ENV: "${DEPLOY_ENV}"
         STAGE_ENV: "${STAGE_ENV}"
         BASE_SERVICE_URL: "${BASE_SERVICE_URL}"
-        SERVICE_USER: "${SERVICE_USER}"
+        SERVICE_USER: "${CI_PROJECT_NAME}User"
     - if: $BIZHUB_DISABLE == "true"
       when: never
   trigger:
