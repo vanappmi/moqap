@@ -25,7 +25,6 @@ bizhub_base:
     - !reference [ .template secrets, script ]
     - echo "DEPLOY_ENV=$DEPLOY_ENV"
     - echo "SERVICE_USER=$SERVICE_USER"
-    - echo $SERVICE_PASSWORD | tail -3
     - echo "AWS_SM_SECRET_PATH=$AWS_SM_SECRET_PATH"
     - echo $CONNECT_CONFIG
     - echo "SPACE_NAME=$SPACE_NAME"

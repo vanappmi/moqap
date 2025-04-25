@@ -18,7 +18,7 @@ Deployment BizHub dev:
       variables:
         DEPLOY_ENV: "dev"
         STAGE_ENV: "dev"
-        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        VERSION_ENV: "${CI_PROJECT_NAME}-dev"
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
         STAGE: "review"
@@ -43,7 +43,7 @@ Deployment BizHub int:
       variables:
         DEPLOY_ENV: "int"
         STAGE_ENV: "int"
-        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        VERSION_ENV: "${CI_PROJECT_NAME}-int"
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-int.svc.cluster.local:443/actuator/info"
         STAGE: "manual"
@@ -68,7 +68,7 @@ Deployment BizHub lup:
       variables:
         DEPLOY_ENV: "lup"
         STAGE_ENV: "lup"
-        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        VERSION_ENV: "${CI_PROJECT_NAME}-lup"
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-lup.svc.cluster.local:443/actuator/info"
         STAGE: "lup"
@@ -93,7 +93,7 @@ Deployment BizHub au:
       variables:
         DEPLOY_ENV: "au"
         STAGE_ENV: "au"
-        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        VERSION_ENV: "${CI_PROJECT_NAME}-au"
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-au.svc.cluster.local:443/actuator/info"
         STAGE: "at"
@@ -118,7 +118,7 @@ Deployment BizHub prod:
       variables:
         DEPLOY_ENV: "prod"
         STAGE_ENV: "prod"
-        VERSION_ENV: "${CI_PROJECT_NAME}-${DEPLOY_ENV}"
+        VERSION_ENV: "${CI_PROJECT_NAME}-prod"
         BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-prod.svc.cluster.local:443/actuator/info"
         STAGE: "prod"
