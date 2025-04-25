@@ -26,6 +26,7 @@ Deployment BizHub dev:
         BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE_DEV}"
         BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS_DEV}"
         BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS_DEV}"
+        SERVICE_USER: "${CI_PROJECT_NAME}User"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -50,6 +51,7 @@ Deployment BizHub int:
         BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE_INT}"
         BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS_INT}"
         BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS_INT}"
+        SERVICE_USER: "${CI_PROJECT_NAME}User"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -74,6 +76,7 @@ Deployment BizHub lup:
         BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE_LUP}"
         BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS_LUP}"
         BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS_LUP}"
+        SERVICE_USER: "${CI_PROJECT_NAME}User"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -98,6 +101,7 @@ Deployment BizHub au:
         BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE_AU}"
         BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS_AU}"
         BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS_AU}"
+        SERVICE_USER: "${CI_PROJECT_NAME}User"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
@@ -122,6 +126,7 @@ Deployment BizHub prod:
         BIZHUB_VISIBILITY_TYPE: "${BIZHUB_VISIBILITY_TYPE_PROD}"
         BIZHUB_VISIBILITY_ORGS: "${BIZHUB_VISIBILITY_ORGS_PROD}"
         BIZHUB_SUBSCRIBE_ORGS: "${BIZHUB_SUBSCRIBE_ORGS_PROD}"
+        SERVICE_USER: "${CI_PROJECT_NAME}User"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap"
