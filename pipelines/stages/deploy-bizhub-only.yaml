@@ -149,6 +149,7 @@ Print Variables:
     - echo ${BASE_SERVICE_URL}
     - echo ${SERVICE_URL}
     - echo ${STAGE}
+    - echo ${SERVICE_USER}
     - echo ${BIZHUB_VISIBILITY_TYPE_DEV}
     - echo ${BIZHUB_VISIBILITY_ORGS_DEV}
     - echo ${BIZHUB_SUBSCRIBE_ORGS_DEV}
