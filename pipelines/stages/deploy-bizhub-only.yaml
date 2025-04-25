@@ -19,7 +19,7 @@ Deployment BizHub dev:
         DEPLOY_ENV: "dev"
         STAGE_ENV: "dev"
         VERSION_ENV: "${CI_PROJECT_NAME}-dev"
-        BASE_SERVICE_URL: "https://abcd.bbpneo-iat.cnp-test.comp.db.de"
+        BASE_SERVICE_URL: "https://${VERSION_ENV}.bbpneo-iat.cnp-test.comp.db.de"
         SERVICE_URL: "https://${VERSION_ENV}.bbpneo-dev-babedas.svc.cluster.local:443/actuator/info"
         STAGE: "review"
         PROJECT_RUNNER_TAG: "eks-entwicklung"
