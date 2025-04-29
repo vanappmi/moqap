@@ -46,7 +46,7 @@ upload-jmx-test-files:
   variables:
     SECRETS:
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
-      API_USER:SERVICE_USER,
+      API_USER:$SERVICE_USER,
       API_PASSWORD:api_password,
       API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
       CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
@@ -72,7 +72,7 @@ load-filter:
     MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}-filter.jmx"
     SECRETS:
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
-      API_USER:api_username,
+      API_USER:$SERVICE_USER,
       API_PASSWORD:api_password,
       API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
       CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
@@ -98,7 +98,7 @@ load-all:
     MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}.jmx"
     SECRETS:
       SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
-      API_USER:api_username,
+      API_USER:$SERVICE_USER,
       API_PASSWORD:api_password,
       API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
       CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
