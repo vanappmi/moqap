@@ -63,5 +63,4 @@ Integration Test:
       junit: ${JUNIT_REPORT_FILENAME}
   variables:
     SECRETS:
-      SERVICE_USER:SERVICE_USER
       SERVICE_PASSWORD:api_password
