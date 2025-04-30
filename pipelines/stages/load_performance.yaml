@@ -19,6 +19,9 @@ include:
     - !reference [ .template jmeter-run, script ]
     - echo ${CI_PROJECT_NAME}
     - echo ${API_USER}
+  after_script:
+    - pwd
+    - echo ${API_USER}
   artifacts:
     paths:
       - artifacts/*
