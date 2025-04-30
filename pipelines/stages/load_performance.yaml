@@ -22,10 +22,15 @@ include:
   after_script:
     - pwd
     - echo ${API_USER}
-    - cd artifacts
-    - ls -al
-    - tree
-
+    - cd artifacts/jmeterreport
+    - export jsonname=report.json
+    - cp statistics.json $jsonname
+    # remove test-case name
+    - sed -i -e 's/"\w*\s*\w*"\s*:\s*{/{/g' $jsonname
+    # replace first occurence of {
+    - sed -i -e '1s/{/[/' $jsonname
+    # replace last occurence of }
+    - sed -i -i '$ s/}/]/' $jsonname
   artifacts:
     paths:
       - artifacts/*
