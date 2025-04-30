@@ -22,6 +22,10 @@ include:
   after_script:
     - pwd
     - echo ${API_USER}
+    - cd artifacts
+    - ls -al
+    - tree
+
   artifacts:
     paths:
       - artifacts/*
