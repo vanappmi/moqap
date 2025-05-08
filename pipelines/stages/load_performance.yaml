@@ -23,14 +23,15 @@ include:
     - pwd
     - echo ${API_USER}
     - cd artifacts/jmeterreport
-    - export jsonname=report.json
-    - cp statistics.json $jsonname
+    - export payload=report.json
+    - cp statistics.json $payload
     # remove test-case name
-    - sed -i -e 's/"\w*\s*\w*"\s*:\s*{/{/g' $jsonname
+    - sed -i -e 's/"\w*\s*\w*"\s*:\s*{/{/g' $payload
     # replace first occurence of {
-    - sed -i -e '1s/{/[/' $jsonname
+    - sed -i -e '1s/{/[/' $payload
     # replace last occurence of }
-    - sed -i -i '$ s/}/]/' $jsonname
+    - sed -i -i '$ s/}/]/' $payload
+    - curl -X POST "${REPORT_URL}/api/report?serviceName=${CI_PROJECT_NAME}&jobId=${JOB_ID}" H "accept:*/*" -H "Content-Type:application/json"  -u "lup-reportuser:$API_PASSWORD" -d @$payload
   artifacts:
     paths:
       - artifacts/*
