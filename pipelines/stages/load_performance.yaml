@@ -18,10 +18,12 @@ include:
     - !reference [ .template secrets, script ]
     - !reference [ .template jmeter-run, script ]
     - echo ${CI_PROJECT_NAME}
-    - echo ${API_USER}
+    - echo ${REPORT_URL}
   after_script:
     - pwd
     - echo ${API_USER}
+    - echo ${API_PASSWORD}
+    - echo ${API_PASSWORD}
     - cd artifacts/jmeterreport
     - export payload=report.json
     - cp statistics.json $payload
@@ -31,7 +33,7 @@ include:
     - sed -i -e '1s/{/[/' $payload
     # replace last occurence of }
     - sed -i -i '$ s/}/]/' $payload
-    - curl -X POST "${REPORT_URL}/api/report?serviceName=${CI_PROJECT_NAME}&jobId=${JOB_ID}" H "accept:*/*" -H "Content-Type:application/json"  -u "lup-reportuser:$API_PASSWORD" -d @$payload
+    - curl -X POST "$REPORT_URL/api/report?serviceName=$CI_PROJECT_NAME&jobId=$JOB_ID" H "accept:*/*" -H "Content-Type:application/json"  -u "lup-reportuser:$API_PASSWORD" -d @$payload
   artifacts:
     paths:
       - artifacts/*
