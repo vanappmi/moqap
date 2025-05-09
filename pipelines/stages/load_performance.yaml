@@ -13,30 +13,20 @@ include:
     ES_PROTOCOL: "https"
     MQP_JMETER_PLUGIN_PATH: "plugins/"
     ARTIFACTS_DIR: "artifacts"
-    SECRETS:
-      AP_PASSWORD:api_password
   extends: .jmeter
   before_script:
     - !reference [ .template secrets, script ]
     - !reference [ .template jmeter-run, script ]
     - echo ${CI_PROJECT_NAME}
-    - echo ${REPORT_URL}
-    - echo ${AP_PASSWORD}
   after_script:
-    - pwd
-    - echo ${API_USER}
-    - echo ${AP_PASSWORD}
-    - echo ${REPORT_URL}
+    - !reference [ .template secrets, script ]
     - cd artifacts/jmeterreport
     - export payload=report.json
     - cp statistics.json $payload
-    # remove test-case name
     - sed -i -e 's/"\w*\s*\w*"\s*:\s*{/{/g' $payload
-    # replace first occurence of {
     - sed -i -e '1s/{/[/' $payload
-    # replace last occurence of }
     - sed -i -i '$ s/}/]/' $payload
-    - curl -X POST "$REPORT_URL/api/report?serviceName=$CI_PROJECT_NAME&jobId=$JOB_ID" H "accept:*/*" -H "Content-Type:application/json"  -u "lup-reportuser:$AP_PASSWORD" -d @$payload
+    - curl -X POST "$REPORT_URL/api/report?serviceName=$CI_PROJECT_NAME&jobId=$JOB_ID" H "accept:*/*" -H "Content-Type:application/json"  -u "lup-reportuser:$API_PASSWORD" -d @$payload
   artifacts:
     paths:
       - artifacts/*
