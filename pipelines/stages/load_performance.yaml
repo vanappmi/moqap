@@ -13,6 +13,8 @@ include:
     ES_PROTOCOL: "https"
     MQP_JMETER_PLUGIN_PATH: "plugins/"
     ARTIFACTS_DIR: "artifacts"
+    SECRETS:
+      API_PASSWORD:api_password
   extends: .jmeter
   before_script:
     - !reference [ .template secrets, script ]
