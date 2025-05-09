@@ -119,7 +119,7 @@ Deployment BizHub prod:
         DEPLOY_ENV: "prod"
         STAGE_ENV: "prod"
         VERSION_ENV: "${CI_PROJECT_NAME}-prod"
-        BASE_SERVICE_URL: "https://${CI_PROJECT_NAME}-prod.bbpneo-prod.cnp-test.comp.db.de"
+        BASE_SERVICE_URL: "https://${CI_PROJECT_NAME}-prod.bbpneo-prod.cnp.comp.db.de"
         SERVICE_URL: "https://${CI_PROJECT_NAME}-prod.bbpneo-prod.svc.cluster.local:443/actuator/info"
         STAGE: "prod"
         PROJECT_RUNNER_TAG: "eks-produktion"
