@@ -20,13 +20,17 @@ include:
     - echo ${CI_PROJECT_NAME}
   after_script:
     - !reference [ .template secrets, script ]
+    - echo ${REPORT_URL}
+    - echo ${API_PASSWORD}
+    - echo ${JOB_ID}
+    - echo ${CI_PROJECT_NAME}
     - cd artifacts/jmeterreport
     - export payload=report.json
     - cp statistics.json $payload
     - sed -i -e 's/"\w*\s*\w*"\s*:\s*{/{/g' $payload
     - sed -i -e '1s/{/[/' $payload
     - sed -i -i '$ s/}/]/' $payload
-    - curl -X POST "$REPORT_URL/api/report?serviceName=$CI_PROJECT_NAME&jobId=$JOB_ID" H "accept:*/*" -H "Content-Type:application/json"  -u "lup-reportuser:$API_PASSWORD" -d @$payload
+    - curl -X POST "$REPORT_URL/api/report?serviceName=$CI_PROJECT_NAME&jobId=$JOB_ID" -H "accept:*/*" -H "Content-Type:application/json"  -u "lup-reportuser:$API_PASSWORD" -d @$payload
   artifacts:
     paths:
       - artifacts/*
