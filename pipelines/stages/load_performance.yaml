@@ -16,9 +16,9 @@ include:
   extends: .jmeter
   before_script:
     - !reference [ .template secrets, script ]
-    - START_DATE=$(date +%s%3N)
+    - export START_DATE=$(date +%s%3N)
     - !reference [ .template jmeter-run, script ]
-    - END_DATE=$(date +%s%3N)
+    - export END_DATE=$(date +%s%3N)
     - echo ${CI_PROJECT_NAME}
   after_script:
     - !reference [ .template secrets, script ]
