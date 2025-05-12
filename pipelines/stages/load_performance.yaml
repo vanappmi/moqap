@@ -13,6 +13,8 @@ include:
     ES_PROTOCOL: "https"
     MQP_JMETER_PLUGIN_PATH: "plugins/"
     ARTIFACTS_DIR: "artifacts"
+    START_DATE: "0"
+    END_DATE: "0"
   extends: .jmeter
   before_script:
     - !reference [ .template secrets, script ]
@@ -20,6 +22,8 @@ include:
     - !reference [ .template jmeter-run, script ]
     - export END_DATE=$(date +%s%3N)
     - echo ${CI_PROJECT_NAME}
+    - echo ${START_DATE}
+    - echo ${END_DATE}
   after_script:
     - !reference [ .template secrets, script ]
     - echo ${CI_PROJECT_NAME}
