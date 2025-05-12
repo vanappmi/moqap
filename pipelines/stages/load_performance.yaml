@@ -23,16 +23,12 @@ variables:
     - echo $(date +%s%3N) >> $DATE_FILE
     - !reference [ .template jmeter-run, script ]
     - echo $(date +%s%3N) >> $DATE_FILE
-    - cat $DATE_FILE
-    - mv $DATE_FILE artifacts/jmeterreport
-    - cd artifacts/jmeterreport
-    - ls -al
   after_script:
     - !reference [ .template secrets, script ]
     - echo ${CI_PROJECT_NAME}
-    - cd artifacts/jmeterreport
     - START_DATE=$( awk 'NR==1 {print}' $DATE_FILE )
     - END_DATE=$( awk 'NR==2 {print}' $DATE_FILE )
+    - cd artifacts/jmeterreport
     - echo $START_DATE
     - echo $END_DATE
     - payload='report.json'
