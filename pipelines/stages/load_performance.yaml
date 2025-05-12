@@ -6,8 +6,7 @@ include:
       - "/jmeter/jmeter.yml"
   - "pipelines/templates/bbpneo_templates.yml"
 variables:
-  START_DATE: "0"
-  END_DATE: "0"
+  DATE_FILE: "datefile"
 .lap-test:
   stage: run-lap-test
   variables:
@@ -20,18 +19,19 @@ variables:
   extends: .jmeter
   before_script:
     - !reference [ .template secrets, script ]
-    - export START_DATE=$(date +%s%3N)
+    - touch @DATE_FILE
+    - echo $(date +%s%3N) >> @DATE_FILE
     - !reference [ .template jmeter-run, script ]
-    - export END_DATE=$(date +%s%3N)
-    - echo ${CI_PROJECT_NAME}
-    - echo ${START_DATE}
-    - echo ${END_DATE}
+    - echo $(date +%s%3N) >> @DATE_FILE
+    - mv @DATE_FILE artifacts/jmeterreport
   after_script:
     - !reference [ .template secrets, script ]
     - echo ${CI_PROJECT_NAME}
-    - echo ${START_DATE}
-    - echo ${END_DATE}
     - cd artifacts/jmeterreport
+    - START_DATE=$( awk 'NR==1 {print}' @DATE_FILE )
+    - END_DATE=$( awk 'NR==2 {print}' @DATE_FILE )
+    - echo $START_DATE
+    - echo $END_DATE
     - payload='report.json'
     - cp statistics.json $payload
     - sed -i -e 's/"\w*\s*\w*"\s*:\s*{/{/g' $payload
