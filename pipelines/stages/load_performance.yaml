@@ -19,17 +19,17 @@ variables:
   extends: .jmeter
   before_script:
     - !reference [ .template secrets, script ]
-    - touch @DATE_FILE
-    - echo $(date +%s%3N) >> @DATE_FILE
+    - touch $DATE_FILE
+    - echo $(date +%s%3N) >> $DATE_FILE
     - !reference [ .template jmeter-run, script ]
-    - echo $(date +%s%3N) >> @DATE_FILE
-    - mv @DATE_FILE artifacts/jmeterreport
+    - echo $(date +%s%3N) >> $DATE_FILE
+    - mv $DATE_FILE artifacts/jmeterreport
   after_script:
     - !reference [ .template secrets, script ]
     - echo ${CI_PROJECT_NAME}
     - cd artifacts/jmeterreport
-    - START_DATE=$( awk 'NR==1 {print}' @DATE_FILE )
-    - END_DATE=$( awk 'NR==2 {print}' @DATE_FILE )
+    - START_DATE=$( awk 'NR==1 {print}' $DATE_FILE )
+    - END_DATE=$( awk 'NR==2 {print}' $DATE_FILE )
     - echo $START_DATE
     - echo $END_DATE
     - payload='report.json'
