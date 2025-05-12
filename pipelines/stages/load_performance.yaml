@@ -5,6 +5,9 @@ include:
     file:
       - "/jmeter/jmeter.yml"
   - "pipelines/templates/bbpneo_templates.yml"
+variables:
+  START_DATE: "0"
+  END_DATE: "0"
 .lap-test:
   stage: run-lap-test
   variables:
@@ -13,8 +16,7 @@ include:
     ES_PROTOCOL: "https"
     MQP_JMETER_PLUGIN_PATH: "plugins/"
     ARTIFACTS_DIR: "artifacts"
-    START_DATE: "0"
-    END_DATE: "0"
+
   extends: .jmeter
   before_script:
     - !reference [ .template secrets, script ]
