@@ -24,9 +24,11 @@ variables:
     - !reference [ .template jmeter-run, script ]
     - echo $(date +%s%3N) >> $DATE_FILE
     - mv $DATE_FILE artifacts/jmeterreport
+    - ls
   after_script:
     - !reference [ .template secrets, script ]
     - echo ${CI_PROJECT_NAME}
+    - tree
     - cd artifacts/jmeterreport
     - START_DATE=$( awk 'NR==1 {print}' $DATE_FILE )
     - END_DATE=$( awk 'NR==2 {print}' $DATE_FILE )
