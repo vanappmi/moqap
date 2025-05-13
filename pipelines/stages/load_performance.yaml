@@ -22,10 +22,9 @@ variables:
     - touch $DATE_FILE
     - echo $(date +%s%3N) >> $DATE_FILE
     - !reference [ .template jmeter-run, script ]
-    - echo $(date +%s%3N) >> $DATE_FILE
-
   after_script:
     - !reference [ .template secrets, script ]
+    - echo $(date +%s%3N) >> $DATE_FILE
     - mv $DATE_FILE artifacts/jmeterreport
     - cd artifacts/jmeterreport
     - START_DATE=$( awk 'NR==1 {print}' $DATE_FILE )
