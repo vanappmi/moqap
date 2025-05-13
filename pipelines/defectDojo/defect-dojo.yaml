@@ -20,25 +20,25 @@ DefectDojo:
         - job: Trivy Check Image
         - job: Grant Check Image
         - job: Syft Check Image
-        - job: Grype Check Image
+        # - job: Grype Check Image
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
       needs:
         - job: Trivy Check Image
         - job: Grant Check Image
         - job: Syft Check Image
-        - job: Grype Check Image
+        # - job: Grype Check Image
     - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "au" && $BUILD == "PYTHON"
       needs:
         - job: Trivy Check Image
         - job: Grant Check Image
         - job: Syft Check Image
-        - job: Grype Check Image
+        # - job: Grype Check Image
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "GO"
       needs:
         - job: Trivy Check Image
         - job: Grant Check Image
         - job: Syft Check Image
-        - job: Grype Check Image
+        # - job: Grype Check Image
     - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "dev"
       when: never
   variables:
