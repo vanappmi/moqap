@@ -5,6 +5,8 @@ include:
     file:
       - "/jmeter/jmeter.yml"
   - "pipelines/templates/bbpneo_templates.yml"
+variables:
+  DATE_FILE: "datefile"
 .lap-test:
   stage: run-lap-test
   variables:
@@ -13,24 +15,27 @@ include:
     ES_PROTOCOL: "https"
     MQP_JMETER_PLUGIN_PATH: "plugins/"
     ARTIFACTS_DIR: "artifacts"
+
   extends: .jmeter
   before_script:
     - !reference [ .template secrets, script ]
+    - touch $DATE_FILE
+    - echo $(date +%s%3N) >> $DATE_FILE
     - !reference [ .template jmeter-run, script ]
-    - echo ${CI_PROJECT_NAME}
+    - echo $(date +%s%3N) >> $DATE_FILE
+
   after_script:
     - !reference [ .template secrets, script ]
-    - echo ${REPORT_URL}
-    - echo ${API_PASSWORD}
-    - echo ${JOB_ID}
-    - echo ${CI_PROJECT_NAME}
+    - mv $DATE_FILE artifacts/jmeterreport
     - cd artifacts/jmeterreport
-    - export payload=report.json
+    - START_DATE=$( awk 'NR==1 {print}' $DATE_FILE )
+    - END_DATE=$( awk 'NR==2 {print}' $DATE_FILE )
+    - payload='report.json'
     - cp statistics.json $payload
     - sed -i -e 's/"\w*\s*\w*"\s*:\s*{/{/g' $payload
     - sed -i -e '1s/{/[/' $payload
     - sed -i -i '$ s/}/]/' $payload
-    - curl -X POST "$REPORT_URL/api/report?serviceName=$CI_PROJECT_NAME&jobId=$JOB_ID" -H "accept:*/*" -H "Content-Type:application/json"  -u "lup-reportuser:$API_PASSWORD" -d @$payload
+    - curl -X POST "$REPORT_URL/api/report?serviceName=$CI_PROJECT_NAME&jobId=$JOB_ID&startDate=$START_DATE&endDate=$END_DATE" -H "accept:*/*" -H "Content-Type:application/json"  -u "lup-reportuser:$API_PASSWORD" -d @$payload
   artifacts:
     paths:
       - artifacts/*
