@@ -29,6 +29,7 @@ variables:
     API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
     NO_THREADS:lup_thread,
     NO_PAGES:lup_page,
+    SPACE_NAME:RUNNER_BIZHUB_SPACE_NAME,
     BIZHUB_ACTIVE:lup_bizhub_active
 
 upload-jmx-test-files:
