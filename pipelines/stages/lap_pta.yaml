@@ -20,7 +20,16 @@ variables:
   BASE_SVC_URL: "${CI_PROJECT_NAME}-lup.bbpneo-iat.cnp-test.comp.db.de"
   BIZHUB_URL: "apis-test.hub.db.de"
   API_USER: "${CI_PROJECT_NAME}User"
-  REPORT_URL: "https://lup-report-dev.bbpneo-iat.cnp-test.comp.db.de"
+  REPORT_URL: "https://lup-report-int.bbpneo-iat.cnp-test.comp.db.de"
+  SECRETS:
+    SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
+    API_PASSWORD:api_password,
+    API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
+    CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
+    API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
+    NO_THREADS:lup_thread,
+    NO_PAGES:lup_page,
+    BIZHUB_ACTIVE:lup_bizhub_active
 
 upload-jmx-test-files:
   # extends: .Upload-Artifacts
@@ -45,17 +54,6 @@ upload-jmx-test-files:
       mkdir -p artifacts
       cp lup-tests/src/* ./artifacts/
   variables:
-    JOB_ID: "${CI_PROJECT_NAME}-load-filter"
-    SECRETS:
-      SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
-      API_PASSWORD:api_password,
-      API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
-      CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
-      API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
-      NO_THREADS:lup_thread,
-      NO_PAGES:lup_page,
-      BIZHUB_ACTIVE:lup_bizhub_active
-
   artifacts:
     paths:
       - artifacts/*
@@ -71,16 +69,7 @@ load-filter:
   <<: *job_template
   variables:
     MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}-filter.jmx"
-    JOB_ID: "${CI_PROJECT_NAME}-load-all"
-    SECRETS:
-      SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
-      API_PASSWORD:api_password,
-      API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
-      CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
-      API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
-      NO_THREADS:lup_thread,
-      NO_PAGES:lup_page,
-      BIZHUB_ACTIVE:lup_bizhub_active
+    JOB_ID: "${CI_PROJECT_NAME}-load-filter"
   artifacts:
     paths:
       - artifacts/*
@@ -97,15 +86,7 @@ load-all:
   <<: *job_template
   variables:
     MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}.jmx"
-    SECRETS:
-      SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
-      API_PASSWORD:api_password,
-      API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
-      CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
-      API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
-      NO_THREADS:lup_thread,
-      NO_PAGES:lup_page,
-      BIZHUB_ACTIVE:lup_bizhub_active
+    JOB_ID: "${CI_PROJECT_NAME}-load-all"
   artifacts:
     paths:
       - artifacts/*
