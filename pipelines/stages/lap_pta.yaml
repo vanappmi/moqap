@@ -30,7 +30,10 @@ variables:
     NO_THREADS:lup_thread,
     NO_PAGES:lup_page,
     SPACE_NAME:RUNNER_BIZHUB_SPACE_NAME,
-    BIZHUB_ACTIVE:lup_bizhub_active
+    BIZHUB_ACTIVE:lup_bizhub_active,
+    BIZHUB_DEPLOYER_APP_CLIENT_ID:RUNNER_BIZHUB_APP_CLIENT_ID,
+    BIZHUB_DEPLOYER_APP_CLIENT_SECRET:RUNNER_BIZHUB_APP_CLIENT_SECRET,
+    SERVICE_PASSWORD:api_password
 
 upload-jmx-test-files:
   # extends: .Upload-Artifacts
