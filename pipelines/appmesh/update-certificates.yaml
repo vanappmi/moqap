@@ -60,7 +60,9 @@ list_certificates bbpneo iat:
     ######################################################################################
     - yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
     - !reference [.template update deployments, script]
-    - [ -f $DEPLOY_TEMPLATE ] && cat $DEPLOY_TEMPLATE
+    - if [ -f $DEPLOY_TEMPLATE ]; then
+        cat $DEPLOY_TEMPLATE;
+      fi;
     - git add --all
     - if [ ! -z "$(git status -s)" ]; then
         git commit -a -m "update deployment";
@@ -116,7 +118,9 @@ list_certificates bbpneo prod:
     ######################################################################################
     - yq e -i '.spec.parameters.gateway.loadbalancer.sslCertificateARNs = strenv(CERTIFICATE_ARNS)' $DEPLOY_TEMPLATE
     - !reference [.template update deployments, script]
-    - [ -f $DEPLOY_TEMPLATE ] && cat $DEPLOY_TEMPLATE
+    - if [ -f $DEPLOY_TEMPLATE ]; then
+        cat $DEPLOY_TEMPLATE;
+      fi;
     - git config --global user.email "bbpneo@pipeline.com"
     - git config --global user.name "bbpneo Pipeline"
     - git config pull.rebase true   # rebase
