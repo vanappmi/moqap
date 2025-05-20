@@ -128,7 +128,7 @@ Build Image ARM:
     - buildah login -u "$MQP_BUILDA_REGISTRY_USER" -p "$MQP_BUILDA_REGISTRY_PASSWORD" "$MQP_BUILDA_REGISTRY_HOST"
     - buildah push "cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:$IMAGE-arm64"
 
-Build Image Manifest:
+Build Image STAGE:
   needs:
     - job: Build Image AMD
     - job: Build Image ARM
