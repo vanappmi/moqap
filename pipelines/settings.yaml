@@ -1,7 +1,7 @@
 ---
 variables:
   # "cnp/bbpneo/02-ops/moqap"
-  CURRENT_VERSION: "BABEDAS-test-enchance"
+  CURRENT_VERSION: "V2.2"
   DEPLOY_BRANCH: "$CI_COMMIT_REF_NAME"
   DEPLOY_TEMPLATE: "${CI_PROJECT_NAME}/${CI_PROJECT_NAME}.yaml"
   PROJECT_NAME: $CI_PROJECT_NAME
