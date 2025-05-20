@@ -1,7 +1,2 @@
 include:
   - "pipelines/image/environment.yaml"
-
-stages:
-  - build-image
-  - security-scan
-  - stage-artifacts

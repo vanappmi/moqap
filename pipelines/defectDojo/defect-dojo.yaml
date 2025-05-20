@@ -39,6 +39,11 @@ DefectDojo:
         - job: Grant Check Image
         - job: Syft Check Image
         # - job: Grype Check Image
+    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "int" && $IS_BASIS_IMAGE == "true"
+      needs:
+        - job: Trivy Check Image
+        - job: Grant Check Image
+        - job: Syft Check Image
     - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "dev"
       when: never
   variables:
