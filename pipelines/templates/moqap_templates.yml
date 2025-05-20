@@ -29,7 +29,7 @@
         DATA='{
             "project":'\"$CI_PROJECT_PATH\"',
             "module":'\"$MOQAP_MODULE\"',
-            "version":"11.4.0",
+            "version":"12.0.1",
             "pipeline":'\"$CI_PIPELINE_ID\"',
             "image":'\"$CI_JOB_IMAGE\"'
            }';

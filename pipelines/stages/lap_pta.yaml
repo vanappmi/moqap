@@ -1,7 +1,7 @@
 ---
 include:
   - project: "moqap/modules"
-    ref: "11.4.0"
+    ref: "12.0.1"
     file:
       - "/jmeter/jmeter.yml"
   - "pipelines/stages/load_performance.yaml"
