@@ -3,10 +3,9 @@ include:
   - project: "moqap/modules"
     ref: "12.0.1"
     file:
-      - "/eks/kaniko/kaniko.yml"
       - "/artifactory/stage_artifacts.yml"
-  - "/pipelines/trivy/trivy-scanimage.yaml"
   - "/pipelines/settings.yaml"
+  - "/pipelines/trivy/trivy-scanimage.yaml"
   - "/pipelines/security/syft.yaml"
   - "/pipelines/security/grant.yaml"
   - "/pipelines/security/grype.yaml"
@@ -141,7 +140,6 @@ Build Image STAGE:
       MQP_BUILDA_REGISTRY_PASSWORD:RUNNER_ARTIFACTORY_PASSWORD
   script:
     - !reference [ .template secrets, script ]
-    - !reference [ .template secrets, script ]
     # Manifest name, can be anything
     - export MANIFEST="${CI_PROJECT_NAME}-multiarch"
     # Where to push to
@@ -167,8 +165,6 @@ Build Image STAGE:
     - export MQP_BUILDA_REGISTRY_HOST=${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de
     - buildah login -u "$MQP_BUILDA_REGISTRY_USER" -p "$MQP_BUILDA_REGISTRY_PASSWORD" "$MQP_BUILDA_REGISTRY_HOST"
     - buildah manifest push --format v2s2 --all "cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:$IMAGE" "docker://cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:$IMAGE"
-
-
 
 Promote STAGE prod repo:
   extends: .Stage-Artifacts
