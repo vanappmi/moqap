@@ -12,12 +12,12 @@ variables:
   TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
   ARTIFACT_NAME: $CI_PROJECT_NAME
 
-Scan basis-pipeline-image:version-3:
+Scan basis-pipeline-image:version-3.3-multiarch:
   variables:
-    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3"
+    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch"
     MQP_TRIVY_TARGET: $SCAN_TARGET
     MQP_ANCHOR_TARGET: $SCAN_TARGET
-    MQP_DEFDOJ_PRODUCT_NAME: "basis-pipeline-image:version-3"
+    MQP_DEFDOJ_PRODUCT_NAME: "basis-pipeline-image"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -25,12 +25,12 @@ Scan basis-pipeline-image:version-3:
         file: "pipelines/security/security-scan-suite.yaml"
     strategy: depend
 
-Scan basis-deployment-image:java-21:
+Scan basis-deployment-image:java-21-multiarch:
   variables:
-    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21"
+    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-deployment-image:java-21-multiarch"
     MQP_TRIVY_TARGET: $SCAN_TARGET
     MQP_ANCHOR_TARGET: $SCAN_TARGET
-    MQP_DEFDOJ_PRODUCT_NAME: "basis-deployment-image:java-21"
+    MQP_DEFDOJ_PRODUCT_NAME: "basis-deployment-image"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -103,12 +103,12 @@ Scan sonarqube:10.0.0-community:
         file: "pipelines/security/security-scan-suite.yaml"
     strategy: depend
 
-Scan postgres-image:postgres-17:
+Scan postgres-image:postgres-17-multiarch:
   variables:
-    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/postgres-image:postgres-17"
+    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/postgres-image:postgres-17-multiarch"
     MQP_TRIVY_TARGET: $SCAN_TARGET
     MQP_ANCHOR_TARGET: $SCAN_TARGET
-    MQP_DEFDOJ_PRODUCT_NAME: "postgres-image:postgres-17"
+    MQP_DEFDOJ_PRODUCT_NAME: "postgres-image"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -166,10 +166,13 @@ Scan postgres-exporter:v0.17.1:
         file: "pipelines/security/security-scan-suite.yaml"
     strategy: depend
 
-#Scan postgres-exporter:postgres-exporter-0.16.0:
+#Scan postgres-exporter:postgres-exporter-0.17.1-multiarch:
 #  stage: security-scan
 #  variables:
-#    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/postgres-exporter:postgres-exporter-0.16.0"
+#    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/postgres-exporter:postgres-exporter-0.17.1-multiarch"
+#    MQP_TRIVY_TARGET: $SCAN_TARGET
+#    MQP_ANCHOR_TARGET: $SCAN_TARGET
+#    MQP_DEFDOJ_PRODUCT_NAME: "postgres-exporter"
 #  trigger:
 #    include:
 #      - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
@@ -214,12 +217,12 @@ Scan golang:golang-1.24.0:
         file: "pipelines/security/security-scan-suite.yaml"
     strategy: depend
 
-Scan python-image:Python-3.12.9:
+Scan python-image:Python-3.12.9-multiarch:
   variables:
-    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/python-image:Python-3.12.9"
+    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/python-image:Python-3.12.9-multiarch"
     MQP_TRIVY_TARGET: $SCAN_TARGET
     MQP_ANCHOR_TARGET: $SCAN_TARGET
-    MQP_DEFDOJ_PRODUCT_NAME: "python-image:Python-3.12.9"
+    MQP_DEFDOJ_PRODUCT_NAME: "python-image"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
