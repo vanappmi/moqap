@@ -12,7 +12,7 @@ Clean Artifactory:
   extends: .Clean-artifactory
   stage: cleanup
   needs:
-    - job: Build Image STAGE
+    - job: Build Image Manifest
       optional: true
   <<: *job_template
   variables:

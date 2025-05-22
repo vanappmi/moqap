@@ -3,7 +3,7 @@
   tags:
     - $PROJECT_RUNNER_TAG
 
-Build Image STAGE:
+Build Image Manifest:
   extends: .kaniko-build
   stage: build-image
   <<: *job_template

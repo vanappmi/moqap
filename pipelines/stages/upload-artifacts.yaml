@@ -19,9 +19,9 @@ Upload Artifacts STAGE:
     paths:
       - artifacts/*
   dependencies:
-    - Build Image STAGE
+    - Build Image Manifest
   needs:
-    - job: Build Image STAGE
+    - job: Build Image Manifest
   variables:
     TARGET_PATH: "$MAVEN_REPO/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA/$CI_ENVIRONMENT_SLUG/"
     ARTIFACTS_DIR: "artifacts"

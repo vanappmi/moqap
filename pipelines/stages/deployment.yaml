@@ -12,7 +12,7 @@ Deployment STAGE:
         - job: Grant Check Image
         - job: Syft Check Image
         - job: Grype Check Image
-        - job: Build Image STAGE
+        - job: Build Image Manifest
           artifacts: true
           optional: true
     - if: ($DEPLOY_ENV == "au" || $DEPLOY_ENV  == "lup" || $DEPLOY_ENV  == "prod") && $CI_COMMIT_BRANCH && $IMAGE_UPDATE == "false"

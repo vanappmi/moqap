@@ -115,7 +115,7 @@ Find JAR:
     paths:
       - artifacts/*
 
-Build Image STAGE:
+Build Image Manifest:
   extends: .kaniko-build
   stage: build-image
   needs:

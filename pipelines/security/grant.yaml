@@ -18,7 +18,7 @@ Grant Get Whitelist:
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "JAVA" && $IMAGE_UPDATE == "false"
       allow_failure: true
       needs:
-        - job: Build Image STAGE
+        - job: Build Image Manifest
           optional: true
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "dev" || $DEPLOY_ENV == "int") && $BUILD == "GO"
       allow_failure: true
@@ -28,7 +28,7 @@ Grant Get Whitelist:
     - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "au" && $BUILD == "PYTHON"
       allow_failure: true
       needs:
-        - job: Build Image STAGE
+        - job: Build Image Manifest
           optional: true
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "au" || $DEPLOY_ENV == "lup" || $DEPLOY_ENV == "prod") && $IMAGE_UPDATE == "false"
       when: manual
