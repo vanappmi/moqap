@@ -31,6 +31,11 @@ Grype Check Image:
     - if: $CI_COMMIT_BRANCH && ($DEPLOY_ENV == "au" || $DEPLOY_ENV == "lup" || $DEPLOY_ENV == "prod") && $IMAGE_UPDATE == "false"
       when: manual
       allow_failure: true
+    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "int" && $IS_BASIS_IMAGE == "true"
+      allow_failure: true
+      needs:
+        - job: Build Image Manifest
+          optional: true
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
     - if: '$DEPLOY_ENV != "dev" && $DEPLOY_ENV  != "int"'
   variables:
@@ -76,6 +81,11 @@ Grype Check Repo:
       allow_failure: true
       needs:
         - job: Build Image STAGE
+          optional: true
+    - if: $CI_COMMIT_BRANCH && $DEPLOY_ENV == "int" && $IS_BASIS_IMAGE == "true"
+      allow_failure: true
+      needs:
+        - job: Build Image Manifest
           optional: true
   variables:
     MQP_ANCHOR_TARGET: "$CI_PROJECT_DIR"
