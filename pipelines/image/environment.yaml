@@ -18,6 +18,10 @@ stages:
   - stage-artifacts
   - report-upload
 
+variables:
+  PROJECT_RUNNER_TAG: "eks-entwicklung"
+  DEPLOY_ENV: "int"
+
 Build Image AMD:
   stage: build-image
   image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
