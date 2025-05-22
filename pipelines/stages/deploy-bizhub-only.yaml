@@ -139,7 +139,7 @@ Print Variables:
   stage: bizhub-deploy
   tags:
     - $PROJECT_RUNNER_TAG
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   script:
     - echo ${BIZHUB_DEPLOY_ONLY}
     - echo ${BIZHUB_CONNECT_CONFIG}

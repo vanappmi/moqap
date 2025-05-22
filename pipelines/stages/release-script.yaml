@@ -6,14 +6,14 @@
 start-release:
   stage: release
   <<: *job_template
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   script:
     - echo "start release"
 
 release-script:
   stage: release
   <<: *job_template
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   needs:
     - job: start-release
   dependencies:

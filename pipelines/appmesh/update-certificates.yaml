@@ -10,7 +10,7 @@ stages:
 
 # List Certificates
 list_certificates bbpneo iat:
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   tags:
     - eks-entwicklung
   stage: list_certificates
@@ -71,7 +71,7 @@ list_certificates bbpneo iat:
     - git push
 
 list_certificates bbpneo prod:
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   tags:
     - eks-produktion
   stage: list_certificates

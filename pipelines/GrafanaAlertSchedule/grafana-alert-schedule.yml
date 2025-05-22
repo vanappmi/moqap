@@ -10,7 +10,7 @@ stages:
 
 # Update Cluster Alert
 update_cluster_alert bbpneo iat:
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   tags:
     - eks-entwicklung
   stage: update_cluster_alert

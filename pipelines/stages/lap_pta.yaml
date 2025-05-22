@@ -45,7 +45,7 @@ upload-jmx-test-files:
       optional: true
   stage: load-testing
   <<: *job_template
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   script:
     - !reference [ .template secrets, script ]
     - |

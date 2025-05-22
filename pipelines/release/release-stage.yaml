@@ -25,7 +25,7 @@ Print Variables:
   stage: stage-artifacts
   tags:
     - $PROJECT_RUNNER_TAG
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   script:
     - echo ${BIZHUB_DISABLE}
     - echo ${BIZHUB_VISIBILITY_TYPE}

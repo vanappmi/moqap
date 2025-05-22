@@ -40,7 +40,7 @@ stages:
 
 Start Image Update Pipeline:
   stage: start-pipeline
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   <<: *job_template
   rules:
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  == "development"
@@ -62,7 +62,7 @@ Start Image Update Pipeline:
 
 Get Release Version:
   stage: get-release-version
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   <<: *job_template
   rules:
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
@@ -188,7 +188,7 @@ Print Variables:
   stage: start-pipeline
   tags:
     - $PROJECT_RUNNER_TAG
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   script:
     - echo $DEPLOY_ENV
     - echo $STAGE_ENV

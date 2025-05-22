@@ -29,7 +29,7 @@ Deployment STAGE:
         - job: Syft Check Image
         - job: Grype Check Image
           artifacts: true
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   <<: *job_template
   dependencies:
     - Trivy Check Image
