@@ -195,3 +195,26 @@ Promote STAGE dev repo:
       when: manual
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: on_success
+
+Print Variables:
+  stage: build-image
+  tags:
+    - $PROJECT_RUNNER_TAG
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  script:
+    - echo $DEPLOY_ENV
+    - echo $STAGE_ENV
+    - echo $PROJECT_RUNNER_TAG
+    - echo $KANIKO_IMAGE_TAG
+    - echo $SOURCE_IMAGE_TAG
+    - echo $TARGET_IMAGE_TAG
+    - echo $NAMESPACE
+    - echo $IS_CRONJOB
+    - echo $IS_COMMONLIB
+    - echo $IS_PYTHONJOB
+    - echo $IS_SOPSJOB
+    - echo $BUILD_CMD
+    - echo $IS_UPDATE
+    - echo $BUILD
+    - echo $IMAGE_UPDATE
+    - echo $IS_BASIS_IMAGE
