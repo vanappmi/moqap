@@ -16,6 +16,7 @@ stages:
   - build-image
   - security-scan
   - stage-artifacts
+  - report-upload
 
 Build Image AMD:
   stage: build-image
