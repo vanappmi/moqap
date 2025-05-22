@@ -15,8 +15,6 @@ Upload Artifacts STAGE:
   <<: *job_template
   only:
     - branches
-  environment:
-    name: ${DEPLOY_ENV}
   artifacts:
     paths:
       - artifacts/*

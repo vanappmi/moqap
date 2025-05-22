@@ -11,8 +11,6 @@ Build Go Image:
     - job: Build Go
   stage: build-go-image
   <<: *job_template
-  environment:
-    name: ${DEPLOY_ENV}
   artifacts:
     paths:
       - artifacts/*

@@ -7,8 +7,6 @@ Build Image STAGE:
   extends: .kaniko-build
   stage: build-image
   <<: *job_template
-  environment:
-    name: ${DEPLOY_ENV}
   artifacts:
     paths:
       - artifacts/*

@@ -49,8 +49,6 @@ Upload Artifacts:
   <<: *job_template
   only:
     - master
-  environment:
-    name: ${DEPLOY_ENV}
   artifacts:
     paths:
       - artifacts/*

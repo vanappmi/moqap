@@ -11,8 +11,6 @@ Build Image AMD:
     - job: SonarQube
   tags:
     - ${PROJECT_RUNNER_TAG}
-  environment:
-    name: ${DEPLOY_ENV}
   artifacts:
     paths:
       - artifacts/*
@@ -60,8 +58,6 @@ Build Image ARM:
     - job: SonarQube
   tags:
     - arm64
-  environment:
-    name: ${DEPLOY_ENV}
   artifacts:
     paths:
       - artifacts/*
@@ -109,8 +105,6 @@ Build Image STAGE:
   image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
   tags:
     - ${PROJECT_RUNNER_TAG}
-  environment:
-    name: ${DEPLOY_ENV}
   artifacts:
     paths:
       - artifacts/*

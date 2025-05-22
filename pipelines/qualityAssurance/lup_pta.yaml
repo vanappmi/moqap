@@ -30,8 +30,6 @@ Upload Artifacts:
       when: always
   <<: *job_template
   extends: .Upload-Artifacts
-  environment:
-    name: ${DEPLOY_ENV}
   before_script:
     - cp -r src artifacts
     - ls artifacts
