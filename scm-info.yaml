@@ -16,6 +16,8 @@ protected-branches:
   - V1.7
   - V1.8
   - V2.0
+  - V2.1
+  - V2.2
 usage-scenario:
   - local
 custom:
