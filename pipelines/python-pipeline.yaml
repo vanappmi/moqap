@@ -2,9 +2,6 @@
 include:
   - project: "moqap/modules"
     ref: "12.0.1"
-    file:
-      - "/eks/kaniko/kaniko.yml"
-      - "/trivy/trivy.yml"
   - "/pipelines/settings.yaml"
   - "/pipelines/stages/build-python-image.yaml"
   - "/pipelines/stages/deployment.yaml"

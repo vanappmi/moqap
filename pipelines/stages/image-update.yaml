@@ -4,8 +4,6 @@ include:
     ref: "12.0.1"
     file:
       - "/artifactory/download_artifacts_dir.yml"
-      - "/eks/kaniko/kaniko.yml"
-      - "/trivy/trivy.yml"
       - "/artifactory/stage_artifacts.yml"
   - "/pipelines/templates/moqap_templates.yml"
   - "/pipelines/templates/bbpneo_templates.yml"
