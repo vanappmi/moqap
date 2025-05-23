@@ -26,16 +26,25 @@ Build Go:
     - go mod tidy
     - echo "build executable"
     - mkdir -p build
-    - mkdir -p artifacts
+    - mkdir -p artifacts/amd64/
+    - mkdir -p artifacts/arm64/
     - echo $BUILD_CMD
     - |
       if [ $IS_SOPSJOB == "true" ];
       then
-        make install
+        echo "build amd64"
+        GOARCH=amd64 GOOS=linux make install
         ls -al /tmp/bin
-        cp /tmp/bin/* artifacts
+        cp /tmp/bin/* artifacts/amd64
+        echo "build arm64"
+        GOARCH=arm64 GOOS=linux make install
+        ls -al /tmp/bin/linux_arm64
+        cp /tmp/bin/linux_arm64/* artifacts/arm64
       else
-        GOARCH=amd64 GOOS=linux go build -o artifacts/app $BUILD_CMD
+        echo "build amd64"
+        GOARCH=amd64 GOOS=linux go build -o artifacts/amd64/app $BUILD_CMD
+        echo "build arm64"
+        GOARCH=arm64 GOOS=linux go build -o artifacts/arm64/app $BUILD_CMD
       fi
   artifacts:
     paths:
