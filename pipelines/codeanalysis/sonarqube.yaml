@@ -13,6 +13,7 @@ SonarQube:
     SONARQUBE_HOST_URL: "https://bbpneo-sonarqube.bbpneo-iat.cnp-test.comp.db.de/"
     SONARQUBE_SOURCE_DIR: "src"
     SONARQUBE_JAVA_BINARIES_DIR: "build"
+    MQP_GLOBAL_DEFECTDOJO_OPERATION: "NOOP"
     # CI_DEBUG_TRACE: "true"
     SECRETS:
       SONARQUBE_TOKEN:BBPNEO_SONARQUBE_LOGIN_TOKEN,
