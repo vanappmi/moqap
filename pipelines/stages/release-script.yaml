@@ -45,8 +45,14 @@ release-script:
     - git remote -v
     - git fetch
     - git checkout development
-    - CURRENT_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
-    - OLD_VERSION=$(cat gradle.properties | grep "oldVersion" | cut -d "=" -f2 | tr -dc '0-9.')
+    - |
+      if [ "$IS_B3_BOM" == "true" ]; then
+        CURRENT_VERSION=$(cat gradle.properties | grep "b3BomVersion" | cut -d "=" -f2 | tr -dc '0-9.')
+        OLD_VERSION=$(cat gradle.properties | grep "oldVersion" | cut -d "=" -f2 | tr -dc '0-9.')
+      else
+        CURRENT_VERSION=$(cat gradle.properties | grep "version" | cut -d "=" -f2 | tr -dc '0-9.')
+        OLD_VERSION=$(cat gradle.properties | grep "oldVersion" | cut -d "=" -f2 | tr -dc '0-9.')
+      fi
     - echo "Current version $CURRENT_VERSION"
     # 2. Versionsnummer inkrementieren (im Moment nur minor)
     - MAJOR=$(echo "$CURRENT_VERSION" | cut -d "." -f1)
@@ -79,8 +85,14 @@ release-script:
     #  then
     #    ./gradlew generateGitLog;
     #  fi
-    - sed -i "s/version=$CURRENT_VERSION/version=$NEW_VERSION/g" gradle.properties
-    - sed -i "s/oldVersion=$OLD_VERSION/oldVersion=$CURRENT_VERSION/g" gradle.properties
+    - |
+      if [ "$IS_B3_BOM" == "true" ]; then
+        sed -i "s/b3BomVersion=$CURRENT_VERSION/b3BomVersion=$NEW_VERSION/g" gradle.properties
+        sed -i "s/oldVersion=$OLD_VERSION/oldVersion=$CURRENT_VERSION/g" gradle.properties
+      else
+        sed -i "s/version=$CURRENT_VERSION/version=$NEW_VERSION/g" gradle.properties
+        sed -i "s/oldVersion=$OLD_VERSION/oldVersion=$CURRENT_VERSION/g" gradle.properties
+      fi
     - cat gradle.properties
     - git add .
     - git commit -m "Change to new version '$NEW_VERSION'."
