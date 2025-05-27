@@ -5,13 +5,13 @@ include:
     file: "/sonarqube/sonarqube.yml"
 
 SonarQube:
+  rules:
+    - if: $IS_B3_BOM == "true"
+      when: never
   extends: .Sonarqube-Java21
   stage: static-codeanalysis
-  rules:
-    - if: $IS_B3_BOM == "false"
-      needs:
-        - job: Build Jar
-    - when: never
+  needs:
+    - job: Build Jar
   variables:
     SONARQUBE_HOST_URL: "https://bbpneo-sonarqube.bbpneo-iat.cnp-test.comp.db.de/"
     SONARQUBE_SOURCE_DIR: "src"
