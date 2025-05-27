@@ -57,6 +57,7 @@ Build Image ARM:
   needs:
     - job: Build Jar
     - job: SonarQube
+      optional: true
   tags:
     - arm64
   artifacts:
