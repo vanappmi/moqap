@@ -9,7 +9,6 @@ Build Image AMD:
   needs:
     - job: Build Jar
     - job: SonarQube
-      optional: true
   tags:
     - ${PROJECT_RUNNER_TAG}
   artifacts:
@@ -57,7 +56,6 @@ Build Image ARM:
   needs:
     - job: Build Jar
     - job: SonarQube
-      optional: true
   tags:
     - arm64
   artifacts:
