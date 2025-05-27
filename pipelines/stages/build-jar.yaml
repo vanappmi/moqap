@@ -30,6 +30,8 @@ Build Jar:
     - |
       if [ "$IS_COMMONLIB" == "true" ]; then
         if [ "$IS_B3_BOM" == "true" ]; then
+          echo "build b3-bom"
+          echo $(cat gradle.properties | grep "b3BomVersion" | cut -d "=" -f2 | tr -dc '0-9.')
           ./gradlew --build-cache --gradle-user-home cache/ build publish
         else
           ./gradlew --build-cache --gradle-user-home cache/ build jacocoTestCoverageVerification publish
