@@ -33,5 +33,3 @@ SonarQube:
     paths:
       - artifacts/*
       - build/**/*
-  only:
-    - branches
