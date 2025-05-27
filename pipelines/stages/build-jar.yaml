@@ -25,6 +25,7 @@ Build Jar:
     - export GRADLE_OPTS="$GRADLE_OPTS_OWN"
     - echo $GRADLE_OPTS
     - echo $ARTIFACTORY_USER
+    - mkdir -p ./artifacts/
     - chmod -v 777 ./gradlew
     - |
       if [ "$IS_COMMONLIB" == "true" ]; then
@@ -32,12 +33,12 @@ Build Jar:
           ./gradlew --build-cache --gradle-user-home cache/ build publish
         else
           ./gradlew --build-cache --gradle-user-home cache/ build jacocoTestCoverageVerification publish
+          cp build/libs/*.jar ./artifacts/
         fi
       else
         ./gradlew --build-cache --gradle-user-home cache/ build jacocoTestCoverageVerification bootJar
+        cp build/libs/*.jar ./artifacts/
       fi
-    - mkdir -p ./artifacts/
-    - cp build/libs/*.jar ./artifacts/
   artifacts:
     paths:
       - artifacts/*
