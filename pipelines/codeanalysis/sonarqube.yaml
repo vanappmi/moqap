@@ -8,6 +8,7 @@ SonarQube:
   rules:
     - if: $IS_B3_BOM == "true"
       when: never
+    - if: '$IS_B3_BOM == "false"'
   extends: .Sonarqube-Java21
   stage: static-codeanalysis
   needs:
