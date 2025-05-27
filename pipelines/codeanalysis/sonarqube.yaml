@@ -9,6 +9,8 @@ SonarQube:
   stage: static-codeanalysis
   needs:
     - job: Build Jar
+  rules:
+    - if: $IS_B3_BOM == "true"
   variables:
     SONARQUBE_HOST_URL: "https://bbpneo-sonarqube.bbpneo-iat.cnp-test.comp.db.de/"
     SONARQUBE_SOURCE_DIR: "src"
