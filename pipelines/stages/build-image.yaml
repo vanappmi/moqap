@@ -9,6 +9,7 @@ Build Image AMD:
   needs:
     - job: Build Jar
     - job: SonarQube
+      optional: true
   tags:
     - ${PROJECT_RUNNER_TAG}
   artifacts:
