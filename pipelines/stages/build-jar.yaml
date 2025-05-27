@@ -28,7 +28,11 @@ Build Jar:
     - chmod -v 777 ./gradlew
     - |
       if [ "$IS_COMMONLIB" == "true" ]; then
-        ./gradlew --build-cache --gradle-user-home cache/ build jacocoTestCoverageVerification publish
+        if [ "$IS_B3_BOM" == "true" ]; then
+          ./gradlew --build-cache --gradle-user-home cache/ build publish
+        else
+          ./gradlew --build-cache --gradle-user-home cache/ build jacocoTestCoverageVerification publish
+        fi
       else
         ./gradlew --build-cache --gradle-user-home cache/ build jacocoTestCoverageVerification bootJar
       fi

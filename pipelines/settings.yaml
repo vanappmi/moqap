@@ -67,6 +67,7 @@ variables:
   # Secretpath
   AWS_SM_SECRET_PATH: "/runner/secrets/gitlab-runner-secret"
   IS_COMMONLIB: "false"
+  IS_B3_BOM: "false"
   BUILD: "JAVA"
   # Environments defaults
   ## dev
