@@ -21,19 +21,6 @@ variables:
   BIZHUB_URL: "apis-test.hub.db.de"
   API_USER: "${CI_PROJECT_NAME}User"
   REPORT_URL: "https://lup-report-int.bbpneo-iat.cnp-test.comp.db.de"
-  SECRETS:
-    SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
-    API_PASSWORD:api_password,
-    API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
-    CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
-    API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
-    NO_THREADS:lup_thread,
-    NO_PAGES:lup_page,
-    SPACE_NAME:RUNNER_BIZHUB_SPACE_NAME,
-    BIZHUB_ACTIVE:lup_bizhub_active,
-    BIZHUB_DEPLOYER_APP_CLIENT_ID:RUNNER_BIZHUB_APP_CLIENT_ID,
-    BIZHUB_DEPLOYER_APP_CLIENT_SECRET:RUNNER_BIZHUB_APP_CLIENT_SECRET,
-    SERVICE_PASSWORD:api_password
 
 upload-jmx-test-files:
   # extends: .Upload-Artifacts
@@ -58,6 +45,8 @@ upload-jmx-test-files:
       mkdir -p artifacts
       cp lup-tests/src/* ./artifacts/
   variables:
+    SECRETS:
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
   artifacts:
     paths:
       - artifacts/*
@@ -74,6 +63,19 @@ load-filter:
   variables:
     MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}-filter.jmx"
     JOB_ID: "${CI_PROJECT_NAME}-load-filter"
+    SECRETS:
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
+      API_PASSWORD:api_password,
+      API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
+      CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
+      API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
+      NO_THREADS:lup_thread,
+      NO_PAGES:lup_page,
+      SPACE_NAME:RUNNER_BIZHUB_SPACE_NAME,
+      BIZHUB_ACTIVE:lup_bizhub_active,
+      BIZHUB_DEPLOYER_APP_CLIENT_ID:RUNNER_BIZHUB_APP_CLIENT_ID,
+      BIZHUB_DEPLOYER_APP_CLIENT_SECRET:RUNNER_BIZHUB_APP_CLIENT_SECRET,
+      SERVICE_PASSWORD:api_password
   artifacts:
     paths:
       - artifacts/*
@@ -91,6 +93,19 @@ load-all:
   variables:
     MQP_JMETER_TESTCASE_PATH: "artifacts/${CI_PROJECT_NAME}.jmx"
     JOB_ID: "${CI_PROJECT_NAME}-load-all"
+    SECRETS:
+      SSH_PRIVATE_KEY:RUNNER_SSH_KEY,
+      API_PASSWORD:api_password,
+      API_KEY:${CI_PROJECT_NAME}_bizhub_api_key,
+      CLIENT_ID:${CI_PROJECT_NAME}_bizhub_client_id,
+      API_PATH:${CI_PROJECT_NAME}_bizhub_api_path,
+      NO_THREADS:lup_thread,
+      NO_PAGES:lup_page,
+      SPACE_NAME:RUNNER_BIZHUB_SPACE_NAME,
+      BIZHUB_ACTIVE:lup_bizhub_active,
+      BIZHUB_DEPLOYER_APP_CLIENT_ID:RUNNER_BIZHUB_APP_CLIENT_ID,
+      BIZHUB_DEPLOYER_APP_CLIENT_SECRET:RUNNER_BIZHUB_APP_CLIENT_SECRET,
+      SERVICE_PASSWORD:api_password
   artifacts:
     paths:
       - artifacts/*
