@@ -92,7 +92,6 @@ Download Dependencies:
     paths:
       - artifacts/*
 
-
 Integration Test:
   stage: integrationtest
   <<: *job_template

@@ -19,6 +19,9 @@ include:
   # - "/pipelines/security/grype.yaml"
   - "/pipelines/defectDojo/defect-dojo.yaml"
 
+variables:
+  DEPLOY_ENV: "int"
+
 stages:
   - .pre
   - build-jar
