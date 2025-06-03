@@ -146,4 +146,3 @@ Build Image Manifest:
     - export MQP_BUILDA_REGISTRY_HOST=${DEV_DOCKER_REPO}.bahnhub.tech.rz.db.de
     - buildah login -u "$MQP_BUILDA_REGISTRY_USER" -p "$MQP_BUILDA_REGISTRY_PASSWORD" "$MQP_BUILDA_REGISTRY_HOST"
     - buildah manifest push --format v2s2 --all "cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:$IMAGE" "docker://cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/${CI_PROJECT_NAME}:$IMAGE"
-
