@@ -25,6 +25,7 @@
           export RELEASE_VERSION_PROD=$(yq '.dispatcherCore.releaseVersion' $DEPLOY_TEMPLATE_PROD)
         fi
         echo "RELEASE_VERSION_PROD:$RELEASE_VERSION_PROD"
+        cd ../../..
       else
         git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
         # AU
