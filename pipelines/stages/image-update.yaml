@@ -72,6 +72,7 @@ Get Release Version:
   script:
     - !reference [ .template secrets, script ]
     - !reference [ .template release-version, script ]
+    - ls -al
     - mkdir -p artifacts
     - echo $DEPLOY_ENV
     - |
