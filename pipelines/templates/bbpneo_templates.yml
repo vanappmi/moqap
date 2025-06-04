@@ -14,7 +14,7 @@
         export DEPLOY_TEMPLATE_AU="bbpneo-dispatchercore-au.yaml"
         if [ -e $DEPLOY_TEMPLATE_AU ];
         then
-          export RELEASE_VERSION_AU=$(yq '(dispatcherCore.releaseVersion)' $DEPLOY_TEMPLATE_AU)
+          export RELEASE_VERSION_AU=$(yq '.dispatcherCore.releaseVersion' $DEPLOY_TEMPLATE_AU)
         fi
         echo "RELEASE_VERSION_AU:$RELEASE_VERSION_AU"
         # PROD
