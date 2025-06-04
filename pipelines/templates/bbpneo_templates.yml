@@ -18,6 +18,13 @@
         fi
         echo "RELEASE_VERSION_AU:$RELEASE_VERSION_AU"
         # PROD
+        cd eks-deployment-helm-chart/helm-charts/values/
+        export DEPLOY_TEMPLATE_PROD="bbpneo-dispatchercore-prod.yaml"
+        if [ -e $DEPLOY_TEMPLATE_PROD ];
+        then
+          export RELEASE_VERSION_PROD=$(yq '.dispatcherCore.releaseVersion' $DEPLOY_TEMPLATE_PROD)
+        fi
+        echo "RELEASE_VERSION_PROD:$RELEASE_VERSION_PROD"
       else
         git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
         # AU
