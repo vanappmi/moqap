@@ -6,24 +6,38 @@
       ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
       ssh-add -l
       ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
-      git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
-      # AU
-      cd bbpneo-ops/bbpneo-iat/deployment/
-      export DEPLOY_TEMPLATE_AU="${CI_PROJECT_NAME}/${CI_PROJECT_NAME}.yaml"
-      if [ -e $DEPLOY_TEMPLATE_AU ];
+      if [ $IS_CRONJOB == "true" ];
       then
-        export RELEASE_VERSION_AU=$(yq '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.environment == "au") .releaseVersion)' $DEPLOY_TEMPLATE_AU)
+        git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/02-ops/eks-deployment-helm-chart.git
+        # AU
+        cd eks-deployment-helm-chart/helm-charts/values/
+        export DEPLOY_TEMPLATE_AU="bbpneo-dispatchercore-au.yaml"
+        if [ -e $DEPLOY_TEMPLATE_AU ];
+        then
+          export RELEASE_VERSION_AU=$(yq '(.releaseVersion)' $DEPLOY_TEMPLATE_AU)
+        fi
+        echo "RELEASE_VERSION_AU:$RELEASE_VERSION_AU"
+        # PROD
+      else
+        git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
+        # AU
+        cd bbpneo-ops/bbpneo-iat/deployment/
+        export DEPLOY_TEMPLATE_AU="${CI_PROJECT_NAME}/${CI_PROJECT_NAME}.yaml"
+        if [ -e $DEPLOY_TEMPLATE_AU ];
+        then
+          export RELEASE_VERSION_AU=$(yq '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.environment == "au") .releaseVersion)' $DEPLOY_TEMPLATE_AU)
+        fi
+        echo "RELEASE_VERSION_AU:$RELEASE_VERSION_AU"
+        # PROD
+        cd ../../../bbpneo-ops/bbpneo-prod/deployment
+        export DEPLOY_TEMPLATE_PROD="${CI_PROJECT_NAME}/${CI_PROJECT_NAME}-prod.yaml"
+        if [ -e $DEPLOY_TEMPLATE_PROD ];
+        then
+          export RELEASE_VERSION_PROD=$(yq '.spec.source.helm.values' | grep 'releaseVersion' $DEPLOY_TEMPLATE_PROD | cut -d ":" -f2 | tr -dc '0-9.')
+        fi
+        echo "RELEASE_VERSION_PROD:$RELEASE_VERSION_PROD"
+        cd ../../..
       fi
-      echo "RELEASE_VERSION_AU:$RELEASE_VERSION_AU"
-      # PROD
-      cd ../../../bbpneo-ops/bbpneo-prod/deployment
-      export DEPLOY_TEMPLATE_PROD="${CI_PROJECT_NAME}/${CI_PROJECT_NAME}-prod.yaml"
-      if [ -e $DEPLOY_TEMPLATE_PROD ];
-      then
-        export RELEASE_VERSION_PROD=$(yq '.spec.source.helm.values' | grep 'releaseVersion' $DEPLOY_TEMPLATE_PROD | cut -d ":" -f2 | tr -dc '0-9.')
-      fi
-      echo "RELEASE_VERSION_PROD:$RELEASE_VERSION_PROD"
-      cd ../../..
 
 .template grant:
   script:
