@@ -6,7 +6,7 @@
       ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
       ssh-add -l
       ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
-      echo $IS_CRONJOB
+      echo "IS_CRONJOB:$IS_CRONJOB"
       if [ $IS_CRONJOB == "true" ];
       then
         git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/02-ops/eks-deployment-helm-chart.git
