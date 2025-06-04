@@ -72,6 +72,7 @@ Get Release Version:
   script:
     - !reference [ .template secrets, script ]
     - !reference [ .template release-version, script ]
+    - mkdir -p artifacts
     - echo $DEPLOY_ENV
     - |
       if [ $DEPLOY_ENV == "au" ];
