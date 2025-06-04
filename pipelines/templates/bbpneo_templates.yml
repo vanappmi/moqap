@@ -9,8 +9,8 @@
       if [ $IS_CRONJOB == "true" ];
       then
         git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/02-ops/eks-deployment-helm-chart.git
-        # AU
         cd eks-deployment-helm-chart/helm-charts/values/
+        # AU
         export DEPLOY_TEMPLATE_AU="bbpneo-dispatchercore-au.yaml"
         if [ -e $DEPLOY_TEMPLATE_AU ];
         then
@@ -18,7 +18,6 @@
         fi
         echo "RELEASE_VERSION_AU:$RELEASE_VERSION_AU"
         # PROD
-        cd eks-deployment-helm-chart/helm-charts/values/
         export DEPLOY_TEMPLATE_PROD="bbpneo-dispatchercore-prod.yaml"
         if [ -e $DEPLOY_TEMPLATE_PROD ];
         then
