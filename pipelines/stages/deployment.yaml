@@ -89,14 +89,14 @@ Deployment STAGE:
     # https://git.tech.rz.db.de/cnp/bbpneo/bbpneo-ops.git
     - ssh -T -o StrictHostKeyChecking=no git@ssh.git.tech.rz.db.de
     - |
+      echo $DEPLOY_ENV
+      echo $CI_COMMIT_REF_NAME
+      export RELEASE_VERSION=$(echo $CI_COMMIT_REF_NAME | cut -d "-" -f2)
+      echo "RELEASE_VERSION: $RELEASE_VERSION"
+      echo "DEPLOY_TEMPLATE: $DEPLOY_TEMPLATE"
       if [ $IS_CRONJOB != "true" ];
       then
         git clone git@ssh.git.tech.rz.db.de:cnp/bbpneo/bbpneo-ops.git
-        echo $DEPLOY_ENV
-        echo $CI_COMMIT_REF_NAME
-        export RELEASE_VERSION=$(echo $CI_COMMIT_REF_NAME | cut -d "-" -f2)
-        echo "RELEASE_VERSION: $RELEASE_VERSION"
-        echo "DEPLOY_TEMPLATE: $DEPLOY_TEMPLATE"
         if [ $DEPLOY_ENV == "prod" ];
         then
           cd bbpneo-ops/bbpneo-prod/deployment
@@ -143,6 +143,10 @@ Deployment STAGE:
         echo $DEPLOY_ENV
         echo $DEPLOY_TEMPLATE
         yq e -i '.dispatcherCore.branch = strenv(LOWERCASE_REF_NAME)' $DEPLOY_TEMPLATE
+        if [ $DEPLOY_ENV == "au" ] || [ $DEPLOY_ENV == "prod" ];
+        then
+          yq e -i '.dispatcherCore.releaseVersion = strenv(RELEASE_VERSION)' -)' $DEPLOY_TEMPLATE
+        fi
         cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
         cat $DEPLOY_TEMPLATE
       fi
