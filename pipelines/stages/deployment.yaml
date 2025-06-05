@@ -145,7 +145,7 @@ Deployment STAGE:
         yq e -i '.dispatcherCore.branch = strenv(LOWERCASE_REF_NAME)' $DEPLOY_TEMPLATE
         if [ $DEPLOY_ENV == "au" ] || [ $DEPLOY_ENV == "prod" ];
         then
-          yq e -i '.dispatcherCore.releaseVersion = strenv(RELEASE_VERSION)' -)' $DEPLOY_TEMPLATE
+          yq e -i '.dispatcherCore.releaseVersion = strenv(RELEASE_VERSION)' $DEPLOY_TEMPLATE
         fi
         cat $DEPLOY_TEMPLATE | grep -q "#updated on" && current_timestamp=`date +%s` &&  sed -i "s/#updated on \(.*\)/#updated on $(date +%s)/g" $DEPLOY_TEMPLATE || echo "#updated on `date +%s`" >> $DEPLOY_TEMPLATE
         cat $DEPLOY_TEMPLATE
