@@ -132,7 +132,6 @@ Build Image Manifest:
     - echo "buildah login"
     - buildah login -u "$MQP_BUILDA_REGISTRY_USER" -p "$MQP_BUILDA_REGISTRY_PASSWORD" "$MQP_BUILDA_REGISTRY_HOST"
     #
-    - set -x
     - buildah info
     # Create manifest
     - echo "buildah manifest create"
