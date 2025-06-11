@@ -167,9 +167,9 @@
         export application=$( echo $secret | awk -F, {'print $4'} );
         if [ "$STAGE" = "bbpneo-iat" ]; then
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component.yaml";
-          if [ "$application" != "b3"];then
+          if [ "$application" != "b3" ];then
             [ -f $DEPLOY_TEMPLATE ] && yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .objectNameDbAdmin) |= strenv(claim)' $DEPLOY_TEMPLATE;
-          elif [ "$application" = "b3"];then
+          elif [ "$application" = "b3" ];then
             echo "its b3"
           fi;
         else
