@@ -191,7 +191,7 @@
             [ -f $DEPLOY_TEMPLATE ] && yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
           elif [ "$application" = "b3" ];then
             export DEPLOY_TEMPLATE="$STAGE/deployment/$application/$component.yaml";
-            [ -f $DEPLOY_TEMPLATE ] && yq -i '.spec.template.spec.source.helm.valuesObject.applications.[] | select(.name == strenv(version)) | .virtualNode.certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
+            [ -f $DEPLOY_TEMPLATE ] && yq -i '(.spec.template.spec.source.helm.valuesObject.applications.[] | select(.name == strenv(version)) | .virtualNode.certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
           fi;
         else
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component-prod.yaml";
