@@ -12,9 +12,9 @@ variables:
   TARGET_DOCKER_REPO: ${PROD_DOCKER_REPO}
   ARTIFACT_NAME: $CI_PROJECT_NAME
 
-Scan basis-pipeline-image:version-3.3-multiarch:
+Scan basis-pipeline-image:version-3.4-multiarch:
   variables:
-    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch"
+    SCAN_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch"
     MQP_TRIVY_TARGET: $SCAN_TARGET
     MQP_ANCHOR_TARGET: $SCAN_TARGET
     MQP_DEFDOJ_PRODUCT_NAME: "basis-pipeline-image"

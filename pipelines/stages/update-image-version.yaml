@@ -9,7 +9,7 @@ Deployment STAGE:
     - job: Promote STAGE
       artifacts: true
       optional: true
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   <<: *job_template
   dependencies:
     - Promote STAGE

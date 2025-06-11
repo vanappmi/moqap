@@ -6,7 +6,7 @@
 Build Jar:
   stage: build-jar
   <<: *job_template
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   before_script:
     - !reference [ .template secrets, script ]
     - export GRADLE_USER_HOME=`pwd`/.gradle

@@ -9,7 +9,7 @@ Build Go Image AMD:
   needs:
     - job: Build Go
   stage: build-go-image
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   <<: *job_template
   environment:
     name: ${DEPLOY_ENV}
@@ -57,7 +57,7 @@ Build Go Image ARM:
   needs:
     - job: Build Go
   stage: build-go-image
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   tags:
     - arm64
   environment:
@@ -109,7 +109,7 @@ Build Go Image Manifest:
     - job: Build Go Image AMD
     - job: Build Go Image ARM
   stage: build-go-image
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   <<: *job_template
   environment:
     name: ${DEPLOY_ENV}

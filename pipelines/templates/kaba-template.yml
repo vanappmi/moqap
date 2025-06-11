@@ -140,7 +140,7 @@ whitesource_NPM:
 #### Build Jobs ###
 build_npm:
   stage: compile
-  image: cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: cna-bbpneo-dev-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   script:
     - cd ./${PROJECT_FOLDER}
     - npm install

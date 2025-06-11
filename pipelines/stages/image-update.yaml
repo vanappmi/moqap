@@ -38,7 +38,7 @@ stages:
 
 Start Image Update Pipeline:
   stage: start-pipeline
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   <<: *job_template
   rules:
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  == "development"
@@ -60,7 +60,7 @@ Start Image Update Pipeline:
 
 Get Release Version:
   stage: get-release-version
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   <<: *job_template
   rules:
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
@@ -117,7 +117,7 @@ Find JAR:
 
 Build Image AMD:
   stage: build-image
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   needs:
     - job: Find JAR
   rules:
@@ -166,7 +166,7 @@ Build Image AMD:
 Build Image ARM:
   stage: build-image
   #image: moqap-docker-release-beta-local.bahnhub.tech.rz.db.de/buildah-image:init
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   needs:
     - job: Find JAR
   rules:
@@ -220,7 +220,7 @@ Build Image Manifest:
   rules:
     - if: $IMAGE_UPDATE == "true" && $CI_COMMIT_BRANCH  =~ /^Release/
   stage: build-image
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   tags:
     - ${PROJECT_RUNNER_TAG}
   artifacts:
@@ -343,7 +343,7 @@ Print Variables:
   stage: start-pipeline
   tags:
     - $PROJECT_RUNNER_TAG
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   script:
     - echo $DEPLOY_ENV
     - echo $STAGE_ENV

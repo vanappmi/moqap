@@ -5,7 +5,7 @@ stages:
 
 Stop Pipeline:
   stage: stop
-  image: cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   tags:
     - eks-entwicklung
   script:

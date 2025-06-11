@@ -5,7 +5,7 @@
 
 Build Image AMD:
   stage: build-image
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   tags:
     - ${PROJECT_RUNNER_TAG}
   environment:
@@ -51,7 +51,7 @@ Build Image AMD:
 Build Image ARM:
   stage: build-image
   #image: moqap-docker-release-beta-local.bahnhub.tech.rz.db.de/buildah-image:init
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   tags:
     - arm64
   environment:
@@ -100,7 +100,7 @@ Build Image Manifest:
     - job: Build Image AMD
     - job: Build Image ARM
   stage: build-image
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   tags:
     - ${PROJECT_RUNNER_TAG}
   environment:

@@ -43,7 +43,7 @@ Trivy Check Image:
 
 Grant Get Whitelist:
   stage: security-scan
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   <<: *job_template
   variables:
     SECRETS:

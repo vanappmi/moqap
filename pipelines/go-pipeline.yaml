@@ -35,7 +35,7 @@ Print Variables:
   stage: build-go
   tags:
     - $PROJECT_RUNNER_TAG
-  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch
+  image: ${PROD_DOCKER_REPO}.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch
   script:
     - echo $DEPLOY_ENV
     - echo $STAGE_ENV

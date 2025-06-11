@@ -13,10 +13,10 @@ variables:
   ARTIFACT_NAME: $CI_PROJECT_NAME
   MQP_TRIVY_COMPLIANCE_SCAN: true
 
-Scan basis-pipeline-image:version-3.3-multiarch:
+Scan basis-pipeline-image:version-3.4-multiarch:
   stage: security-scan
   variables:
-    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.3-multiarch"
+    MQP_TRIVY_TARGET: "cna-bbpneo-prod-docker-stage-local.bahnhub.tech.rz.db.de/basis-pipeline-image:version-3.4-multiarch"
   trigger:
     include:
       - project: "cnp/bbpneo/02-ops/moqap" # moqap moqap project
