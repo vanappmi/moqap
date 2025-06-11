@@ -29,7 +29,7 @@ SonarQube:
     - curl --output "artifacts/public/alert_status.svg" "$SONARQUBE_HOST_URL/api/project_badges/measure?project=$SONARQUBE_PROJECT_KEY&metric=alert_status"
     #- curl -s -S -L -u "$SONARQUBE_TOKEN" --connect-timeout 5 --output "$MQP_SONARQ_DEFECTDOJO_REPORT" "$SONARQUBE_HOST_URL/api/issues/search?projects=$SONARQUBE_PROJECT_KEY"
     - echo "delete report for defect dojo"
-    - rm artifacts/defectdojo_reports/sonarqube*.json
+    - rm -f artifacts/defectdojo_reports/sonarqube*.json
   artifacts:
     paths:
       - artifacts/*
