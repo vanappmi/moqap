@@ -171,7 +171,7 @@
             [ -f $DEPLOY_TEMPLATE ] && yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .objectNameDbAdmin) |= strenv(claim)' $DEPLOY_TEMPLATE;
           elif [ "$application" = "b3" ];then
             export DEPLOY_TEMPLATE="$STAGE/deployment/$application/$version.yaml";
-            [ -f $DEPLOY_TEMPLATE ] && o="$(yq e '.spec.template.spec.source.helm.values' $DEPLOY_TEMPLATE | yq e '.secretProviderClass.objectNameDbAdmin=strenv(claim)' -)" yq e -i '.spec.template.spec.source.helm.values = strenv(o)' $DEPLOY_TEMPLATE
+            [ -f $DEPLOY_TEMPLATE ] && o="$(yq e '.spec.template.spec.source.helm.valuesObject' $DEPLOY_TEMPLATE | yq e '.secretProviderClass.objectNameDbAdmin=strenv(claim)' -)" yq e -i '.spec.template.spec.source.helm.valuesObject = strenv(o)' $DEPLOY_TEMPLATE
           fi;
         else
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component-prod.yaml";
@@ -191,7 +191,7 @@
             [ -f $DEPLOY_TEMPLATE ] && yq -i '(.spec.generators.0.matrix.generators.0.list.elements.[] | select(.version == strenv(version)) | .certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
           elif [ "$application" = "b3" ];then
             export DEPLOY_TEMPLATE="$STAGE/deployment/$application/$component.yaml";
-            [ -f $DEPLOY_TEMPLATE ] && yq -i '.spec.template.spec.source.helm.values.applications.[] | select(.name == strenv(version)) | .virtualNode.certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
+            [ -f $DEPLOY_TEMPLATE ] && yq -i '.spec.template.spec.source.helm.valuesObject.applications.[] | select(.name == strenv(version)) | .virtualNode.certificateARN) |= strenv(arn)' $DEPLOY_TEMPLATE;
           fi;
         else
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component-prod.yaml";
