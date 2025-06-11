@@ -178,11 +178,12 @@
           [ -f $DEPLOY_TEMPLATE ] && o="$(yq e '.spec.source.helm.values' $DEPLOY_TEMPLATE | yq e '.secretProviderClass.objectNameDbAdmin=strenv(claim)' -)" yq e -i '.spec.source.helm.values = strenv(o)' $DEPLOY_TEMPLATE
         fi;
       done;
-      for cert in $(kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{.metadata.labels.cnp\.comp\.db\.de\/component},{.metadata.labels.cnp\.comp\.db\.de\/release}{"\n"}{end}' -l cnp.comp.db.de/component);
+      for cert in $(kubectl get certificates.cnp.comp.db.de -n $STAGE --context $KUBE_CONTEXT -o jsonpath='{range .items[*]}{.status.resources.aws-certificate.externalName},{.metadata.labels.cnp\.comp\.db\.de\/component},{.metadata.labels.cnp\.comp\.db\.de\/release},{.metadata.labels.cnp\.comp\.db\.de\/application}{"\n"}{end}' -l cnp.comp.db.de/component);
       do
         export arn=$( echo $cert | awk -F, {'print $1'} );
         export component=$( echo $cert | awk -F, {'print $2'} );
         export version=$( echo $cert | awk -F, {'print $3'} );
+        export application=$( echo $secret | awk -F, {'print $4'} );
         # echo "claim: --$arn-- component: --$component-- version: --$version--";
         if [ "$STAGE" = "bbpneo-iat" ]; then
           if [ "$application" != "b3" ];then
