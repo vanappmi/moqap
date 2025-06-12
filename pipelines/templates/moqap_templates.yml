@@ -172,6 +172,7 @@
           elif [ "$application" = "b3" ];then
             export DEPLOY_TEMPLATE="$STAGE/deployment/$application/$version.yaml";
            # [ -f $DEPLOY_TEMPLATE ] && o="$(yq e '.spec.template.spec.source.helm.valuesObject.secretProviderClass' $DEPLOY_TEMPLATE | yq e '.objectNameDbAdmin=strenv(claim)' -)" yq e -i '.spec.template.spec.source.helm.valuesObject.secretProviderClass = strenv(o)' $DEPLOY_TEMPLATE
+           [ -f $DEPLOY_TEMPLATE ] && yq e -i '.spec.template.spec.source.helm.valuesObject.secretProviderClass.objectNameDbAdmin = strenv(claim)' $DEPLOY_TEMPLATE
           fi;
         else
           export DEPLOY_TEMPLATE="$STAGE/deployment/$component/$component-prod.yaml";
