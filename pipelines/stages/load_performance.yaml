@@ -31,7 +31,7 @@ variables:
     - END_DATE=$( awk 'NR==2 {print}' $DATE_FILE )
     - payload='report.json'
     - cp statistics.json $payload
-    - sed -i -e 's/"\w*\s*\w*"\s*:\s*{/{/g' $payload
+    - sed -i -e 's/"[^"]*"\s*:\s*{/{/g'  $payload
     - sed -i -e '1s/{/[/' $payload
     - sed -i -i '$ s/}/]/' $payload
     - curl -X POST "$REPORT_URL/api/report?serviceName=$CI_PROJECT_NAME&jobId=$JOB_ID&startDate=$START_DATE&endDate=$END_DATE&release=$TARGET_IMAGE_TAG" -H "accept:*/*" -H "Content-Type:application/json"  -u "lup-reportuser:$API_PASSWORD" -d @$payload
